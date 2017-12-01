@@ -51,6 +51,9 @@ set noshowmode                                                        "Don't dis
 
 "----------------------------------------------------Behavior---------------------------------------------------------"
 set mouse=a                                                                                          "Enable the mouse.
+
+set ignorecase smartcase
+
 set backspace=indent,eol,start                                                         "Make backspace behave normally.
 
 set textwidth=0 wrapmargin=0                                                          "Prevent auto adding line breaks.
@@ -117,7 +120,7 @@ nmap <Leader>gs :Gstatus<cr>
 "/
 "/ Workflow bindings
 "/
-"
+
 "Comment out lines (with NERDComment)
 noremap <Leader>x :call NERDComment(1, 'Toggle')<cr>
 
@@ -130,6 +133,9 @@ vnoremap <S-Tab> <gv
 
 "Duplicate line
 nmap <Leader>d yyp
+
+"Search the current file
+nmap <space> /
 
 "Go to definition (with ctags)
 nmap gd <C-]>
