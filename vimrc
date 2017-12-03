@@ -145,6 +145,8 @@ nmap gd <C-]>
 "Jump back from definition
 nmap g- <C-T>
 
+nmap gp <C-6>
+
 "Browse symbols (with CtrlP)
 nmap <C-R> :CtrlPBufTag<cr>
 
