@@ -17,8 +17,8 @@ filetype plugin on
 "-----------------------------------------------------Visuals---------------------------------------------------------"
 set background=dark
 set t_Co=256                                                                                           "Use 256 colors.
-set t_8f=[38;2;%lu;%lu;%lum
-set t_8b=[48;2;%lu;%lu;%lum
+set t_8f=[38;2;%lu;%lu;%lum                                                                         "For true colors.
+set t_8b=[48;2;%lu;%lu;%lum                                                                         "For true colors.
 set termguicolors                                                                                     "Use true colors.
 
 syntax enable                                                                              "Enable syntax highlighting.
@@ -39,6 +39,11 @@ let g:indentLine_color_gui = '#292B2D'                                          
 
 set hlsearch                                                                                 "Highlight search results.
 set incsearch                                                                     "Highlight search results on keydown.
+
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"                                              "Vertical bar in insert mode.
+    let &t_EI = "\<Esc>]50;CursorShape=2\x7"                                                 "Underline in normal mode.
+endif
 
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
