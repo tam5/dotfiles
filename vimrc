@@ -141,10 +141,13 @@ nmap gd <C-]>
 nmap g- <C-T>
 
 "Browse symbols (with CtrlP)
-nmap <Leader>r :CtrlPBufTag<cr>
+nmap <C-R> :CtrlPBufTag<cr>
 
 "Open recent files (with CtrlP)
 nmap <Leader>mru :CtrlPMRUFiles<cr>
+
+"Search the current file
+nmap <space> /
 
 "Remove highlighting from search results
 nmap <Leader><space> :nohlsearch<cr>
