@@ -1175,6 +1175,8 @@
 		<string>0.000000, 0.000000, 408.000000, 421.000000, NO, NO</string>
 		<string>0.000000, 422.000000, 408.000000, 43.000000, NO, NO</string>
 	</array>
+	<key>NSStatusItem Preferred Position Item-0</key>
+	<real>421.7421875</real>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
@@ -1214,7 +1216,7 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>328 208 796 473 0 0 1440 877 </string>
+	<string>328 321 796 473 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 49 1438 811 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -1262,11 +1264,11 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.32156860828399658</real>
+				<real>0.32156862745098036</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.32156851887702942</real>
+				<real>0.32156862745098036</real>
 				<key>Red Component</key>
 				<real>1</real>
 			</dict>
@@ -1923,7 +1925,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>28</integer>
+			<integer>29</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
