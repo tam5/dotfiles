@@ -22,7 +22,7 @@ alias nah="git reset --hard head && git clean -fd"
 alias home='cd ~'
 alias desk='cd ~/desktop'
 alias dotfiles='cd ~/.dotfiles'
-alias arb='cd ~/code/Textbook-Arbitrage'
+alias code='cd ~/code'
 
 # SSH Key
 alias sshkey='cat ~/.ssh/id_rsa.pub'
