@@ -21,9 +21,10 @@ Plugin 'ctrlpvim/ctrlp.vim'                                                     
 Plugin 'scrooloose/nerdcommenter'                                                            "Easily comment out lines.
 Plugin 'Yggdroot/indentLine'                                                                            "Indent guides.
 Plugin 'tam5/vim-quantum'                                                                                "Color scheme.
-Plugin 'tam5/typescript-vim'                                                             "Add Typescript syntax.
+Plugin 'tam5/typescript-vim'                                                                    "Add Typescript syntax.
 Plugin 'wavded/vim-stylus'                                                                          "Add Stylus synatx.
 Plugin 'tam5/php.vim'                                                                                  "Add PHP syntax.
+Plugin 'jiangmiao/auto-pairs'                                                                  "Auto pairs {}, '', etc.
 
 
 call vundle#end()                                                                                            "required.

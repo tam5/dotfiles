@@ -60,6 +60,8 @@ set noshowmode                                                        "Don't dis
 "----------------------------------------------------Behavior---------------------------------------------------------"
 set mouse=a                                                                                          "Enable the mouse.
 
+set clipboard=unnamed                                                                            "Use system clipboard.
+
 set ignorecase smartcase
 
 set backspace=indent,eol,start                                                         "Make backspace behave normally.
@@ -109,10 +111,10 @@ nmap <Leader>w :w<cr>
 nmap <Leader>q :q<cr>
 
 "Go to previous buffer
-nmap <Leader>z :bp<cr>
+nmap <Leader>2 :bp<cr>
 
 "Go to next buffer
-nmap <Leader>f :bn<cr>
+nmap <Leader>3 :bn<cr>
 
 "Delete current buffer
 nmap <Leader>bd :bd<cr>
