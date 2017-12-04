@@ -17,8 +17,8 @@ filetype plugin on
 "-----------------------------------------------------Visuals---------------------------------------------------------"
 set background=dark
 set t_Co=256                                                                                           "Use 256 colors.
-set t_8f=[38;2;%lu;%lu;%lum
-set t_8b=[48;2;%lu;%lu;%lum
+set t_8f=[38;2;%lu;%lu;%lum                                                                         "For true colors.
+set t_8b=[48;2;%lu;%lu;%lum                                                                         "For true colors.
 set termguicolors                                                                                     "Use true colors.
 
 syntax enable                                                                              "Enable syntax highlighting.
@@ -26,6 +26,9 @@ set number                                                                      
 
 let g:quantum_black=1                                                                      "Use the dark quantum theme.
 colorscheme quantum                                                                              "Set the color scheme.
+
+"Hide vertical split line
+set fillchars+=vert:\ 
 
 set nolist                                                                                 "Don't show list characters.
 set listchars=tab:->,trail:~,extends:>,precedes:<,space:·             "Defines how list characters should be displayed.
@@ -36,6 +39,11 @@ let g:indentLine_color_gui = '#292B2D'                                          
 
 set hlsearch                                                                                 "Highlight search results.
 set incsearch                                                                     "Highlight search results on keydown.
+
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"                                              "Vertical bar in insert mode.
+    let &t_EI = "\<Esc>]50;CursorShape=2\x7"                                                 "Underline in normal mode.
+endif
 
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
@@ -143,11 +151,16 @@ nmap gd <C-]>
 "Jump back from definition
 nmap g- <C-T>
 
+nmap gp <C-6>
+
 "Browse symbols (with CtrlP)
-nmap <Leader>r :CtrlPBufTag<cr>
+nmap <C-R> :CtrlPBufTag<cr>
 
 "Open recent files (with CtrlP)
 nmap <Leader>mru :CtrlPMRUFiles<cr>
+
+"Search the current file
+nmap <space> /
 
 "Remove highlighting from search results
 nmap <Leader><space> :nohlsearch<cr>
@@ -174,4 +187,33 @@ augroup autosourcing                                                      "Autom
     autocmd!
     autocmd BufWritePost .vimrc source %
 augroup END
+
+
+"-----------------------------------------------------Functions-------------------------------------------------------"
+
+"Smooth scrolling
+function! SmoothScroll(up)
+    if a:up
+        let scrollaction=""
+    else
+        let scrollaction=""
+    endif
+    exec "normal " . scrollaction
+    redraw
+    let counter=1
+    while counter<&scroll
+        let counter+=1
+        sleep 10m
+        redraw
+        exec "normal " . scrollaction
+    endwhile
+endfunction
+
+nnoremap <C-U> :call SmoothScroll(1)<Enter>
+nnoremap <C-D> :call SmoothScroll(0)<Enter>
+inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
+inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
+
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
 

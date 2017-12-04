@@ -1,0 +1,44 @@
+# define aliases
+
+alias vim='mvim -v'
+
+alias shortcuts='vim ~/.aliases'
+
+# Utils
+alias showhidden='defaults write com.apple.finder AppleShowAllFiles YES'
+alias hidehidden='defaults write com.apple.finder AppleShowAllFiles NO'
+alias copy="tr -d '\n' | pbcopy"
+alias cpwd="pwd | tr -d '\n' | pbcopy"
+alias prettify="python -mjson.tool"
+
+# Git
+alias gs='git status'
+alias glo="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gri="rebaseInteractive"
+alias grc="git rebase --continue"
+alias nah="git reset --hard head && git clean -fd"
+
+# locations
+alias home='cd ~'
+alias desk='cd ~/desktop'
+alias dotfiles='cd ~/.dotfiles'
+alias code='cd ~/code'
+
+# SSH Key
+alias sshkey='cat ~/.ssh/id_rsa.pub'
+
+# PHP aliases
+alias phpunit='vendor/bin/phpunit'
+alias pf="phpunit --filter"
+alias pu='phpunit'
+
+# Laravel aliases
+alias art='php artisan'
+alias amr='php artisan migrate:refresh'
+alias amrs='php artisan migrate:refresh --seed'
+
+# define functions
+rebaseInteractive() {
+    git rebase -i head~$1
+}
+
