@@ -106,6 +106,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_typescript_checkers = ['tslint']
+let g:syntastic_html_checkers = []
 
 
 "--------------------------------------------------Key-Bindings-------------------------------------------------------"
