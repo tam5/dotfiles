@@ -25,6 +25,7 @@ Plugin 'tam5/typescript-vim'                                                    
 Plugin 'wavded/vim-stylus'                                                                          "Add Stylus synatx.
 Plugin 'tam5/php.vim'                                                                                  "Add PHP syntax.
 Plugin 'jiangmiao/auto-pairs'                                                                  "Auto pairs {}, '', etc.
+Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.
 
 
 call vundle#end()                                                                                            "required.
