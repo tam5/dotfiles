@@ -133,13 +133,13 @@ nmap <Leader>w :w<cr>
 nmap <Leader>q :q<cr>
 
 "Go to previous buffer
-nmap <Leader>2 :bp<cr>
+nmap <Leader>bb :bp<cr>
 
 "Go to next buffer
-nmap <Leader>3 :bn<cr>
+nmap <Leader>bf :bn<cr>
 
 "Delete current buffer
-nmap <Leader>bd :bd<cr>
+nmap <Leader>bd :Kwbd<cr>
 
 
 "/
