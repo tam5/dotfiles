@@ -26,6 +26,7 @@ Plugin 'wavded/vim-stylus'                                                      
 Plugin 'tam5/php.vim'                                                                                  "Add PHP syntax.
 Plugin 'jiangmiao/auto-pairs'                                                                  "Auto pairs {}, '', etc.
 Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.
+Plugin 'msanders/snipmate.vim'                                                                               "Snipetts.
 
 
 call vundle#end()                                                                                            "required.

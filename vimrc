@@ -45,6 +45,8 @@ if $TERM_PROGRAM =~ "iTerm"
     let &t_EI = "\<Esc>]50;CursorShape=2\x7"                                                 "Underline in normal mode.
 endif
 
+set noerrorbells visualbell t_vb=                                                                    "Get rid of bells.
+
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
 let g:airline_theme = 'quantum'                                                              "Set the status bar theme.
