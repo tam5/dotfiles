@@ -27,6 +27,7 @@ Plugin 'tam5/php.vim'                                                           
 Plugin 'jiangmiao/auto-pairs'                                                                  "Auto pairs {}, '', etc.
 Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.
 Plugin 'msanders/snipmate.vim'                                                                               "Snipetts.
+Plugin 'mileszs/ack.vim'                                                                           "Search the project.
 
 
 call vundle#end()                                                                                            "required.

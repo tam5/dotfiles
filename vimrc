@@ -93,6 +93,11 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 
+"Searching with Ag
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
 
 "---------------------------------------------------Syntastic----------------------------------------------------------"
 ""Use the recommended settings for now.
@@ -163,6 +168,12 @@ nmap <Leader>d yyp
 
 "Search the current file
 nmap <space> /
+
+"Search the entire project
+nmap <leader>f :Ack!<space>
+
+"Close the quick fix window
+nmap <leader>cc :cclose<cr>
 
 "Go to definition (with ctags)
 nmap gd <C-]>
