@@ -178,12 +178,13 @@ nmap <leader>f :Ack!<space>
 nmap <leader>cc :cclose<cr>
 
 "Go to definition (with ctags)
-nmap gd <C-]>
+nmap gd :YcmCompleter GoToDefinition<cr>
 
 "Jump back from definition
-nmap g- <C-T>
+nmap g- <C-O>
 
-nmap gp <C-6>
+"Find all references
+nmap gr :YcmCompleter GoToReferences<cr>
 
 "Browse symbols (with CtrlP)
 nmap <C-R> :CtrlPBufTag<cr>

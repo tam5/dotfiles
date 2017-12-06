@@ -30,6 +30,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'                                           
 Plugin 'tomtom/tlib_vim'                                                                     "Required by vim-snipmate.
 Plugin 'garbas/vim-snipmate'                                                                                 "Snipetts.
 Plugin 'mileszs/ack.vim'                                                                           "Search the project.
+Plugin 'Valloric/YouCompleteMe'                                                                         "Auto complete.
 
 
 call vundle#end()                                                                                            "required.
