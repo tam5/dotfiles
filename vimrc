@@ -64,6 +64,8 @@ set mouse=a                                                                     
 
 set clipboard=unnamed                                                                            "Use system clipboard.
 
+set autowriteall                                                           "Automatically write when switching buffers.
+
 set ignorecase smartcase
 
 set backspace=indent,eol,start                                                         "Make backspace behave normally.

@@ -26,7 +26,9 @@ Plugin 'wavded/vim-stylus'                                                      
 Plugin 'tam5/php.vim'                                                                                  "Add PHP syntax.
 Plugin 'jiangmiao/auto-pairs'                                                                  "Auto pairs {}, '', etc.
 Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.
-Plugin 'msanders/snipmate.vim'                                                                               "Snipetts.
+Plugin 'MarcWeber/vim-addon-mw-utils'                                                        "Required by vim-snipmate.
+Plugin 'tomtom/tlib_vim'                                                                     "Required by vim-snipmate.
+Plugin 'garbas/vim-snipmate'                                                                                 "Snipetts.
 Plugin 'mileszs/ack.vim'                                                                           "Search the project.
 
 
