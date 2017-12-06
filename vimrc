@@ -143,6 +143,8 @@ nmap <Leader>bf :bn<cr>
 "Delete current buffer
 nmap <Leader>bd :Kwbd<cr>
 
+"Create new file relative to current file
+nmap <Leader>nc :e <C-R>=expand('%:h') . '/'<cr>
 
 "/
 "/ Git bindings
