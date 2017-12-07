@@ -49,7 +49,7 @@ set noerrorbells visualbell t_vb=                                               
 
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
-let g:airline_theme = 'quantum'                                                              "Set the status bar theme.
+let g:airline_theme = 'minimalist'                                                           "Set the status bar theme.
 let g:airline_powerline_fonts = 1                                                      "Auto populate powerline glyphs.
 let g:airline#extensions#tabline#enabled = 1                                   "Show buffers when only one tab is open.
 set laststatus=2                                                                          "Always show the status bars.
@@ -115,6 +115,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_typescript_checkers = ['tslint']
 let g:syntastic_html_checkers = []
 
+let g:syntastic_check_on_open = 0
+let g:syntastic_error_symbol = '●'
 
 "--------------------------------------------------Key-Bindings-------------------------------------------------------"
 "Set the leader key to comma
