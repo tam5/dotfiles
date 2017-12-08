@@ -47,6 +47,8 @@ endif
 
 set noerrorbells visualbell t_vb=                                                                    "Get rid of bells.
 
+let NERDTreeDirArrowExpandable = " "                                                              "Hide sidebar arrows.
+let NERDTreeDirArrowCollapsible = " "                                                             "Hide sidebar arrows.
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
 let g:airline_theme = 'minimalist'                                                           "Set the status bar theme.
