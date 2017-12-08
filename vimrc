@@ -47,6 +47,17 @@ endif
 
 set noerrorbells visualbell t_vb=                                                                    "Get rid of bells.
 
+"/
+"/ Sidebar
+"/
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                      "Show folder icons.
+let g:DevIconsEnableFoldersOpenClose = 1                                                 "Show folders open/close icons.
+
+autocmd FileType nerdtree setlocal nolist                                        "Don't show list characters in sidebar.
+
+"Open the sidebar on startup if no files were opened.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
 let g:airline_theme = 'minimalist'                                                           "Set the status bar theme.
@@ -60,6 +71,8 @@ set noshowmode                                                        "Don't dis
 
 
 "----------------------------------------------------Behavior---------------------------------------------------------"
+set encoding=utf8
+
 set mouse=a                                                                                          "Enable the mouse.
 
 set clipboard=unnamed                                                                            "Use system clipboard.

@@ -33,6 +33,7 @@ Plugin 'tomtom/tlib_vim'                                                        
 Plugin 'garbas/vim-snipmate'                                                                                 "Snipetts.
 Plugin 'mileszs/ack.vim'                                                                           "Search the project.
 Plugin 'Valloric/YouCompleteMe'                                                                         "Auto complete.
+Plugin 'ryanoasis/vim-devicons'
 
 
 call vundle#end()                                                                                            "required.
