@@ -30,7 +30,7 @@ colorscheme quantum                                                             
 "Hide vertical split line
 set fillchars+=vert:\ 
 
-set nolist                                                                                 "Don't show list characters.
+set list                                                                                          "Sow list characters.
 set listchars=tab:->,trail:~,extends:>,precedes:<,space:·             "Defines how list characters should be displayed.
 :match SpecialKey '\s'                                                      "Override the cursor line for special keys.
 
@@ -205,6 +205,8 @@ nmap <Leader><space> :nohlsearch<cr>
 "Toggle sidebar (with NERDTree)
 nmap <Leader>1 :NERDTreeToggle<cr>
 
+"Reveal the current file in the sidebar
+nmap<Leader>2 :NERDTreeFind<cr>
 
 "/
 "/ Commonly used files
