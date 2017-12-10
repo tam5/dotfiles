@@ -215,6 +215,9 @@ inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
+"Cycle through the yank stack
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+
 "Duplicate line
 nmap <Leader>d yyp
 
