@@ -28,12 +28,10 @@ Plugin 'pangloss/vim-javascript'                                                
 Plugin 'jiangmiao/auto-pairs'                                                                  "Auto pairs {}, '', etc.
 Plugin 'alvan/vim-closetag'                                                                      "Auto close HTML tags.
 Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.
-Plugin 'MarcWeber/vim-addon-mw-utils'                                                        "Required by vim-snipmate.
-Plugin 'tomtom/tlib_vim'                                                                     "Required by vim-snipmate.
-Plugin 'garbas/vim-snipmate'                                                                                 "Snipetts.
 Plugin 'mileszs/ack.vim'                                                                           "Search the project.
 Plugin 'Valloric/YouCompleteMe'                                                                         "Auto complete.
-Plugin 'ryanoasis/vim-devicons'
+Plugin 'ryanoasis/vim-devicons'                                                                        "Add file icons.
+Plugin 'ap/vim-css-color'                                                                              "Preview colors.
 
 
 call vundle#end()                                                                                            "required.
