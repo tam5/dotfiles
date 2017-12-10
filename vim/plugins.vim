@@ -33,6 +33,7 @@ Plugin 'Valloric/YouCompleteMe'                                                 
 Plugin 'ryanoasis/vim-devicons'                                                                        "Add file icons.
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'                                                 "Add file icon colors.
 Plugin 'ap/vim-css-color'                                                                              "Preview colors.
+Plugin 'maxbrunsfeld/vim-yankstack'                                                                      "Yank history.
 
 
 call vundle#end()                                                                                            "required.

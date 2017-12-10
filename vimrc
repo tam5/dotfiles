@@ -191,7 +191,8 @@ nmap <Leader>bf :bn<cr>
 nmap <Leader>bd :Kwbd<cr>
 
 "Create new file relative to current file
-nmap <Leader>nc :e <C-R>=expand('%:h') . '/'<cr>
+nmap <Leader>fc :e <C-R>=expand('%:h') . '/'<cr>
+
 
 "/
 "/ Git bindings
@@ -237,7 +238,7 @@ nmap gr :YcmCompleter GoToReferences<cr>
 
 " Browse files (with CtrlP)
 let g:ctrlp_map = ''
-nnoremap <C-p> :call SwitchToWriteableBufferAndExec('CtrlP')<CR>
+nnoremap <C-p> :call SwitchToWriteableBufferAndExec('CtrlPMixed')<CR>
 
 "Browse symbols (with CtrlP)
 nmap <C-R> :CtrlPBufTag<cr>
