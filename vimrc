@@ -62,14 +62,21 @@ let g:NERDTreeWinSize=45                                                        
 let g:NERDTreeDirArrowExpandable = 'ƛ'                                            "Hide the sidebar arrows with a hack.
 let g:NERDTreeDirArrowCollapsible = 'ƛ'                                           "Hide the sidebar arrows with a hack.
 
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = '  '                             "Set the folder closed icon.
-let g:DevIconsDefaultFolderOpenSymbol = '  '                                                  "Set the folder open icon.
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = '  '                           "Set the folder closed icon.
+let g:DevIconsDefaultFolderOpenSymbol = '  '                                                "Set the folder open icon.
 
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                      "Show folder icons.
-let g:DevIconsEnableFoldersOpenClose = 1                                                 "Show folders open/close icons.
-let g:DevIconsEnableFolderPatternMatching = 0                                             "Don't show icons for folders.
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
+let g:DevIconsEnableFoldersOpenClose = 1                                                "Show folders open/close icons.
+let g:DevIconsEnableFolderPatternMatching = 0                                            "Don't show icons for folders.
 
-autocmd FileType nerdtree setlocal nolist                                        "Don't show list characters in sidebar.
+let g:NERDTreeLimitedSyntax = 1                                      "Help with performance issue caused by file icons.
+let g:NERDTreeDisableExactMatchHighlight = 1
+let g:NERDTreeDisablePatternMatchHighlight = 1
+let g:NERDTreeHighlightFolders = 0
+let g:NERDTreeHighlightFoldersFullName = 0
+let g:NERDTreeSyntaxEnabledExtensions = ['ts', 'styl', 'ejs']
+
+autocmd FileType nerdtree setlocal nolist                                       "Don't show list characters in sidebar.
 
 "Open the sidebar on startup if no files were opened.
 autocmd StdinReadPre * let s:std_in=1
