@@ -1172,8 +1172,8 @@
 	<false/>
 	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
 	<array>
-		<string>0.000000, 0.000000, 408.000000, 421.000000, NO, NO</string>
-		<string>0.000000, 422.000000, 408.000000, 43.000000, NO, NO</string>
+		<string>0.000000, 0.000000, 408.000000, 385.000000, NO, NO</string>
+		<string>0.000000, 386.000000, 408.000000, 43.000000, NO, NO</string>
 	</array>
 	<key>NSStatusItem Preferred Position Item-0</key>
 	<real>421.7421875</real>
@@ -1208,15 +1208,15 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>662 226 408 402 0 0 1440 877 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>799 160 445 77 0 0 1440 877 </string>
+	<string>739 403 445 77 0 0 1440 877 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>420 302 924 485 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 375 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 139 606 456 0 0 1440 877 </string>
+	<string>269 139 606 469 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>328 321 796 473 0 0 1440 877 </string>
+	<string>328 372 796 473 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 49 1438 811 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -1463,13 +1463,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.12549019607843137</real>
+				<real>0.12156862745098039</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.12549019607843137</real>
+				<real>0.11372549019607843</real>
 				<key>Red Component</key>
-				<real>0.12549019607843137</real>
+				<real>0.10980392156862745</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -4503,7 +4503,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-12-03T17:42:28Z</date>
+	<date>2017-12-08T01:49:54Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
