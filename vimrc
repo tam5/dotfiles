@@ -62,8 +62,8 @@ let g:NERDTreeWinSize=45                                                        
 let g:NERDTreeDirArrowExpandable = 'ƛ'                                            "Hide the sidebar arrows with a hack.
 let g:NERDTreeDirArrowCollapsible = 'ƛ'                                           "Hide the sidebar arrows with a hack.
 
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''                             "Set the folder closed icon.
-let g:DevIconsDefaultFolderOpenSymbol = ''                                                  "Set the folder open icon.
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = '  '                             "Set the folder closed icon.
+let g:DevIconsDefaultFolderOpenSymbol = '  '                                                  "Set the folder open icon.
 
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                      "Show folder icons.
 let g:DevIconsEnableFoldersOpenClose = 1                                                 "Show folders open/close icons.
@@ -75,8 +75,8 @@ autocmd FileType nerdtree setlocal nolist                                       
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" Hack for hiding some unwanted clutter in the NERDTree sidebar.
-exec 'autocmd filetype nerdtree syntax match hideInNerdTree "\v\/$|ƛ" contained conceal cchar=_ containedin=ALL'
+"Hack for hiding some unwanted clutter in the NERDTree sidebar.
+autocmd filetype nerdtree syntax match hideInNerdTree '\v\/$|ƛ|\".*' contained conceal cchar=_ containedin=ALL
 
 "After a re-source, fix syntax matching issues (concealing brackets):
 if exists('g:loaded_webdevicons')
@@ -214,7 +214,7 @@ nmap <Leader>d yyp
 nmap <space> /
 
 "Search the entire project
-nmap <leader>f :Ack!<space>
+nmap <leader>s :Ack!<space>
 
 "Close the quick fix window
 nmap <leader>cc :cclose<cr>
