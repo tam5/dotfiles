@@ -24,6 +24,10 @@ set termguicolors                                                               
 syntax enable                                                                              "Enable syntax highlighting.
 set number                                                                                       "Display line numbers.
 
+set spell                                                                                             "Use spell check.
+
+set signcolumn="yes"                                                                      "Always show the sign column.
+
 let g:quantum_black=1                                                                      "Use the dark quantum theme.
 colorscheme quantum                                                                              "Set the color scheme.
 
@@ -32,7 +36,6 @@ set fillchars+=vert:\
 
 set list                                                                                          "Sow list characters.
 set listchars=tab:->,trail:~,extends:>,precedes:<,space:·             "Defines how list characters should be displayed.
-:match SpecialKey '\s'                                                      "Override the cursor line for special keys.
 
 let g:indentLine_char = '│'                                                           "Sets the indent guide character.
 let g:indentLine_color_gui = '#292B2D'                                                    "Sets the indent guide color.
@@ -47,6 +50,9 @@ endif
 
 set noerrorbells visualbell t_vb=                                                                    "Get rid of bells.
 
+let g:webdevicons_enable_airline_tabline = 0                                 "Don't show file icons in the top tab bar.
+let g:WebDevIconsOS = 'Darwin'                                              "Might help performance, assumes OS is Mac.
+
 "/
 "/ Sidebar
 "/
@@ -54,19 +60,45 @@ let g:NERDTreeWinSize=64                                                        
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                      "Show folder icons.
 let g:DevIconsEnableFoldersOpenClose = 1                                                 "Show folders open/close icons.
 
-autocmd FileType nerdtree setlocal nolist                                        "Don't show list characters in sidebar.
+let g:NERDTreeDirArrowExpandable = 'ƛ'                                            "Hide the sidebar arrows with a hack.
+let g:NERDTreeDirArrowCollapsible = 'ƛ'                                           "Hide the sidebar arrows with a hack.
+
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = '  '                           "Set the folder closed icon.
+let g:DevIconsDefaultFolderOpenSymbol = '  '                                                "Set the folder open icon.
+
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
+let g:DevIconsEnableFoldersOpenClose = 1                                                "Show folders open/close icons.
+let g:DevIconsEnableFolderPatternMatching = 0                                            "Don't show icons for folders.
+
+let g:NERDTreeLimitedSyntax = 1                                      "Help with performance issue caused by file icons.
+let g:NERDTreeDisableExactMatchHighlight = 1
+let g:NERDTreeDisablePatternMatchHighlight = 1
+let g:NERDTreeHighlightFolders = 0
+let g:NERDTreeHighlightFoldersFullName = 0
+let g:NERDTreeSyntaxEnabledExtensions = ['ts', 'styl', 'ejs']
+
+autocmd FileType nerdtree setlocal nolist                                       "Don't show list characters in sidebar.
 
 "Open the sidebar on startup if no files were opened.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+"Hack for hiding some unwanted clutter in the NERDTree sidebar.
+autocmd filetype nerdtree syntax match hideInNerdTree '\v\/$|ƛ|\".*' contained conceal cchar=_ containedin=ALL
+
+"After a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
+
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
 let g:airline_theme = 'minimalist'                                                           "Set the status bar theme.
 let g:airline_powerline_fonts = 1                                                      "Auto populate powerline glyphs.
 let g:airline#extensions#tabline#enabled = 1                                   "Show buffers when only one tab is open.
 set laststatus=2                                                                          "Always show the status bars.
-let g:airline#extensions#tabline#left_sep = ' '                                                "Set the tabs seperator.
-let g:airline#extensions#tabline#left_alt_sep = '|'                                            "Set the tabs seperator.
+let g:airline#extensions#tabline#left_sep = ' '                                                "Set the tabs separator.
+let g:airline#extensions#tabline#left_alt_sep = '|'                                            "Set the tabs separator.
 
 set noshowmode                                                        "Don't display the mode (it's in the status bar).
 
@@ -116,7 +148,7 @@ endif
 
 
 "---------------------------------------------------Syntastic----------------------------------------------------------"
-""Use the recommended settings for now.
+"Use the recommended settings for now.
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -162,7 +194,8 @@ nmap <Leader>bf :bn<cr>
 nmap <Leader>d :Kwbd<cr>
 
 "Create new file relative to current file
-nmap <Leader>nc :e <C-R>=expand('%:h') . '/'<cr>
+nmap <Leader>fc :e <C-R>=expand('%:h') . '/'<cr>
+
 
 "/
 "/ Git bindings
@@ -185,11 +218,16 @@ inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
+"Cycle through the yank stack
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+
+nmap ;w <Plug>(easymotion-bd-w)
+
 "Search the current file
 nmap <space> /
 
 "Search the entire project
-nmap <leader>f :Ack!<space>
+nmap <leader>s :Ack!<space>
 
 "Close the quick fix window
 nmap <leader>cc :cclose<cr>
@@ -203,11 +241,15 @@ nmap g- <C-O>
 "Find all references
 nmap gr :YcmCompleter GoToReferences<cr>
 
+" Browse files (with CtrlP)
+let g:ctrlp_map = ''
+nnoremap <C-p> :call SwitchToWriteableBufferAndExec('CtrlPMixed')<CR>
+
 "Browse symbols (with CtrlP)
 nmap <C-R> :CtrlPBufTag<cr>
 
 "Open recent files (with CtrlP)
-nmap <Leader>mru :CtrlPMRUFiles<cr>
+nnoremap <Leader>mru :call SwitchToWriteableBufferAndExec('CtrlPMRUFiles')<CR>
 
 "Search the current file
 nmap <space> /
@@ -232,6 +274,15 @@ nmap <Leader>ep :edit $MYPLUGINS<cr>
 
 "Edit the colorscheme file
 nmap <Leader>es :edit $MYCOLORSCHEME<cr>
+
+"Scrolling
+nnoremap <C-U> :call SmoothScroll(1)<Enter>
+nnoremap <C-D> :call SmoothScroll(0)<Enter>
+inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
+inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
+
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
 
 
 "--------------------------------------------------Auto-Commands------------------------------------------------------"
@@ -261,11 +312,14 @@ function! SmoothScroll(up)
     endwhile
 endfunction
 
-nnoremap <C-U> :call SmoothScroll(1)<Enter>
-nnoremap <C-D> :call SmoothScroll(0)<Enter>
-inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
-inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
-
-map <ScrollWheelUp> <C-Y>
-map <ScrollWheelDown> <C-E>
-
+" Prevent CtrlP opening files inside non-writeable buffers
+function! SwitchToWriteableBufferAndExec(command)
+    let c = 0
+    let wincount = winnr('$')
+    " Don't open it here if current buffer is not writable (e.g. NERDTree)
+    while !empty(getbufvar(+expand("<abuf>"), "&buftype")) && c < wincount
+        exec 'wincmd w'
+        let c = c + 1
+    endwhile
+    exec a:command
+endfunction
