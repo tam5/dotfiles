@@ -50,6 +50,7 @@ set noerrorbells visualbell t_vb=                                               
 "/
 "/ Sidebar
 "/
+let g:NERDTreeWinSize=64                                                            "Set the sidebar width (in columns).
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                      "Show folder icons.
 let g:DevIconsEnableFoldersOpenClose = 1                                                 "Show folders open/close icons.
 
@@ -79,7 +80,7 @@ set clipboard=unnamed                                                           
 
 set autowriteall                                                           "Automatically write when switching buffers.
 
-set ignorecase smartcase
+set ignorecase smartcase                                                                         "Set case sensitivity.
 
 set backspace=indent,eol,start                                                         "Make backspace behave normally.
 
@@ -130,6 +131,8 @@ let g:syntastic_html_checkers = []
 
 let g:syntastic_check_on_open = 0
 let g:syntastic_error_symbol = '●'
+let g:syntastic_warning_symbol = '●'
+
 
 "--------------------------------------------------Key-Bindings-------------------------------------------------------"
 "Set the leader key to comma
@@ -156,7 +159,7 @@ nmap <Leader>bb :bp<cr>
 nmap <Leader>bf :bn<cr>
 
 "Delete current buffer
-nmap <Leader>bd :Kwbd<cr>
+nmap <Leader>d :Kwbd<cr>
 
 "Create new file relative to current file
 nmap <Leader>nc :e <C-R>=expand('%:h') . '/'<cr>
@@ -181,9 +184,6 @@ nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-
-"Duplicate line
-nmap <Leader>d yyp
 
 "Search the current file
 nmap <space> /
