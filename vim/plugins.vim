@@ -34,6 +34,7 @@ Plugin 'ryanoasis/vim-devicons'                                                 
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'                                                 "Add file icon colors.
 Plugin 'ap/vim-css-color'                                                                              "Preview colors.
 Plugin 'maxbrunsfeld/vim-yankstack'                                                                      "Yank history.
+Plugin 'easymotion/vim-easymotion'                                                                        "Easy motion.
 
 
 call vundle#end()                                                                                            "required.

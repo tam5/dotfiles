@@ -36,7 +36,6 @@ set fillchars+=vert:\
 
 set list                                                                                          "Sow list characters.
 set listchars=tab:->,trail:~,extends:>,precedes:<,space:·             "Defines how list characters should be displayed.
-:match SpecialKey '\s'                                                      "Override the cursor line for special keys.
 
 let g:indentLine_char = '│'                                                           "Sets the indent guide character.
 let g:indentLine_color_gui = '#292B2D'                                                    "Sets the indent guide color.
@@ -220,6 +219,8 @@ nmap <leader>p <Plug>yankstack_substitute_older_paste
 
 "Duplicate line
 nmap <Leader>d yyp
+
+nmap ;w <Plug>(easymotion-bd-w)
 
 "Search the current file
 nmap <space> /
