@@ -31,7 +31,6 @@ Plugin 'vim-syntastic/syntastic'                                                
 Plugin 'mileszs/ack.vim'                                                                           "Search the project.
 Plugin 'Valloric/YouCompleteMe'                                                                         "Auto complete.
 Plugin 'ryanoasis/vim-devicons'                                                                        "Add file icons.
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'                                                 "Add file icon colors.
 Plugin 'ap/vim-css-color'                                                                              "Preview colors.
 Plugin 'maxbrunsfeld/vim-yankstack'                                                                      "Yank history.
 Plugin 'easymotion/vim-easymotion'                                                                        "Easy motion.
