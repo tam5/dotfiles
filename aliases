@@ -25,7 +25,7 @@ alias dotfiles='cd ~/.dotfiles'
 alias code='cd ~/code'
 alias plugins='cd ~/.vim/bundle'
 
-# SSH Key
+# Public SSH Key
 alias sshkey='cat ~/.ssh/id_rsa.pub'
 
 # PHP aliases
