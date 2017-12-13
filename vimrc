@@ -24,7 +24,7 @@ set termguicolors                                                               
 syntax enable                                                                              "Enable syntax highlighting.
 set number                                                                                       "Display line numbers.
 
-set spell                                                                                             "Use spell check.
+set nospell                                                                                     "Don't use spell check.
 
 set signcolumn="yes"                                                                      "Always show the sign column.
 
