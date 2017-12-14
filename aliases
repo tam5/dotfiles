@@ -18,6 +18,7 @@ alias gri="rebaseInteractive"
 alias grc="git rebase --continue"
 alias nah="git reset --hard head && git clean -fd"
 alias gsu='git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
+alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 
 # locations
 alias home='cd ~'
