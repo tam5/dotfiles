@@ -17,7 +17,7 @@ alias glo="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset 
 alias gri="rebaseInteractive"
 alias grc="git rebase --continue"
 alias nah="git reset --hard head && git clean -fd"
-alias gsu='git --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
+alias gsu='git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
 
 # locations
 alias home='cd ~'

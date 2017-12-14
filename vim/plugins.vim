@@ -25,6 +25,7 @@ Plugin 'tam5/typescript-vim'                                                    
 Plugin 'wavded/vim-stylus'                                                                          "Add Stylus synatx.
 Plugin 'tam5/php.vim'                                                                                  "Add PHP syntax.
 Plugin 'pangloss/vim-javascript'                                                                "Add Javascript syntax.
+Plugin 'posva/vim-vue'                                                                                 "Add vue syntax.
 Plugin 'jiangmiao/auto-pairs'                                                                  "Auto pairs {}, '', etc.
 Plugin 'alvan/vim-closetag'                                                                      "Auto close HTML tags.
 Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.

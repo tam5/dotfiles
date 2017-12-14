@@ -103,6 +103,7 @@ set mouse=a                                                                     
 
 set clipboard=unnamed                                                                            "Use system clipboard.
 
+set noswapfile                                                                                   "Don't use a swapfile.
 set autowriteall                                                           "Automatically write when switching buffers.
 
 set ignorecase smartcase                                                                         "Set case sensitivity.
