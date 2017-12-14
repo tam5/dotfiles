@@ -56,9 +56,11 @@ let g:WebDevIconsOS = 'Darwin'                                              "Mig
 "/
 "/ Sidebar
 "/
-let g:NERDTreeWinSize=64                                                            "Set the sidebar width (in columns).
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                      "Show folder icons.
-let g:DevIconsEnableFoldersOpenClose = 1                                                 "Show folders open/close icons.
+let g:NERDTreeWinSize=64                                                           "Set the sidebar width (in columns).
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
+let g:DevIconsEnableFoldersOpenClose = 1                                                "Show folders open/close icons.
+
+let NERDTreeShowHidden = 1                                                            "Include hidden files in sidebar.
 
 let g:NERDTreeDirArrowExpandable = 'ƛ'                                            "Hide the sidebar arrows with a hack.
 let g:NERDTreeDirArrowCollapsible = 'ƛ'                                           "Hide the sidebar arrows with a hack.
