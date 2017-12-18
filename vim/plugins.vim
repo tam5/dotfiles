@@ -35,6 +35,7 @@ Plugin 'ryanoasis/vim-devicons'                                                 
 Plugin 'ap/vim-css-color'                                                                              "Preview colors.
 Plugin 'maxbrunsfeld/vim-yankstack'                                                                      "Yank history.
 Plugin 'easymotion/vim-easymotion'                                                                        "Easy motion.
+Plugin 'terryma/vim-multiple-cursors'                                                                "Multiple cursors.
 
 
 call vundle#end()                                                                                            "required.
