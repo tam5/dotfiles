@@ -210,6 +210,9 @@ nmap <Leader>gs :Gstatus<cr>
 "/ Workflow bindings
 "/
 
+"Redo previous change
+nmap U :redo<cr>
+
 "Comment out lines (with NERDComment)
 noremap <Leader>x :call NERDComment(1, 'Toggle')<cr>
 
@@ -275,13 +278,13 @@ let g:vrc_trigger = '<Leader>r'
 "/ Commonly used files
 "/
 "Edit the Vimrc file
-nmap <Leader>ev :edit $MYVIMRC<cr>
+nmap <Leader>ev :call SwitchToWriteableBufferAndExec('edit $MYVIMRC')<CR>
 
 "Edit the Vimrc file
-nmap <Leader>ep :edit $MYPLUGINS<cr>
+nmap <Leader>ep :call SwitchToWriteableBufferAndExec('edit $MYPLUGINS')<CR>
 
 "Edit the colorscheme file
-nmap <Leader>es :edit $MYCOLORSCHEME<cr>
+nmap <Leader>es :call SwitchToWriteableBufferAndExec('edit $MYCOLORSCHEME')<CR>
 
 "Scrolling
 nnoremap <C-U> :call SmoothScroll(1)<Enter>
