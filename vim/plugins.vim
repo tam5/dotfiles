@@ -36,6 +36,7 @@ Plugin 'ap/vim-css-color'                                                       
 Plugin 'maxbrunsfeld/vim-yankstack'                                                                      "Yank history.
 Plugin 'easymotion/vim-easymotion'                                                                        "Easy motion.
 Plugin 'terryma/vim-multiple-cursors'                                                                "Multiple cursors.
+Plugin 'diepm/vim-rest-console'                                                           "Make CURL requests from VIM.
 
 
 call vundle#end()                                                                                            "required.

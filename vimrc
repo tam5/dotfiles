@@ -162,6 +162,12 @@ let g:syntastic_error_symbol = '●'
 let g:syntastic_warning_symbol = '●'
 
 
+
+"-------------------------------------------------REST-Requests-------------------------------------------------------"
+let g:vrc_elasticsearch_support = 1
+let g:vrc_allow_get_request_body = 1
+
+
 "--------------------------------------------------Key-Bindings-------------------------------------------------------"
 "Set the leader key to comma
 let mapleader = ','
@@ -258,6 +264,12 @@ nmap <Leader>1 :NERDTreeToggle<cr>
 
 "Reveal the current file in the sidebar
 nmap<Leader>2 :NERDTreeFind<cr>
+
+"/
+"/ REST Requests
+"/
+"Make a requst.
+let g:vrc_trigger = '<Leader>r'
 
 "/
 "/ Commonly used files
