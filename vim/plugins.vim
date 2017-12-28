@@ -40,6 +40,7 @@ Plugin 'easymotion/vim-easymotion'                                              
 Plugin 'terryma/vim-multiple-cursors'                                                                "Multiple cursors.
 Plugin 'mattn/emmet-vim'                                                                                        "Emmet.
 Plugin 'diepm/vim-rest-console'                                                           "Make CURL requests from VIM.
+Plugin 'tpope/vim-surround'                                                                              "Vim surround.
 
 
 call vundle#end()                                                                                            "required.
