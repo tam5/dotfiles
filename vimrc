@@ -293,6 +293,18 @@ inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+let g:UltiSnipsSnippetsDir="~/.vim/ultisnips"
+let g:UltiSnipsSnippetDirectories=["ultisnips"]
 
 "--------------------------------------------------Auto-Commands------------------------------------------------------"
 augroup autosourcing                                                      "Automatically source the Vimrc file on save.

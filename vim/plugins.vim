@@ -30,12 +30,15 @@ Plugin 'jiangmiao/auto-pairs'                                                   
 Plugin 'alvan/vim-closetag'                                                                      "Auto close HTML tags.
 Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.
 Plugin 'mileszs/ack.vim'                                                                           "Search the project.
+Plugin 'ervandew/supertab'                                                                         "For tab completion.
 Plugin 'Valloric/YouCompleteMe'                                                                         "Auto complete.
+Plugin 'SirVer/ultisnips'                                                                                    "Snippets.
 Plugin 'ryanoasis/vim-devicons'                                                                        "Add file icons.
 Plugin 'ap/vim-css-color'                                                                              "Preview colors.
 Plugin 'maxbrunsfeld/vim-yankstack'                                                                      "Yank history.
 Plugin 'easymotion/vim-easymotion'                                                                        "Easy motion.
 Plugin 'terryma/vim-multiple-cursors'                                                                "Multiple cursors.
+Plugin 'mattn/emmet-vim'                                                                                        "Emmet.
 Plugin 'diepm/vim-rest-console'                                                           "Make CURL requests from VIM.
 
 
