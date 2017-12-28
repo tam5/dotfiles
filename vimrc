@@ -101,10 +101,6 @@ set noshowmode                                                        "Don't dis
 "----------------------------------------------------Behavior---------------------------------------------------------"
 set encoding=utf8
 
-set mouse=a                                                                                          "Enable the mouse.
-
-set clipboard=unnamed                                                                            "Use system clipboard.
-
 set noswapfile                                                                                   "Don't use a swapfile.
 set autowriteall                                                           "Automatically write when switching buffers.
 
@@ -124,6 +120,8 @@ set smarttab                                                                    
 set shiftwidth=4                                                                          "Set indentation to 4 spaces.
 set softtabstop=4                                                                 "Insert 4 spaces when tab is pressed.
 set tabstop=4                                                                                       "A tab is 4 spaces.
+
+let g:NERDSpaceDelims = 1                                                         "Add a space after comments, ex: // .
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip                                                           "Ignore these files.
 
