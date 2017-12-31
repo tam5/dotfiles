@@ -160,7 +160,6 @@ let g:syntastic_error_symbol = '●'
 let g:syntastic_warning_symbol = '●'
 
 
-
 "-------------------------------------------------REST-Requests-------------------------------------------------------"
 let g:vrc_elasticsearch_support = 1
 let g:vrc_allow_get_request_body = 1
@@ -172,7 +171,6 @@ let mapleader = ','
 
 "Exit insert mode with jk
 imap jk <Esc>
-
 
 "/
 "/ Files, buffers, etc.
@@ -196,13 +194,11 @@ nmap <Leader>d :Kwbd<cr>
 "Create new file relative to current file
 nmap <Leader>fc :e <C-R>=expand('%:h') . '/'<cr>
 
-
 "/
 "/ Git bindings
 "/
 nmap <Leader>gb :Gblame<cr>
 nmap <Leader>gs :Gstatus<cr>
-
 
 "/
 "/ Workflow bindings
@@ -284,15 +280,6 @@ nmap <Leader>ep :call SwitchToWriteableBufferAndExec('edit $MYPLUGINS')<CR>
 "Edit the colorscheme file
 nmap <Leader>es :call SwitchToWriteableBufferAndExec('edit $MYCOLORSCHEME')<CR>
 
-"Scrolling
-nnoremap <C-U> :call SmoothScroll(1)<Enter>
-nnoremap <C-D> :call SmoothScroll(0)<Enter>
-inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
-inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
-
-map <ScrollWheelUp> <C-Y>
-map <ScrollWheelDown> <C-E>
-
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
@@ -306,6 +293,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetsDir="~/.vim/ultisnips"
 let g:UltiSnipsSnippetDirectories=["ultisnips"]
 
+
 "--------------------------------------------------Auto-Commands------------------------------------------------------"
 augroup autosourcing                                                      "Automatically source the Vimrc file on save.
     autocmd!
@@ -314,24 +302,6 @@ augroup END
 
 
 "-----------------------------------------------------Functions-------------------------------------------------------"
-
-"Smooth scrolling
-function! SmoothScroll(up)
-    if a:up
-        let scrollaction=""
-    else
-        let scrollaction=""
-    endif
-    exec "normal " . scrollaction
-    redraw
-    let counter=1
-    while counter<&scroll
-        let counter+=1
-        sleep 10m
-        redraw
-        exec "normal " . scrollaction
-    endwhile
-endfunction
 
 " Prevent CtrlP opening files inside non-writeable buffers
 function! SwitchToWriteableBufferAndExec(command)
