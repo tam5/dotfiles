@@ -941,6 +941,10 @@
 	<false/>
 	<key>DisableFullscreenTransparency</key>
 	<false/>
+	<key>EnableDivisionView</key>
+	<false/>
+	<key>EnableProxyIcon</key>
+	<true/>
 	<key>EnableRendezvous</key>
 	<false/>
 	<key>FocusFollowsMouse</key>
@@ -1170,8 +1174,8 @@
 	<false/>
 	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
 	<array>
-		<string>0.000000, 0.000000, 228.000000, 303.000000, NO, NO</string>
-		<string>0.000000, 304.000000, 228.000000, 43.000000, NO, NO</string>
+		<string>0.000000, 0.000000, 228.000000, 267.000000, NO, NO</string>
+		<string>0.000000, 268.000000, 228.000000, 43.000000, NO, NO</string>
 	</array>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
@@ -1212,13 +1216,13 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>970 783 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>489 268 606 469 0 0 2560 1417 </string>
+	<string>269 158 606 469 0 0 1680 1027 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1227 821 796 473 0 0 2560 1417 </string>
+	<string>661 553 796 473 0 0 1680 1027 </string>
 	<key>NSWindow Frame com.apple.typography_panel_SauceCodePowerline-Medium</key>
 	<string>2159 244 260 136 1680 -390 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 578 1438 839 0 0 2560 1417 </string>
+	<string>0 59 1680 968 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>6 58 2551 1359 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -4457,7 +4461,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-12-14T13:43:36Z</date>
+	<date>2017-12-31T21:44:20Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
