@@ -45,7 +45,7 @@ set incsearch                                                                   
 
 if $TERM_PROGRAM =~ "iTerm"
     let &t_SI = "\<Esc>]50;CursorShape=1\x7"                                              "Vertical bar in insert mode.
-    let &t_EI = "\<Esc>]50;CursorShape=2\x7"                                                 "Underline in normal mode.
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"                                                     "Block in normal mode.
 endif
 
 set noerrorbells visualbell t_vb=                                                                    "Get rid of bells.
@@ -71,6 +71,8 @@ let g:DevIconsDefaultFolderOpenSymbol = '  '                                 
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
 let g:DevIconsEnableFoldersOpenClose = 1                                                "Show folders open/close icons.
 let g:DevIconsEnableFolderPatternMatching = 0                                            "Don't show icons for folders.
+
+let g:NERDTreeLimitedSyntax = 1                                "Disable uncommon file extension highlighting (for lag).
 
 autocmd FileType nerdtree setlocal nolist                                       "Don't show list characters in sidebar.
 
