@@ -11,36 +11,48 @@ call vundle#begin()                                                             
 
 
 Plugin 'VundleVim/Vundle.vim'                                                                          "Plugin manager.
+
+"--------------------------------------------------Visuals-&-Layout---------------------------------------------------"
 Plugin 'tpope/vim-vinegar'                                                               "Help with directory browsing.
 Plugin 'scrooloose/nerdtree'                                                                           "Adds a sidebar.
 Plugin 'vim-airline/vim-airline'                                                                 "Powerline status bar.
 Plugin 'vim-airline/vim-airline-themes'                                                             "Status bar themes.
-Plugin 'tpope/vim-fugitive'                                                                                "Git plugin.
 Plugin 'airblade/vim-gitgutter'                                                                            "Git Gutter.
-Plugin 'ctrlpvim/ctrlp.vim'                                                                  "Add ctrl+p file browsing.
-Plugin 'scrooloose/nerdcommenter'                                                            "Easily comment out lines.
 Plugin 'Yggdroot/indentLine'                                                                            "Indent guides.
+Plugin 'ryanoasis/vim-devicons'                                                                        "Add file icons.
+Plugin 'ap/vim-css-color'                                                                              "Preview colors.
 Plugin 'tam5/vim-quantum'                                                                                "Color scheme.
+
+"-------------------------------------------------Misc-Essentials-----------------------------------------------------"
+Plugin 'ctrlpvim/ctrlp.vim'                                                                      "Ctrl+p file browsing.
+Plugin 'easymotion/vim-easymotion'                                                                        "Easy motion.
+
+Plugin 'tpope/vim-fugitive'                                                                                "Git plugin.
+Plugin 'diepm/vim-rest-console'                                                           "Make CURL requests from VIM.
+
+Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.
+Plugin 'mileszs/ack.vim'                                                                           "Search the project.
+
+"-----------------------------------------------Syntax-Highlighters---------------------------------------------------"
 Plugin 'tam5/typescript-vim'                                                                    "Add Typescript syntax.
 Plugin 'wavded/vim-stylus'                                                                          "Add Stylus synatx.
 Plugin 'tam5/php.vim'                                                                                  "Add PHP syntax.
 Plugin 'pangloss/vim-javascript'                                                                "Add Javascript syntax.
 Plugin 'posva/vim-vue'                                                                                 "Add vue syntax.
-Plugin 'jiangmiao/auto-pairs'                                                                  "Auto pairs {}, '', etc.
+
+"-----------------------------------------------Editor-Enhancements---------------------------------------------------"
+Plugin 'scrooloose/nerdcommenter'                                                            "Easily comment out lines.
+Plugin 'jiangmiao/auto-pairs'                                                            "Auto close pairs {}, '', etc.
 Plugin 'alvan/vim-closetag'                                                                      "Auto close HTML tags.
-Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.
-Plugin 'mileszs/ack.vim'                                                                           "Search the project.
-Plugin 'ervandew/supertab'                                                                         "For tab completion.
-Plugin 'Valloric/YouCompleteMe'                                                                         "Auto complete.
-Plugin 'SirVer/ultisnips'                                                                                    "Snippets.
-Plugin 'ryanoasis/vim-devicons'                                                                        "Add file icons.
-Plugin 'ap/vim-css-color'                                                                              "Preview colors.
-Plugin 'maxbrunsfeld/vim-yankstack'                                                                      "Yank history.
-Plugin 'easymotion/vim-easymotion'                                                                        "Easy motion.
+Plugin 'tpope/vim-surround'                                                                  "Change surrounding pairs.
 Plugin 'terryma/vim-multiple-cursors'                                                                "Multiple cursors.
+Plugin 'maxbrunsfeld/vim-yankstack'                                                                      "Yank history.
+
+"--------------------------------------------Autocomplete-&-Snippters-------------------------------------------------"
+Plugin 'ervandew/supertab'                                                           "Better tab completion management.
+Plugin 'Valloric/YouCompleteMe'                                                                  "Auto complete & more.
+Plugin 'SirVer/ultisnips'                                                                                    "Snippets.
 Plugin 'mattn/emmet-vim'                                                                                        "Emmet.
-Plugin 'diepm/vim-rest-console'                                                           "Make CURL requests from VIM.
-Plugin 'tpope/vim-surround'                                                                              "Vim surround.
 
 
 call vundle#end()                                                                                            "required.
