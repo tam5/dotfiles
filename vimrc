@@ -26,7 +26,7 @@ set number                                                                      
 
 set nospell                                                                                     "Don't use spell check.
 
-set signcolumn="yes"                                                                      "Always show the sign column.
+set signcolumn=yes                                                                        "Always show the sign column.
 
 let g:quantum_black=1                                                                      "Use the dark quantum theme.
 colorscheme quantum                                                                              "Set the color scheme.
