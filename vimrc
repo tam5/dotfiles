@@ -175,12 +175,6 @@ nmap <Leader>w :w<cr>
 "Close current window
 nmap <Leader>q :q<cr>
 
-"Go to previous buffer
-nmap <Leader>bb :bp<cr>
-
-"Go to next buffer
-nmap <Leader>bf :bn<cr>
-
 "Delete current buffer
 nmap <Leader>d :Kwbd<cr>
 
