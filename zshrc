@@ -69,7 +69,7 @@ else
 fi
 
 # Set the git editor
-export GIT_EDITOR=vim
+export GIT_EDITOR='mvim -v'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
