@@ -31,7 +31,7 @@ Plugin 'easymotion/vim-easymotion'                                              
 Plugin 'tpope/vim-fugitive'                                                                                "Git plugin.
 Plugin 'diepm/vim-rest-console'                                                           "Make CURL requests from VIM.
 
-Plugin 'vim-syntastic/syntastic'                                                                       "Syntax checker.
+Plugin 'w0rp/ale'                                                                                      "Syntax checker.
 Plugin 'mileszs/ack.vim'                                                                           "Search the project.
 
 "-----------------------------------------------Syntax-Highlighters---------------------------------------------------"

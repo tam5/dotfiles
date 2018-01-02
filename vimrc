@@ -143,23 +143,14 @@ if executable('ag')
 endif
 
 
-"---------------------------------------------------Syntastic----------------------------------------------------------"
-"Use the recommended settings for now.
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"------------------------------------------------Syntax-Checking------------------------------------------------------"
+let g:airline#extensions#ale#enabled = 1                                        "Show errors & warnings in status line.
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:ale_sign_error = '●'                                                                       "Set the error symbol.
+let g:ale_sign_warning = '●'                                                                   "Set the warning symbol.
 
-let g:syntastic_typescript_checkers = ['tslint']
-let g:syntastic_html_checkers = []
-
-let g:syntastic_check_on_open = 0
-let g:syntastic_error_symbol = '●'
-let g:syntastic_warning_symbol = '●'
+let g:ycm_error_symbol = '●'                                                                     "Set the error symbol.
+let g:ycm_warning_symbol = '●'                                                                 "Set the warning symbol.
 
 
 "-------------------------------------------------REST-Requests-------------------------------------------------------"
