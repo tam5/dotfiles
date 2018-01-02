@@ -46,7 +46,7 @@ prompt_status() {
   
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}➜"
   [[ $RETVAL -eq 0 ]] && symbols+="%{%F{green}%}➜"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
+  [[ $(id -u) -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
   symbols+="%  "
 
