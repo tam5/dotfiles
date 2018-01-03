@@ -35,6 +35,8 @@ Plugin 'diepm/vim-rest-console'                                                 
 Plugin 'w0rp/ale'                                                                                      "Syntax checker.
 Plugin 'mileszs/ack.vim'                                                                           "Search the project.
 
+Plugin 'editorconfig/editorconfig-vim'                                                "Support for .editorconfig files.
+
 "-----------------------------------------------Syntax-Highlighters---------------------------------------------------"
 Plugin 'tam5/typescript-vim'                                                                    "Add Typescript syntax.
 Plugin 'wavded/vim-stylus'                                                                          "Add Stylus synatx.

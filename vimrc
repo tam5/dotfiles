@@ -126,6 +126,7 @@ set tabstop=4                                                                   
 let g:NERDSpaceDelims = 1                                                         "Add a space after comments, ex: // .
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip                                                           "Ignore these files.
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']                                     "Exclude from editorconfig.
 
 
 "-------------------------------------------------File-Browsing-------------------------------------------------------"
@@ -229,7 +230,7 @@ nmap gr :YcmCompleter GoToReferences<cr>
 
 " Browse files (with CtrlP)
 let g:ctrlp_map = ''
-nnoremap <C-p> :call SwitchToWriteableBufferAndExec('CtrlPMixed')<CR>
+nnoremap <C-p> :call SwitchToWriteableBufferAndExec('CtrlP')<CR>
 
 "Browse symbols (with CtrlP)
 nmap <C-R> :CtrlPBufTag<cr>
