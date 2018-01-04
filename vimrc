@@ -53,29 +53,25 @@ set noerrorbells visualbell t_vb=                                               
 let g:webdevicons_enable_airline_tabline = 0                                 "Don't show file icons in the top tab bar.
 let g:WebDevIconsOS = 'Darwin'                                              "Might help performance, assumes OS is Mac.
 
-"/
-"/ Sidebar
-"/
-let g:NERDTreeWinSize=64                                                           "Set the sidebar width (in columns).
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
-let g:DevIconsEnableFoldersOpenClose = 1                                                "Show folders open/close icons.
 
+"-----------------------------------------------------Sidebar---------------------------------------------------------"
+let NERDTreeMinimalUI=1                                                                                "Use minimal UI.
+let NERDTreeHighlightCursorline = 0                                            "Don't highlight cursor line in sidebar.
+let NERDTreeRespectWildIgnore = 1                                                            "Respect the `wildignore`.
 let NERDTreeShowHidden = 1                                                            "Include hidden files in sidebar.
+let NERDTreeCascadeSingleChildDir = 0                                                      "Don't collapse directories.
+let g:NERDTreeWinSize=64                                                           "Set the sidebar width (in columns).
+
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
+let g:DevIconsEnableFolderPatternMatching = 0                                     "Don't show spcial icons for folders.
+let g:DevIconsEnableFoldersOpenClose = 1                                                "Show folders open/close icons.
+let g:NERDTreeLimitedSyntax = 1                                "Disable uncommon file extension highlighting (for lag).
 
 let g:NERDTreeDirArrowExpandable = 'ƛ'                                            "Hide the sidebar arrows with a hack.
 let g:NERDTreeDirArrowCollapsible = 'ƛ'                                           "Hide the sidebar arrows with a hack.
-
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = '  '                           "Set the folder closed icon.
 let g:DevIconsDefaultFolderOpenSymbol = '  '                                                "Set the folder open icon.
-
 let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''                                     "Set the default icon.
-
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
-let g:DevIconsEnableFoldersOpenClose = 1                                                "Show folders open/close icons.
-let g:DevIconsEnableFolderPatternMatching = 0                                     "Don't show spcial icons for folders.
-
-let g:NERDTreeLimitedSyntax = 1                                "Disable uncommon file extension highlighting (for lag).
-
 
 " Add some additional syntax highlighting for file icons that didn't work in
 " the plugin itself.
@@ -137,7 +133,7 @@ set tabstop=4                                                                   
 
 let g:NERDSpaceDelims = 1                                                         "Add a space after comments, ex: // .
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip                                                           "Ignore these files.
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store                                                 "Ignore these files.
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']                                     "Exclude from editorconfig.
 
 
