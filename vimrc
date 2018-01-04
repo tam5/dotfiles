@@ -68,11 +68,23 @@ let g:NERDTreeDirArrowCollapsible = 'ƛ'                                        
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = '  '                           "Set the folder closed icon.
 let g:DevIconsDefaultFolderOpenSymbol = '  '                                                "Set the folder open icon.
 
+let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''                                     "Set the default icon.
+
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
 let g:DevIconsEnableFoldersOpenClose = 1                                                "Show folders open/close icons.
-let g:DevIconsEnableFolderPatternMatching = 0                                            "Don't show icons for folders.
+let g:DevIconsEnableFolderPatternMatching = 0                                     "Don't show spcial icons for folders.
 
 let g:NERDTreeLimitedSyntax = 1                                "Disable uncommon file extension highlighting (for lag).
+
+
+" Add some additional syntax highlighting for file icons that didn't work in
+" the plugin itself.
+let s:red = "D14748"
+let s:orange = "D28445"
+
+let g:NERDTreeExtensionHighlightColor = {}
+let g:NERDTreeExtensionHighlightColor['rest'] = s:orange
+let g:NERDTreeExtensionHighlightColor['xml'] = s:red
 
 autocmd FileType nerdtree setlocal nolist                                       "Don't show list characters in sidebar.
 

@@ -19,8 +19,8 @@ Plugin 'vim-airline/vim-airline'                                                
 Plugin 'vim-airline/vim-airline-themes'                                                             "Status bar themes.
 Plugin 'airblade/vim-gitgutter'                                                                            "Git Gutter.
 Plugin 'Yggdroot/indentLine'                                                                            "Indent guides.
-Plugin 'ryanoasis/vim-devicons'                                                                        "Add file icons.
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'                                                 "Add file icon colors.
+Plugin 'tam5/vim-devicons'                                                                             "Add file icons.
+Plugin 'tam5/vim-nerdtree-syntax-highlight'                                                      "Add file icon colors.
 Plugin 'ap/vim-css-color'                                                                              "Preview colors.
 Plugin 'tam5/vim-quantum'                                                                                "Color scheme.
 
