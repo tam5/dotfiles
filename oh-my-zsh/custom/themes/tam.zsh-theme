@@ -70,7 +70,7 @@ prompt_git() {
     else
       prompt_segment black green
     fi
-    echo -n "${ref/refs\/heads\//  (})$dirty"
+    echo -n "${ref/refs\/heads\//  }()$dirty"
   fi
 }
 
