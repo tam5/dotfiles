@@ -56,11 +56,13 @@ let g:WebDevIconsOS = 'Darwin'                                              "Mig
 
 "-----------------------------------------------------Sidebar---------------------------------------------------------"
 let NERDTreeMinimalUI=1                                                                                "Use minimal UI.
-let NERDTreeHighlightCursorline = 0                                            "Don't highlight cursor line in sidebar.
-let NERDTreeRespectWildIgnore = 1                                                            "Respect the `wildignore`.
-let NERDTreeShowHidden = 1                                                            "Include hidden files in sidebar.
-let NERDTreeCascadeSingleChildDir = 0                                                      "Don't collapse directories.
 let g:NERDTreeWinSize=64                                                           "Set the sidebar width (in columns).
+let NERDTreeHighlightCursorline = 0                                            "Don't highlight cursor line in sidebar.
+let NERDTreeCascadeSingleChildDir = 0                                                      "Don't collapse directories.
+
+let NERDTreeShowHidden = 1                                                            "Include hidden files in sidebar.
+let NERDTreeRespectWildIgnore = 1                                                            "Respect the `wildignore`.
+let NERDTreeIgnore = ['.git']                                                                 "Ignore from the sidebar.
 
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
 let g:DevIconsEnableFolderPatternMatching = 0                                     "Don't show spcial icons for folders.
