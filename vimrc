@@ -96,6 +96,10 @@ if exists('g:loaded_webdevicons')
     call webdevicons#refresh()
 endif
 
+" Highlight all instances of word under cursor.
+autocmd CursorHold * silent! exec 'match CurrentWord "\<' . escape(expand('<cword>'), '\') . '\>"'
+setl updatetime=500
+
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
 let g:airline_theme = 'minimalist'                                                           "Set the status bar theme.
