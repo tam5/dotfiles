@@ -315,16 +315,22 @@ endfunction
 
 
 "-------------------------------------------Fixes-for-Resourcing-This-File--------------------------------------------"
-"Automatically source the Vimrc file on save.
-augroup autosourcing
+augroup reload_vimrc
     autocmd!
-    autocmd BufWritePost .vimrc source %
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+    autocmd BufWritePost $MYVIMRC :call RefreshUI()
 augroup END
 
-"Fix syntax matching issues with icons (concealing brackets).
-if exists('g:loaded_webdevicons')
-    call webdevicons#refresh()
-endif
+"Some portions of the UI need to be refreshed when resourcing the .vimrc.
+function! RefreshUI()
+    "For some reason, AirlineRefresh has to be called twice to work properly.
+    "See here: https://github.com/vim-airline/vim-airline/issues/539
+    if exists(':AirlineRefresh')
+        AirlineRefresh | AirlineRefresh
+    endif
 
-"Refresh the status bar.
-:AirlineRefresh
+    "Fix syntax matching issues with icons (concealing brackets).
+    if exists('g:loaded_webdevicons')
+        call webdevicons#refresh()
+    endif
+endfunction
