@@ -98,9 +98,8 @@ if exists('g:loaded_webdevicons')
     call webdevicons#refresh()
 endif
 
-" Highlight all instances of word under cursor.
-autocmd CursorHold * silent! exec 'match CurrentWord "\<' . escape(expand('<cword>'), '\') . '\>"'
-setl updatetime=500
+setl updatetime=300                                                      "Milliseconds until CursorHold event is fired.
+autocmd CursorHold * call HighlightCurrentWord()                                 "Highlight occurences of current word.
 
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
@@ -305,7 +304,7 @@ augroup END
 
 "-----------------------------------------------------Functions-------------------------------------------------------"
 
-" Prevent CtrlP opening files inside non-writeable buffers
+" Prevent CtrlP opening files inside non-writeable buffers.
 function! SwitchToWriteableBufferAndExec(command)
     let c = 0
     let wincount = winnr('$')
@@ -315,4 +314,13 @@ function! SwitchToWriteableBufferAndExec(command)
         let c = c + 1
     endwhile
     exec a:command
+endfunction
+
+" Highlight all instances of the word currently under the cursor.
+function! HighlightCurrentWord()
+    "exclude from nerdtree
+    if &ft =~ 'nerdtree'
+        return
+    endif
+    silent! exec 'match CurrentWord "\<' . escape(expand('<cword>'), '\') . '\>"'
 endfunction
