@@ -53,6 +53,9 @@ set noerrorbells visualbell t_vb=                                               
 let g:webdevicons_enable_airline_tabline = 0                                 "Don't show file icons in the top tab bar.
 let g:WebDevIconsOS = 'Darwin'                                              "Might help performance, assumes OS is Mac.
 
+setl updatetime=300                                                      "Milliseconds until CursorHold event is fired.
+autocmd CursorHold * call HighlightCurrentWord()                                 "Highlight occurences of current word.
+
 
 "-----------------------------------------------------Sidebar---------------------------------------------------------"
 let NERDTreeMinimalUI=1                                                                                "Use minimal UI.
@@ -63,6 +66,8 @@ let NERDTreeCascadeSingleChildDir = 0                                           
 let NERDTreeShowHidden = 1                                                            "Include hidden files in sidebar.
 let NERDTreeRespectWildIgnore = 1                                                            "Respect the `wildignore`.
 let NERDTreeIgnore = ['.git']                                                                 "Ignore from the sidebar.
+
+autocmd FileType nerdtree setlocal nolist                                       "Don't show list characters in sidebar.
 
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
 let g:DevIconsEnableFolderPatternMatching = 0                                     "Don't show spcial icons for folders.
@@ -75,20 +80,15 @@ let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = '  '              
 let g:DevIconsDefaultFolderOpenSymbol = '  '                                                "Set the folder open icon.
 let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''                                     "Set the default icon.
 
-" Add some additional syntax highlighting for file icons that didn't work in
-" the plugin itself.
+autocmd FileType nerdtree syntax match NERDTreeDefaultIcon '' contained containedin=ALL   "Add color for default icon.
+
+"Add some additional syntax highlighting for file icons that didn't work in the plugin itself.
 let s:red = "D14748"
 let s:orange = "D28445"
 
 let g:NERDTreeExtensionHighlightColor = {}
 let g:NERDTreeExtensionHighlightColor['rest'] = s:orange
 let g:NERDTreeExtensionHighlightColor['xml'] = s:red
-
-autocmd FileType nerdtree setlocal nolist                                       "Don't show list characters in sidebar.
-
-"Open the sidebar on startup if no files were opened.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 "Hack for hiding some unwanted clutter in the NERDTree sidebar.
 autocmd filetype nerdtree syntax match hideInNerdTree '\v\/$|ƛ|\".*' contained conceal cchar=_ containedin=ALL
@@ -98,8 +98,9 @@ if exists('g:loaded_webdevicons')
     call webdevicons#refresh()
 endif
 
-setl updatetime=300                                                      "Milliseconds until CursorHold event is fired.
-autocmd CursorHold * call HighlightCurrentWord()                                 "Highlight occurences of current word.
+"Open the sidebar on startup if no files were opened.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 
 "---------------------------------------------------Status-Bars-------------------------------------------------------"
