@@ -52,7 +52,7 @@ Plugin 'tpope/vim-surround'                                                     
 Plugin 'terryma/vim-multiple-cursors'                                                                "Multiple cursors.
 Plugin 'maxbrunsfeld/vim-yankstack'                                                                      "Yank history.
 
-"--------------------------------------------Autocomplete-&-Snippters-------------------------------------------------"
+"--------------------------------------------Autocomplete-&-Snippets-------------------------------------------------"
 Plugin 'ervandew/supertab'                                                           "Better tab completion management.
 Plugin 'Valloric/YouCompleteMe'                                                                  "Auto complete & more.
 Plugin 'SirVer/ultisnips'                                                                                    "Snippets.

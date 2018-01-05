@@ -93,11 +93,6 @@ let g:NERDTreeExtensionHighlightColor['xml'] = s:red
 "Hack for hiding some unwanted clutter in the NERDTree sidebar.
 autocmd filetype nerdtree syntax match hideInNerdTree '\v\/$|ƛ|\".*' contained conceal cchar=_ containedin=ALL
 
-"After a re-source, fix syntax matching issues (concealing brackets):
-if exists('g:loaded_webdevicons')
-    call webdevicons#refresh()
-endif
-
 "Open the sidebar on startup if no files were opened.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -296,15 +291,7 @@ let g:UltiSnipsSnippetsDir="~/.vim/ultisnips"
 let g:UltiSnipsSnippetDirectories=["ultisnips"]
 
 
-"--------------------------------------------------Auto-Commands------------------------------------------------------"
-augroup autosourcing                                                      "Automatically source the Vimrc file on save.
-    autocmd!
-    autocmd BufWritePost .vimrc source %
-augroup END
-
-
 "-----------------------------------------------------Functions-------------------------------------------------------"
-
 " Prevent CtrlP opening files inside non-writeable buffers.
 function! SwitchToWriteableBufferAndExec(command)
     let c = 0
@@ -325,3 +312,19 @@ function! HighlightCurrentWord()
     endif
     silent! exec 'match CurrentWord "\<' . escape(expand('<cword>'), '\') . '\>"'
 endfunction
+
+
+"-------------------------------------------Fixes-for-Resourcing-This-File--------------------------------------------"
+"Automatically source the Vimrc file on save.
+augroup autosourcing
+    autocmd!
+    autocmd BufWritePost .vimrc source %
+augroup END
+
+"Fix syntax matching issues with icons (concealing brackets).
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
+
+"Refresh the status bar.
+:AirlineRefresh
