@@ -3,10 +3,8 @@
 "------------------------------------------------Vim-Configuration----------------------------------------------------"
 "---------------------------------------------------------------------------------------------------------------------"
 "---------------------------------------------------------------------------------------------------------------------"
-
 filetype plugin on
 
-"-----------------------------------------------------Variables-------------------------------------------------------"
 let $MYPLUGINS = '~/.vim/plugins.vim'                                            "Set the location of the plugins file.
 so $MYPLUGINS                                                                        "Source the external plugins file.
 
@@ -48,9 +46,6 @@ set listchars=tab:->,trail:~,extends:>,precedes:<,space:·             "Defines 
 "Hide the vertical split line.
 set fillchars+=vert:\ 
 
-setl updatetime=300                                                      "Milliseconds until CursorHold event is fired.
-autocmd CursorHold * call HighlightCurrentWord()                             "Highlight all occurences of current word.
-
 set noerrorbells visualbell t_vb=                                                                    "Get rid of bells.
 
 "/
@@ -60,6 +55,14 @@ set t_Co=256
 set t_8f=[38;2;%lu;%lu;%lum
 set t_8b=[48;2;%lu;%lu;%lum
 set termguicolors
+
+"/
+"/ Additional Highlighting
+"/
+setl updatetime=300                                                      "Milliseconds until CursorHold event is fired.
+autocmd CursorHold * call HighlightCurrentWord()                             "Highlight all occurences of current word.
+
+silent! call color#Highlight('CurrentWord', '', color#Lighten(color#GetHighlight('Normal', 'guibg'), 50), '')
 
 "/
 "/ Indent Guides
@@ -381,17 +384,6 @@ function! HighlightCurrentWord()
         return
     endif
     silent! exec 'match CurrentWord "\<' . escape(expand('<cword>'), '\') . '\>"'
-endfunction
-
-"/
-"/ Helper function for getting the HEX value of a highlight group.
-"/
-function! ReturnHighlightTerm(group, term)
-   " Store output of group to variable
-   let output = execute('hi ' . a:group)
-
-   " Find the term we're looking for
-   return matchstr(output, a:term.'=\zs\S*')
 endfunction
 
 "/
