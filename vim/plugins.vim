@@ -34,6 +34,7 @@ Plugin 'diepm/vim-rest-console'                                                 
 
 Plugin 'w0rp/ale'                                                                                      "Syntax checker.
 Plugin 'mileszs/ack.vim'                                                                           "Search the project.
+Plugin 'dyng/ctrlsf.vim'                                                                  "Search results like sublime.
 
 Plugin 'editorconfig/editorconfig-vim'                                                "Support for .editorconfig files.
 

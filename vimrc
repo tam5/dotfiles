@@ -222,8 +222,11 @@ nmap ;w <Plug>(easymotion-bd-w)
 "Search the current file
 nmap <space> /
 
-"Search the entire project
-nmap <leader>s :Ack!<space>
+"Find all occurences of current word in current buffer (with CtrlSF).
+nmap * :CtrlSF <C-R>=expand('<cword>')<cr><space>% -B 0 -A 0<cr>
+
+"Search the entire project.
+nmap <Leader>s :CtrlSF<space>
 
 "Close the quick fix window
 nmap <leader>cc :cclose<cr>
