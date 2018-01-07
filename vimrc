@@ -62,13 +62,25 @@ set termguicolors
 setl updatetime=300                                                      "Milliseconds until CursorHold event is fired.
 autocmd CursorHold * call HighlightCurrentWord()                             "Highlight all occurences of current word.
 
-silent! call color#Highlight('CurrentWord', '', color#Lighten(color#GetHighlight('Normal', 'guibg'), 50), '')
+"Here are some additional custom highlighting rules that are calculated
+"based on "other parts of the current color scheme.
+let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
+silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
+silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
+silent! call color#Highlight('SpecialKey', s:marks_color, '', '')
+silent! call color#Highlight('VertSplit', color#GetHighlight('Normal', 'guibg'), color#GetHighlight('Normal', 'guibg'), '')
+
+"Here are some highlighting overrides we want to apply no matter what
+"colorscheme we are using.
+silent! call color#Highlight('NERDTreeDefaultIcon', '#78909C', '', '')
+silent! call color#Highlight('NERDTreeFile', '#6a6c6c', '', '')
+silent! call color#Highlight('Directory', '#6a6c6c', '', '')
 
 "/
 "/ Indent Guides
 "/
 let g:indentLine_char = '│'                                                           "Sets the indent guide character.
-let g:indentLine_color_gui = '#292B2D'                                                    "Sets the indent guide color.
+let g:indentLine_color_gui = s:marks_color                                                 "Sets the indent guide color.
 
 "/
 "/ Tab bar
