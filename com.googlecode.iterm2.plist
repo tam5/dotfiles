@@ -1212,7 +1212,7 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>797 244 408 385 0 0 1440 877 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>739 403 445 77 0 0 1440 877 </string>
+	<string>739 269 445 77 0 0 1440 877 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>420 302 924 485 0 0 1440 900 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
@@ -1220,7 +1220,7 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 469 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>522 471 918 381 0 0 1440 877 </string>
+	<string>522 360 796 473 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>2 71 1438 806 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -1921,7 +1921,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>OperatorMono-Medium 16</string>
+			<string>OperatorMono-Medium 15</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -2112,7 +2112,7 @@
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Tab Color</key>
-			<true/>
+			<false/>
 			<key>Vertical Spacing</key>
 			<real>1.5251376600150603</real>
 			<key>Visual Bell</key>
