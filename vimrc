@@ -251,6 +251,9 @@ nmap <Leader>w :w<cr>
 "Close current window
 nmap <Leader>q :q<cr>
 
+"Close Vim
+nmap <Leader>Q :qa!<cr>
+
 "Delete current buffer
 nmap <Leader>d :Kwbd<cr>
 
