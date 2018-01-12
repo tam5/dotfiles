@@ -114,7 +114,7 @@ autocmd filetype nerdtree syntax match hideInNerdTree '\v\/$|ƛ|\".*' contained 
 
 let NERDTreeShowHidden = 1                                                            "Include hidden files in sidebar.
 let NERDTreeRespectWildIgnore = 1                                                            "Respect the `wildignore`.
-let NERDTreeIgnore = ['.git']                                                                 "Ignore from the sidebar.
+let NERDTreeIgnore = ['.git[[dir]]']                                                                 "Ignore from the sidebar.
 
 "Open the sidebar on startup if no files were opened.
 autocmd StdinReadPre * let s:std_in=1
@@ -167,6 +167,7 @@ let g:airline#extensions#ale#enabled = 1                                        
 "/ General
 "/
 set encoding=utf8
+set nocompatible                                                               "Don't preserve backwards compatibility.
 
 set noswapfile                                                                                   "Don't use a swapfile.
 set autowriteall                                                           "Automatically write when switching buffers.
@@ -253,6 +254,7 @@ nmap <Leader>q :q<cr>
 
 "Close Vim
 nmap <Leader>Q :qa!<cr>
+nnoremap Q <Nop>
 
 "Delete current buffer
 nmap <Leader>d :Kwbd<cr>
@@ -292,7 +294,7 @@ nmap ;w <Plug>(easymotion-bd-w)
 nmap <space> /
 
 "Find all occurences of current word in current buffer (with CtrlSF).
-nmap * :CtrlSF <C-R>=expand('<cword>')<cr><space>% -B 0 -A 0<cr>
+nmap * :CtrlSF <C-R>=expand('<cword>')<cr><space>% -B 2 -A 2<cr>
 
 "Search the entire project.
 nmap <Leader>s :CtrlSF<space>
