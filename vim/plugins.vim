@@ -44,6 +44,7 @@ Plugin 'wavded/vim-stylus'                                                      
 Plugin 'tam5/php.vim'                                                                                  "Add PHP syntax.
 Plugin 'pangloss/vim-javascript'                                                                "Add Javascript syntax.
 Plugin 'posva/vim-vue'                                                                                 "Add vue syntax.
+Plugin 'othree/html5.vim'                                                                            "Add HTML5 syntax.
 
 "------------------------------------------------Editor-Enhancements--------------------------------------------------"
 Plugin 'scrooloose/nerdcommenter'                                                            "Easily comment out lines.

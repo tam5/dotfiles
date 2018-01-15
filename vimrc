@@ -213,6 +213,13 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 "/
+"/ Syntax checkers (with Ale)
+"/
+let g:ale_linters = {
+\   'html': [],
+\}
+
+"/
 "/ File Browsing
 "/
 let NERDTreeHijackNetrw = 0                                                      "Make NERDTree work better with Netrw.
