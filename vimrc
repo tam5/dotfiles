@@ -16,7 +16,7 @@ let $MYCOLORSCHEME = '~/.vim/bundle/vim-quantum/colors/quantum.vim'
 "---------------------------------------------------------------------------------------------------------------------"
 syntax enable                                                                              "Enable syntax highlighting.
 colorscheme quantum                                                                               "Set the colorscheme.
-let g:airline_theme = 'minimalist'                                                           "Set the status bar theme.
+let g:airline_theme = 'magic'                                                                "Set the status bar theme.
 
 set number                                                                                       "Display line numbers.
 set list                                                                                          "Sow list characters.
@@ -85,7 +85,7 @@ let g:indentLine_color_gui = s:marks_color                                      
 "/
 "/ Tab bar
 "/
-let g:airline#extensions#tabline#enabled = 1                                   "Show buffers when only one tab is open.
+let g:airline#extensions#tabline#enabled = 0                             "Don't Show buffers when only one tab is open.
 
 let g:webdevicons_enable_airline_tabline = 0                                 "Don't show file icons in the top tab bar.
 
@@ -110,7 +110,7 @@ let g:NERDTreeLimitedSyntax = 1                                "Disable uncommon
 "Hack for hiding some unwanted clutter in the NERDTree sidebar.
 let g:NERDTreeDirArrowExpandable = 'ƛ'                                                 "Set the arrow to a flag symbol.
 let g:NERDTreeDirArrowCollapsible = 'ƛ'                                                "Set the arrow to a flag symbol.
-autocmd filetype nerdtree syntax match hideInNerdTree '\v\/$|ƛ|\".*' contained conceal cchar=_ containedin=ALL
+autocmd filetype nerdtree syntax match hideInNerdTree '\v\/$|ƛ|\*|\".*' contained conceal cchar=_ containedin=ALL
 
 let NERDTreeShowHidden = 1                                                            "Include hidden files in sidebar.
 let NERDTreeRespectWildIgnore = 1                                                            "Respect the `wildignore`.
@@ -295,7 +295,7 @@ vnoremap <S-Tab> <gv
 "Cycle through the yank stack
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 
-nmap ;w <Plug>(easymotion-bd-w)
+nmap 4 <Plug>(easymotion-bd-w)
 
 "Search the current file
 nmap <space> /
