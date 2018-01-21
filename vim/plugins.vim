@@ -26,6 +26,7 @@ Plugin 'tam5/vim-quantum'                                                       
 
 "--------------------------------------------------Misc-Essentials----------------------------------------------------"
 Plugin 'ctrlpvim/ctrlp.vim'                                                                      "Ctrl+p file browsing.
+Plugin 'vim-scripts/bufexplorer.zip'                                                                  "Buffer explorer.
 Plugin 'easymotion/vim-easymotion'                                                                        "Easy motion.
 Plugin 'tpope/vim-unimpaired'                                                               "Some extra nifty mappings.
 
