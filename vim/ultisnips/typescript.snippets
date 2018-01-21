@@ -1,3 +1,22 @@
 snippet cl "Console log"
 console.log($1)$2
 endsnippet
+
+snippet _c "Constructor"
+constructor($1) {$2}
+endsnippet
+
+snippet com "Angular Component"
+import { Component } from '@angular/core';
+
+@Component({
+	templateUrl: './$1'
+})
+export class $2Component {
+	//$3
+}
+endsnippet
+
+snippet im "Import"
+import { $1 } from '$2';$3
+endsnippet
