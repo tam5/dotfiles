@@ -106,7 +106,6 @@ autocmd FileType nerdtree setlocal nolist                                       
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1                                                     "Show folder icons.
 let g:DevIconsEnableFolderPatternMatching = 0                                     "Don't show spcial icons for folders.
 let g:DevIconsEnableFoldersOpenClose = 1                                                "Show folders open/close icons.
-let g:NERDTreeLimitedSyntax = 1                                "Disable uncommon file extension highlighting (for lag).
 
 "Hack for hiding some unwanted clutter in the NERDTree sidebar.
 let g:NERDTreeDirArrowExpandable = 'ƛ'                                                 "Set the arrow to a flag symbol.
