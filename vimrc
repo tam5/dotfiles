@@ -69,6 +69,7 @@ silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
 silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
 silent! call color#Highlight('SpecialKey', s:marks_color, '', '')
 silent! call color#Highlight('VertSplit', color#GetHighlight('Normal', 'guibg'), color#GetHighlight('Normal', 'guibg'), '')
+silent! call color#Highlight('Visual', 'NONE', s:marks_color, '')
 
 "Here are some highlighting overrides we want to apply no matter what
 "colorscheme we are using.
