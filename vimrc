@@ -302,6 +302,7 @@ nmap <space> /
 
 "Find all occurences of current word in current buffer (with CtrlSF).
 nmap * :CtrlSF <C-R>=expand('<cword>')<cr><space>% -B 2 -A 2<cr>
+vmap * y:CtrlSF <C-R>"<CR>
 
 "Search the entire project.
 nmap <Leader>s :CtrlSF<space>
