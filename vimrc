@@ -114,11 +114,16 @@ autocmd filetype nerdtree syntax match hideInNerdTree '\v\/$|ƛ|\*|\".*' contain
 
 let NERDTreeShowHidden = 1                                                            "Include hidden files in sidebar.
 let NERDTreeRespectWildIgnore = 1                                                            "Respect the `wildignore`.
-let NERDTreeIgnore = ['.git[[dir]]']                                                                 "Ignore from the sidebar.
+let NERDTreeIgnore = ['.git[[dir]]']                                                          "Ignore from the sidebar.
 
 "Open the sidebar on startup if no files were opened.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+"/
+"/ Buffer Explorer
+"/
+let g:bufExplorerDefaultHelp=0                                                               "Do not show default help.
 
 "/
 "/ File Icons
