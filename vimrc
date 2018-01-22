@@ -195,6 +195,9 @@ set shiftwidth=4                                                                
 set softtabstop=4                                                                 "Insert 4 spaces when tab is pressed.
 set tabstop=4                                                                                       "A tab is 4 spaces.
 
+"Two spaces for .yml files.
+autocmd Filetype yaml setlocal ts=2 sw=2 sts=0 expandtab
+
 "/
 "/ Commenting Stuff Out
 "/
@@ -295,6 +298,7 @@ vnoremap <S-Tab> <gv
 "Cycle through the yank stack
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 
+"Easy motion
 nmap 4 <Plug>(easymotion-bd-w)
 
 "Search the current file
