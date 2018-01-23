@@ -317,6 +317,9 @@ inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
+" Require double <esc> to exit multiple cursors.
+let g:multi_cursor_exit_from_visual_mode = 0
+
 "Cycle through the yank stack
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 
