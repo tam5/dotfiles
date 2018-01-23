@@ -78,10 +78,32 @@ silent! call color#Highlight('NERDTreeFile', '#6a6c6c', '', '')
 silent! call color#Highlight('Directory', '#6a6c6c', '', '')
 
 "/
+"/ Buffer Explorer
+"/
+" Don't show list characters when the filetype is undetected.
+augroup NoFileType
+  autocmd!
+  autocmd BufNewFile,BufRead * if &filetype ==# '' | setlocal filetype=noft | endif
+  autocmd FileType noft setlocal nolist
+augroup END
+
+let g:bufExplorerDefaultHelp = 0                                                             "Do not show default help.
+
+" Change the highlighting of the buffer explorer
+hi def link bufExplorerActBuf Identifier
+hi def link bufExplorerAltBuf Normal
+hi def link bufExplorerCurBuf Identifier
+hi def link bufExplorerHidBuf Normal
+hi def link bufExplorerLockedBuf Normal
+hi def link bufExplorerModBuf Normal
+hi def link bufExplorerUnlBuf Normal
+hi def link bufExplorerInactBuf Normal
+
+"/
 "/ Indent Guides
 "/
 let g:indentLine_char = '│'                                                           "Sets the indent guide character.
-let g:indentLine_color_gui = s:marks_color                                                 "Sets the indent guide color.
+let g:indentLine_color_gui = s:marks_color                                                "Sets the indent guide color.
 
 "/
 "/ Tab bar
@@ -299,6 +321,9 @@ nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+
+" Require double <esc> to exit multiple cursors.
+let g:multi_cursor_exit_from_visual_mode = 0
 
 "Cycle through the yank stack
 nmap <leader>p <Plug>yankstack_substitute_older_paste
