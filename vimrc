@@ -68,6 +68,7 @@ let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
 silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
 silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
 silent! call color#Highlight('SpecialKey', s:marks_color, '', '')
+silent! call color#Highlight('Whitespace', s:marks_color, '', '')
 silent! call color#Highlight('VertSplit', color#GetHighlight('Normal', 'guibg'), color#GetHighlight('Normal', 'guibg'), '')
 silent! call color#Highlight('Visual', 'NONE', s:marks_color, '')
 
@@ -385,7 +386,10 @@ let g:vrc_trigger = '<Leader>r'
 "/ Commonly used files
 "/
 "Edit the Vimrc file
-nmap <Leader>ev :call SwitchToWriteableBufferAndExec('edit $MYVIMRC')<CR>
+nmap <Leader>ev :call SwitchToWriteableBufferAndExec('edit ~/.vimrc')<CR>
+nmap <Leader>en :call SwitchToWriteableBufferAndExec('edit $MYVIMRC')<CR>
+
+tnoremap <Esc> <C-\><C-n>
 
 "Edit the Vimrc file
 nmap <Leader>ep :call SwitchToWriteableBufferAndExec('edit $MYPLUGINS')<CR>

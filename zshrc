@@ -63,13 +63,13 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
 else
-  export EDITOR='vim'
+  export EDITOR='nvim'
 fi
 
 # Set the git editor
-export GIT_EDITOR='mvim -v'
+export GIT_EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -88,8 +88,12 @@ export GIT_EDITOR='mvim -v'
 
 source ~/.aliases
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+ # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin"
+
 export PATH="/usr/local/sbin:$PATH"
+
+# Add python library to the path
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
 # NVM told me to put this here

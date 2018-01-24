@@ -1,6 +1,6 @@
 # define aliases
 
-alias vim='mvim -v'
+alias vim='nvim'
 
 alias shortcuts='vim ~/.aliases'
 
