@@ -98,7 +98,6 @@ export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
 # NVM told me to put this here
 export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
 
 # Check if still need these
 #export PATH=~/.composer/vendor/bin:$PATH
