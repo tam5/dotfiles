@@ -12,6 +12,7 @@ let $MYCOLORSCHEME = '~/.vim/bundle/vim-quantum/colors/quantum.vim'
 
 let g:miniBufExplVSplit = 40   " column width in chars
 let g:miniBufExplorerAutoStart = 0
+let g:miniBufExplSortBy = 'mru'
 
 "---------------------------------------------------------------------------------------------------------------------"
 "---------------------------------------------------Basic-Visuals-----------------------------------------------------"
@@ -379,7 +380,7 @@ nmap <Leader>1 :NERDTreeToggle<cr>
 "Reveal the current file in the sidebar
 nmap<Leader>2 :NERDTreeFind<cr>
 
-map <Leader>e :MBEToggle!<cr>:MBEFocus<cr>
+map <Leader>e :MBEToggle!<cr>:MBEFocus<cr>j
 
 
 "/
