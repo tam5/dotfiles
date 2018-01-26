@@ -3,6 +3,7 @@
 alias vim='nvim'
 
 alias shortcuts='vim ~/.aliases'
+alias zshrc='vim ~/.zshrc'
 
 # Utils
 alias showhidden='defaults write com.apple.finder AppleShowAllFiles YES'

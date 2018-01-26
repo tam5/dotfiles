@@ -16,7 +16,7 @@ Plugin 'VundleVim/Vundle.vim'                                                   
 Plugin 'tpope/vim-vinegar'                                                               "Help with directory browsing.
 Plugin 'scrooloose/nerdtree'                                                                           "Adds a sidebar.
 Plugin 'vim-airline/vim-airline'                                                                 "Powerline status bar.
-Plugin 'vim-airline/vim-airline-themes'                                                             "Status bar themes.
+Plugin 'tam5/vim-airline-themes'                                                                    "Status bar themes.
 Plugin 'airblade/vim-gitgutter'                                                                            "Git Gutter.
 Plugin 'Yggdroot/indentLine'                                                                            "Indent guides.
 Plugin 'tam5/vim-devicons'                                                                             "Add file icons.
