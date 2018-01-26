@@ -10,6 +10,9 @@ so $MYPLUGINS                                                                   
 
 let $MYCOLORSCHEME = '~/.vim/bundle/vim-quantum/colors/quantum.vim'
 
+let g:miniBufExplVSplit = 40   " column width in chars
+let g:miniBufExplorerAutoStart = 0
+
 "---------------------------------------------------------------------------------------------------------------------"
 "---------------------------------------------------Basic-Visuals-----------------------------------------------------"
 "----------------------This section contains basic visual settings that may change from time to time.-----------------"
@@ -376,6 +379,9 @@ nmap <Leader>1 :NERDTreeToggle<cr>
 "Reveal the current file in the sidebar
 nmap<Leader>2 :NERDTreeFind<cr>
 
+map <Leader>e :MBEToggle!<cr>:MBEFocus<cr>
+
+
 "/
 "/ REST Requests
 "/
@@ -386,16 +392,16 @@ let g:vrc_trigger = '<Leader>r'
 "/ Commonly used files
 "/
 "Edit the Vimrc file
-nmap <Leader>ev :call SwitchToWriteableBufferAndExec('edit ~/.vimrc')<CR>
-nmap <Leader>en :call SwitchToWriteableBufferAndExec('edit $MYVIMRC')<CR>
+nmap ;ev :call SwitchToWriteableBufferAndExec('edit ~/.vimrc')<CR>
+nmap ;en :call SwitchToWriteableBufferAndExec('edit $MYVIMRC')<CR>
 
 tnoremap <Esc> <C-\><C-n>
 
 "Edit the Vimrc file
-nmap <Leader>ep :call SwitchToWriteableBufferAndExec('edit $MYPLUGINS')<CR>
+nmap ;ep :call SwitchToWriteableBufferAndExec('edit $MYPLUGINS')<CR>
 
 "Edit the colorscheme file
-nmap <Leader>es :call SwitchToWriteableBufferAndExec('edit $MYCOLORSCHEME')<CR>
+nmap ;es :call SwitchToWriteableBufferAndExec('edit $MYCOLORSCHEME')<CR>
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
