@@ -10,10 +10,6 @@ so $MYPLUGINS                                                                   
 
 let $MYCOLORSCHEME = '~/.vim/bundle/vim-quantum/colors/quantum.vim'
 
-let g:miniBufExplVSplit = 40   " column width in chars
-let g:miniBufExplorerAutoStart = 0
-let g:miniBufExplSortBy = 'mru'
-
 "---------------------------------------------------------------------------------------------------------------------"
 "---------------------------------------------------Basic-Visuals-----------------------------------------------------"
 "----------------------This section contains basic visual settings that may change from time to time.-----------------"
@@ -89,20 +85,7 @@ silent! call color#Highlight('Directory', '#6a6c6c', '', '')
 augroup NoFileType
   autocmd!
   autocmd BufNewFile,BufRead * if &filetype ==# '' | setlocal filetype=noft | endif
-  autocmd FileType noft setlocal nolist
 augroup END
-
-let g:bufExplorerDefaultHelp = 0                                                             "Do not show default help.
-
-" Change the highlighting of the buffer explorer
-hi def link bufExplorerActBuf Identifier
-hi def link bufExplorerAltBuf Normal
-hi def link bufExplorerCurBuf Identifier
-hi def link bufExplorerHidBuf Normal
-hi def link bufExplorerLockedBuf Normal
-hi def link bufExplorerModBuf Normal
-hi def link bufExplorerUnlBuf Normal
-hi def link bufExplorerInactBuf Normal
 
 "/
 "/ Indent Guides
@@ -150,7 +133,9 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "/
 "/ Buffer Explorer
 "/
-let g:bufExplorerDefaultHelp=0                                                               "Do not show default help.
+let g:miniBufExplVSplit = 40                                                                   "Column width in chars.
+let g:miniBufExplorerAutoStart = 0                                                     "Don't auto start buf explorer.
+let g:miniBufExplSortBy = 'mru'                                        "Sort buf explorer by most recently used files.
 
 "/
 "/ File Icons
