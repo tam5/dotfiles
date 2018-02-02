@@ -88,20 +88,8 @@ export GIT_EDITOR='nvim'
 
 source ~/.aliases
 
- # Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.rvm/bin"
-
-export PATH="/usr/local/sbin:$PATH"
+# Set the nvm directory
+export NVM_DIR="$HOME/.nvm"
 
 # Add python library to the path
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
-
-# NVM told me to put this here
-export NVM_DIR="$HOME/.nvm"
-
-# Check if still need these
-#export PATH=~/.composer/vendor/bin:$PATH
-#export PATH=/usr/local/opt/php7/bin:$PATH
-#export PATH=~/.rvm/scripts/rvm:$PATH
-#export PATH="/usr/local/sbin:$PATH"
-#export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"

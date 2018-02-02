@@ -367,6 +367,10 @@ nmap<Leader>2 :NERDTreeFind<cr>
 
 map <Leader>e :MBEToggle!<cr>:MBEFocus<cr>j
 
+"/
+"/ Terminal Emulator
+"/
+nmap <Leader>t :NERDTreeClose<CR>:vs<CR>:terminal<CR>a
 
 "/
 "/ REST Requests
