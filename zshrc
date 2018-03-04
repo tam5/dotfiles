@@ -93,3 +93,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # Add python library to the path
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+
+# Add composer's system wide vendor bin to path
+export PATH="$HOME/.composer/vendor/bin:$PATH"

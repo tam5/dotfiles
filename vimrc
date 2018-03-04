@@ -106,7 +106,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'                             
 "/
 "/ Sidebar
 "/
-let g:NERDTreeWinSize=64                                                           "Set the sidebar width (in columns).
+let g:NERDTreeWinSize=45                                                           "Set the sidebar width (in columns).
 let NERDTreeMinimalUI=1                                                                                "Use minimal UI.
 let NERDTreeCascadeSingleChildDir = 0                                                      "Don't collapse directories.
 let NERDTreeHighlightCursorline = 0                                            "Don't highlight cursor line in sidebar.
@@ -228,7 +228,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']                         
 
 "Set files ctrl+p should ignore
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)|(node_modules|vendor|dist)$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn)|(node_modules|dist)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 
