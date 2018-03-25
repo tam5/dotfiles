@@ -208,12 +208,22 @@ set splitright                                                     "Open new spl
 set expandtab                                                                                  "Convert tabs to spaces.
 set nojoinspaces                                                                                    "Don't join spaces.
 set smarttab                                                                       "Tab according to indentation level.
+
+"Default indentation is 4 spaces
 set shiftwidth=4                                                                          "Set indentation to 4 spaces.
 set softtabstop=4                                                                 "Insert 4 spaces when tab is pressed.
 set tabstop=4                                                                                       "A tab is 4 spaces.
 
+" for js files, 2 spaces
+autocmd Filetype javascript setlocal ts=2 sw=2 sts=2
+
 "Two spaces for .yml files.
 autocmd Filetype yaml setlocal ts=2 sw=2 sts=0 expandtab
+
+"/
+"/ Special file types
+"/
+autocmd BufNewFile,BufRead *.blade.php set syntax=html
 
 "/
 "/ Commenting Stuff Out
@@ -411,8 +421,8 @@ let g:UltiSnipsSnippetDirectories=["ultisnips"]
 "---------------------------------------------------------------------------------------------------------------------"
 augroup reload_vimrc
     autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-    autocmd BufWritePost $MYVIMRC :call RefreshUI()
+    autocmd BufWritePost ~/.vimrc source $MYVIMRC
+    autocmd BufWritePost ~/.vimrc :call RefreshUI()
 augroup END
 
 "---------------------------------------------------------------------------------------------------------------------"

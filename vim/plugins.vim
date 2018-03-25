@@ -26,8 +26,7 @@ Plugin 'tam5/vim-quantum'                                                       
 
 "--------------------------------------------------Misc-Essentials----------------------------------------------------"
 Plugin 'ctrlpvim/ctrlp.vim'                                                                      "Ctrl+p file browsing.
-" Plugin 'vim-scripts/bufexplorer.zip'                                                                  "Buffer explorer.
-Plugin 'fholgado/minibufexpl.vim'                                                                     "Buffer explorer.
+Plugin 'tam5/minibufexpl.vim'                                                                         "Buffer explorer.
 Plugin 'easymotion/vim-easymotion'                                                                        "Easy motion.
 Plugin 'tpope/vim-unimpaired'                                                               "Some extra nifty mappings.
 
@@ -46,7 +45,9 @@ Plugin 'wavded/vim-stylus'                                                      
 Plugin 'tam5/php.vim'                                                                                  "Add PHP syntax.
 Plugin 'pangloss/vim-javascript'                                                                "Add Javascript syntax.
 Plugin 'posva/vim-vue'                                                                                 "Add vue syntax.
+Plugin 'mxw/vim-jsx'                                                                                   "Add JSX syntax.
 Plugin 'othree/html5.vim'                                                                            "Add HTML5 syntax.
+Plugin 'jwalton512/vim-blade'                                                                "Add Laravel Blade syntax.
 
 "------------------------------------------------Editor-Enhancements--------------------------------------------------"
 Plugin 'scrooloose/nerdcommenter'                                                            "Easily comment out lines.
