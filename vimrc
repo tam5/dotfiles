@@ -341,6 +341,9 @@ vmap * y:CtrlSF <C-R>"<CR>
 "Search the entire project.
 nmap <Leader>s :CtrlSF<space>
 
+"Reopen the search results.
+nmap <Leader><Leader>s :CtrlSFOpen<cr>
+
 "Close the quick fix window
 nmap <leader>cc :cclose<cr>
 
