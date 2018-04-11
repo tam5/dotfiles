@@ -299,6 +299,8 @@ nmap <Leader>d :Kwbd<cr>
 "Create new file relative to current file
 nmap <Leader>fc :e <C-R>=expand('%:h') . '/'<cr>
 
+nmap <Leader>. @:
+
 "/
 "/ Git bindings
 "/

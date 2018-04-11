@@ -36,7 +36,8 @@ alias mav='cd ~/code/platform/frontend'
 # Public SSH Key
 alias sshkey='cat ~/.ssh/id_rsa.pub'
 
-alias qa-rds='ssh -L 23306:qa-rds.liveintenteng.com:3306 qa-bastion'
+alias ssh-qa='ssh -L 23306:qa-rds.liveintenteng.com:3306 qa-bastion'
+alias ssh-dev='ssh -L 23306:dev-rds.liveintenteng.com:3306 dev-bastion'
 
 # Docker
 alias portainer="docker volume create portainer_data &&  docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer"
