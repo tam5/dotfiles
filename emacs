@@ -48,8 +48,7 @@
 (tool-bar-mode -1)
 
 ;; Set the font attributes
-(add-to-list 'default-frame-alist '(font . "Operator Mono"))
-(set-face-attribute 'default nil :height 150)
+(add-to-list 'default-frame-alist '(font . "Operator Mono-15"))
 
 ;; Set the initial frame size to fill the screen
 (add-to-list 'default-frame-alist '(height . 95))
