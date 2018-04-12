@@ -47,8 +47,14 @@
 ;; Disable the toolbar
 (tool-bar-mode -1)
 
+;; Set the font attributes
 (add-to-list 'default-frame-alist '(font . "Operator Mono"))
 (set-face-attribute 'default nil :height 150)
+
+;; Set the initial frame size to fill the screen
+(add-to-list 'default-frame-alist '(height . 95))
+(add-to-list 'default-frame-alist '(width . 362))
+
 
 ;;; ---------------------
 ;;; Other Stuff
