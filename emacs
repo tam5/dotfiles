@@ -1,3 +1,7 @@
+;;; ---------------------
+;;; Packages
+;;; --------------------
+
 ;: Load the package manager
 (require 'package)
 
@@ -25,6 +29,31 @@
 ;; Init helm
 (use-package helm
   :ensure t)
+
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+(use-package material-theme :ensure t)
+
+;;; ---------------------
+;;; Visuals
+;;; --------------------
+
+;; Disable the menu bar
+(menu-bar-mode -1)
+
+;; Disable the scroll bar
+(toggle-scroll-bar -1)
+
+;; Disable the toolbar
+(tool-bar-mode -1)
+
+(add-to-list 'default-frame-alist '(font . "Operator Mono"))
+(set-face-attribute 'default nil :height 150)
+
+;;; ---------------------
+;;; Other Stuff
+;;; --------------------
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
