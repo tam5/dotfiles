@@ -26,9 +26,14 @@
   :config
   (evil-mode t))
 
-;; Init helm
-(use-package helm
-  :ensure t)
+(use-package evil-leader
+  :ensure t
+  :config)
+ 
+(global-evil-leader-mode)
+
+(use-package projectile :ensure t)
+(use-package helm-projectile :ensure t)
 
 (global-set-key (kbd "M-x") 'helm-M-x)
 
@@ -51,9 +56,27 @@
 (add-to-list 'default-frame-alist '(font . "Operator Mono-15"))
 
 ;; Set the initial frame size to fill the screen
-(add-to-list 'default-frame-alist '(height . 95))
-(add-to-list 'default-frame-alist '(width . 362))
+;(add-to-list 'default-frame-alist '(height . 95))
+;(add-to-list 'default-frame-alist '(width . 362))
 
+;;; ---------------------
+;;; Key Bindings
+;;; --------------------
+
+(eval-after-load 'evil-maps
+  '(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file))
+
+(eval-after-load 'evil-maps
+  '(define-key evil-normal-state-map (kbd "SPC") 'evil-search-forward))
+
+(evil-leader/set-leader ",")
+
+(evil-leader/set-key "ev" (lambda () (interactive) (find-file "~/emacs")))
+
+;;(evil-leader/set-key
+;;  "e" 'find-file
+;;  "b" 'switch-to-buffer
+;;  "k" 'kill-buffer)
 
 ;;; ---------------------
 ;;; Other Stuff
@@ -65,7 +88,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(use-package)))
+ '(package-selected-packages
+   '(evil-leader helm-ag helm-projectile projectile helm-ls-git use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
