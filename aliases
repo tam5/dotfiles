@@ -41,6 +41,7 @@ alias ssh-dev='ssh -L 23306:dev-rds.liveintenteng.com:3306 dev-bastion'
 
 # Docker
 alias portainer="docker volume create portainer_data &&  docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer"
+alias lsd="docker exec -it platformer_lsd_1 bash -c 'export COLUMNS=120; exec bash'"
 
 # PHP aliases
 alias phpunit='vendor/bin/phpunit'
