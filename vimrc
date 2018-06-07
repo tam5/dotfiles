@@ -289,6 +289,9 @@ nmap <Leader>w :w<cr>
 "Close current window
 nmap <Leader>q :q<cr>
 
+"Force Close current window
+nmap <Leader><Leader>q :q!<cr>
+
 "Close Vim
 nmap <Leader>Q :qa!<cr>
 nnoremap Q <Nop>
