@@ -1,0 +1,49 @@
+set hlsearch incsearch                                                            "Highlight search results on keydown.
+set ignorecase smartcase                                                                         "Set case sensitivity.
+
+"Remove highlighting from search results
+nmap <Leader><space> :nohlsearch<cr>
+
+"Set the leader key to comma
+let mapleader = ','
+
+"Exit insert mode with jk
+imap jk <Esc>
+
+"Save the file
+nmap <Leader>w :w<cr>
+
+"Close current window
+nmap <Leader>d :q<cr>
+
+"Search the current file
+nmap <space> /
+
+"Redo previous change
+nmap U :redo<cr>
+
+"Show git blame
+nmap <Leader>gb :action Annotate<cr>
+
+"Search the entire project.
+nmap <Leader>s :action SearchEverywhere<cr>
+
+nmap <Leader>x :action CommentByLineComment<cr>
+
+"Go to definition (with ctags)
+nmap gd :action GotoDeclaration<cr>
+
+"Jump back from definition
+nmap g- :action Back<cr>
+
+"Find all references
+nmap gr :action FindUsages<cr>
+
+"Browse files (with CtrlP)
+nnoremap <C-p> :action GotoClass<cr>
+
+"Open Recent File
+nnoremap <Leader>mru :action RecentFiles<CR>
+
+"Browse symbols (with CtrlP)
+nmap <C-R> :action GotoSymbol<cr>
