@@ -49,6 +49,7 @@ alias lsd="docker exec -it platformer_lsd_1 bash"
 alias phpunit='vendor/bin/phpunit'
 alias pf="phpunit --filter"
 alias pu='phpunit'
+alias tinker='php ~/Code/laravel/artisan tinker'
 
 # Laravel aliases
 alias art='php artisan'
