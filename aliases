@@ -61,3 +61,5 @@ rebaseInteractive() {
     git rebase -i head~$1
 }
 
+phan() { docker run -v $PWD:/mnt/src -v ~/code/phan/phan:/opt/phan --entrypoint=/opt/phan/docker-entrypoint.sh --rm -u "$(id -u):$(id -g)" ast $@; return $?; }
+
