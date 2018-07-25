@@ -30,7 +30,7 @@ alias home='cd ~'
 alias desk='cd ~/desktop'
 alias dotfiles='cd ~/.dotfiles'
 alias code='cd ~/code'
-alias em='cd ~/.emacs.d'
+alias emd='cd ~/.emacs.d'
 
 alias plat='cd ~/code/platform'
 alias lfx='cd ~/code/platform/lfx'
