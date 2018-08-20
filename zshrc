@@ -51,6 +51,9 @@ ZSH_THEME="tam"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+# auto complete
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # User configuration
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
