@@ -62,5 +62,7 @@ alias amrs='php artisan migrate:refresh --seed'
 ############ Functions ############
 ###################################
 
-phan() { docker run -v $PWD:/mnt/src -v ~/code/phan/phan:/opt/phan --entrypoint=/opt/phan/docker-entrypoint.sh --rm -u "$(id -u):$(id -g)" ast $@; return $?; }
+phan() { docker run -v $PWD:/mnt/src -v ~/code/phan:/opt/phan --rm -u "$(id -u):$(id -g)" cloudflare/phan:edge $@; return $?; }
 
+# run phan via docker
+# phan() { docker run -p 0.0.0.0:4846:4846 -v $PWD:/mnt/src --rm -u "$(id -u):$(id -g)" cloudflare/phan:edge $@; return $?; }
