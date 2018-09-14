@@ -51,8 +51,11 @@ ZSH_THEME="tam"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-# auto complete
+# Auto complete
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Auto jump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # User configuration
 
