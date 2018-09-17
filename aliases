@@ -32,10 +32,6 @@ alias dotfiles='cd ~/.dotfiles'
 alias code='cd ~/code'
 alias emd='cd ~/.emacs.d'
 
-alias plat='cd ~/code/platform'
-alias lfx='cd ~/code/platform/lfx'
-alias mav='cd ~/code/platform/frontend'
-
 # Public SSH Key
 alias sshkey='cat ~/.ssh/id_rsa.pub'
 
