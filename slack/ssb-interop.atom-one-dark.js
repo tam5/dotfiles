@@ -118,15 +118,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
       --border-dim: #303237;
 
+      --text-bright: #FFF;
+
       --scrollbar-background: var(--background);
       --scrollbar-border: var(--background);
    }
 
    div.client_channels_list_container {
-      border-right: 1px solid #fff;
+      border-right: 1px solid #FFF;
    }
    div.p-channel_sidebar__close_container, .p-channel_sidebar__channel--selected {
-       width: 94%;
+       width: 97%;
    }
    `
 
