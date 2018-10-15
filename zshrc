@@ -100,5 +100,9 @@ export NVM_DIR="$HOME/.nvm"
 # Add python library to the path
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
+# Add go workspace to the path
+export PATH=$PATH:$(go env GOPATH)/bin
+export GOPATH=$(go env GOPATH)
+
 # Add composer's system wide vendor bin to path
 export PATH="$HOME/.composer/vendor/bin:$PATH"
