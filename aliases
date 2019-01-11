@@ -1,0 +1,40 @@
+###################################
+############# Aliases #############
+###################################
+
+alias shortcuts='vim ~/.aliases'
+
+# Utils
+alias cpwd="pwd | tr -d '\n' | pbcopy"
+
+# Git
+alias gs='git status'
+alias glo="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias grc="git rebase --continue"
+alias nah="git reset --hard head && git clean -fd"
+alias gstash="git add . && git commit -m 'stash'"
+alias gpop="git reset --soft head~1 && git reset head"
+alias gsu='git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
+alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+
+# locations
+alias home='cd ~'
+alias desk='cd ~/desktop'
+alias dotfiles='cd ~/.dotfiles'
+alias code='cd ~/code'
+alias emd='cd ~/.emacs.d'
+
+# Docker
+alias portainer="docker volume create portainer_data &&  docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer"
+alias liquibase="bash ~/code/platform/platformer/scripts/db-migrate.sh"
+
+# PHP aliases
+alias phpunit='vendor/bin/phpunit'
+alias pf="phpunit --filter"
+alias pu='phpunit'
+alias tinker='php ~/Code/laravel/artisan tinker'
+
+# Laravel aliases
+alias art='php artisan'
+alias amr='php artisan migrate:refresh'
+alias amrs='php artisan migrate:refresh --seed'
