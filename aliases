@@ -4,6 +4,8 @@
 
 alias shortcuts='vim ~/.aliases'
 
+alias vim='mvim -v'
+
 # Utils
 alias cpwd="pwd | tr -d '\n' | pbcopy"
 
