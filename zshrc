@@ -66,6 +66,13 @@ prompt purer
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
+# Auto jump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# Auto complete
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 plugins=(
   git
   zsh-syntax-highlighting
