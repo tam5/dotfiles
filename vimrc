@@ -17,7 +17,17 @@ so $MYPLUGINS
 
 syntax enable
 set background=dark
-colorscheme vim-material
+
+function! HasColorScheme(name)
+    "Check if a color scheme exists.
+    return !empty(globpath(&rtp, 'colors/'.a:name.'.vim'))
+endfunction
+
+if HasColorScheme('vim-material')
+    colorscheme vim-material
+else
+    colorscheme desert
+endif
 
 "Show line numbers
 set number
@@ -34,13 +44,15 @@ set fillchars+=vert:\
 set signcolumn=yes
 
 "Some dynamic color tweaks
-let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
-silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
-silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
-silent! call color#Highlight('SpecialKey', s:marks_color, '', '')
-silent! call color#Highlight('Whitespace', s:marks_color, '', '')
-silent! call color#Highlight('VertSplit', color#GetHighlight('Normal', 'guibg'), color#GetHighlight('Normal', 'guibg'), '')
-silent! call color#Highlight('Visual', 'NONE', s:marks_color, '')
+if !empty(glob("~/.vim/bundle/vim-color-util/autoload/color.vim"))
+    let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
+    silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
+    silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
+    silent! call color#Highlight('SpecialKey', s:marks_color, '', '')
+    silent! call color#Highlight('Whitespace', s:marks_color, '', '')
+    silent! call color#Highlight('VertSplit', color#GetHighlight('Normal', 'guibg'), color#GetHighlight('Normal', 'guibg'), '')
+    silent! call color#Highlight('Visual', 'NONE', s:marks_color, '')
+endif
 
 function! HighlightCurrentWord()
     "Highlight all instances of the current word.
@@ -149,6 +161,11 @@ nnoremap <Leader>mru :call SwitchToWriteableBufferAndExec('CtrlPMRUFiles')<CR>
 nmap <Leader>ev :e $MYVIMRC<CR>
 nmap <Leader>ep :e $MYPLUGINS<CR>
 
+" /-------------------------------------------------------------------------------
+" | Helpers
+" |-------------------------------------------------------------------------------
+" /
+
 function! SwitchToWriteableBufferAndExec(command)
     "Prevent CtrlP opening files inside non-writeable buffers.
     let c = 0
@@ -160,3 +177,5 @@ function! SwitchToWriteableBufferAndExec(command)
     endwhile
     exec a:command
 endfunction
+
+
