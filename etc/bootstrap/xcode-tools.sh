@@ -10,7 +10,7 @@ echo "Checking if Xcode Command Line tools are installed...";
 
 # Checks if path to command line tools exist
 # Credit: https://apple.stackexchange.com/questions/219507/best-way-to-check-in-bash-if-command-line-tools-are-installed
-if type xcode-select >&- && xpath=$( xcode-select --print-path ) &&
+if xpath=$( xcode-select --print-path ) &&
   test -d "${xpath}" && test -x "${xpath}" ; then
   print_success "Xcode Command Line tools are already installed."; echo;
 else
