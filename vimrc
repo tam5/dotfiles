@@ -33,6 +33,10 @@ set hlsearch incsearch
 set list
 set listchars=tab:->,trail:~,extends:>,precedes:<,space:· 
 
+if !has("termguicolors")
+    set nolist
+endif
+
 "Hide vertical split line
 set fillchars+=vert:\ 
 
