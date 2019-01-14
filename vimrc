@@ -18,12 +18,7 @@ so $MYPLUGINS
 syntax enable
 set background=dark
 
-function! HasColorScheme(name)
-    "Check if a color scheme exists.
-    return !empty(globpath(&rtp, 'colors/'.a:name.'.vim'))
-endfunction
-
-if HasColorScheme('vim-material')
+if has#colorscheme('vim-material')
     colorscheme vim-material
 else
     colorscheme desert
@@ -44,7 +39,7 @@ set fillchars+=vert:\
 set signcolumn=yes
 
 "Some dynamic color tweaks
-if !empty(glob("~/.vim/bundle/vim-color-util/autoload/color.vim"))
+if has#plugin('vim-color-util')
     let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
     silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
     silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
