@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Change directory to the directory of the script
+cd "$(dirname "$0")"
+
+# Abort on error
+set -e
+
+# Imports
+. ./chalk.sh
+
+# Display logo
+echo -e "\n\033[38;5;255m\033[48;5;234m\033[1m                         \033[0m"
+echo -e "\033[38;5;255m\033[48;5;234m\033[1m        Dotfiles         \033[0m"
+echo -e "\033[38;5;255m\033[48;5;234m\033[1m      by Ari Miller      \033[0m"
+echo -e "\033[38;5;255m\033[48;5;234m\033[1m                         \033[0m\n"
+
+# Display copyright
+echo "Copyright (C) 2019 Ari Miller"; echo;
+
+# Display Intro
+echo "This program will configure your new machine with all the tools"
+echo "and preferences I currently use. This includes installing apps,"
+echo "applying customizations, and tweaking the system settings. The"
+echo "script assumes a Mac OS X environment, and is very opinionated."; echo;
+
+echo "OK, here we go... 🚀"; echo;
+
+print_info "The script will now install two prerequisites: \n\n \
+   1) XCode Command Line Tools\n \
+   2) Homebrew"; echo;
+
+read -p "$(blackb 'Press [enter] to continue...')"; echo;
+
+./xcode-tools.sh
+./homebrew.sh
+

@@ -1,0 +1,14 @@
+cask_args appdir: "/Applications"
+
+brew "zsh"
+brew "zsh-syntax-highlighting"
+brew "zsh-autosuggestions"
+brew "autojump"
+brew "macvim", args: ["--with-override-system-vim"]
+
+cask "iterm2"
+cask "karabiner-elements"
+cask "emacs"
+
+brew "node"
+brew "mysql"
