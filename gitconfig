@@ -1,3 +1,7 @@
 [user]
 	name = tam5
 	email = arimiller92@gmail.com
+[core]
+	editor = /usr/local/bin/mvim -v
+[url "git@github.com:"]
+	insteadOf = https://github.com/
