@@ -35,3 +35,8 @@ read -p "$(blackb 'Press [enter] to continue...')"; echo;
 ./xcode-tools.sh
 ./homebrew.sh
 
+print_info "The script will proceed to install the following tools:"; echo;
+
+brew bundle check --verbose
+
+read -p "$(blackb 'Press [enter] to continue...')"; echo;

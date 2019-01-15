@@ -18,8 +18,17 @@ else
   print_success "Homebrew is already installed.";
 fi
 
-echo; echo "Updating and upgrading Homebrew...";
-yes | brew update &> /dev/null
-yes | brew upgrade &> /dev/null
+echo; echo "Ensuring Homebrew is up to date...";
+yes | brew update
+
+outdated=$(brew outdated)
+
+if [ $($outdated | wc -l) -gt 0 ]; then
+    echo 'stuff to update';
+else
+    echo 'nothing to update';
+fi
+
+#yes | brew upgrade
 
 print_success "Homebrew succesfully updated."; echo;
