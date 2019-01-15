@@ -159,6 +159,7 @@ nnoremap <Leader>mru :call SwitchToWriteableBufferAndExec('CtrlPMRUFiles')<CR>
 "Edit the vimrc file
 nmap <Leader>ev :e $MYVIMRC<CR>
 nmap <Leader>ep :e $MYPLUGINS<CR>
+nmap <Leader>ez :e ~/.zshrc<CR>
 
 " /-------------------------------------------------------------------------------
 " | Helpers
