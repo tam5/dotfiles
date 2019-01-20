@@ -8,6 +8,8 @@ alias vim='mvim -v'
 
 # Utils
 alias cpwd="pwd | tr -d '\n' | pbcopy"
+alias rm="echo Dude, stop using rm! Use \'trash\' or, if you insist, \'/bin/rm\'."
+alias trash="rmtrash"
 
 # Git
 alias gs='git status'
