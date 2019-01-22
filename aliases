@@ -29,9 +29,10 @@ alias code='cd ~/code'
 alias emd='cd ~/.emacs.d'
 
 # tunnels (LiveIntent)
-alias tunnel-qa='ssh -L 23306:qa-rds.liveintenteng.com:3306 qa-bastion'
-alias tunnel-dev='ssh -L 23306:dev-rds.liveintenteng.com:3306 dev-bastion'
-alias tunnel-stage='ssh -L 23306:stage-rds.liveintent.com:3306 stage-bastion'
+alias tunnel="tunnel"
+tunnel() {
+    ssh -L $2:$1-rds.liveintenteng.com:3306 $1-bastion
+}
 
 # Docker
 alias portainer="docker volume create portainer_data &&  docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer"

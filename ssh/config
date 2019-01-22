@@ -2,3 +2,93 @@ host github.com
  HostName github.com
  IdentityFile ~/.ssh/git.id_rsa
  User git
+
+Host 10.239.* dev-*.liveintent.com
+  ProxyCommand ssh dev-bastion -W %h:%p
+  User ec2-user
+  ForwardAgent yes
+  IdentityFile ~/.ssh/liveintent-DEV-environment.pem
+  IdentitiesOnly yes
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+
+Host qa-bastion
+  Hostname qa-bastion.liveintent.com
+  User amiller
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  ControlMaster auto
+  ControlPath ~/.ssh/%r@%h:%p
+  ControlPersist 15m
+
+Host 10.240.* qa-*.liveintent.com
+  ProxyCommand ssh qa-bastion -W %h:%p
+  User ec2-user
+  ForwardAgent yes
+  IdentityFile ~/.ssh/liveintent-QA-environment.pem
+  IdentitiesOnly yes
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+
+Host qa-bastion
+  Hostname qa-bastion.liveintent.com
+  User amiller
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  ControlMaster auto
+  ControlPath ~/.ssh/%r@%h:%p
+  ControlPersist 15m
+
+Host 10.241.* uat-*.liveintent.com
+  ProxyCommand ssh uat-bastion -W %h:%p
+  User ec2-user
+  ForwardAgent yes
+  IdentityFile ~/.ssh/liveintent-UAT-environment.pem
+  IdentitiesOnly yes
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+
+Host uat-bastion
+  Hostname uat-bastion.liveintent.com
+  User amiller
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  ControlMaster auto
+  ControlPath ~/.ssh/%r@%h:%p
+  ControlPersist 15m
+
+Host 10.242.* stage-*.liveintent.com
+  ProxyCommand ssh stage-bastion -W %h:%p
+  User ec2-user
+  ForwardAgent yes
+  IdentityFile ~/.ssh/liveintent-STAGE-environment.pem
+  IdentitiesOnly yes
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+
+Host stage-bastion
+  Hostname stage-bastion.liveintent.com
+  User amiller
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  ControlMaster auto
+  ControlPath ~/.ssh/%r@%h:%p
+  ControlPersist 15m
+
+Host 10.243.* prod-*.liveintent.com
+  ProxyCommand ssh prod-bastion -W %h:%p
+  User ec2-user
+  ForwardAgent yes
+  IdentityFile ~/.ssh/liveintent-PROD-environment.pem
+  IdentitiesOnly yes
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+
+Host prod-bastion
+  Hostname prod-bastion.liveintent.com
+  User amiller
+  ForwardAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  ControlMaster auto
+  ControlPath ~/.ssh/%r@%h:%p
+  ControlPersist 15m
