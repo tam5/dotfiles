@@ -1,9 +1,9 @@
 host github.com
- HostName github.com
- IdentityFile ~/.ssh/git.id_rsa
- User git
+   HostName github.com
+   IdentityFile ~/.ssh/git.id_rsa
+   User git
 
-Host 10.239.* dev-*.liveintent.com
+Host 10.239.* dev-*.liveintenteng.com
   ProxyCommand ssh dev-bastion -W %h:%p
   User ec2-user
   ForwardAgent yes
@@ -12,8 +12,8 @@ Host 10.239.* dev-*.liveintent.com
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
 
-Host qa-bastion
-  Hostname qa-bastion.liveintent.com
+Host dev-bastion
+  Hostname dev-bastion.liveintenteng.com
   User amiller
   ForwardAgent yes
   IdentityFile ~/.ssh/id_rsa
@@ -21,7 +21,7 @@ Host qa-bastion
   ControlPath ~/.ssh/%r@%h:%p
   ControlPersist 15m
 
-Host 10.240.* qa-*.liveintent.com
+Host 10.240.* qa-*.liveintenteng.com
   ProxyCommand ssh qa-bastion -W %h:%p
   User ec2-user
   ForwardAgent yes
@@ -31,7 +31,7 @@ Host 10.240.* qa-*.liveintent.com
   StrictHostKeyChecking no
 
 Host qa-bastion
-  Hostname qa-bastion.liveintent.com
+  Hostname qa-bastion.liveintenteng.com
   User amiller
   ForwardAgent yes
   IdentityFile ~/.ssh/id_rsa
