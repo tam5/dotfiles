@@ -96,6 +96,8 @@ set tabstop=4
 set ignorecase smartcase
 set backspace=indent,eol,start
 
+set clipboard=unnamed
+
 "Prevent auto adding line breaks
 set textwidth=0 wrapmargin=0
 set nowrap
@@ -105,6 +107,9 @@ set noerrorbells visualbell t_vb=
 
 "Don't preserve backwards compatibility to older versions of vim
 set nocompatible
+
+"Add a single space after comment delim
+let g:NERDSpaceDelims=1
 
 "Re-source the vimrc file when it is saved.
 augroup reload_vimrc
