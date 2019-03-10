@@ -3,5 +3,6 @@
 	email = arimiller92@gmail.com
 [core]
 	editor = /usr/local/bin/mvim -v
+	excludesfile = /Users/arimiller/.gitignore_global
 [url "git@github.com:"]
 	insteadOf = https://github.com/
