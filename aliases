@@ -11,7 +11,9 @@ do_platformer_fn () {
     dir="$(pwd)"
     cd "$HOME/code/platform"
     bash platformer $@
+    ret=$?
     cd $dir
+    return $ret
 }
 
 alias platformer='do_platformer_fn'
