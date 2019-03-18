@@ -96,8 +96,6 @@ set tabstop=4
 set ignorecase smartcase
 set backspace=indent,eol,start
 
-set clipboard=unnamed
-
 "Prevent auto adding line breaks
 set textwidth=0 wrapmargin=0
 set nowrap
