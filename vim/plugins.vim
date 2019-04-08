@@ -32,7 +32,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'ctrlpvim/ctrlp.vim'
 
 "Syntax Highlighting
-Plugin 'tam5/typescript-vim'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'wavded/vim-stylus'
 Plugin 'tam5/php.vim'
 Plugin 'pangloss/vim-javascript'
