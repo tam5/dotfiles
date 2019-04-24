@@ -39,6 +39,7 @@ alias desk='cd ~/desktop'
 alias dotfiles='cd ~/.dotfiles'
 alias code='cd ~/code'
 alias emd='cd ~/.emacs.d'
+alias dmd='cd ~/.doom.d'
 
 # tunnels (LiveIntent)
 alias tunnel="tunnel"

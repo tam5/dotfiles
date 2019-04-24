@@ -111,6 +111,9 @@ source $ZSH/oh-my-zsh.sh
 
 source $HOME/.aliases
 
+# Additions to PATH
+export PATH="$HOME/.emacs.d/bin:$PATH"
+
 # Set up VI mode
 bindkey -v
 
