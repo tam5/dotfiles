@@ -6,7 +6,6 @@ alias shortcuts='vim ~/.aliases'
 
 alias vim='mvim -v'
 
-
 do_platformer_fn () {
     dir="$(pwd)"
     cd "$HOME/code/platform"
@@ -15,7 +14,6 @@ do_platformer_fn () {
     cd $dir
     return $ret
 }
-
 alias platformer='do_platformer_fn'
 
 # Utils
@@ -82,7 +80,7 @@ fh() {
 }
 
 # gco - checkout git branch (including remote branches), sorted by most recent commit, limit 50 last branches
-unbind gco 2> /dev/null
+unalias gco 2> /dev/null
 gco() {
   local branches branch
   branches=$(git for-each-ref --count=50 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
