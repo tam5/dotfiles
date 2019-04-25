@@ -25,7 +25,7 @@ Plugin 'airblade/vim-gitgutter'
 
 "Editor utils
 Plugin 'tpope/vim-vinegar'
-Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-commentary'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'alvan/vim-closetag'
 Plugin 'tpope/vim-surround'
