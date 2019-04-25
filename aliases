@@ -83,10 +83,10 @@ fh() {
 unalias gco 2> /dev/null
 gco() {
   local branches branch
-  branches=$(git for-each-ref --count=50 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+  branches=$(git for-each-ref --count=50 --sort=-committerdate --format="%(refname:short)") &&
   branch=$(echo "$branches" |
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sed "s/.*\///")
 }
 
 # glo - Replacement for git log, shows previews, allows selecting commits to view further
