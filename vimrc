@@ -143,7 +143,6 @@ nmap <Leader>v :vs<cr>
 nmap <Leader>h :sp<cr>
 
 "Search the current file
-nmap <space> /
 nmap <Leader><space> :nohlsearch<cr>
 
 "Make tab and shift-tab indent as expected.
@@ -157,7 +156,7 @@ vnoremap <S-Tab> <gv
 noremap <Leader>x :call NERDComment(1, 'Toggle')<cr>
 
 "Show most recently used files
-nnoremap <Leader>mru :call SwitchToWriteableBufferAndExec('CtrlPMRUFiles')<CR>
+nnoremap <space>fr :call SwitchToWriteableBufferAndExec('CtrlPMRUFiles')<CR>
 
 "Edit the vimrc file
 nmap <Leader>ev :e $MYVIMRC<CR>
