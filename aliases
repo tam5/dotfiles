@@ -82,6 +82,8 @@ fh() {
 # gco - checkout git branch (including remote branches), sorted by most recent commit, limit 50 last branches
 unalias gco 2> /dev/null
 gco() {
+  if [[ ! -z $@ ]]; then git checkout "$@"; return; fi
+
   local branches branch
   branches=$(git for-each-ref --count=50 --sort=-committerdate --format="%(refname:short)") &&
   branch=$(echo "$branches" |
