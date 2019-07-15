@@ -2,6 +2,8 @@
 ############# Aliases #############
 ###################################
 
+alias li="platformer"
+
 alias shortcuts='vim ~/.aliases'
 
 alias vim='mvim -v'
@@ -49,6 +51,9 @@ alias tinker='php ~/Code/laravel/artisan tinker'
 alias art='php artisan'
 alias amr='php artisan migrate:refresh'
 alias amrs='php artisan migrate:refresh --seed'
+
+# Node aliases
+alias nt="npm test"
 
 #fh - repeat history
 export FZF_DEFAULT_OPTS='--layout=reverse'
