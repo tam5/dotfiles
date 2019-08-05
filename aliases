@@ -26,6 +26,7 @@ alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 # locations
 alias home='cd ~'
 alias desk='cd ~/desktop'
+alias dots='cd ~/.dotfiles'
 alias dotfiles='cd ~/.dotfiles'
 alias code='cd ~/code'
 alias emd='cd ~/.emacs.d'
