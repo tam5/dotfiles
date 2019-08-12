@@ -22,6 +22,7 @@ alias gstash="git add . && git commit -m 'stash'"
 alias gpop="git reset --soft head~1 && git reset head"
 alias gsu='git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+alias tgl='trash .git/index.lock'
 
 # locations
 alias home='cd ~'
