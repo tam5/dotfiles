@@ -1,0 +1,26 @@
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://api-dev-liveintent-local.liveintenteng.com
+  name: dev.liveintent.local
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://api-stage-liveintent-loca-e1onsi-1230232905.us-east-1.elb.amazonaws.com
+  name: uat.liveintent.local
+contexts:
+- context:
+    cluster: dev.liveintent.local
+    user: tam5
+  name: dev.liveintent.local
+- context:
+    cluster: uat.liveintent.local
+    user: tam5
+  name: uat.liveintent.local
+current-context: dev.liveintent.local
+kind: Config
+preferences: {}
+users:
+- name: tam5
+  user:
+    token: 9853802b6d607dbee3c84043827d46f50df3d015
