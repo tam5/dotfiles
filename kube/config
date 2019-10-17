@@ -6,8 +6,12 @@ clusters:
   name: dev.liveintent.local
 - cluster:
     insecure-skip-tls-verify: true
-    server: https://api-stage-liveintent-loca-e1onsi-1230232905.us-east-1.elb.amazonaws.com
+    server: https://api-stage-liveintent-local.liveintent.com
   name: uat.liveintent.local
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://api-prod-liveintent-local.liveintent.com
+  name: prod.liveintent.local
 contexts:
 - context:
     cluster: dev.liveintent.local
@@ -17,6 +21,10 @@ contexts:
     cluster: uat.liveintent.local
     user: tam5
   name: uat.liveintent.local
+- context:
+    cluster: prod.liveintent.local
+    user: tam5
+  name: prod.liveintent.local
 current-context: dev.liveintent.local
 kind: Config
 preferences: {}
