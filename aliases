@@ -34,7 +34,6 @@ alias emd='cd ~/.emacs.d'
 alias dmd='cd ~/.doom.d'
 
 # tunnels (LiveIntent)
-alias tunnel="tunnel"
 tunnel() {
     ssh -L $2:$1-rds.liveintenteng.com:3306 $1-bastion
 }
