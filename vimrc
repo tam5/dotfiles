@@ -74,6 +74,9 @@ if $TERM_PROGRAM =~ "iTerm"
     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 endif
 
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
 " /-------------------------------------------------------------------------------
 " | Behavior
 " |-------------------------------------------------------------------------------
@@ -108,6 +111,9 @@ set nocompatible
 
 "Add a single space after comment delim
 let g:NERDSpaceDelims=1
+
+"Ingore vendor files from CTRLP
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 "Re-source the vimrc file when it is saved.
 augroup reload_vimrc
