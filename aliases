@@ -17,6 +17,7 @@ alias trash="rmtrash"
 alias gs='git status'
 # alias glo="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias grc="git rebase --continue"
+alias grs="git rebase --skip"
 alias nah="git reset --hard head && git clean -fd"
 alias gstash="git add . && git commit -m 'stash'"
 alias gpop="git reset --soft head~1 && git reset head"
