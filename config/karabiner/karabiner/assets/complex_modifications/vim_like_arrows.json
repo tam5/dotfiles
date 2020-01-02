@@ -1,0 +1,68 @@
+{
+  "title": "Vim like arrow keys (App Specific)",
+  "rules": [
+    {
+      "description": "Change ctrl+j/k to up arrow if pressed in certain apps",
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "bundle_identifiers": [
+                "com\\.runningwithcrayons\\.Alfred",
+                "com\\.google\\.Chrome",
+                "com\\.apple\\.Notes"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ],
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "bundle_identifiers": [
+                "com\\.runningwithcrayons\\.Alfred",
+                "com\\.google\\.Chrome",
+                "com\\.apple\\.Notes"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ],
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}
