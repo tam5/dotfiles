@@ -372,6 +372,94 @@
 					</dict>
 					<dict>
 						<key>colorIndex</key>
+						<integer>5</integer>
+						<key>database</key>
+						<string>lfx</string>
+						<key>host</key>
+						<string>stage-rds.liveintent.com</string>
+						<key>id</key>
+						<integer>-6109867688841761905</integer>
+						<key>name</key>
+						<string>stage</string>
+						<key>port</key>
+						<string></string>
+						<key>socket</key>
+						<string></string>
+						<key>sshHost</key>
+						<string>stage-bastion</string>
+						<key>sshKeyLocation</key>
+						<string></string>
+						<key>sshKeyLocationEnabled</key>
+						<integer>0</integer>
+						<key>sshPort</key>
+						<string></string>
+						<key>sshUser</key>
+						<string></string>
+						<key>sslCACertFileLocation</key>
+						<string></string>
+						<key>sslCACertFileLocationEnabled</key>
+						<integer>0</integer>
+						<key>sslCertificateFileLocation</key>
+						<string></string>
+						<key>sslCertificateFileLocationEnabled</key>
+						<integer>0</integer>
+						<key>sslKeyFileLocation</key>
+						<string></string>
+						<key>sslKeyFileLocationEnabled</key>
+						<integer>0</integer>
+						<key>type</key>
+						<integer>2</integer>
+						<key>useSSL</key>
+						<integer>0</integer>
+						<key>user</key>
+						<string>lfx</string>
+					</dict>
+					<dict>
+						<key>colorIndex</key>
+						<integer>5</integer>
+						<key>database</key>
+						<string>uat-lfx</string>
+						<key>host</key>
+						<string>stage-rds.liveintent.com</string>
+						<key>id</key>
+						<integer>6569444150218214026</integer>
+						<key>name</key>
+						<string>uat</string>
+						<key>port</key>
+						<string></string>
+						<key>socket</key>
+						<string></string>
+						<key>sshHost</key>
+						<string>stage-bastion</string>
+						<key>sshKeyLocation</key>
+						<string></string>
+						<key>sshKeyLocationEnabled</key>
+						<integer>0</integer>
+						<key>sshPort</key>
+						<string></string>
+						<key>sshUser</key>
+						<string></string>
+						<key>sslCACertFileLocation</key>
+						<string></string>
+						<key>sslCACertFileLocationEnabled</key>
+						<integer>0</integer>
+						<key>sslCertificateFileLocation</key>
+						<string></string>
+						<key>sslCertificateFileLocationEnabled</key>
+						<integer>0</integer>
+						<key>sslKeyFileLocation</key>
+						<string></string>
+						<key>sslKeyFileLocationEnabled</key>
+						<integer>0</integer>
+						<key>type</key>
+						<integer>2</integer>
+						<key>useSSL</key>
+						<integer>0</integer>
+						<key>user</key>
+						<string>uat-lfx</string>
+					</dict>
+					<dict>
+						<key>colorIndex</key>
 						<integer>2</integer>
 						<key>database</key>
 						<string>lfx</string>
@@ -456,7 +544,7 @@
 						<key>useSSL</key>
 						<integer>0</integer>
 						<key>user</key>
-						<string>lfx</string>
+						<string>lsd</string>
 					</dict>
 				</array>
 				<key>IsExpanded</key>
