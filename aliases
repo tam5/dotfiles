@@ -2,30 +2,40 @@
 ############# Aliases #############
 ###################################
 
-alias li="platformer"
-
 alias shortcuts='vim ~/.aliases'
 
-alias vim='mvim -v'
-
+#
 # Utils
+#
 alias cpwd="pwd | tr -d '\n' | pbcopy"
 alias rm="echo Dude, stop using rm! Use \'trash\' or, if you insist, \'/bin/rm\'."
 alias trash="rmtrash"
+alias vim='mvim -v'
 
+#
 # Git
+#
 alias gs='git status'
 # alias glo="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias grc="git rebase --continue"
-alias grs="git rebase --skip"
 alias nah="git reset --hard head && git clean -fd"
 alias gstash="git add . && git commit -m 'stash'"
 alias gpop="git reset --soft head~1 && git reset head"
 alias gsu='git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 alias tgl='trash .git/index.lock'
+gri() {
+    git rebase -i head~$1
+}
+grho() {
+    branch=$(git branch | grep \* | cut -d ' ' -f2)
+    git reset --hard origin/$branch
+}
+alias grc="git rebase --continue"
+alias grs="git rebase --skip"
 
-# locations
+#
+# Quick CD
+#
 alias home='cd ~'
 alias desk='cd ~/desktop'
 alias dots='cd ~/.dotfiles'
@@ -34,96 +44,37 @@ alias code='cd ~/code'
 alias emd='cd ~/.emacs.d'
 alias dmd='cd ~/.doom.d'
 
-# tunnels (LiveIntent)
+#
+# LiveIntent
+#
+alias li="platformer"
 tunnel() {
     ssh -L $2:$1-rds.liveintenteng.com:3306 $1-bastion
 }
 
+#
 # Docker
+#
 alias portainer="docker volume create portainer_data &&  docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer"
-alias liquibase="bash ~/code/platform/platformer/scripts/db-migrate.sh"
 
+#
 # PHP aliases
+#
 alias phpunit='vendor/bin/phpunit'
 alias pf="phpunit --filter"
 alias pu='phpunit'
 alias tinker='php ~/Code/laravel/artisan tinker'
 
-# Laravel aliases
+#
+# Laravel
+#
 alias art='php artisan'
 alias amr='php artisan migrate:refresh'
 alias amrs='php artisan migrate:refresh --seed'
 
-# Node aliases
+#
+# Node
+#
 alias nt="npm test"
 
-#fh - repeat history
-export FZF_DEFAULT_OPTS='--layout=reverse'
-
-###################################
-############ FZF Magic ############
-###################################
-
-# helpers
-alias glGraph='git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@"'
-alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
-_gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
-_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
-
-# git reset --hard origin/$current-branch
-grho() {
-    branch=$(git branch | grep \* | cut -d ' ' -f2)
-    git reset --hard origin/$branch
-}
-
-# fh - Replacement for CTRL-R
-fh() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf | sed 's/ *[0-9]* *//')
-}
-
-# gco - checkout git branch (including remote branches), sorted by most recent commit, limit 50 last branches
-unalias gco 2> /dev/null
-gco() {
-  if [[ ! -z $@ ]]; then git checkout "$@"; return; fi
-
-  local branches branch
-  branches=$(git for-each-ref --count=50 --sort=-committerdate --format="%(refname:short)") &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sed "s/.*\///")
-}
-
-# glo - Replacement for git log, shows previews, allows selecting commits to view further
-unalias glo 2> /dev/null
-glo() {
-    glGraph |
-        fzf --no-sort --reverse --tiebreak=index --no-multi \
-            --ansi --preview="$_viewGitLogLine" \
-                --header "enter to view, alt-y to copy hash" \
-                --bind "enter:execute:$_viewGitLogLine   | less -R" \
-                --bind "alt-y:execute:$_gitLogLineToHash | xclip"
-}
-
-# env - Replacment for env
-alias env="/usr/bin/env | fzf"
-
-# c - (experimental) fuzzy search on Chrome browsing history
-c() {
-  local cols sep google_history open
-  cols=$(( COLUMNS / 3 ))
-  sep='{::}'
-
-  if [ "$(uname)" = "Darwin" ]; then
-    google_history="$HOME/Library/Application Support/Google/Chrome/Default/History"
-    open=open
-  else
-    google_history="$HOME/.config/google-chrome/Default/History"
-    open=xdg-open
-  fi
-  cp -f "$google_history" /tmp/h
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
-}
+source ~/.fzf
