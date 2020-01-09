@@ -40,7 +40,8 @@
               "bundle_identifiers": [
                 "com\\.runningwithcrayons\\.Alfred",
                 "com\\.google\\.Chrome",
-                "com\\.apple\\.Notes"
+                "com\\.apple\\.Notes",
+                "com\\.tinyspeck\\.slackmacgap"
               ],
               "type": "frontmost_application_if"
             }
