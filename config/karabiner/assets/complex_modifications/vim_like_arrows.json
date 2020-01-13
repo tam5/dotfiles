@@ -11,7 +11,8 @@
                 "com\\.runningwithcrayons\\.Alfred",
                 "com\\.google\\.Chrome",
                 "com\\.apple\\.Notes",
-                "com\\.tinyspeck\\.slackmacgap"
+                "com\\.tinyspeck\\.slackmacgap",
+                "com\\.googlecode\\.iterm2"
               ],
               "type": "frontmost_application_if"
             }
@@ -41,7 +42,8 @@
                 "com\\.runningwithcrayons\\.Alfred",
                 "com\\.google\\.Chrome",
                 "com\\.apple\\.Notes",
-                "com\\.tinyspeck\\.slackmacgap"
+                "com\\.tinyspeck\\.slackmacgap",
+                "com\\.googlecode\\.iterm2"
               ],
               "type": "frontmost_application_if"
             }
