@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ###################################
 ############# Aliases #############
 ###################################
@@ -7,6 +9,7 @@ alias shortcuts='vim ~/.aliases'
 #
 # Utils
 #
+alias lug="npm run --prefix $HOME/.dotfiles/lug start"
 alias cpwd="pwd | tr -d '\n' | pbcopy"
 alias rm="echo Dude, stop using rm! Use \'trash\' or, if you insist, \'/bin/rm\'."
 alias trash="rmtrash"
