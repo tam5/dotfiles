@@ -1,0 +1,17 @@
+{
+  "name": "lug",
+  "version": "0.1.0",
+  "description": "The Launch Lug",
+  "main": "dist/index.js",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "moment": "^2.24.0",
+    "ora": "^4.0.3",
+    "tiny-glob": "^0.2.6"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.0"
+  },
+  "author": "Ari Miller",
+  "license": "MIT"
+}
