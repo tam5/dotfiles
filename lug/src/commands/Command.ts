@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import { max } from '../support/helpers'
+const execSync = require('child_process').execSync;
 
 interface Options {
     [key: string]: {
@@ -159,5 +160,19 @@ export default abstract class Command {
 
         this.header('Options:')
         this.getOptionKeys().forEach(opt => this.printOpt(opt))
+    }
+
+    /**
+     * Execute a shell command.
+     */
+    protected execOrDie(command: string): string {
+        try {
+            return execSync(command, { stdio: 'pipe' }).toString()
+        } catch (e) {
+            console.error(chalk.red('Failed to execute command:'))
+            console.error(this.indent() + command)
+            console.error(e)
+            process.exit(1)
+        }
     }
 }

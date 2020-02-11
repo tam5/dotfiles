@@ -52,6 +52,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
+var inquirer_1 = __importDefault(require("inquirer"));
 var Command_1 = __importDefault(require("./Command"));
 var ToggleNetwork = (function (_super) {
     __extends(ToggleNetwork, _super);
@@ -63,8 +64,25 @@ var ToggleNetwork = (function (_super) {
     }
     ToggleNetwork.prototype.handle = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var current, choices, answer;
             return __generator(this, function (_a) {
-                return [2];
+                switch (_a.label) {
+                    case 0:
+                        current = this.execOrDie('networksetup -getcurrentlocation').trim();
+                        choices = this.execOrDie('networksetup -listlocations').trim().split('\n').map(function (profile) {
+                            return profile === current ? profile + " (current)" : profile;
+                        });
+                        return [4, inquirer_1["default"].prompt({
+                                name: 'profile',
+                                type: 'list',
+                                message: 'Please specify the network profile to use:',
+                                choices: choices
+                            })];
+                    case 1:
+                        answer = _a.sent();
+                        this.execOrDie("networksetup -switchtolocation " + answer.profile);
+                        return [2];
+                }
             });
         });
     };
