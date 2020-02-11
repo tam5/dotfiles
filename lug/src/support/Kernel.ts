@@ -1,6 +1,7 @@
-import chalk from 'chalk'
 import glob from 'tiny-glob'
+import yargs from 'yargs'
 import List from '../commands/List'
+import Command from '../commands/Command'
 import { errorBlock } from './console'
 
 export default class Kernel {
@@ -8,7 +9,8 @@ export default class Kernel {
      * Handle an incoming command.
      */
     public static async findOrFail(name: string) {
-        const found = (await this.commands()).find(command => command.matches(name))
+        const commands = await this.commands()
+        const found = commands.find(command => command.matches(name))
 
         if (found) {
             return found
@@ -16,8 +18,16 @@ export default class Kernel {
 
         const addendum = name ? ` '${name}'` : ''
         errorBlock('Invalid Command' + addendum + '!')
-        await (new List()).run()
+
+        await this.run(new List())
         process.exit(2)
+    }
+
+    /**
+     * Run a command.
+     */
+    public static async run(command: Command) {
+        await command.run(this.register(command))
     }
 
     /**
@@ -35,5 +45,23 @@ export default class Kernel {
         // Create command instances
         return commands.map(command => new command())
             .filter(command => command.name)
+    }
+
+    /**
+     * Register the commands. We don't use yargs directly so we can have
+     * some more control, but yargs does offer some awesome features
+     * that we want to take advantage of, like auto-completions.
+     */
+    private static register(command: Command) {
+        return yargs.command(command.name, command.description, builder => {
+            const options = command.getOptions()
+
+            Object.values(options).forEach((opt: any) => {
+                opt.alias = opt.shorthand
+                opt.describe = opt.description
+            })
+
+            builder.options(options)
+        }).help(false).argv
     }
 }

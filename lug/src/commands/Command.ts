@@ -1,6 +1,13 @@
 import chalk from 'chalk'
 import { max } from '../support/helpers'
 
+interface Options {
+    [key: string]: {
+        shorthand?: string,
+        description: string
+    }
+}
+
 export default abstract class Command {
     /**
      * The name of the command.
@@ -15,12 +22,22 @@ export default abstract class Command {
     /**
      * The command's options.
      */
-    protected abstract readonly options: {
-        [key: string]: {
-            shorthand?: string,
-            description: string
+    protected readonly options?: Options
+
+    /**
+     * The command's options.
+     */
+    private readonly defaultOptions: Options = {
+        help: {
+            shorthand: 'h',
+            description: 'Show this help message'
         }
     }
+
+    /**
+     * The parsed arguments.
+     */
+    private argv: any;
 
     /**
      * Execute the command.
@@ -30,7 +47,14 @@ export default abstract class Command {
     /**
      * Run the command.
      */
-    public async run() {
+    public async run(argv: any) {
+        this.argv = argv
+
+        if (this.getOption('help')) {
+            this.help()
+            process.exit()
+        }
+
         await this.handle()
     }
 
@@ -44,15 +68,29 @@ export default abstract class Command {
     /**
      * Get the available options.
      */
-    protected getOptions() {
-        return Object.keys(this.options)
+    public getOptions() {
+        return { ...this.defaultOptions, ...this.options }
+    }
+
+    /**
+     * Get the available options.
+     */
+    protected getOption(key: string) {
+        return this.argv[key]
+    }
+
+    /**
+     * Get the available options.
+     */
+    protected getOptionKeys() {
+        return Object.keys(this.getOptions())
     }
 
     /**
      * Get an option's flags.
      */
     protected getOptionFlags(optKey: string) {
-        const opt = this.options[optKey];
+        const opt = this.getOptions()[optKey];
 
         const shorthand = opt.shorthand ? `-${opt.shorthand}, ` : ''
         const longhand = `--${optKey}`
@@ -64,11 +102,11 @@ export default abstract class Command {
      * Check if this command matches the supplied signature.
      */
     protected printOpt(optKey: string) {
-        const opt = this.options[optKey];
+        const opt = this.getOptions()[optKey];
         const flags = this.getOptionFlags(optKey)
 
         const spacing = this.makeListSpacing(
-            Object.keys(this.options).map(key => this.getOptionFlags(key)),
+            Object.keys(this.getOptions()).map(key => this.getOptionFlags(key)),
             flags
         )
 
@@ -105,5 +143,21 @@ export default abstract class Command {
      */
     protected line(message: string = '') {
         console.log(message)
+    }
+
+    /**
+     * Show the help for this command.
+     */
+    protected help() {
+        this.header('Description:')
+        this.line(this.indent(this.description))
+        this.line()
+
+        this.header('Usage:')
+        this.line(this.indent(this.name + ' [options]'))
+        this.line()
+
+        this.header('Options:')
+        this.getOptionKeys().forEach(opt => this.printOpt(opt))
     }
 }

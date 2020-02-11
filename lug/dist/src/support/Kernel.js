@@ -47,6 +47,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 exports.__esModule = true;
 var tiny_glob_1 = __importDefault(require("tiny-glob"));
+var yargs_1 = __importDefault(require("yargs"));
 var List_1 = __importDefault(require("../commands/List"));
 var console_1 = require("./console");
 var Kernel = (function () {
@@ -54,21 +55,34 @@ var Kernel = (function () {
     }
     Kernel.findOrFail = function (name) {
         return __awaiter(this, void 0, void 0, function () {
-            var found, addendum;
+            var commands, found, addendum;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4, this.commands()];
                     case 1:
-                        found = (_a.sent()).find(function (command) { return command.matches(name); });
+                        commands = _a.sent();
+                        found = commands.find(function (command) { return command.matches(name); });
                         if (found) {
                             return [2, found];
                         }
                         addendum = name ? " '" + name + "'" : '';
                         console_1.errorBlock('Invalid Command' + addendum + '!');
-                        return [4, (new List_1["default"]()).run()];
+                        return [4, this.run(new List_1["default"]())];
                     case 2:
                         _a.sent();
                         process.exit(2);
+                        return [2];
+                }
+            });
+        });
+    };
+    Kernel.run = function (command) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4, command.run(this.register(command))];
+                    case 1:
+                        _a.sent();
                         return [2];
                 }
             });
@@ -98,6 +112,16 @@ var Kernel = (function () {
                 }
             });
         });
+    };
+    Kernel.register = function (command) {
+        return yargs_1["default"].command(command.name, command.description, function (builder) {
+            var options = command.getOptions();
+            Object.values(options).forEach(function (opt) {
+                opt.alias = opt.shorthand;
+                opt.describe = opt.description;
+            });
+            builder.options(options);
+        }).help(false).argv;
     };
     return Kernel;
 }());

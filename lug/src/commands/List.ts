@@ -14,16 +14,6 @@ export default class List extends Command {
     public readonly description = 'List the available commands'
 
     /**
-     * The command's options.
-     */
-    protected readonly options = {
-        help: {
-            shorthand: 'h',
-            description: 'this is an option'
-        }
-    }
-
-    /**
      * Execute the command.
      */
     public async handle() {
@@ -32,17 +22,33 @@ export default class List extends Command {
         this.line()
 
         this.header('Options:')
-        this.getOptions().forEach(opt => this.printOpt(opt))
+        this.getOptionKeys().forEach(opt => this.printOpt(opt))
         this.line()
 
         this.header('Available Commands:')
         const commands = await Kernel.commands()
-        commands.forEach(command => {
-            const spacing = this.makeListSpacing(commands.map(c => c.name), command.name)
 
-            this.line(
-                this.indent() + chalk.green(command.name) + spacing + chalk.white(command.description)
-            )
+        const buckets: {
+            [key: string]: Command[]
+        } = {}
+
+        commands.forEach(command => {
+            const bucket = command.name.includes(':') ? command.name.split(':')[0] : ''
+            buckets[bucket] = [].concat(command)
+        })
+
+        Object.keys(buckets).forEach(bucket => {
+            if (bucket !== '') {
+                this.header(' ' + bucket)
+            }
+
+            buckets[bucket].forEach(command => {
+                const spacing = this.makeListSpacing(commands.map(c => c.name), command.name)
+
+                this.line(
+                    this.indent() + chalk.green(command.name) + spacing + chalk.white(command.description)
+                )
+            })
         })
     }
 }

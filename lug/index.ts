@@ -18,5 +18,5 @@ import Kernel from './src/support/Kernel'
         process.argv.slice(2, 3)[0]
     )
 
-    command.run(process.argv.slice(3))
+    Kernel.run(command)
 })()

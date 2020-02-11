@@ -61,11 +61,17 @@ var List = (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.name = 'list';
         _this.description = 'List the available commands';
+        _this.options = {
+            help: {
+                shorthand: 'h',
+                description: 'this is an option'
+            }
+        };
         return _this;
     }
     List.prototype.handle = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var commands, buckets;
+            var commands;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -74,25 +80,15 @@ var List = (function (_super) {
                         this.line(this.indent('command [options]'));
                         this.line();
                         this.header('Options:');
-                        this.getOptionKeys().forEach(function (opt) { return _this.printOpt(opt); });
+                        this.getOptions().forEach(function (opt) { return _this.printOpt(opt); });
                         this.line();
                         this.header('Available Commands:');
                         return [4, Kernel_1["default"].commands()];
                     case 1:
                         commands = _a.sent();
-                        buckets = {};
                         commands.forEach(function (command) {
-                            var bucket = command.name.includes(':') ? command.name.split(':')[0] : '';
-                            buckets[bucket] = [].concat(command);
-                        });
-                        Object.keys(buckets).forEach(function (bucket) {
-                            if (bucket !== '') {
-                                _this.header(' ' + bucket);
-                            }
-                            buckets[bucket].forEach(function (command) {
-                                var spacing = _this.makeListSpacing(commands.map(function (c) { return c.name; }), command.name);
-                                _this.line(_this.indent() + chalk_1["default"].green(command.name) + spacing + chalk_1["default"].white(command.description));
-                            });
+                            var spacing = _this.makeListSpacing(commands.map(function (c) { return c.name; }), command.name);
+                            _this.line(_this.indent() + chalk_1["default"].green(command.name) + spacing + chalk_1["default"].white(command.description));
                         });
                         return [2];
                 }
@@ -102,4 +98,4 @@ var List = (function (_super) {
     return List;
 }(Command_1["default"]));
 exports["default"] = List;
-//# sourceMappingURL=List.js.map
+//# sourceMappingURL=List (Copy 1).js.map

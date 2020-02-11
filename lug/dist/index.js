@@ -48,7 +48,7 @@ var Kernel_1 = __importDefault(require("./src/support/Kernel"));
             case 0: return [4, Kernel_1["default"].findOrFail(process.argv.slice(2, 3)[0])];
             case 1:
                 command = _a.sent();
-                command.run(process.argv.slice(3));
+                Kernel_1["default"].run(command);
                 return [2];
         }
     });

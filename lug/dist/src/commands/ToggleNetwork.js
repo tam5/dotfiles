@@ -52,54 +52,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var chalk_1 = __importDefault(require("chalk"));
 var Command_1 = __importDefault(require("./Command"));
-var Kernel_1 = __importDefault(require("../support/Kernel"));
-var List = (function (_super) {
-    __extends(List, _super);
-    function List() {
+var ToggleNetwork = (function (_super) {
+    __extends(ToggleNetwork, _super);
+    function ToggleNetwork() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = 'list';
-        _this.description = 'List the available commands';
+        _this.name = 'toggle:network';
+        _this.description = 'Toggle all network access on or off';
         return _this;
     }
-    List.prototype.handle = function () {
+    ToggleNetwork.prototype.handle = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var commands, buckets;
-            var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this.header('Usage:');
-                        this.line(this.indent('command [options]'));
-                        this.line();
-                        this.header('Options:');
-                        this.getOptionKeys().forEach(function (opt) { return _this.printOpt(opt); });
-                        this.line();
-                        this.header('Available Commands:');
-                        return [4, Kernel_1["default"].commands()];
-                    case 1:
-                        commands = _a.sent();
-                        buckets = {};
-                        commands.forEach(function (command) {
-                            var bucket = command.name.includes(':') ? command.name.split(':')[0] : '';
-                            buckets[bucket] = [].concat(command);
-                        });
-                        Object.keys(buckets).forEach(function (bucket) {
-                            if (bucket !== '') {
-                                _this.header(' ' + bucket);
-                            }
-                            buckets[bucket].forEach(function (command) {
-                                var spacing = _this.makeListSpacing(commands.map(function (c) { return c.name; }), command.name);
-                                _this.line(_this.indent() + chalk_1["default"].green(command.name) + spacing + chalk_1["default"].white(command.description));
-                            });
-                        });
-                        return [2];
-                }
+                return [2];
             });
         });
     };
-    return List;
+    return ToggleNetwork;
 }(Command_1["default"]));
-exports["default"] = List;
-//# sourceMappingURL=List.js.map
+exports["default"] = ToggleNetwork;
+//# sourceMappingURL=ToggleNetwork.js.map
