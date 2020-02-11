@@ -116,6 +116,10 @@ var Command = (function () {
     Command.prototype.header = function (heading) {
         this.line(chalk_1["default"].yellow(heading));
     };
+    Command.prototype.success = function (message) {
+        if (message === void 0) { message = ''; }
+        this.line(chalk_1["default"].green('🎗 ' + message));
+    };
     Command.prototype.line = function (message) {
         if (message === void 0) { message = ''; }
         console.log(message);

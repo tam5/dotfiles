@@ -140,6 +140,13 @@ export default abstract class Command {
     }
 
     /**
+     * Print a success message.
+     */
+    protected success(message: string = '') {
+        this.line(chalk.green('🎗 ' + message))
+    }
+
+    /**
      * Print a line.
      */
     protected line(message: string = '') {
