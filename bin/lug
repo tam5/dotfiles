@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd $HOME/.dotfiles/lug
+node dist/index.js $@

@@ -102,6 +102,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Additions to PATH
 export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$PATH"
 export PATH="$HOME/Code/platform:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
