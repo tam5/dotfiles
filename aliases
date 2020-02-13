@@ -47,7 +47,6 @@ alias dmd='cd ~/.doom.d'
 #
 # LiveIntent
 #
-alias li="platformer"
 tunnel() {
     ssh -L $2:$1-rds.liveintenteng.com:3306 $1-bastion
 }
