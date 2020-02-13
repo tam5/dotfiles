@@ -38,7 +38,7 @@ export default abstract class Command {
     /**
      * The parsed arguments.
      */
-    private argv: any;
+    protected argv: any;
 
     /**
      * Execute the command.

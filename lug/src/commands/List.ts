@@ -6,26 +6,38 @@ export default class List extends Command {
     /**
      * The name of the command.
      */
-    public readonly name = 'list';
+    public readonly name = 'list'
 
     /**
      * The description of the command.
      */
     public readonly description = 'List the available commands'
 
+    protected readonly options = {
+        'no-headers': {
+            shorthand: 'n',
+            description: "Do not print headers"
+        }
+    }
+
     /**
      * Execute the command.
      */
     public async handle() {
-        this.header('Usage:')
-        this.line(this.indent('command [options]'))
-        this.line()
+        const showHeaders = !(this.getOption('headers') === false || this.getOption('no-headers'))
 
-        this.header('Options:')
-        this.getOptionKeys().forEach(opt => this.printOpt(opt))
-        this.line()
+        if (showHeaders) {
+            this.header('Usage:')
+            this.line(this.indent('command [options]'))
+            this.line()
 
-        this.header('Available Commands:')
+            this.header('Options:')
+            this.getOptionKeys().forEach(opt => this.printOpt(opt))
+            this.line()
+
+            this.header('Available Commands:')
+        }
+
         const commands = await Kernel.commands()
 
         const buckets: {
@@ -38,7 +50,7 @@ export default class List extends Command {
         })
 
         Object.keys(buckets).forEach(bucket => {
-            if (bucket !== '') {
+            if (bucket !== '' && showHeaders) {
                 this.header(' ' + bucket)
             }
 

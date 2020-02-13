@@ -61,22 +61,31 @@ var List = (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.name = 'list';
         _this.description = 'List the available commands';
+        _this.options = {
+            'no-headers': {
+                shorthand: 'n',
+                description: "Do not print headers"
+            }
+        };
         return _this;
     }
     List.prototype.handle = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var commands, buckets;
+            var showHeaders, commands, buckets;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.header('Usage:');
-                        this.line(this.indent('command [options]'));
-                        this.line();
-                        this.header('Options:');
-                        this.getOptionKeys().forEach(function (opt) { return _this.printOpt(opt); });
-                        this.line();
-                        this.header('Available Commands:');
+                        showHeaders = !(this.getOption('headers') === false || this.getOption('no-headers'));
+                        if (showHeaders) {
+                            this.header('Usage:');
+                            this.line(this.indent('command [options]'));
+                            this.line();
+                            this.header('Options:');
+                            this.getOptionKeys().forEach(function (opt) { return _this.printOpt(opt); });
+                            this.line();
+                            this.header('Available Commands:');
+                        }
                         return [4, Kernel_1["default"].commands()];
                     case 1:
                         commands = _a.sent();
@@ -86,7 +95,7 @@ var List = (function (_super) {
                             buckets[bucket] = [].concat(command);
                         });
                         Object.keys(buckets).forEach(function (bucket) {
-                            if (bucket !== '') {
+                            if (bucket !== '' && showHeaders) {
                                 _this.header(' ' + bucket);
                             }
                             buckets[bucket].forEach(function (command) {
