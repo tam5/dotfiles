@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import { max } from '../support/helpers'
+const execAsync = require('child_process').exec;
 const execSync = require('child_process').execSync;
 
 interface Options {
@@ -175,6 +176,19 @@ export default abstract class Command {
     protected execOrDie(command: string): string {
         try {
             return execSync(command, { stdio: 'pipe' }).toString()
+        } catch (e) {
+            console.error(chalk.red('Failed to execute command:'))
+            console.error(this.indent() + command)
+            console.error(e)
+            process.exit(1)
+        }
+    }
+    /**
+     * Execute a shell command.
+     */
+    protected execAsyncOrDie(command: string): string {
+        try {
+            return execAsync(command, { stdio: 'pipe' }).toString()
         } catch (e) {
             console.error(chalk.red('Failed to execute command:'))
             console.error(this.indent() + command)

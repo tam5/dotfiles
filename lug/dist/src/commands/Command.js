@@ -52,6 +52,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var chalk_1 = __importDefault(require("chalk"));
 var helpers_1 = require("../support/helpers");
+var execAsync = require('child_process').exec;
 var execSync = require('child_process').execSync;
 var Command = (function () {
     function Command() {
@@ -138,6 +139,17 @@ var Command = (function () {
     Command.prototype.execOrDie = function (command) {
         try {
             return execSync(command, { stdio: 'pipe' }).toString();
+        }
+        catch (e) {
+            console.error(chalk_1["default"].red('Failed to execute command:'));
+            console.error(this.indent() + command);
+            console.error(e);
+            process.exit(1);
+        }
+    };
+    Command.prototype.execAsyncOrDie = function (command) {
+        try {
+            return execAsync(command, { stdio: 'pipe' }).toString();
         }
         catch (e) {
             console.error(chalk_1["default"].red('Failed to execute command:'));
