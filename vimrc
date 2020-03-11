@@ -10,6 +10,8 @@
 let $MYPLUGINS = '~/.vim/plugins.vim'
 so $MYPLUGINS
 
+set encoding=utf8
+
 " /-------------------------------------------------------------------------------
 " | Visuals
 " |-------------------------------------------------------------------------------
@@ -82,7 +84,6 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 " |-------------------------------------------------------------------------------
 " /
 
-set encoding=utf8
 set noswapfile
 
 set splitbelow
