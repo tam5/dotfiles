@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
+# /-------------------------------------------------------------------------------
 ###################################
-############# Aliases #############
+############ Shortcuts ############
 ###################################
 
-alias shortcuts='vim ~/.aliases'
+alias shortcuts='vim ~/.shortcuts'
 
 #
 # Utils
@@ -12,19 +13,20 @@ alias shortcuts='vim ~/.aliases'
 alias cpwd="pwd | tr -d '\n' | pbcopy"
 alias rm="echo Dude, stop using rm! Use \'trash\' or, if you insist, \'/bin/rm\'."
 alias trash="rmtrash"
-alias vim='mvim -v'
 
 #
 # Git
 #
 alias gs='git status'
-alias glop="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias nah="git reset --hard head && git clean -fd"
+
 alias gstash="git add . && git commit -m 'stash'"
 alias gpop="git reset --soft head~1 && git reset head"
 alias gsu='git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+
 alias tgl='trash .git/index.lock'
+
 gri() {
     git rebase -i head~$1
 }
@@ -32,6 +34,7 @@ grho() {
     branch=$(git branch | grep \* | cut -d ' ' -f2)
     git reset --hard origin/$branch
 }
+
 alias grc="git rebase --continue"
 alias grs="git rebase --skip"
 
@@ -78,4 +81,4 @@ alias amrs='php artisan migrate:refresh --seed'
 #
 alias nt="npm test"
 
-source ~/.fzf
+# source ~/.fzf

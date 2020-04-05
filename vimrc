@@ -8,7 +8,10 @@
 " /
 
 let $MYPLUGINS = '~/.vim/plugins.vim'
-so $MYPLUGINS
+
+if !empty(glob("$MYPLUGINS"))
+   source $MYPLUGINS
+endif
 
 set encoding=utf8
 
@@ -20,7 +23,7 @@ set encoding=utf8
 syntax enable
 set background=dark
 
-if has#colorscheme('vim-material')
+if exists("*has#colorscheme") && has#colorscheme('vim-material')
     colorscheme vim-material
 else
     colorscheme desert
@@ -45,7 +48,7 @@ set fillchars+=vert:\
 set signcolumn=yes
 
 "Some dynamic color tweaks
-if has#plugin('vim-color-util')
+if exists("*has#plugin") && has#plugin('vim-color-util')
     let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
     silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
     silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
@@ -186,5 +189,3 @@ function! SwitchToWriteableBufferAndExec(command)
     endwhile
     exec a:command
 endfunction
-
-
