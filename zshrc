@@ -1,5 +1,7 @@
+ZSH_DISABLE_COMPFIX=true
+
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/arimiller/.oh-my-zsh"
@@ -7,12 +9,13 @@ export ZSH="/Users/arimiller/.oh-my-zsh"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-# Initialize pure prompt
 autoload -U promptinit; promptinit
 prompt purer
+
+PURE_PROMPT_PATH_FORMATTING="%~"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -30,8 +33,14 @@ prompt purer
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -66,6 +75,7 @@ prompt purer
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
 
 # Auto jump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
@@ -73,12 +83,20 @@ prompt purer
 # Auto complete
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-plugins=(
-  git
-  zsh-syntax-highlighting
-)
-
 source $ZSH/oh-my-zsh.sh
+
+# Set up VI mode
+bindkey -v
+
+# put back some default bindings
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+
+export KEYTIMEOUT=1
 
 # User configuration
 
@@ -97,16 +115,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Additions to PATH
-export PATH="$HOME/.emacs.d/bin:$PATH"
-export PATH="$HOME/.dotfiles/bin:$PATH"
-export PATH="$HOME/Code/platform:$PATH"
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -116,17 +124,5 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source $HOME/.aliases
-
-# Set up VI mode
-bindkey -v
-
-# put back some default bindings
-bindkey '^P' up-history
-bindkey '^N' down-history
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
-bindkey '^r' history-incremental-search-backward
-
-export KEYTIMEOUT=1
+export PATH="$HOME/.emacs.d/bin:$PATH"
+source ~/.shortcuts
