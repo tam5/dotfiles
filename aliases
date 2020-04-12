@@ -1,22 +1,28 @@
 #!/usr/bin/env bash
 
 # /-------------------------------------------------------------------------------
-###################################
-############ Shortcuts ############
-###################################
+# | Utilities
+# |-------------------------------------------------------------------------------
+# |
+# | Some misc stuff.
+# /
 
+# come back here quickly
 alias shortcuts='vim ~/.shortcuts'
 
-#
-# Utils
-#
+# copy current working dir
 alias cpwd="pwd | tr -d '\n' | pbcopy"
+
+# because you can't go back from a rm -rf...
 alias rm="echo Dude, stop using rm! Use \'trash\' or, if you insist, \'/bin/rm\'."
 alias trash="rmtrash"
 
-#
-# Git
-#
+# /-------------------------------------------------------------------------------
+# | Git is great
+# |-------------------------------------------------------------------------------
+# |
+# | Shortcuts and functions to make git more fluent and usable.
+# /
 alias gs='git status'
 alias nah="git reset --hard head && git clean -fd"
 
@@ -25,60 +31,71 @@ alias gpop="git reset --soft head~1 && git reset head"
 alias gsu='git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 
+# quickly fix that annoying thing
 alias tgl='trash .git/index.lock'
 
-gri() {
-    git rebase -i head~$1
+# git diff without the git
+gdiff() {
+    git diff --no-index $1 $2 | diff-so-fancy | less
 }
+
+# destructive, ye' be warned
 grho() {
     branch=$(git branch | grep \* | cut -d ' ' -f2)
     git reset --hard origin/$branch
 }
 
+gri() {
+    git rebase -i head~$1
+}
+
 alias grc="git rebase --continue"
 alias grs="git rebase --skip"
 
-#
-# Quick CD
-#
+# the opposite of glo (shows incoming changes)
+alias gro="glo ..@{u}"
+
+# /-------------------------------------------------------------------------------
+# | Jumping around
+# |-------------------------------------------------------------------------------
+# |
+# | Quick cd'ing into common places.
+# /
 alias home='cd ~'
 alias desk='cd ~/desktop'
-alias dots='cd ~/.dotfiles'
 alias dotfiles='cd ~/.dotfiles'
 alias code='cd ~/code'
 alias emd='cd ~/.emacs.d'
 alias dmd='cd ~/.doom.d'
 
-#
-# LiveIntent
-#
-tunnel() {
-    ssh -L $2:$1-rds.liveintenteng.com:3306 $1-bastion
-}
+# /-------------------------------------------------------------------------------
+# | Docker
+# |-------------------------------------------------------------------------------
+# |
+# | Docker is my friend.
+# /
 
-#
-# Docker
-#
+# launch portainer (gui to manage docker)
 alias portainer="docker volume create portainer_data &&  docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer"
 
-#
-# PHP aliases
-#
+# /-------------------------------------------------------------------------------
+# | PHP
+# |-------------------------------------------------------------------------------
+# |
+# | PHP isn't really that bad, is it?
+# /
+
+# so we don't have to screw with paths
 alias phpunit='vendor/bin/phpunit'
-alias pf="phpunit --filter"
 alias pu='phpunit'
+alias pf="phpunit --filter"
+
+# quick php/laravel REPL
 alias tinker='php ~/Code/laravel/artisan tinker'
 
-#
-# Laravel
-#
+# laravel stuff
 alias art='php artisan'
 alias amr='php artisan migrate:refresh'
 alias amrs='php artisan migrate:refresh --seed'
-
-#
-# Node
-#
-alias nt="npm test"
 
 # source ~/.fzf
