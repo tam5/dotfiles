@@ -2,7 +2,7 @@
 	name = tam5
 	email = arimiller92@gmail.com
 [core]
-	editor = /usr/local/bin/mvim -v
+	editor = /usr/local/bin/vim
 	excludesfile = /Users/arimiller/.gitignore_global
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [url "git@github.com:"]
