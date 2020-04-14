@@ -9,6 +9,7 @@
             {
               "bundle_identifiers": [
                 "com\\.runningwithcrayons\\.Alfred",
+                "com\\.apple\\.Spotlight",
                 "com\\.google\\.Chrome",
                 "com\\.apple\\.Notes",
                 "com\\.tinyspeck\\.slackmacgap",
@@ -40,6 +41,7 @@
             {
               "bundle_identifiers": [
                 "com\\.runningwithcrayons\\.Alfred",
+                "com\\.apple\\.Spotlight",
                 "com\\.google\\.Chrome",
                 "com\\.apple\\.Notes",
                 "com\\.tinyspeck\\.slackmacgap",
