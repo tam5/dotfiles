@@ -125,4 +125,5 @@ export KEYTIMEOUT=1
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/code/liveintent/platform:$PATH"
 source ~/.shortcuts
