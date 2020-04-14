@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-###################################
-############ FZF Magic ############
-###################################
+# /-------------------------------------------------------------------------------
+# | FZF
+# |-------------------------------------------------------------------------------
+# |
+# | FZF adds some snazzy stuff.
+# /
 
-#fh - repeat history
 export FZF_DEFAULT_OPTS='--layout=reverse'
 
 # helpers
@@ -62,9 +64,9 @@ glo() {
     glGraph |
         fzf --no-sort --reverse --tiebreak=index --no-multi \
             --ansi --preview="$_viewGitLogLine" \
-                --header "enter to view, alt-y to copy hash" \
+                --header "enter to view, ctrl-y to copy hash" \
                 --bind "enter:execute:$_viewGitLogLine   | less -R" \
-                --bind "alt-y:execute:$_gitLogLineToHash | xclip"
+                --bind "ctrl-y:execute:$_gitLogLineToHash | pbcopy"
 }
 
 # env - Replacment for env

@@ -98,4 +98,4 @@ alias art='php artisan'
 alias amr='php artisan migrate:refresh'
 alias amrs='php artisan migrate:refresh --seed'
 
-# source ~/.fzf
+source ~/.fzf
