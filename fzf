@@ -72,8 +72,8 @@ glo() {
 # env - Replacment for env
 alias env="/usr/bin/env | fzf"
 
-# c - (experimental) fuzzy search on Chrome browsing history
-c() {
+# chrome - (experimental) fuzzy search on Chrome browsing history
+chrome() {
   local cols sep google_history open
   cols=$(( COLUMNS / 3 ))
   sep='{::}'
