@@ -50,11 +50,11 @@ set signcolumn=yes
 set fillchars+=vert:\ 
 
 "Some dynamic color tweaks
-if HasPlugin('vim-color-util')
-    let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
-    silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
-    silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
-endif
+" if has#plugin('vim-color-util')
+"     let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
+"     silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
+"     silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
+" endif
 
 function! HighlightCurrentWord()
     "Highlight all instances of the current word.
