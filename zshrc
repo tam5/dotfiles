@@ -83,6 +83,11 @@ plugins=(git)
 # Auto complete
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+plugins=(
+  git
+  zsh-syntax-highlighting
+)
+
 source $ZSH/oh-my-zsh.sh
 
 # Set up VI mode
@@ -125,5 +130,5 @@ export KEYTIMEOUT=1
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export PATH="$HOME/.emacs.d/bin:$PATH"
-export PATH="$HOME/code/liveintent/platform:$PATH"
-source ~/.shortcuts
+export PATH="$HOME/code/platform:$PATH"
+source ~/.aliases

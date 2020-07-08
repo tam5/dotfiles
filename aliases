@@ -8,7 +8,7 @@
 # /
 
 # come back here quickly
-alias shortcuts='vim ~/.shortcuts'
+alias shortcuts='vim ~/.aliases'
 
 # copy current working dir
 alias cpwd="pwd | tr -d '\n' | pbcopy"
