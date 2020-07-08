@@ -1,61 +1,59 @@
 " /-------------------------------------------------------------------------------
 " | Vim Config
 " |-------------------------------------------------------------------------------
-" |
-" | Todo
-" |
-" |
+" | 
+" | Vi is like a Ferrari, if you're a beginner, it handles like a bitch, but
+" | once you get the hang of it, it's small, powerful and FAST!
 " /
+
+set nocompatible
 
 let $MYPLUGINS = '~/.vim/plugins.vim'
 
-if !empty(glob("$MYPLUGINS"))
+if !empty(glob($MYPLUGINS))
    source $MYPLUGINS
 endif
-
-set encoding=utf8
 
 " /-------------------------------------------------------------------------------
 " | Visuals
 " |-------------------------------------------------------------------------------
+" |
+" | The section below configures all the visuals. Making the editor visually
+" | appealing is just as important as making it work properly, isn't it?
 " /
 
+"Set the colorscheme
 syntax enable
-set background=dark
+silent! colorscheme material
 
-if exists("*has#colorscheme") && has#colorscheme('vim-material')
-    colorscheme vim-material
-else
-    colorscheme desert
-endif
+let g:lightline = { 'colorscheme': 'material_vim' }
 
-"Show line numbers
+"Add line numbers
 set number
 
-set hlsearch incsearch
-
-"Set whitespace characters
-set list
+"Specify which list chars to show when on
 set listchars=tab:->,trail:~,extends:>,precedes:<,space:· 
 
-if !has("termguicolors")
-    set nolist
-endif
+"Highlight search results
+set hlsearch
+
+"Always show lightline
+set laststatus=2
+
+"Don't show the mode
+set noshowmode
+
+"Always show sign column
+set signcolumn=yes
 
 "Hide vertical split line
 set fillchars+=vert:\ 
 
-set signcolumn=yes
-
 "Some dynamic color tweaks
-if exists("*has#plugin") && has#plugin('vim-color-util')
+if HasPlugin('vim-color-util')
     let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
     silent! call color#Highlight('CurrentWord', '', s:marks_color, '')
     silent! call color#Highlight('EndOfBuffer', color#GetHighlight('Normal', 'guibg'), '', '')
-    silent! call color#Highlight('SpecialKey', s:marks_color, '', '')
-    silent! call color#Highlight('Whitespace', s:marks_color, '', '')
-    silent! call color#Highlight('VertSplit', color#GetHighlight('Normal', 'guibg'), color#GetHighlight('Normal', 'guibg'), '')
-    silent! call color#Highlight('Visual', 'NONE', s:marks_color, '')
 endif
 
 function! HighlightCurrentWord()
@@ -67,28 +65,68 @@ endfunction
 setl updatetime=300
 autocmd CursorHold * call HighlightCurrentWord()
 
-"Use true colors
-let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
-
-if $TERM_PROGRAM =~ "iTerm"
-    "Cursor is a block in normal mode
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-    "Cursor is a vertical bar in insert mode
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"True color support
+if (has('termguicolors'))
+    let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 endif
 
-" set filetypes as typescript.tsx
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+if !has('gui_running')
+  set t_Co=256
+endif
+
+" /-------------------------------------------------------------------------------
+" | Key Bindings
+" |-------------------------------------------------------------------------------
+" |
+" | Vim provides it's own keybindings obviously, but we'll add just a pinch
+" | of customization to make things even more awesomely awesome.
+" /
+
+"Set the leader key
+let mapleader = ','
+
+"Write current buffer
+nmap <Leader>w :w<cr>
+
+"Close current window
+nmap <Leader>q :q<cr>
+
+"Delete current buffer
+nmap <Leader>d :Kwbd<cr>
+
+"Search the current file
+nmap <Leader><space> :nohlsearch<cr>
+
+" Splits
+nmap <Leader>v :vs<cr>
+nmap <Leader>h :sp<cr>
+
+"Make tab and shift-tab indent as expected.
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+"Show most recently used files
+nnoremap <space>fr :call SwitchToWriteableBufferAndExec('CtrlPMRUFiles')<CR>
+
+"Edit the vimrc file
+nmap <Leader>ev :e $MYVIMRC<CR>
+nmap <Leader>ep :e $MYPLUGINS<CR>
 
 " /-------------------------------------------------------------------------------
 " | Behavior
 " |-------------------------------------------------------------------------------
+" |
+" | This sections includes some miscellaneous tweaks of the editor's behavior
+" | since some things are admittedly pretty wonky by default.
 " /
+set incsearch
 
 set noswapfile
-
 set splitbelow
 set splitright
 
@@ -110,15 +148,16 @@ set nowrap
 "Get rid of bells
 set noerrorbells visualbell t_vb=
 
-"Don't preserve backwards compatibility to older versions of vim
-set nocompatible
-
-"Add a single space after comment delim
-let g:NERDSpaceDelims=1
+"Persistent undo
+set undodir=~/.vim/undodir
 
 "Ingore vendor files from CTRLP
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
+" /-------------------------------------------------------------------------------
+" | Auto Commmands
+" |-------------------------------------------------------------------------------
+" /
 "Re-source the vimrc file when it is saved.
 augroup reload_vimrc
     autocmd!
@@ -132,52 +171,9 @@ augroup reload_vimrc
 augroup END
 
 " /-------------------------------------------------------------------------------
-" | Key Bindings
-" |-------------------------------------------------------------------------------
-" /
-
-"Set the leader key
-let mapleader = ','
-
-"Write current buffer
-nmap <Leader>w :w<cr>
-"Close current window
-nmap <Leader>q :q<cr>
-"Quit
-nmap <Leader>Q :qa!<cr>
-nnoremap Q <Nop>
-"Delete current buffer
-nmap <Leader>d :Kwbd<cr>
-
-nmap <Leader>v :vs<cr>
-nmap <Leader>h :sp<cr>
-
-"Search the current file
-nmap <Leader><space> :nohlsearch<cr>
-
-"Make tab and shift-tab indent as expected.
-nnoremap <Tab> >>_
-nnoremap <S-Tab> <<_
-inoremap <S-Tab> <C-D>
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-
-"Comment out lines (with NERDComment)
-noremap <Leader>x :call NERDComment(1, 'Toggle')<cr>
-
-"Show most recently used files
-nnoremap <space>fr :call SwitchToWriteableBufferAndExec('CtrlPMRUFiles')<CR>
-
-"Edit the vimrc file
-nmap <Leader>ev :e $MYVIMRC<CR>
-nmap <Leader>ep :e $MYPLUGINS<CR>
-nmap <Leader>ez :e ~/.zshrc<CR>
-
-" /-------------------------------------------------------------------------------
 " | Helpers
 " |-------------------------------------------------------------------------------
 " /
-
 function! SwitchToWriteableBufferAndExec(command)
     "Prevent CtrlP opening files inside non-writeable buffers.
     let c = 0
