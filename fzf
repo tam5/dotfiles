@@ -1,50 +1,14 @@
 #!/usr/bin/env bash
 
-# /-------------------------------------------------------------------------------
-# | FZF
-# |-------------------------------------------------------------------------------
-# |
-# | FZF adds some snazzy stuff.
-# /
-
 export FZF_DEFAULT_OPTS='--layout=reverse'
 
-# helpers
+# /-------------------------------------------------------------------------------
+# | Git
+# |-------------------------------------------------------------------------------
+# /
 alias glGraph='git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@"'
-alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
-
-# fh - Replacement for CTRL-R
-fh() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf | sed 's/ *[0-9]* *//')
-}
-
-# fuzzy matching for lug commands
-lu() {
-  if [[ -n "$@" ]]; then lug "$@"; return; fi
-
-  local commands command
-  commands=$(lug list -n 2>&1 | awk '{print $1}')
-  command=$(echo "$commands" | fzf --ansi \
-    --preview="lug {} --help" \
-    --header "enter to select") &&
-
-  print -z "lug $command"
-}
-
-# fuzzy matching for platformer commands
-li() {
-  if [[ -n "$@" ]]; then platformer "$@"; return; fi
-
-  local commands command
-  commands=$(platformer list -n 2>&1 | awk '{print $1}')
-  command=$(echo "$commands" | fzf --ansi \
-    --preview="platformer {} --help" \
-    --header "enter to select") &&
-
-  print -z "platformer $command"
-}
 
 # gco - checkout git branch (including remote branches), sorted by most recent commit, limit 50 last branches
 unalias gco 2> /dev/null
@@ -69,43 +33,42 @@ glo() {
                 --bind "ctrl-y:execute:$_gitLogLineToHash | pbcopy"
 }
 
-# env - Replacment for env
-alias env="/usr/bin/env | fzf"
+# the opposite of glo (shows incoming changes)
+alias gro="glo ..@{u}"
 
-# chrome - (experimental) fuzzy search on Chrome browsing history
-chrome() {
-  local cols sep google_history open
-  cols=$(( COLUMNS / 3 ))
-  sep='{::}'
+# /-------------------------------------------------------------------------------
+# | LiveIntent
+# |-------------------------------------------------------------------------------
+# /
+li() {
+  if [[ -n "$@" ]]; then platformer "$@"; return; fi
 
-  if [ "$(uname)" = "Darwin" ]; then
-    google_history="$HOME/Library/Application Support/Google/Chrome/Default/History"
-    open=open
-  else
-    google_history="$HOME/.config/google-chrome/Default/History"
-    open=xdg-open
-  fi
-  cp -f "$google_history" /tmp/h
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
+  local commands command
+  commands=$(platformer list -n 2>&1 | awk '{print $1}')
+  command=$(echo "$commands" | fzf --ansi \
+    --preview="platformer {} --help" \
+    --header "enter to select") &&
+
+  print -z "platformer $command"
 }
 
-# Kubernetes
-# kubectl set-context
-ksc() {
+ku() {
   local context
 
   context=$(kubectl config get-contexts -o name | fzf) &&
       kubectl config use-context $context
 }
 
-# kubectl logs
 kl() {
   local pod
 
   pod=$(kubectl get pods --all-namespaces --no-headers | fzf) &&
       print -z "$(echo $pod | awk '{print "kubectl logs -n " $1 " " $2}')"
 }
+
+# /-------------------------------------------------------------------------------
+# | System
+# |-------------------------------------------------------------------------------
+# /
+# env - Replacment for env
+alias env="/usr/bin/env | fzf"

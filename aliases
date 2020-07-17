@@ -3,12 +3,10 @@
 # /-------------------------------------------------------------------------------
 # | Utilities
 # |-------------------------------------------------------------------------------
-# |
-# | Some misc stuff.
 # /
 
 # come back here quickly
-alias shortcuts='vim ~/.aliases'
+alias shortcuts="vim ~/.aliases"
 
 # copy current working dir
 alias cpwd="pwd | tr -d '\n' | pbcopy"
@@ -20,8 +18,6 @@ alias trash="rmtrash"
 # /-------------------------------------------------------------------------------
 # | Git is great
 # |-------------------------------------------------------------------------------
-# |
-# | Shortcuts and functions to make git more fluent and usable.
 # /
 alias gs='git status'
 alias nah="git reset --hard head && git clean -fd"
@@ -30,14 +26,6 @@ alias gstash="git add . && git commit -m 'stash'"
 alias gpop="git reset --soft head~1 && git reset head"
 alias gsu='git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
-
-# quickly fix that annoying thing
-alias tgl='trash .git/index.lock'
-
-# git diff without the git
-gdiff() {
-    git diff --no-index $1 $2 | diff-so-fancy | less
-}
 
 # destructive, ye' be warned
 grho() {
@@ -49,17 +37,17 @@ gri() {
     git rebase -i head~$1
 }
 
+# git diff without the git
+gdiff() {
+    git diff --no-index $1 $2 | diff-so-fancy | less
+}
+
 alias grc="git rebase --continue"
 alias grs="git rebase --skip"
-
-# the opposite of glo (shows incoming changes)
-alias gro="glo ..@{u}"
 
 # /-------------------------------------------------------------------------------
 # | Jumping around
 # |-------------------------------------------------------------------------------
-# |
-# | Quick cd'ing into common places.
 # /
 alias home='cd ~'
 alias desk='cd ~/desktop'
@@ -71,32 +59,24 @@ alias dmd='cd ~/.doom.d'
 # /-------------------------------------------------------------------------------
 # | Docker
 # |-------------------------------------------------------------------------------
-# |
-# | Docker is my friend.
 # /
+
+alias c="docker-compose"
 
 # launch portainer (gui to manage docker)
 alias portainer="docker volume create portainer_data &&  docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer"
-alias c="docker-compose"
 
 # /-------------------------------------------------------------------------------
 # | PHP
 # |-------------------------------------------------------------------------------
-# |
-# | PHP isn't really that bad, is it?
 # /
 
-# so we don't have to screw with paths
 alias phpunit='vendor/bin/phpunit'
 alias pu='phpunit'
 alias pf="phpunit --filter"
 
 # quick php/laravel REPL
-alias tinker='php ~/Code/laravel/artisan tinker'
+alias tinker='php ~/code/laravel/artisan tinker'
 
 # laravel stuff
 alias art='php artisan'
-alias amr='php artisan migrate:refresh'
-alias amrs='php artisan migrate:refresh --seed'
-
-source ~/.fzf
