@@ -6,7 +6,7 @@ export FZF_DEFAULT_OPTS='--layout=reverse'
 # | Git
 # |-------------------------------------------------------------------------------
 # /
-alias glGraph='git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@"'
+alias glGraph='git log --graph --color=always --format="%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" "$@"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
 
