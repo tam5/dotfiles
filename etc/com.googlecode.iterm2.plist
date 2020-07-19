@@ -2364,11 +2364,13 @@
 			<key>Guid</key>
 			<string>75D1ABBA-0664-45CE-8399-272EDA084F75</string>
 			<key>Horizontal Spacing</key>
-			<real>1.1000000000000001</real>
+			<real>1.01</real>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
 			<string></string>
+			<key>Initial Use Transparency</key>
+			<false/>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -2726,6 +2728,8 @@
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
+			<key>Session Close Undo Timeout</key>
+			<integer>30</integer>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Silence Bell</key>
@@ -2751,7 +2755,7 @@
 			<key>Use Non-ASCII Font</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>1</real>
+			<real>1.01</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -2769,7 +2773,7 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{1237, 1008}</string>
+		<string>{923, 1040}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>774714A2-A047-4C86-B5A6-CFEA3DC00209</string>
@@ -3505,8 +3509,14 @@
 	<date>2020-07-19T14:25:38Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
+	<key>ShowPaneTitles</key>
+	<false/>
 	<key>SoundForEsc</key>
 	<false/>
+	<key>SplitPaneDimmingAmount</key>
+	<real>0.21912123226950359</real>
+	<key>TabStyleWithAutomaticOption</key>
+	<integer>5</integer>
 	<key>UseLionStyleFullscreen</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
