@@ -1,6 +1,6 @@
 host github.com
    HostName github.com
-   IdentityFile ~/.ssh/git.id_rsa
+   IdentityFile ~/.ssh/id_rsa
    User git
 
 Host 10.239.* dev-*.liveintenteng.com
