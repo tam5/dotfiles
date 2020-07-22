@@ -16,32 +16,6 @@
                 },
                 "rules": [
                     {
-                        "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "caps_lock",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_control"
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "escape"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Change ctrl+j/k to up arrow if pressed in certain apps",
                         "manipulators": [
                             {
@@ -49,8 +23,11 @@
                                     {
                                         "bundle_identifiers": [
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
                                             "com\\.google\\.Chrome",
-                                            "com\\.apple\\.Notes"
+                                            "com\\.apple\\.Notes",
+                                            "com\\.tinyspeck\\.slackmacgap",
+                                            "com\\.googlecode\\.iterm2"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -78,8 +55,11 @@
                                     {
                                         "bundle_identifiers": [
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
                                             "com\\.google\\.Chrome",
-                                            "com\\.apple\\.Notes"
+                                            "com\\.apple\\.Notes",
+                                            "com\\.tinyspeck\\.slackmacgap",
+                                            "com\\.googlecode\\.iterm2"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -98,6 +78,32 @@
                                 "to": [
                                     {
                                         "key_code": "up_arrow"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
                                     }
                                 ],
                                 "type": "basic"
@@ -177,7 +183,7 @@
                         "key_code": "f9"
                     },
                     "to": {
-                        "consumer_key_code": "fastforward"
+                        "consumer_key_code": "fast_forward"
                     }
                 },
                 {
