@@ -66,6 +66,13 @@ kl() {
       print -z "$(echo $pod | awk '{print "kubectl logs -n " $1 " " $2}')"
 }
 
+ke() {
+  local pod
+
+  pod=$(kubectl get pods --all-namespaces --no-headers | fzf) &&
+      print -z "$(echo $pod | awk '{print "kubectl -n " $1 " exec -it " $2 " bash"}')"
+}
+
 # /-------------------------------------------------------------------------------
 # | System
 # |-------------------------------------------------------------------------------
