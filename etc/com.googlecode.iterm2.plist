@@ -1833,20 +1833,6 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0x6a-0x140000</key>
-		<dict>
-			<key>Action</key>
-			<integer>21</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0x6b-0x140000</key>
-		<dict>
-			<key>Action</key>
-			<integer>20</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
 		<key>0x6c-0x140000</key>
 		<dict>
 			<key>Action</key>
@@ -1864,14 +1850,14 @@
 		<key>0xf700-0x300000</key>
 		<dict>
 			<key>Action</key>
-			<integer>7</integer>
+			<integer>20</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
 		<key>0xf701-0x300000</key>
 		<dict>
 			<key>Action</key>
-			<integer>6</integer>
+			<integer>21</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
@@ -1962,12 +1948,8 @@
 	<true/>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/.dotfiles/etc</string>
-	<key>NSNavLastUserSetHideExtensionButtonState</key>
-	<true/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{799, 448}</string>
-	<key>NSNavPanelExpandedSizeForSaveMode</key>
-	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -2010,11 +1992,9 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
-	<string>905 726 799 448 0 0 2560 1417 </string>
-	<key>NSWindow Frame ProfilesPanel</key>
-	<string>532 978 735 382 0 0 2560 1440 </string>
+	<string>463 434 799 448 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 2560 1440 0 0 2560 1417 </string>
+	<string>0 0 1680 1050 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2775,23 +2755,15 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{1394, 766}</string>
+		<string>{540, 823}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
-	<string>774714A2-A047-4C86-B5A6-CFEA3DC00209</string>
-	<key>NoSyncLastTipTime</key>
-	<real>616958657.30393302</real>
+	<string>F16B8542-8ADC-4386-837B-D0138BB2930F</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>6</integer>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
+	<integer>3</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
-	<real>616955818.78851604</real>
+	<real>617290457.10094202</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
-	<true/>
-	<key>NoSyncPermissionToShowTip</key>
 	<true/>
 	<key>NoSyncRecordedVariables</key>
 	<dict>
@@ -3175,14 +3147,6 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentTab.window</string>
-				<key>nonterminalContext</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>isTerminal</key>
-				<true/>
-				<key>name</key>
 				<string>id</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
@@ -3314,6 +3278,14 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
+				<string>currentSession.terminalIconName</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
 				<string>currentSession.presentationName</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
@@ -3363,14 +3335,6 @@
 				<true/>
 				<key>name</key>
 				<string>currentSession.name</string>
-				<key>nonterminalContext</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>isTerminal</key>
-				<true/>
-				<key>name</key>
-				<string>window</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -3500,12 +3464,7 @@
 		</array>
 	</dict>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
-	<real>616679696.35586596</real>
-	<key>NoSyncTipsToNotShow</key>
-	<array>
-		<string>000</string>
-		<string>0000</string>
-	</array>
+	<real>617117657.10072005</real>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/arimiller/.dotfiles/etc</string>
 	<key>SUEnableAutomaticChecks</key>
@@ -3513,11 +3472,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final_new.xml?shard=81</string>
+	<string>https://iterm2.com/appcasts/final_new.xml?shard=72</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-07-20T14:25:39Z</date>
+	<date>2020-07-23T13:58:42Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowPaneTitles</key>
