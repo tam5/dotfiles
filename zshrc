@@ -113,6 +113,7 @@ source ~/.aliases
 source ~/.fzf
 
 export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/code/liveintent/platform:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
