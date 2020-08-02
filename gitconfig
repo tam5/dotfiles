@@ -3,22 +3,15 @@
 	email = arimiller92@gmail.com
 [core]
 	excludesfile = /Users/arimiller/.gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
 [url "git@github.com:"]
 	insteadOf = https://github.com/
-[color]
-	ui = true
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+[interactive]
+    diffFilter = delta --color-only
 [color "diff"]
-	meta = yellow
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
-[diff-so-fancy]
-	markEmptyLines = false
+    meta = yellow
+    frag = magenta bold
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse

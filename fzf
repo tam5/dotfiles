@@ -8,7 +8,7 @@ export FZF_DEFAULT_OPTS='--layout=reverse'
 # /
 alias glGraph='git log --graph --color=always --format="%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" "$@"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
-_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
+_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | delta'"
 
 # gco - checkout git branch (including remote branches), sorted by most recent commit, limit 50 last branches
 unalias gco 2> /dev/null
