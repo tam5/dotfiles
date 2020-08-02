@@ -31,6 +31,7 @@ antigen bundle git
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle marlonrichert/zsh-autocomplete
+antigen bundle b4b4r07/enhancd
 
 antigen theme romkatv/powerlevel10k
 
