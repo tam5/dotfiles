@@ -8,6 +8,9 @@
 # come back here quickly
 alias shortcuts="vim ~/.aliases"
 
+# ls replacement
+alias l="exa -l --group-directories-first --git"
+
 # copy current working dir
 alias cpwd="pwd | tr -d '\n' | pbcopy"
 
