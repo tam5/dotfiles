@@ -22,7 +22,8 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 # | Antigen plugins
 # |-----------------------------------------------------
 # /
-source /usr/local/share/antigen/antigen.zsh
+ANTIGEN_PATH=~/.dotfiles
+source $ANTIGEN_PATH/antigen/antigen.zsh
 
 antigen use oh-my-zsh
 
