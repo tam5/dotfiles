@@ -3,15 +3,19 @@
 	email = arimiller92@gmail.com
 [core]
 	excludesfile = /Users/arimiller/.gitignore_global
-	pager = delta
+	pager = delta --features side-by-side
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [interactive]
-    diffFilter = delta --color-only
-[color "diff"]
-    meta = yellow
-    frag = magenta bold
-    commit = yellow bold
-    old = red bold
-    new = green bold
-    whitespace = red reverse
+    diffFilter = less
+[delta]
+    line-numbers-left-format = "{nm} "
+    line-numbers-right-format = "  {np} "
+    hunk-header-style = dim ul
+    hunk-header-decoration-style = ''
+
+[delta "side-by-side"]
+    features = line-numbers decorations side-by-side
+
+[delta "inline"]
+    features = line-numbers decorations

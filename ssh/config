@@ -16,7 +16,7 @@ Host dev-bastion
   Hostname dev-bastion.liveintenteng.com
   User amiller
   ForwardAgent yes
-  IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/li.id_rsa
   ControlMaster auto
   ControlPath ~/.ssh/%r@%h:%p
   ControlPersist 15m
@@ -34,7 +34,7 @@ Host qa-bastion
   Hostname qa-bastion.liveintenteng.com
   User amiller
   ForwardAgent yes
-  IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/li.id_rsa
   ControlMaster auto
   ControlPath ~/.ssh/%r@%h:%p
   ControlPersist 15m
@@ -52,7 +52,7 @@ Host uat-bastion
   Hostname uat-bastion.liveintent.com
   User amiller
   ForwardAgent yes
-  IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/li.id_rsa
   ControlMaster auto
   ControlPath ~/.ssh/%r@%h:%p
   ControlPersist 15m
@@ -70,7 +70,7 @@ Host stage-bastion
   Hostname stage-bastion.liveintent.com
   User amiller
   ForwardAgent yes
-  IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/li.id_rsa
   ControlMaster auto
   ControlPath ~/.ssh/%r@%h:%p
   ControlPersist 15m
@@ -88,7 +88,7 @@ Host prod-bastion
   Hostname prod-bastion.liveintent.com
   User amiller
   ForwardAgent yes
-  IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/li.id_rsa
   ControlMaster auto
   ControlPath ~/.ssh/%r@%h:%p
   ControlPersist 15m

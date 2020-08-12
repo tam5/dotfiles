@@ -86,3 +86,11 @@ alias tinker='php ~/code/laravel/artisan tinker'
 
 # laravel stuff
 alias art='php artisan'
+
+# /-------------------------------------------------------------------------------
+# | LiveIntent
+# |-------------------------------------------------------------------------------
+# /
+tunnel() {
+    echo ssh -L $2:$1-rds.liveintenteng.com:3306 $1-bastion
+}
