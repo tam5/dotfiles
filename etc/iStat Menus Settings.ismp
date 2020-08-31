@@ -19,69 +19,50 @@
 		<string>buttons</string>
 		<key>Battery_MenubarCustomizeStates</key>
 		<integer>0</integer>
+		<key>Battery_MenubarItems</key>
+		<array>
+			<dict>
+				<key>internal</key>
+				<true/>
+				<key>key</key>
+				<string>D869455N0CAHDWCB3</string>
+				<key>name</key>
+				<string>Internal Battery</string>
+				<key>subtype</key>
+				<integer>-1</integer>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>80-82-23-d4-9d-b3</string>
+				<key>name</key>
+				<string>Ari’s AirPods</string>
+				<key>subtype</key>
+				<integer>1</integer>
+				<key>type</key>
+				<integer>2</integer>
+			</dict>
+		</array>
 		<key>Battery_MenubarMode</key>
 		<array>
 			<dict>
 				<key>key</key>
 				<string>0</string>
 				<key>uuid</key>
-				<string>5AF89AB7-54A4-459B-ABC1-E9795AE40E41</string>
+				<string>930A5C7A-C7D9-4BBB-BFFA-BD8E9E616EFB</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>2</string>
 				<key>uuid</key>
-				<string>99FBAD66-7A6D-409F-8253-FEF9E0828D69</string>
+				<string>E952B5AC-AB36-4265-8B26-B2E207297F49</string>
 			</dict>
 		</array>
 		<key>Battery_MenubarModeAirpods</key>
-		<array>
-			<dict>
-				<key>key</key>
-				<string>6</string>
-				<key>uuid</key>
-				<string>1C3799B7-A513-4B56-81BA-50835E729751</string>
-			</dict>
-		</array>
+		<array/>
 		<key>Battery_MenubarModeBluetooth</key>
-		<array>
-			<dict>
-				<key>key</key>
-				<string>8</string>
-				<key>uuid</key>
-				<string>DEEE04C0-DFE3-4991-8BB0-7AB6589F1E25</string>
-			</dict>
-			<dict>
-				<key>key</key>
-				<string>6</string>
-				<key>uuid</key>
-				<string>A39FCC12-B09B-463A-A1A9-C6D8FC85C673</string>
-			</dict>
-			<dict>
-				<key>key</key>
-				<string>8</string>
-				<key>uuid</key>
-				<string>12EBA446-B32D-440D-ABB3-4F34A56ED37C</string>
-			</dict>
-			<dict>
-				<key>key</key>
-				<string>8</string>
-				<key>uuid</key>
-				<string>67AEFFB0-807B-4EAC-9F9C-042AF2ABCBF3</string>
-			</dict>
-			<dict>
-				<key>key</key>
-				<string>8</string>
-				<key>uuid</key>
-				<string>A832B150-458E-4CB6-927F-7156B3573E16</string>
-			</dict>
-			<dict>
-				<key>key</key>
-				<string>8</string>
-				<key>uuid</key>
-				<string>125384C6-198B-445B-891A-1977D86AA009</string>
-			</dict>
-		</array>
+		<array/>
 		<key>Battery_PercentageSize</key>
 		<integer>11</integer>
 		<key>CPU_DropdownGraphSystem</key>
