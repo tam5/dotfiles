@@ -92,5 +92,5 @@ alias art='php artisan'
 # |-------------------------------------------------------------------------------
 # /
 tunnel() {
-    echo ssh -L $2:$1-rds.liveintenteng.com:3306 $1-bastion
+    ssh -i ~/.ssh/li.id_rsa -L $2:$1-rds.liveintenteng.com:3306 $1-bastion
 }
