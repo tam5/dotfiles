@@ -1,6 +1,7 @@
 [user]
 	name = tam5
 	email = arimiller92@gmail.com
+	signingkey = 9DCDA75885A8FDD1
 [core]
 	excludesfile = /Users/arimiller/.gitignore_global
 	pager = delta --features side-by-side
@@ -13,9 +14,13 @@
     line-numbers-right-format = "  {np} "
     hunk-header-style = dim ul
     hunk-header-decoration-style = ''
-
 [delta "side-by-side"]
     features = line-numbers decorations side-by-side
-
 [delta "inline"]
     features = line-numbers decorations
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+[alias]
+    commit = commit -s
