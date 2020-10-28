@@ -24,3 +24,4 @@
 	program = gpg
 [alias]
     commit = commit -s
+    tag = tag -s
