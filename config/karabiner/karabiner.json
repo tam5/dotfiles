@@ -16,12 +16,39 @@
                 },
                 "rules": [
                     {
+                        "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Change ctrl+j/k to up arrow if pressed in certain apps",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
                                             "com\\.apple\\.Spotlight",
                                             "com\\.google\\.Chrome",
@@ -54,6 +81,7 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
                                             "com\\.apple\\.Spotlight",
                                             "com\\.google\\.Chrome",
@@ -78,32 +106,6 @@
                                 "to": [
                                     {
                                         "key_code": "up_arrow"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "caps_lock",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_control"
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "escape"
                                     }
                                 ],
                                 "type": "basic"
@@ -139,6 +141,14 @@
                             },
                             "to": {
                                 "key_code": "left_command"
+                            }
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_option"
+                            },
+                            "to": {
+                                "key_code": "right_command"
                             }
                         }
                     ]
