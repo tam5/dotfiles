@@ -51,6 +51,7 @@
                                             "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
                                             "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
                                             "com\\.google\\.Chrome",
                                             "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
@@ -84,6 +85,7 @@
                                             "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
                                             "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
                                             "com\\.google\\.Chrome",
                                             "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
@@ -149,6 +151,14 @@
                             },
                             "to": {
                                 "key_code": "right_command"
+                            }
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_command"
+                            },
+                            "to": {
+                                "key_code": "right_option"
                             }
                         }
                     ]
