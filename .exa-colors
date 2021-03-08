@@ -1,0 +1,9 @@
+#!bin/bash
+
+# pretty confusing, so just look here: https://the.exa.website/docs/colour-themes
+
+base="fi=37:di=36;;1:xx=30"
+file_info="da=38;5;0:uu=38;5;0:un=35:gu=38;5;0:gn=35:sn=36:sb=36"
+permissions="ur=34:uw=34:ux=34:ue=34:gr=35:gw=35:gx=35:tr=31:tw=31:tx=31"
+
+export EXA_COLORS="$base:$file_info:$permissions"
