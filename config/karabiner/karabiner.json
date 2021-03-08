@@ -42,7 +42,7 @@
                         ]
                     },
                     {
-                        "description": "Change ctrl+j/k to up arrow if pressed in certain apps",
+                        "description": "Change ctrl+jkhl to arrows if pressed in certain apps",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -108,6 +108,74 @@
                                 "to": [
                                     {
                                         "key_code": "up_arrow"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "notion\\.id",
+                                            "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
+                                            "com\\.tinyspeck\\.slackmacgap",
+                                            "com\\.googlecode\\.iterm2"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ],
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "notion\\.id",
+                                            "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
+                                            "com\\.tinyspeck\\.slackmacgap",
+                                            "com\\.googlecode\\.iterm2"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ],
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow"
                                     }
                                 ],
                                 "type": "basic"
