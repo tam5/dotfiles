@@ -9,6 +9,7 @@
 alias shortcuts="vim ~/.aliases"
 
 # ls replacement
+source ~/.exa-colors
 alias ls="exa -lbF --git --group-directories-first -a"
 alias l="ls"
 alias ll="exa -lbGF --git --group-directories-first"
