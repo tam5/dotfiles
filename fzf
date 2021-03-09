@@ -45,22 +45,21 @@ glo() {
 
 # the opposite of glo (shows incoming changes)
 alias gro="glo ..@{u}"
-
 # /-------------------------------------------------------------------------------
-# | LiveIntent
+# | AWS
 # |-------------------------------------------------------------------------------
 # /
-li() {
-  if [[ -n "$@" ]]; then platformer "$@"; return; fi
+au() {
+  local profile
 
-  local commands command
-  commands=$(platformer list -n 2>&1 | awk '{print $1}')
-  command=$(echo "$commands" | fzf --ansi \
-    --preview="platformer {} --help" \
-    --header "enter to select") &&
-
-  print -z "platformer $command"
+  profile=$(aws configure list-profiles | fzf) &&
+      export AWS_PROFILE=$profile
 }
+
+# /-------------------------------------------------------------------------------
+# | Kubernetes
+# |-------------------------------------------------------------------------------
+# /
 
 ku() {
   local context
@@ -81,6 +80,22 @@ ke() {
 
   pod=$(kubectl get pods --all-namespaces --no-headers | fzf) &&
       print -z "$(echo $pod | awk '{print "kubectl -n " $1 " exec -it " $2 " bash"}')"
+}
+
+# /-------------------------------------------------------------------------------
+# | LiveIntent
+# |-------------------------------------------------------------------------------
+# /
+li() {
+  if [[ -n "$@" ]]; then platformer "$@"; return; fi
+
+  local commands command
+  commands=$(platformer list -n 2>&1 | awk '{print $1}')
+  command=$(echo "$commands" | fzf --ansi \
+    --preview="platformer {} --help" \
+    --header "enter to select") &&
+
+  print -z "platformer $command"
 }
 
 # /-------------------------------------------------------------------------------
