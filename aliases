@@ -10,9 +10,9 @@ alias shortcuts="vim ~/.aliases"
 
 # ls replacement
 source ~/.exa-colors
-alias ls="exa -lbF --git --group-directories-first -a"
+alias ls="exa -lb --time-style=long-iso --group-directories-first -a"
 alias l="ls"
-alias ll="exa -lbGF --git --group-directories-first"
+# alias ll="exa -lbGF --git --group-directories-first"
 alias la="exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"
 
 # copy current working dir
