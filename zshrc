@@ -58,3 +58,6 @@ fi
 [[ ! -f ~/.aliases ]] || source ~/.aliases
 [[ ! -f ~/.fzf ]] || source ~/.fzf
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Created by `pipx` on 2021-03-09 02:06:02
+export PATH="$PATH:/Users/arimiller/.local/bin"

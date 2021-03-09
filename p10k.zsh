@@ -1287,11 +1287,15 @@
   #   typeset -g POWERLEVEL9K_AWS_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
   #   typeset -g POWERLEVEL9K_AWS_TEST_CONTENT_EXPANSION='> ${P9K_CONTENT} <'
   typeset -g POWERLEVEL9K_AWS_CLASSES=(
-      # '*prod*'  PROD    # These values are examples that are unlikely
-      # '*test*'  TEST    # to match your needs. Customize them as needed.
-      '*'       DEFAULT)
-  typeset -g POWERLEVEL9K_AWS_DEFAULT_FOREGROUND=208
-  # typeset -g POWERLEVEL9K_AWS_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
+      '*-developer*'   MEDIUM
+      '*dev-manager*'  MEDIUM
+      '*-viewer*'      LOW
+      '*-manager*'     HIGH
+      '*'              DEFAULT)
+  typeset -g POWERLEVEL9K_AWS_{LOW,DEFAULT}_FOREGROUND=6
+  typeset -g POWERLEVEL9K_AWS_MEDIUM_FOREGROUND=5
+  typeset -g POWERLEVEL9K_AWS_HIGH_FOREGROUND=1
+  typeset -g POWERLEVEL9K_AWS_{HIGH,MEDIUM,LOW,DEFAULT}_VISUAL_IDENTIFIER_EXPANSION=''
 
   #[ aws_eb_env: aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/) ]#
   # AWS Elastic Beanstalk environment color.
