@@ -1,0 +1,10 @@
+windows:
+  - name: identity
+    root: ~/code/liveintent/identity
+    layout: main-vertical-flipped
+    panes:
+      - yarn dev --port=8888
+      - commands:
+        - cd ../lui
+        - yarn dev
+      - focus: true
