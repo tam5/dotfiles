@@ -36,7 +36,7 @@ gco() {
 unalias glo 2> /dev/null
 glo() {
     glGraph |
-        fzf --no-sort --reverse --tiebreak=index --no-multi \
+        fzf --no-sort --no-mouse --reverse --tiebreak=index --no-multi \
             --ansi --preview="$_viewGitLogLine" \
                 --header "enter to view, ctrl-y to copy hash" \
                 --bind "enter:execute:$_viewGitLogLine   | less -R" \
