@@ -64,3 +64,5 @@ export EDITOR=vim
 
 # Created by `pipx` on 2021-03-09 02:06:02
 export PATH="$PATH:/Users/arimiller/.local/bin"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
