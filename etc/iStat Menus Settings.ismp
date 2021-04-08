@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>build</key>
-	<string>1116</string>
+	<string>1157</string>
 	<key>license</key>
 	<dict>
 		<key>email</key>
@@ -215,6 +215,8 @@
 				<string>0D5023DA-5548-47E4-93C7-570DECD304E8</string>
 			</dict>
 		</array>
+		<key>Menubar-DetectedColor</key>
+		<string>0.37 0.37 0.37 1.00</string>
 		<key>MenubarGraphOpacity-Dark</key>
 		<real>0.0</real>
 		<key>MenubarSkinColor</key>
@@ -222,6 +224,8 @@
 		<key>Migrated_6.0</key>
 		<true/>
 		<key>Migrated_6.22</key>
+		<true/>
+		<key>Migrated_6.5</key>
 		<true/>
 		<key>Network_DropdownGraphDownload</key>
 		<string>0.92 0.92 0.92 1.00</string>
@@ -295,6 +299,8 @@
 				<string>10.00</string>
 			</dict>
 		</array>
+		<key>Sensors_TemperatureMode</key>
+		<integer>0</integer>
 		<key>StatusItems-Order</key>
 		<array>
 			<integer>6</integer>
@@ -317,8 +323,15 @@
 				</array>
 			</dict>
 		</array>
+		<key>Updater_Attempts</key>
+		<dict>
+			<key>1150</key>
+			<string>1</string>
+			<key>1157</key>
+			<string>1</string>
+		</dict>
 	</dict>
 	<key>version</key>
-	<string>6.40</string>
+	<string>6.51</string>
 </dict>
 </plist>
