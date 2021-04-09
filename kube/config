@@ -1,34 +1,62 @@
 apiVersion: v1
 clusters:
 - cluster:
-    insecure-skip-tls-verify: true
-    server: https://api-dev-liveintent-local.liveintenteng.com
+    certificate-authority: certs/dev.liveintent.local/k8s-ca.crt
+    server: https://api-dev-liveintent-local-p2e17l-1402924954.us-east-1.elb.amazonaws.com
   name: dev.liveintent.local
 - cluster:
-    insecure-skip-tls-verify: true
-    server: https://api-stage-liveintent-local.liveintent.com
-  name: uat.liveintent.local
-- cluster:
-    insecure-skip-tls-verify: true
-    server: https://api-prod-liveintent-local.liveintent.com
+    certificate-authority: certs/prod.liveintent.local/k8s-ca.crt
+    server: https://api-prod-liveintent-local-9jokn1-1850714605.us-east-1.elb.amazonaws.com
   name: prod.liveintent.local
+- cluster:
+    certificate-authority: certs/stage.liveintent.local/k8s-ca.crt
+    server: https://api-stage-liveintent-loca-e1onsi-1230232905.us-east-1.elb.amazonaws.com
+  name: stage.liveintent.local
 contexts:
 - context:
     cluster: dev.liveintent.local
-    user: tam5
+    user: amiller-dev.liveintent.local
   name: dev.liveintent.local
 - context:
-    cluster: uat.liveintent.local
-    user: tam5
-  name: uat.liveintent.local
-- context:
     cluster: prod.liveintent.local
-    user: tam5
+    namespace: default
+    user: amiller-prod.liveintent.local
   name: prod.liveintent.local
-current-context: dev.liveintent.local
+- context:
+    cluster: stage.liveintent.local
+    user: amiller-stage.liveintent.local
+  name: stage.liveintent.local
+current-context: prod.liveintent.local
 kind: Config
 preferences: {}
 users:
-- name: tam5
+- name: amiller-dev.liveintent.local
   user:
-    token: a595685ffc6f85415b244c24d73b7c073225aac1
+    auth-provider:
+      config:
+        client-id: dex-k8s-authenticator
+        client-secret: YjFmMTM5ZWY5Y2EwYmZmMzA2NjViMmUy
+        id-token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjM5YjY2NjA3MjA5MmUyYjIwMzFkZmZiMWE3MGE3MWVkOTNkZjYzMDUifQ.eyJpc3MiOiJodHRwczovL2RleC1kZXYtbGl2ZWludGVudC1sb2NhbC5saXZlaW50ZW50ZW5nLmNvbS8iLCJzdWIiOiJDaFV4TVRNeU5EWTBNakF3T1RrNE9URXhOek0xTURNU0JtZHZiMmRzWlEiLCJhdWQiOiJkZXgtazhzLWF1dGhlbnRpY2F0b3IiLCJleHAiOjE2MTc5MjE5NDAsImlhdCI6MTYxNzgzNTU0MCwiYXRfaGFzaCI6InBkTXl4ZTBXRE95ZUlIZE94aktMREEiLCJlbWFpbCI6ImFtaWxsZXJAbGl2ZWludGVudC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZ3JvdXBzIjpbImF3c3NvQGxpdmVpbnRlbnQuY29tIiwiZGVwbG95ZXJzLW55Y0BsaXZlaW50ZW50LmNvbSIsImRldi1iYWNrZW5kQGxpdmVpbnRlbnQuY29tIiwiZGV2LW55Y0BsaXZlaW50ZW50LmNvbSIsImRmcEBsaXZlaW50ZW50LmNvbSIsImVuZy1vbi1jYWxsQGxpdmVpbnRlbnQuY29tIiwiaW50ZWdyYXRpb25zQGxpdmVpbnRlbnQuY29tIiwibGktY29kZXJwYWRAbGl2ZWludGVudC5jb20iLCJsaXZlaW50ZW50LWlwb253ZWItYXBpQGxpdmVpbnRlbnQuY29tIiwibGl2ZWludGVudC1ub3RpZnlAbGl2ZWludGVudC5jb20iLCJtYW5hZ2Vyc0BsaXZlaW50ZW50LmNvbSIsIm55Y0BsaXZlaW50ZW50LmNvbSIsIm9taWNyb25AbGl2ZWludGVudC5jb20iLCJ1YXRAbGl2ZWludGVudC5jb20iLCJ1c2VyX2FwcGxpY2F0aW9uc0BsaXZlaW50ZW50LmNvbSJdLCJuYW1lIjoiQXJpIE1pbGxlciJ9.nt3OJ8dYoCoOzABJaJxchBEyht4Dfj9BveMUVDdmTaQnwMyOaZdHugVTNon4Ytj3Z52LTg4NCIabW0eVQmBdFNdzCdSURKwMrs19yYhFhEd6t67O-YxWO7deQWpoXO_etv8fOcC3xjR2HQma0la8NwlbskXZlj1WKg6wyZ5Fg8Q_C6qfmBsMtoHFqeKbLR5FpQtqOpTiQ8ytx4YDpVXo1X1sQaVsC1L43Cevr5U7T2YP2CAbwQzdAvz2wx_vM-sY2AIFyavpu0G8OvBqG3UuPjjAreV6kqUFBcBVZmKJqpfWh4ofDOUzXrEAHtifCXq1mygGyRXysdljpBkds9mQGw
+        idp-issuer-url: https://dex-dev-liveintent-local.liveintenteng.com/
+        refresh-token: ChlraTY2cWJtNm43c255Zmdpb2g1eDVza2VtEhltbDZkaHQ0amM2dGJhN3JmaXBxcGxodmFz
+      name: oidc
+- name: amiller-prod.liveintent.local
+  user:
+    auth-provider:
+      config:
+        client-id: dex-k8s-authenticator
+        client-secret: YjFmMTM5ZWY5Y2EwYmZmMzA2NjViMmUy
+        id-token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjgzY2ZiNTUzNTgxM2M4NGQxNDJjNTdjZjY4N2VmZmE3MDlmYmFiM2QifQ.eyJpc3MiOiJodHRwczovL2RleC1wcm9kLWxpdmVpbnRlbnQtbG9jYWwubGl2ZWludGVudC5jb20vIiwic3ViIjoiQ2hVeE1UTXlORFkwTWpBd09UazRPVEV4TnpNMU1ETVNCbWR2YjJkc1pRIiwiYXVkIjoiZGV4LWs4cy1hdXRoZW50aWNhdG9yIiwiZXhwIjoxNjE3OTIxOTUzLCJpYXQiOjE2MTc4MzU1NTMsImF0X2hhc2giOiJSQmZDaVh1eEtKSUdERkpQVGpkSFBRIiwiZW1haWwiOiJhbWlsbGVyQGxpdmVpbnRlbnQuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImdyb3VwcyI6WyJhd3Nzb0BsaXZlaW50ZW50LmNvbSIsImRlcGxveWVycy1ueWNAbGl2ZWludGVudC5jb20iLCJkZXYtYmFja2VuZEBsaXZlaW50ZW50LmNvbSIsImRldi1ueWNAbGl2ZWludGVudC5jb20iLCJkZnBAbGl2ZWludGVudC5jb20iLCJlbmctb24tY2FsbEBsaXZlaW50ZW50LmNvbSIsImludGVncmF0aW9uc0BsaXZlaW50ZW50LmNvbSIsImxpLWNvZGVycGFkQGxpdmVpbnRlbnQuY29tIiwibGl2ZWludGVudC1pcG9ud2ViLWFwaUBsaXZlaW50ZW50LmNvbSIsImxpdmVpbnRlbnQtbm90aWZ5QGxpdmVpbnRlbnQuY29tIiwibWFuYWdlcnNAbGl2ZWludGVudC5jb20iLCJueWNAbGl2ZWludGVudC5jb20iLCJvbWljcm9uQGxpdmVpbnRlbnQuY29tIiwidWF0QGxpdmVpbnRlbnQuY29tIiwidXNlcl9hcHBsaWNhdGlvbnNAbGl2ZWludGVudC5jb20iXSwibmFtZSI6IkFyaSBNaWxsZXIifQ.SooquWDCLq41aWe-eSeZj1Yk20Rw_q8WdTLoa6f13IhY1U3cP6mB9yAoq-7-UQEgdwY9AFY46fMoZ8DXUVQGiMKVtY70018zzJ-nFwFhbxX_xLScJCk-fXxOeiy3nOuRiHmgRLdGGqYgiKOLKvs4ZTbj7iToupgzUHUeXJ9ExNTSLRlt42d1zbtp8clnmf7y9t2x5cbELuLtLr1Djb7cQ2ieTcIe9xSDGP_U7eDrsRFhWlm_9axZVjcLezF_wd1GiBCPRQM62l_lFZI-bqfex-rdBxaDDnN90nn5dUnNxtFpBtots4Lvmt__ZU62rstXR833TcA33Y3XBowxdE1oRg
+        idp-issuer-url: https://dex-prod-liveintent-local.liveintent.com/
+        refresh-token: ChlrbHNrcXpxNmVtbHpidGcya3V1c3h2eG9rEhlpeTNiN3R0bmNjcmZpa3BwZGhjZm93bXFr
+      name: oidc
+- name: amiller-stage.liveintent.local
+  user:
+    auth-provider:
+      config:
+        client-id: dex-k8s-authenticator
+        client-secret: YjFmMTM5ZWY5Y2EwYmZmMzA2NjViMmUy
+        id-token: eyJhbGciOiJSUzI1NiIsImtpZCI6ImI3MWYyMmRmYjlhZDJkZjQ3NjlhMDU3YWE3NjQ1NzAyMzRhYzNjMTAifQ.eyJpc3MiOiJodHRwczovL2RleC1zdGFnZS1saXZlaW50ZW50LWxvY2FsLmxpdmVpbnRlbnQuY29tLyIsInN1YiI6IkNoVXhNVE15TkRZME1qQXdPVGs0T1RFeE56TTFNRE1TQm1kdmIyZHNaUSIsImF1ZCI6ImRleC1rOHMtYXV0aGVudGljYXRvciIsImV4cCI6MTYxNzgxMzk2OSwiaWF0IjoxNjE3NzI3NTY5LCJhdF9oYXNoIjoiYTJfNzNYbjdqYXNiQ1J2QXVxVWNlUSIsImVtYWlsIjoiYW1pbGxlckBsaXZlaW50ZW50LmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cHMiOlsiYXdzc29AbGl2ZWludGVudC5jb20iLCJkZXBsb3llcnMtbnljQGxpdmVpbnRlbnQuY29tIiwiZGV2LWJhY2tlbmRAbGl2ZWludGVudC5jb20iLCJkZXYtbnljQGxpdmVpbnRlbnQuY29tIiwiZGZwQGxpdmVpbnRlbnQuY29tIiwiZW5nLW9uLWNhbGxAbGl2ZWludGVudC5jb20iLCJpbnRlZ3JhdGlvbnNAbGl2ZWludGVudC5jb20iLCJsaS1jb2RlcnBhZEBsaXZlaW50ZW50LmNvbSIsImxpdmVpbnRlbnQtaXBvbndlYi1hcGlAbGl2ZWludGVudC5jb20iLCJsaXZlaW50ZW50LW5vdGlmeUBsaXZlaW50ZW50LmNvbSIsIm1hbmFnZXJzQGxpdmVpbnRlbnQuY29tIiwibnljQGxpdmVpbnRlbnQuY29tIiwib21pY3JvbkBsaXZlaW50ZW50LmNvbSIsInVhdEBsaXZlaW50ZW50LmNvbSIsInVzZXJfYXBwbGljYXRpb25zQGxpdmVpbnRlbnQuY29tIl0sIm5hbWUiOiJBcmkgTWlsbGVyIn0.gDcl0c-ynOytDBNjpo4tQY8MrfCJwcTHha9cjD-Buhwvzni0ku7Kqa7n5YE_UbmHFWjvbLutU9qbEcIwNvPe9dghdwuvwN5lOIlXkgRT7UiI3KtBsC-DFgiIuD-0sA3gJHxA413IQ0hKUOmNBolmhWEE3SXzmFDd1EZ1JwswvGSfk7IrqbuvMaHYLJAGTsf43xT9Qq7ZIJRae-lRLqrAqrdg5U0vHKGbV9USOLlfhL4ybznpFsVG5901bNjHNvyFpT60ZuzjYeR03akuKAUTCTADEi3fM8KswHWQ9LS_uSwPIDoH5fKJ9PgS5m1OBUPqc9ld3-aLaQONpijtjoGSIA
+        idp-issuer-url: https://dex-stage-liveintent-local.liveintent.com/
+        refresh-token: ChlnNHl0bW52Y3h1ajJ1YTM0dm5lNHVtc3Z6EhlvbWNtamduN3lodXIzemg3b3YzNjd6aHkz
+      name: oidc
