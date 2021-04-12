@@ -1,7 +1,7 @@
 [user]
 	name = tam5
 	email = arimiller92@gmail.com
-	signingkey = 52603F68CBB3501A
+	signingkey = 4E0CA950AC87DA02B511088B307952109C90C600
 [core]
 	excludesfile = /Users/arimiller/.gitignore_global
 	pager = delta --features side-by-side
