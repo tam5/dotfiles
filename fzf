@@ -79,14 +79,14 @@ ku() {
       kubectl config use-context $context
 }
 
-kl() {
+klog() {
   local pod
 
   pod=$(kubectl get pods --all-namespaces --no-headers | fzf) &&
       print -z "$(echo $pod | awk '{print "kubectl logs -n " $1 " " $2}')"
 }
 
-ke() {
+kex() {
   local pod
 
   pod=$(kubectl get pods --all-namespaces --no-headers | fzf) &&
