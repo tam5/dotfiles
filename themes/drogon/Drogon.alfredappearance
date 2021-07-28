@@ -1,0 +1,64 @@
+{
+  "alfredtheme" : {
+    "result" : {
+      "textSpacing" : 8,
+      "subtext" : {
+        "size" : 12,
+        "colorSelected" : "#7FABF7AA",
+        "font" : "System Light",
+        "color" : "#BCC3CD5F"
+      },
+      "shortcut" : {
+        "size" : 14,
+        "colorSelected" : "#FFCD00FF",
+        "font" : "System",
+        "color" : "#7FABF7FF"
+      },
+      "backgroundSelected" : "#4E53793A",
+      "text" : {
+        "size" : 18,
+        "colorSelected" : "#7FABF7FF",
+        "font" : "System",
+        "color" : "#BCC3CDFF"
+      },
+      "iconPaddingHorizontal" : 12,
+      "roundness" : 0,
+      "paddingVertical" : 7,
+      "iconSize" : 33
+    },
+    "search" : {
+      "backgroundSelected" : "#5178A5FF",
+      "paddingHorizontal" : 12,
+      "spacing" : 10,
+      "text" : {
+        "size" : 32,
+        "colorSelected" : "#7FABF7AA",
+        "font" : "System",
+        "color" : "#FEFFFEFF"
+      },
+      "background" : "#1D1E2000",
+      "roundness" : 0,
+      "paddingVertical" : 2
+    },
+    "window" : {
+      "color" : "#1D1E20F8",
+      "paddingHorizontal" : 0,
+      "width" : 780,
+      "borderPadding" : 0,
+      "borderColor" : "#00000000",
+      "blur" : 0,
+      "roundness" : 13,
+      "paddingVertical" : 10
+    },
+    "credit" : "Ari",
+    "separator" : {
+      "color" : "#3A3E5700",
+      "thickness" : 2
+    },
+    "scrollbar" : {
+      "color" : "#656C9600",
+      "thickness" : 6
+    },
+    "name" : "Drogon"
+  }
+}
