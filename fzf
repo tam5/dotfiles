@@ -43,6 +43,17 @@ glo() {
                 --bind "ctrl-y:execute:$_gitLogLineToHash | pbcopy"
 }
 
+# /-------------------------------------------------------------------------------
+# | Node
+# |-------------------------------------------------------------------------------
+# /
+yr() {
+  local cmd
+
+  cmd=$(cat package.json | jq -r '.scripts | keys[]' | fzf) &&
+      yarn run $cmd
+}
+
 # the opposite of glo (shows incoming changes)
 alias gro="glo ..@{u}"
 # /-------------------------------------------------------------------------------
