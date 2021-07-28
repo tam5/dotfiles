@@ -41,7 +41,9 @@ antigen apply
 # |-----------------------------------------------------
 # /
 export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$HOME/code/liveintent/platform:$PATH"
+export PATH="vendor/bin:$PATH"
 
 ENHANCD_DISABLE_DOT=1
 ENHANCD_DISABLE_HYPHEN=1
