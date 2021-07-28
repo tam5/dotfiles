@@ -25,3 +25,5 @@
 [alias]
     commit = commit -s
     tag = tag -s
+[init]
+	defaultBranch = main
