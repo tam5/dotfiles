@@ -55,7 +55,8 @@
                                             "com\\.google\\.Chrome",
                                             "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "com\\.googlecode\\.iterm2"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -89,7 +90,8 @@
                                             "com\\.google\\.Chrome",
                                             "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "com\\.googlecode\\.iterm2"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -123,7 +125,8 @@
                                             "com\\.google\\.Chrome",
                                             "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "com\\.googlecode\\.iterm2"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -157,7 +160,8 @@
                                             "com\\.google\\.Chrome",
                                             "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "com\\.googlecode\\.iterm2"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
