@@ -49,6 +49,9 @@ set signcolumn=yes
 "Hide vertical split line
 set fillchars+=vert:\ 
 
+"Do not conceal quotes in json mode
+let g:vim_json_syntax_conceal = 0
+
 "Some dynamic color tweaks
 " if has#plugin('vim-color-util')
 "     let s:marks_color = color#Lighten(color#GetHighlight('Normal', 'guibg'), 50)
