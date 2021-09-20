@@ -74,7 +74,7 @@ au() {
 dlog() {
   local container
 
-  container=$(docker ps --format '{{.Names}}' | fzf) && docker logs $container
+  container=$(docker ps --format '{{.Names}}' | fzf) && docker logs $container -f
 }
 
 dex() {

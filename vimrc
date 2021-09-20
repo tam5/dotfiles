@@ -102,9 +102,12 @@ nmap <Leader>d :Kwbd<cr>
 "Search the current file
 nmap <Leader><space> :nohlsearch<cr>
 
-" Splits
+"Splits
 nmap <Leader>v :vs<cr>
 nmap <Leader>h :sp<cr>
+
+"Clipboard
+nmap <Leader>c :call SetClipboardUnnamed()<cr>
 
 "Make tab and shift-tab indent as expected.
 nnoremap <Tab> >>_
@@ -187,4 +190,8 @@ function! SwitchToWriteableBufferAndExec(command)
         let c = c + 1
     endwhile
     exec a:command
+endfunction
+
+function! SetClipboardUnnamed()
+    set clipboard=unnamed
 endfunction
