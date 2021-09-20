@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/.dotfiles/utils/chalk.sh
+
 # /-------------------------------------------------------------------------------
 # | Utilities
 # |-------------------------------------------------------------------------------
@@ -96,6 +98,39 @@ alias tinker='php ~/code/laravel/artisan tinker'
 
 # laravel stuff
 alias art='php artisan'
+
+composer-link() {
+    dir=$1
+
+    if [[ -z $dir ]]; then
+        print_error "Please specificy a package name."
+        return;
+    fi
+
+    if [[ ! -d $dir ]]; then
+        print_error "Directory '$(pwd)/$dir' does not exist."
+        return;
+    fi
+
+    if [[ ! -f $dir/composer.json ]]; then
+        print_error "$dir is not an installable PHP package."
+        return;
+    fi
+
+    jq --indent 4 \
+        '.repositories |= [{"type": "path", "url": "'$dir'", "options": {"symlink": true}}] + . ' composer.json \
+        > composer.tmp.json \
+        && mv composer.tmp.json composer.json
+
+    packageName=$(jq -r '.name' $dir/composer.json)
+
+    composer require $packageName @dev
+}
+
+composer-unlink() {
+  git checkout composer.json composer.lock
+  composer update
+}
 
 # /-------------------------------------------------------------------------------
 # | LiveIntent
