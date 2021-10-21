@@ -24,7 +24,6 @@ alias cpwd="pwd | tr -d '\n' | pbcopy"
 
 # because you can't go back from a rm -rf...
 alias rm="echo Dude, stop using rm! Use \'trash\' or, if you insist, \'/bin/rm\'."
-alias trash="trash-put"
 
 # /-------------------------------------------------------------------------------
 # | Git is great
@@ -92,12 +91,32 @@ alias kl="kubectl" # bc i always misspell that one
 alias phpunit='vendor/bin/phpunit'
 alias pu='phpunit'
 alias pf="phpunit --filter"
-
-# quick php/laravel REPL
-alias tinker='php ~/code/laravel/artisan tinker'
+alias tf="composer test-watch -- --filter"
+alias tw="composer test-watch"
 
 # laravel stuff
 alias art='php artisan'
+alias rr='php artisan route:pretty --group=path'
+
+test_in_laravel() {
+    grep laravel/framework composer.json > /dev/null 2>&1
+}
+
+start_tinker_session() {
+    if test_in_laravel; then
+        php artisan tinker "$@"
+    else
+        php ~/code/laravel/artisan tinker "$@"
+    fi
+}
+
+tinker() {
+    if [ -z "$1" ]; then
+        start_tinker_session
+    else
+        start_tinker_session --execute="dd($1);"
+    fi
+}
 
 composer-link() {
     dir=$1
