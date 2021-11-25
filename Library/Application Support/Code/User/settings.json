@@ -1,0 +1,33 @@
+{
+  "workbench.colorTheme" : "One Dark Pro",
+  "editor.accessibilitySupport": "off",
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "editor.fontSize": 13,
+  "editor.dragAndDrop": false,
+  "editor.lineHeight": 1.8,
+  "editor.minimap.enabled": false,
+  "workbench.activityBar.visible": false,
+  "workbench.editor.decorations.colors": false,
+  "workbench.tree.renderIndentGuides": "none",
+  "workbench.editor.mouseBackForwardToNavigate": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.quickOpen.closeOnFocusLost": false,
+  "material-icon-theme.folders.theme": "classic",
+  "material-icon-theme.hidesExplorerArrows": true,
+  "material-icon-theme.saturation": null,
+  "material-icon-theme.activeIconPack": "",
+  "vim.leader": ",",
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "leader",
+        "w"
+      ],
+      "commands": [
+        "workbench.action.files.save",
+      ]
+    }
+  ],
+}
