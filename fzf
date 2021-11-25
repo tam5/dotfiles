@@ -113,17 +113,17 @@ kex() {
 # | LiveIntent
 # |-------------------------------------------------------------------------------
 # /
-li() {
-  if [[ -n "$@" ]]; then platformer "$@"; return; fi
+# li() {
+#   if [[ -n "$@" ]]; then platformer "$@"; return; fi
 
-  local commands command
-  commands=$(platformer list -n 2>&1 | awk '{print $1}')
-  command=$(echo "$commands" | fzf --ansi \
-    --preview="platformer {} --help" \
-    --header "enter to select") &&
+#   local commands command
+#   commands=$(platformer list -n 2>&1 | awk '{print $1}')
+#   command=$(echo "$commands" | fzf --ansi \
+#     --preview="platformer {} --help" \
+#     --header "enter to select") &&
 
-  print -z "platformer $command"
-}
+#   print -z "platformer $command"
+# }
 
 # /-------------------------------------------------------------------------------
 # | System
