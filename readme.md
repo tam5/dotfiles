@@ -1,1 +1,1 @@
-rcup -x README.md -x themes -x Makefile -x install.sh
+rcup -x README.md -x extra
