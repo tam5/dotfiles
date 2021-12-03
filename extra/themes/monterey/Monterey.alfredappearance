@@ -4,20 +4,20 @@
       "textSpacing" : 8,
       "subtext" : {
         "size" : 12,
-        "colorSelected" : "#7FABF7AA",
+        "colorSelected" : "#CE708AAA",
         "font" : "System Light",
         "color" : "#BCC3CD5F"
       },
       "shortcut" : {
         "size" : 14,
-        "colorSelected" : "#FFCD00FF",
+        "colorSelected" : "#CE708AFF",
         "font" : "System",
-        "color" : "#7FABF7FF"
+        "color" : "#CE708AFF"
       },
       "backgroundSelected" : "#4E53793A",
       "text" : {
         "size" : 18,
-        "colorSelected" : "#7FABF7FF",
+        "colorSelected" : "#CE708AFF",
         "font" : "System",
         "color" : "#BCC3CDFF"
       },
@@ -32,7 +32,7 @@
       "spacing" : 10,
       "text" : {
         "size" : 32,
-        "colorSelected" : "#7FABF7AA",
+        "colorSelected" : "#CE708AAA",
         "font" : "System",
         "color" : "#FEFFFEFF"
       },
@@ -59,6 +59,6 @@
       "color" : "#656C9600",
       "thickness" : 6
     },
-    "name" : "Drogon"
+    "name" : "Monterey"
   }
 }
