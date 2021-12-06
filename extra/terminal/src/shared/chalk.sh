@@ -1,8 +1,15 @@
-#/ --------------------------------------------------------------
-#| Helper functions for writing pretty messages to the console.
-#/ --------------------------------------------------------------
+#!/usr/bin/env bash
 
-# Colors
+# /
+# |-------------------------------------------------------------------------------
+# | Chalk
+# |-------------------------------------------------------------------------------
+# | 
+# | Helper functions for writing pretty, colorized messages to the console.
+# | 
+# /
+
+# foreground colors
 end="\033[0m"
 black="\033[0;30m"
 blackb="\033[1;30m"
@@ -21,10 +28,14 @@ purpleb="\033[1;35m"
 lightblue="\033[0;36m"
 lightblueb="\033[1;36m"
 
+# background colors
 bg_red="\033[0;101m"
 
 pad_length=2
 
+##
+# Pretty print an error message.
+#
 print_error() {
     padding="$(printf ' %.0s' {1..$pad_length})"
     message="${padding}${1}${padding}"

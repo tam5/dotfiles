@@ -1,5 +1,4 @@
 {
-  "workbench.colorTheme" : "Palenight (Mild Contrast)",
   "editor.accessibilitySupport": "off",
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
@@ -13,13 +12,16 @@
   "workbench.editor.decorations.colors": false,
   "workbench.tree.renderIndentGuides": "none",
   "workbench.editor.mouseBackForwardToNavigate": false,
-  "workbench.iconTheme": "material-icon-theme",
   "workbench.quickOpen.closeOnFocusLost": false,
   "material-icon-theme.folders.theme": "classic",
   "material-icon-theme.hidesExplorerArrows": false,
   "material-icon-theme.saturation": null,
   "material-icon-theme.activeIconPack": "",
   "vim.leader": ",",
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
   "vim.normalModeKeyBindings": [
     {
       "before": [
@@ -83,6 +85,22 @@
       "commands": [
         "editor.action.goToReferences",
       ],
+    },
+    {
+      // vim-vinegar
+      "before": [
+        "-"
+      ],
+      "commands": [
+        {
+          "command": "breadcrumbs.toggleToOn",
+          "when": "!config.breadcrumbs.enabled",
+        },
+        {
+          "command": "breadcrumbs.focusAndSelect",
+          "when": "breadcrumbsPossible",
+        },
+      ],
     }
   ],
   "editor.fontFamily": "MonoLisa",
@@ -107,9 +125,12 @@
     // ".editor .scrollbar:hover .slider": "visibility: initial",
     // Change cursor color.
     // ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
-},
-"editor.scrollbar.horizontal": "hidden",
-"editor.scrollbar.vertical": "hidden",
-"workbench.editor.showTabs": false,
-"explorer.compactFolders": false,
+  },
+  "editor.scrollbar.horizontal": "hidden",
+  "editor.scrollbar.vertical": "hidden",
+  "workbench.editor.showTabs": false,
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+  "breadcrumbs.enabled": true,
+  "editor.renderWhitespace": "none",
 }
