@@ -22,6 +22,10 @@
   "vim.incsearch": true,
   "vim.useSystemClipboard": true,
   "vim.hlsearch": true,
+  "colorize.languages": [
+    "json",
+    // ...
+  ],
   "vim.normalModeKeyBindings": [
     {
       "before": [
@@ -87,6 +91,16 @@
       ],
     },
     {
+      "before": [
+        "g",
+        "z",
+        "m"
+      ],
+      "commands": [
+        "editor.action.selectHighlights",
+      ],
+    },
+    {
       // vim-vinegar
       "before": [
         "-"
@@ -133,4 +147,10 @@
   "explorer.confirmDragAndDrop": false,
   "breadcrumbs.enabled": true,
   "editor.renderWhitespace": "none",
+  "workbench.colorTheme": "Tokyo Night",
+  "files.autoSave": "afterDelay",
+  "php.suggest.basic": false,
+  "editor.quickSuggestions": {
+    "comments": true
+  }
 }
