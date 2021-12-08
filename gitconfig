@@ -27,3 +27,5 @@
     tag = tag -s
 [init]
 	defaultBranch = main
+[pull]
+	ff = only
