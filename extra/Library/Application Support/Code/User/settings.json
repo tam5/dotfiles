@@ -1,110 +1,87 @@
 {
-  "editor.accessibilitySupport": "off",
-  "terminal.integrated.env.osx": {
-    "FIG_NEW_SESSION": "1"
-  },
-  // this is a comment
+  // Basic Visuals
   "editor.fontSize": 13,
-  "editor.dragAndDrop": false,
   "editor.lineHeight": 1.8,
+  "editor.fontFamily": "MonoLisa",
   "editor.minimap.enabled": false,
   "workbench.activityBar.visible": false,
-  "workbench.editor.decorations.colors": false,
-  "workbench.tree.renderIndentGuides": "none",
+  "workbench.colorTheme": "Tokyo Night",
+  "workbench.iconTheme": "material-icon-theme",
+  "material-icon-theme.folders.theme": "classic",
+  // Editor Behaviors
+  "editor.accessibilitySupport": "off",
+  "editor.dragAndDrop": false,
   "workbench.editor.mouseBackForwardToNavigate": false,
   "workbench.quickOpen.closeOnFocusLost": false,
-  "material-icon-theme.folders.theme": "classic",
-  "material-icon-theme.hidesExplorerArrows": false,
-  "material-icon-theme.saturation": null,
-  "material-icon-theme.activeIconPack": "",
-  "vim.leader": ",",
-  "vim.easymotion": true,
-  "vim.incsearch": true,
-  "vim.useSystemClipboard": true,
-  "vim.hlsearch": true,
+  // Visual Tweaks
+  "editor.renderWhitespace": "none",
+  "workbench.editor.showTabs": false,
+  "breadcrumbs.enabled": true,
+  "editor.scrollbar.horizontal": "hidden",
+  "editor.scrollbar.vertical": "hidden",
+  "workbench.tree.renderIndentGuides": "none",
+  "workbench.editor.decorations.colors": false,
+  "explorer.decorations.badges": false,
+  "git.decorations.enabled": false,
+  "explorer.decorations.colors": false,
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  // Syntax Specific
   "colorize.languages": [
     "json",
     // ...
   ],
+  "php.suggest.basic": false,
+  "editor.quickSuggestions": {
+    "comments": true
+  },
+  // VIM
+  "vim.leader": ",",
+  "vim.incsearch": true,
+  "vim.hlsearch": true,
+  "vim.easymotion": true,
+  "vim.useSystemClipboard": true,
   "vim.normalModeKeyBindings": [
     {
-      "before": [
-        "leader",
-        "w"
-      ],
-      "commands": [
-        "workbench.action.files.save",
-      ]
+      "before": ["leader", "w"],
+      "commands": ["workbench.action.files.save"]
     },
     {
-      "before": [
-        "leader",
-        "v"
-      ],
-      "commands": [
-        "workbench.action.splitEditorRight",
-      ]
+      "before": ["leader", "d"],
+      "commands": ["workbench.action.closeActiveEditor"],
     },
     {
-      "before": [
-        "leader",
-        "q"
-      ],
-      "commands": [
-        "workbench.action.closeEditorsInGroup",
-      ],
+      "before": ["leader", "q"],
+      "commands": ["workbench.action.closeEditorsInGroup"],
     },
     {
-      "before": [
-        "leader",
-        "d"
-      ],
-      "commands": [
-        "workbench.action.closeActiveEditor",
-      ],
+      "before": ["leader", "v"],
+      "commands": ["workbench.action.splitEditorRight"]
     },
     {
-      "before": [
-        "leader",
-        "1"
-      ],
-      "commands": [
-        "workbench.action.toggleSidebarVisibility",
-      ],
+      "before": ["leader", "1"],
+      "commands": ["workbench.action.toggleSidebarVisibility"],
     },
     {
-      "before": [
-        "leader",
-        "2"
-      ],
-      "commands": [
-        "workbench.files.action.showActiveFileInExplorer",
-      ],
+      "before": ["leader", "2"],
+      "commands": ["workbench.files.action.showActiveFileInExplorer"],
     },
     {
-      "before": [
-        "g",
-        "r"
-      ],
-      "commands": [
-        "editor.action.goToReferences",
-      ],
+      "before": ["leader", "a"],
+      "commands": ["editor.action.quickFix"],
     },
     {
-      "before": [
-        "g",
-        "z",
-        "m"
-      ],
-      "commands": [
-        "editor.action.selectHighlights",
-      ],
+      "before": ["g", "r"],
+      "commands": ["editor.action.goToReferences"],
     },
     {
-      // vim-vinegar
-      "before": [
-        "-"
-      ],
+      "before": ["g", "z", "m"],
+      "commands": ["editor.action.selectHighlights"],
+    },
+    {
+      // vim-vinegar emulation (testing)
+      "before": ["-"],
       "commands": [
         {
           "command": "breadcrumbs.toggleToOn",
@@ -117,7 +94,12 @@
       ],
     }
   ],
-  "editor.fontFamily": "MonoLisa",
+  "vim.visualModeKeyBindings": [
+    {
+      "before": ["leader", "s"],
+      "commands": ["sortLines.sortLinesLineLength"],
+    },
+  ],
   "customizeUI.stylesheet": {
     // ".editor .title": "background: transparent !important; --title-border-bottom-color: transparent !important;",
     // ".editor .title": "display: none !important;",
@@ -140,17 +122,4 @@
     // Change cursor color.
     // ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
   },
-  "editor.scrollbar.horizontal": "hidden",
-  "editor.scrollbar.vertical": "hidden",
-  "workbench.editor.showTabs": false,
-  "explorer.compactFolders": false,
-  "explorer.confirmDragAndDrop": false,
-  "breadcrumbs.enabled": true,
-  "editor.renderWhitespace": "none",
-  "workbench.colorTheme": "Tokyo Night",
-  "files.autoSave": "afterDelay",
-  "php.suggest.basic": false,
-  "editor.quickSuggestions": {
-    "comments": true
-  }
 }
