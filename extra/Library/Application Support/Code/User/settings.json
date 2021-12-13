@@ -32,6 +32,10 @@
     "json",
     // ...
   ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "php.suggest.basic": false,
   "editor.quickSuggestions": {
     "comments": true
@@ -122,4 +126,5 @@
     // Change cursor color.
     // ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
   },
+  "editor.formatOnSave": true,
 }
