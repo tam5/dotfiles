@@ -29,7 +29,7 @@
   "explorer.confirmDelete": false,
   // Syntax Specific
   "colorize.languages": [
-    "json",
+    "json"
     // ...
   ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -53,35 +53,39 @@
     },
     {
       "before": ["leader", "d"],
-      "commands": ["workbench.action.closeActiveEditor"],
+      "commands": ["workbench.action.closeActiveEditor"]
     },
     {
       "before": ["leader", "q"],
-      "commands": ["workbench.action.closeEditorsInGroup"],
+      "commands": ["workbench.action.closeEditorsInGroup"]
     },
     {
       "before": ["leader", "v"],
       "commands": ["workbench.action.splitEditorRight"]
     },
     {
+      "before": ["leader", "h"],
+      "commands": ["workbench.action.splitEditorDown"]
+    },
+    {
       "before": ["leader", "1"],
-      "commands": ["workbench.action.toggleSidebarVisibility"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
     },
     {
       "before": ["leader", "2"],
-      "commands": ["workbench.files.action.showActiveFileInExplorer"],
+      "commands": ["workbench.files.action.showActiveFileInExplorer"]
     },
     {
       "before": ["leader", "a"],
-      "commands": ["editor.action.quickFix"],
+      "commands": ["editor.action.quickFix"]
     },
     {
       "before": ["g", "r"],
-      "commands": ["editor.action.goToReferences"],
+      "commands": ["editor.action.goToReferences"]
     },
     {
       "before": ["g", "z", "m"],
-      "commands": ["editor.action.selectHighlights"],
+      "commands": ["editor.action.selectHighlights"]
     },
     {
       // vim-vinegar emulation (testing)
@@ -89,20 +93,20 @@
       "commands": [
         {
           "command": "breadcrumbs.toggleToOn",
-          "when": "!config.breadcrumbs.enabled",
+          "when": "!config.breadcrumbs.enabled"
         },
         {
           "command": "breadcrumbs.focusAndSelect",
-          "when": "breadcrumbsPossible",
-        },
-      ],
+          "when": "breadcrumbsPossible"
+        }
+      ]
     }
   ],
   "vim.visualModeKeyBindings": [
     {
       "before": ["leader", "s"],
-      "commands": ["sortLines.sortLinesLineLength"],
-    },
+      "commands": ["sortLines.sortLinesLineLength"]
+    }
   ],
   "customizeUI.stylesheet": {
     // ".editor .title": "background: transparent !important; --title-border-bottom-color: transparent !important;",
@@ -126,5 +130,5 @@
     // Change cursor color.
     // ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": true
 }
