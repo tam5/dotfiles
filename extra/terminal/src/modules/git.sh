@@ -31,7 +31,7 @@ gri() {
 
 # git diff without the git
 gdiff() {
-    git diff --no-index $1 $2 | diff-so-fancy | less
+    git diff --no-index $1 $2 | delta | less
 }
 
 alias glGraph='git log --graph --color=always --format="%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" "$@"'
