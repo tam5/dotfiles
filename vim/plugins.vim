@@ -21,6 +21,7 @@ Plugin 'VundleVim/Vundle.vim'
 "Visuals
 Plugin 'hzchirs/vim-material'
 Plugin 'kaicataldo/material.vim'
+Plugin 'ghifarit53/tokyonight-vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tam5/vim-color-util'

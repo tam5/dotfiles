@@ -22,11 +22,24 @@ endif
 " | appealing is just as important as making it work properly, isn't it?
 " /
 
-"Set the colorscheme
-syntax enable
-silent! colorscheme material
+"True color support
+if (has('termguicolors'))
+    let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
 
-let g:lightline = { 'colorscheme': 'material_vim' }
+if !has('gui_running')
+  set t_Co=256
+endif
+
+let g:tokyonight_enable_italic = 1
+let g:tokyonight_transparent_background = 1
+
+syntax enable
+silent! colorscheme tokyonight
+
+let g:lightline = { 'colorscheme': 'tokyonight' }
 
 "Add line numbers
 set number
@@ -67,17 +80,6 @@ endfunction
 "Milliseconds until CursorHold event is fired
 setl updatetime=300
 autocmd CursorHold * call HighlightCurrentWord()
-
-"True color support
-if (has('termguicolors'))
-    let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
-
-if !has('gui_running')
-  set t_Co=256
-endif
 
 " /-------------------------------------------------------------------------------
 " | Key Bindings
