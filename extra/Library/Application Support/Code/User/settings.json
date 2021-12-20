@@ -29,7 +29,8 @@
   "explorer.confirmDelete": false,
   // Syntax Specific
   "colorize.languages": [
-    "json"
+    "json",
+    "javascript"
     // ...
   ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -38,7 +39,8 @@
   },
   "php.suggest.basic": false,
   "editor.quickSuggestions": {
-    "comments": true
+    "comments": true,
+    "strings": true
   },
   // VIM
   "vim.leader": ",",
