@@ -30,7 +30,8 @@
   // Syntax Specific
   "colorize.languages": [
     "json",
-    "javascript"
+    "javascript",
+    "shellscript"
     // ...
   ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
