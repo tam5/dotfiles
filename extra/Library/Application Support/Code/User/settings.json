@@ -79,6 +79,10 @@
       "commands": ["workbench.files.action.showActiveFileInExplorer"]
     },
     {
+      "before": ["leader", "3"],
+      "commands": ["workbench.files.action.collapseExplorerFolders"]
+    },
+    {
       "before": ["leader", "a"],
       "commands": ["editor.action.quickFix"]
     },
