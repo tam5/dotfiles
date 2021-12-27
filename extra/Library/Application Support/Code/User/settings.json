@@ -16,7 +16,7 @@
   // Visual Tweaks
   "editor.renderWhitespace": "none",
   "workbench.editor.showTabs": false,
-  "breadcrumbs.enabled": true,
+  "breadcrumbs.enabled": false,
   "editor.scrollbar.horizontal": "hidden",
   "editor.scrollbar.vertical": "hidden",
   "workbench.tree.renderIndentGuides": "none",
@@ -38,6 +38,7 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "prettier.requireConfig": true,
   "php.suggest.basic": false,
   "editor.quickSuggestions": {
     "comments": true,
@@ -95,16 +96,10 @@
       "commands": ["editor.action.selectHighlights"]
     },
     {
-      // vim-vinegar emulation (testing)
       "before": ["-"],
       "commands": [
         {
-          "command": "breadcrumbs.toggleToOn",
-          "when": "!config.breadcrumbs.enabled"
-        },
-        {
-          "command": "breadcrumbs.focusAndSelect",
-          "when": "breadcrumbsPossible"
+          "command": "file-browser.open"
         }
       ]
     }
@@ -137,5 +132,7 @@
     // Change cursor color.
     // ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "terminal.integrated.inheritEnv": true,
+  "terminal.integrated.defaultProfile.osx": "zsh"
 }

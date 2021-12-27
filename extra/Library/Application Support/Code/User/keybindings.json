@@ -50,5 +50,15 @@
     "key": "enter",
     "command": "list.select",
     "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "-",
+    "command": "file-browser.stepOut",
+    "when": "inFileBrowser"
+  },
+  {
+    "key": "left",
+    "command": "-file-browser.stepOut",
+    "when": "inFileBrowser"
   }
 ]
