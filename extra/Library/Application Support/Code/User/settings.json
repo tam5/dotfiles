@@ -104,10 +104,22 @@
       ]
     }
   ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<space>"],
+      "commands": ["vspacecode.space"]
+    }
+  ],
   "vim.visualModeKeyBindings": [
     {
       "before": ["leader", "s"],
       "commands": ["sortLines.sortLinesLineLength"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<space>"],
+      "commands": ["vspacecode.space"]
     }
   ],
   "customizeUI.stylesheet": {
