@@ -23,6 +23,7 @@
   "workbench.editor.decorations.colors": false,
   "explorer.decorations.badges": false,
   "git.decorations.enabled": false,
+  "git.enableStatusBarSync": false,
   "explorer.decorations.colors": false,
   "explorer.compactFolders": false,
   "explorer.confirmDragAndDrop": false,
