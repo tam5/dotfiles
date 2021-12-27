@@ -126,7 +126,10 @@
     // ".editor .title": "background: transparent !important; --title-border-bottom-color: transparent !important;",
     // ".editor .title": "display: none !important;",
     // ".editor .title .label-container": "visibility: hidden;",
-    // Hide top-right buttons
+    // Hide editor top-right buttons
+    ".editor .title-actions": "display: none !important",
+    // Hide explorer top-right buttons
+    ".monaco-workbench .title-actions": "display: none",
     // ".editor > div.content, .editor .editor-container": "background-image: linear-gradient(to bottom right, #191C3E 0%, #172124 100%); background-size: cover;",
     // ".editor > div.content, .editor .editor-container": "background-image: url(/Users/calebporzio/Desktop/test.jpg); background-size: cover",
     // ".monaco-editor-background": "background-color: transparent !important",
