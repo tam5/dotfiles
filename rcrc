@@ -1,0 +1,3 @@
+EXCLUDES="extra/*"
+SYMLINK_DIRS="*/Code/User/snippets"
+UNDOTTED="Library"
