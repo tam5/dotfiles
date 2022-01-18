@@ -59,3 +59,15 @@ alias la="exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"
 # | 
 # /
 alias rm="echo Dude, stop using rm! Use \'trash\' or, if you insist, \'/bin/rm\'."
+
+# /
+# |-------------------------------------------------------------------------------
+# | jwt-decode
+# |-------------------------------------------------------------------------------
+# |
+# | Decode a jwt token.
+# |
+# /
+function jwt-decode() {
+    jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$1JWT"
+}
