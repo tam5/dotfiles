@@ -32,11 +32,6 @@
     "when": "isDevelopment"
   },
   {
-    "key": "shift+r",
-    "command": "renameFile",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-  },
-  {
     "key": "enter",
     "command": "-renameFile",
     "when": "explorerViewletVisible && filesExplorerFocus"
@@ -173,5 +168,26 @@
     "key": "ctrl+l",
     "command": "file-browser.stepIn",
     "when": "inFileBrowser"
+  },
+  // Sidebar Things
+  {
+    "key": "shift+r",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "d",
+    "command": "deleteFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "y",
+    "command": "filesExplorer.copy",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "p",
+    "command": "filesExplorer.paste",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
   }
 ]

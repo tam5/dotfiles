@@ -32,10 +32,10 @@
   "colorize.languages": [
     "json",
     "javascript",
-    "shellscript"
+    "shellscript",
+    "xml"
     // ...
   ],
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -73,6 +73,14 @@
       "commands": ["workbench.action.splitEditorDown"]
     },
     {
+      "before": ["leader", "r"],
+      "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["leader", "j"],
+      "commands": ["projectManager.listProjects"]
+    },
+    {
       "before": ["leader", "1"],
       "commands": ["workbench.action.toggleSidebarVisibility"]
     },
@@ -87,6 +95,10 @@
     {
       "before": ["leader", "a"],
       "commands": ["editor.action.quickFix"]
+    },
+    {
+      "before": ["leader", "s"],
+      "commands": ["search.action.openNewEditor"]
     },
     {
       "before": ["g", "r"],
@@ -131,6 +143,8 @@
     ".editor .title-actions": "display: none !important",
     // Hide explorer top-right buttons
     ".monaco-workbench .title-actions": "display: none",
+    // Hide code markers in right gutter/scroll-bar
+    ".decorationsOverviewRuler": "display: none"
     // ".editor > div.content, .editor .editor-container": "background-image: linear-gradient(to bottom right, #191C3E 0%, #172124 100%); background-size: cover;",
     // ".editor > div.content, .editor .editor-container": "background-image: url(/Users/calebporzio/Desktop/test.jpg); background-size: cover",
     // ".monaco-editor-background": "background-color: transparent !important",
@@ -148,7 +162,11 @@
     // Change cursor color.
     // ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "terminal.integrated.inheritEnv": true,
-  "terminal.integrated.defaultProfile.osx": "zsh"
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "redhat.telemetry.enabled": true,
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  }
 }

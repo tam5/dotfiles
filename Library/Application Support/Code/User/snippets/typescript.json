@@ -8,5 +8,17 @@
     "prefix": "cl",
     "body": ["console.log({ $1 });", "$2"],
     "description": "Log output to console"
+  },
+  "New component": {
+    "prefix": "com",
+    "body": [
+      "/**",
+      " * Describe the component...",
+      " */",
+      "export default function ${1:$TM_FILENAME_BASE}() {",
+      "  return ${2:<></>};",
+      "}"
+    ],
+    "description": "Create a new React component"
   }
 }
