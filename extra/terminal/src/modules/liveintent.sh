@@ -24,4 +24,9 @@ devstack_thing() {
     docker-compose -f "$HOME/code/liveintent/devstack/services/$app/docker-compose.devstack.yml" "$@"
     cd "$dir"
 }
+
+listack() {
+
+}
+
 alias li="devstack_thing"

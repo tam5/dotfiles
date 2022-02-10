@@ -162,11 +162,18 @@
     // Change cursor color.
     // ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
   },
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "terminal.integrated.inheritEnv": true,
   "terminal.integrated.defaultProfile.osx": "zsh",
   "redhat.telemetry.enabled": true,
   "[xml]": {
     "editor.defaultFormatter": "redhat.vscode-xml"
-  }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "php.validate.executablePath": "/opt/homebrew/bin/php"
 }

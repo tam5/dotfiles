@@ -25,6 +25,9 @@
 	"Public method": {
 		"prefix": "met",
 		"body": [
+			"/**",
+			" *",
+			" */",
 			"public function $1($2)",
 			"{",
 			"    $3",
