@@ -162,7 +162,7 @@
     // Change cursor color.
     // ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "terminal.integrated.inheritEnv": true,
   "terminal.integrated.defaultProfile.osx": "zsh",
   "redhat.telemetry.enabled": true,
@@ -175,5 +175,12 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "php.validate.executablePath": "/opt/homebrew/bin/php"
+  "php.validate.executablePath": "/opt/homebrew/bin/php",
+  "cSpell.userWords": [
+    "Chintan",
+    "Jiechao",
+    "Lisso",
+    "Shahrukh",
+    "wolfman"
+  ]
 }

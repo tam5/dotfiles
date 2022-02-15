@@ -11,8 +11,8 @@
 alias phpunit='vendor/bin/phpunit'
 alias pu='phpunit'
 alias pf="phpunit --filter"
-alias tf="composer test-watch -- --filter"
-alias tw="composer test-watch"
+alias tf="phpunit-watcher watch --filter="
+alias tw="phpunit-watcher watch"
 
 # laravel stuff
 alias art='php artisan'
