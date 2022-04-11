@@ -19,6 +19,9 @@ alias gpop="git reset --soft head~1 && git reset head"
 alias gsu='git branch --set-upstream-to=origin/$(git rev-parse --abbrev-ref HEAD)'
 alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 
+alias grc='git rebase --continue'
+alias grs='git rebase --skip'
+
 # destructive, ye' be warned
 grho() {
     branch=$(git branch | grep \* | cut -d ' ' -f2)
@@ -34,7 +37,7 @@ gdiff() {
     git diff --no-index $1 $2 | delta | less
 }
 
-alias glGraph='git log --graph --color=always --format="%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" "$@"'
+alias glGraph='git log --graph --color=always --format="%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(black)%d%Creset" "$@"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | delta'"
 
