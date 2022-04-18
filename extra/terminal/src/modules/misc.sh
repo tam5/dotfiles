@@ -71,3 +71,29 @@ alias rm="echo Dude, stop using rm! Use \'trash\' or, if you insist, \'/bin/rm\'
 function jwt-decode() {
     jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$1JWT"
 }
+
+# /
+# |-------------------------------------------------------------------------------
+# | export as pdf
+# |-------------------------------------------------------------------------------
+# |
+# | Reformat an image as a pdf.
+# |
+# /
+function to-pdf() {
+    name="${1%.*}"
+    sips -s format pdf $1 --out $name.pdf
+}
+
+# /
+# |-------------------------------------------------------------------------------
+# | export as jpg
+# |-------------------------------------------------------------------------------
+# |
+# | Reformat an image as a jpg.
+# |
+# /
+function to-jpeg() {
+    name="${1%.*}"
+    sips -s format jpeg $1 --out $name.jpeg
+}
