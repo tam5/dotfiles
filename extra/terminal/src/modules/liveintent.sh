@@ -25,7 +25,7 @@ devstack_thing() {
     cd "$dir"
 }
 
-p() {
+j() {
     projects_dir="$HOME/code/liveintent/li-stack/services"
 
     local project
