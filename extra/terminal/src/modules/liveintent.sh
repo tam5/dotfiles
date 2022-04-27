@@ -25,8 +25,11 @@ devstack_thing() {
     cd "$dir"
 }
 
-listack() {
+p() {
+    projects_dir="$HOME/code/liveintent/li-stack/services"
 
+    local project
+    project=$(/bin/ls "$projects_dir" | fzf) && cd "$projects_dir/$project"
 }
 
 alias li="devstack_thing"
