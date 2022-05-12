@@ -16,8 +16,7 @@ alias tw="phpunit-watcher watch"
 
 # laravel stuff
 alias art='php artisan'
-alias rr='php artisan route:pretty --group=path'
-alias rl='php artisan route:list --columns method,uri,name,action'
+alias rl='php artisan route:list'
 
 test_in_laravel() {
     grep laravel/framework composer.json > /dev/null 2>&1
