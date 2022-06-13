@@ -21,6 +21,8 @@ alias gpu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 
 alias grc='git rebase --continue'
 alias grs='git rebase --skip'
+alias ltag='git tag --sort=committerdate | tail -1'
+alias wip='git add . && git commit -m "wip" --no-verify'
 
 # destructive, ye' be warned
 grho() {
@@ -63,6 +65,11 @@ glo() {
                 --bind "enter:execute:$_viewGitLogLine   | less -R" \
                 --bind "ctrl-y:execute:$_gitLogLineToHash | pbcopy"
 }
+
+glos() {
+    glGraph
+}
+
 
 # the opposite of glo (shows incoming changes)
 alias gro="glo ..@{u}"
