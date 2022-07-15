@@ -28,4 +28,3 @@ yr() {
   cmd=$(cat package.json | jq -r '.scripts | keys[]' | fzf) &&
       yarn run $cmd
 }
-

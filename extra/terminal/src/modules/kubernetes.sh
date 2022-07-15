@@ -9,6 +9,8 @@
 # | 
 # /
 
+alias k="kubectl"
+
 ku() {
   local context
 

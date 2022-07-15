@@ -92,3 +92,37 @@ Host prod-bastion
   ControlMaster auto
   ControlPath ~/.ssh/%r@%h:%p
   ControlPersist 15m
+
+Host jumphost-nyc-prod-*
+  User ec2-user
+  IdentityFile ~/.ssh/li.id_rsa
+  ProxyCommand export AWS_PROFILE=ua-developer && ~/.ssh/scripts/aws-ssm-ec2-proxy-command.sh $(aws ec2 describe-instances --filters Name=instance-state-name,Values=running 'Name=tag:Name,Values="%h"' --query 'Reservations[*].Instances[0].InstanceId' --output text) %r %p ~/.ssh/li.id_rsa.pub
+  StrictHostKeyChecking no
+
+Host stage-firefly7
+  Hostname stage-firefly7.liveintent.com
+  ProxyJump jumphost-nyc-prod-stage
+  User amiller
+  ForwardAgent yes
+  IdentityFile ~/.ssh/li.id_rsa
+  IdentitiesOnly yes
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+
+Host 10.242.* stage-*.liveintent.com
+  ProxyJump jumphost-nyc-prod-stage
+  User ec2-user
+  ForwardAgent yes
+  IdentityFile ~/.ssh/liveintent-STAGE-environment.pem
+  IdentitiesOnly yes
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+
+Host 10.243.* prod-*.liveintent.com
+  ProxyJump jumphost-nyc-prod-prod
+  User ec2-user
+  ForwardAgent yes
+  IdentityFile ~/.ssh/liveintent-PROD-environment.pem
+  IdentitiesOnly yes
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
