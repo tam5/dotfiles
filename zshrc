@@ -1,3 +1,7 @@
+if [ -f $HOME/.dotfiles/.env ]; then
+    export $(cat $HOME/.dotfiles/.env | xargs)
+fi
+
 export AWS_PAGER=""
 export EDITOR=vim
 
