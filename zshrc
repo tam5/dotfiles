@@ -1,5 +1,5 @@
-if [ -f $HOME/.dotfiles/.env ]; then
-    export $(cat $HOME/.dotfiles/.env | xargs)
+if [ -f $HOME/.env ]; then
+    export $(cat $HOME/.env | xargs)
 fi
 
 export AWS_PAGER=""
