@@ -1,5 +1,5 @@
 if [ -f $HOME/.env ]; then
-    export "$(grep -vE "^(#.*|\s*)$" $HOME/.env)"
+    set -o allexport; source $HOME/.env; set +o allexport
 fi
 
 export AWS_PAGER=""
