@@ -53,4 +53,6 @@ antigen apply
 # | 
 # /
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 [[ ! -f ~/.dotfiles/extra/terminal/terminal.sh ]] || source ~/.dotfiles/extra/terminal/terminal.sh 
