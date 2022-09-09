@@ -24,6 +24,12 @@ alias grs='git rebase --skip'
 alias ltag='git tag --sort=creatordate | tail -1'
 alias wip='git add . && git commit -m "wip" --no-verify'
 
+gdf() {
+  preview="git diff $@ --color=always -- {-1}"
+  git diff $@ --name-only | fzf -m --ansi --preview $preview \
+      --bind "enter:execute:git diff --color=always {} | less -R" \
+}
+
 # destructive, ye' be warned
 grho() {
     branch=$(git branch | grep \* | cut -d ' ' -f2)

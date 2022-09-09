@@ -32,4 +32,8 @@ j() {
     project=$(/bin/ls "$projects_dir" | fzf) && cd "$projects_dir/$project"
 }
 
+dpl() {
+    kubectl -n $1 describe deployment $1 | grep GIT
+}
+
 alias li="devstack_thing"
