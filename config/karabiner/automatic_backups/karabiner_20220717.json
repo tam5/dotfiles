@@ -48,17 +48,17 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp",
+                                            "com\\.microsoft\\.VSCode",
+                                            "com\\.sublimetext\\.4"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -85,17 +85,17 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp",
+                                            "com\\.microsoft\\.VSCode",
+                                            "com\\.sublimetext\\.4"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -122,17 +122,17 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp",
+                                            "com\\.microsoft\\.VSCode",
+                                            "com\\.sublimetext\\.4"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -159,17 +159,17 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp",
+                                            "com\\.microsoft\\.VSCode",
+                                            "com\\.sublimetext\\.4"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -329,7 +329,48 @@
                     },
                     "ignore": false,
                     "manipulate_caps_lock_led": true,
-                    "simple_modifications": []
+                    "simple_modifications": [
+                        {
+                            "from": {
+                                "key_code": "left_command"
+                            },
+                            "to": [
+                                {
+                                    "key_code": "left_option"
+                                }
+                            ]
+                        },
+                        {
+                            "from": {
+                                "key_code": "left_option"
+                            },
+                            "to": [
+                                {
+                                    "key_code": "left_command"
+                                }
+                            ]
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_command"
+                            },
+                            "to": [
+                                {
+                                    "key_code": "right_option"
+                                }
+                            ]
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_option"
+                            },
+                            "to": [
+                                {
+                                    "key_code": "right_command"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "fn_function_keys": [

@@ -48,17 +48,16 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp",
+                                            "com\\.microsoft\\.VSCode"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -85,17 +84,16 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp",
+                                            "com\\.microsoft\\.VSCode"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -122,17 +120,16 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp",
+                                            "com\\.microsoft\\.VSCode"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -159,17 +156,16 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
+                                            "notion\\.id",
                                             "com\\.runningwithcrayons\\.Alfred",
+                                            "com\\.apple\\.Spotlight",
+                                            "com\\.apple\\.Safari",
+                                            "com\\.google\\.Chrome",
+                                            "com\\.apple\\.Notes",
                                             "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
+                                            "com\\.googlecode\\.iterm2",
+                                            "com\\.lukilabs\\.lukiapp",
+                                            "com\\.microsoft\\.VSCode"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
