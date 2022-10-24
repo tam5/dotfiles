@@ -31,7 +31,7 @@ Host 10.240.* qa-*.liveintenteng.com
   StrictHostKeyChecking no
 
 Host qa-bastion
-  Hostname qa-bastion.liveintenteng.com
+  Hostname dev-bastion.liveintenteng.com
   User amiller
   ForwardAgent yes
   IdentityFile ~/.ssh/li.id_rsa

@@ -24,7 +24,8 @@ alias grs='git rebase --skip'
 alias ltag='git tag --sort=creatordate | tail -1'
 alias wip='git add . && git commit -m "wip" --no-verify'
 
-gdf() {
+unalias gd
+gd() {
   preview="git diff $@ --color=always -- {-1}"
   git diff $@ --name-only | fzf -m --ansi --preview $preview \
       --bind "enter:execute:git diff --color=always {} | less -R" \
@@ -76,6 +77,9 @@ glos() {
     glGraph
 }
 
+rlog() {
+    git fuzzy reflog
+}
 
 # the opposite of glo (shows incoming changes)
 alias gro="glo ..@{u}"

@@ -36,6 +36,7 @@ source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
 
 antigen bundle git
+antigen bundle bigH/git-fuzzy
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle b4b4r07/enhancd
@@ -56,3 +57,5 @@ antigen apply
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 [[ ! -f ~/.dotfiles/extra/terminal/terminal.sh ]] || source ~/.dotfiles/extra/terminal/terminal.sh 
+
+export PATH="$HOME/.antigen/bundles/bigH/git-fuzzy/bin:$PATH"
