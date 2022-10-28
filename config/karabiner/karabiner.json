@@ -42,28 +42,9 @@
                         ]
                     },
                     {
-                        "description": "Change ctrl+jkhl to arrows if pressed in certain apps",
+                        "description": "Change ctrl+jkhl to arrows",
                         "manipulators": [
                             {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
-                                            "com\\.runningwithcrayons\\.Alfred",
-                                            "com\\.tinyapp\\.TablePlus",
-                                            "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": {
@@ -83,25 +64,6 @@
                                 "type": "basic"
                             },
                             {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
-                                            "com\\.runningwithcrayons\\.Alfred",
-                                            "com\\.tinyapp\\.TablePlus",
-                                            "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
@@ -121,25 +83,6 @@
                                 "type": "basic"
                             },
                             {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
-                                            "com\\.runningwithcrayons\\.Alfred",
-                                            "com\\.tinyapp\\.TablePlus",
-                                            "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
@@ -159,25 +102,6 @@
                                 "type": "basic"
                             },
                             {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com\\.apple\\.Notes",
-                                            "com\\.apple\\.Safari",
-                                            "com\\.apple\\.Spotlight",
-                                            "com\\.culturedcode\\.ThingsMac",
-                                            "com\\.evernote\\.Evernote",
-                                            "com\\.google\\.Chrome",
-                                            "com\\.googlecode\\.iterm2",
-                                            "com\\.microsoft\\.VSCode",
-                                            "com\\.runningwithcrayons\\.Alfred",
-                                            "com\\.tinyapp\\.TablePlus",
-                                            "com\\.tinyspeck\\.slackmacgap",
-                                            "notion\\.id"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
