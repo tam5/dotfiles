@@ -36,6 +36,7 @@ source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
 
 antigen bundle git
+antigen bundle jeffreytse/zsh-vi-mode
 antigen bundle bigH/git-fuzzy
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-autosuggestions
