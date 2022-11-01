@@ -59,7 +59,7 @@ gco() {
   branches=$(git for-each-ref --count=50 --sort=-committerdate --format="%(refname:short)") &&
   branch=$(echo "$branches" |
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##" | sed "s/.*\///")
+  git checkout $(echo $branch | rg -o "([^/]+/)?[^/]+$")
 }
 
 # glo - Replacement for git log, shows previews, allows selecting commits to view further
