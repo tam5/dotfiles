@@ -26,6 +26,8 @@ alias wip='git add . && git commit -m "wip" --no-verify'
 
 unalias gd
 gd() {
+  if [[ ! -z $@ ]]; then git diff "$@"; return; fi
+
   preview="git diff $@ --color=always -- {-1}"
   git diff $@ --name-only | fzf -m --ansi --preview $preview \
       --bind "enter:execute:git diff --color=always {} | less -R" \

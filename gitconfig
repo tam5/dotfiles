@@ -20,6 +20,7 @@
     features = line-numbers decorations
 [commit]
 	gpgsign = true
+	verbose = true
 [gpg]
 	program = gpg
 [alias]
