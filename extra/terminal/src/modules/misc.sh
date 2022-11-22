@@ -14,6 +14,7 @@ alias dotfiles='cd ~/.dotfiles'
 alias code='cd ~/code'
 alias emd='cd ~/.emacs.d'
 alias dmd='cd ~/.doom.d'
+alias mods="cd ~/.dotfiles/extra/terminal/src/modules"
 
 # /
 # |-------------------------------------------------------------------------------
