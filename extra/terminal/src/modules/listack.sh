@@ -13,7 +13,7 @@ alias lstack="cd ~/code/liveintent/li-stack"
 alias lssh="lstack && colima ssh --profile=listack"
 alias lps="lssh nerdctl ps"
 
-unalias ll
+silently unalias ll
 ll() {
     local container
 

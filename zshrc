@@ -55,8 +55,12 @@ antigen apply
 # | 
 # /
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+reload() {
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-[[ ! -f ~/.dotfiles/extra/terminal/terminal.sh ]] || source ~/.dotfiles/extra/terminal/terminal.sh 
+    [[ ! -f ~/.dotfiles/extra/terminal/terminal.sh ]] || source ~/.dotfiles/extra/terminal/terminal.sh 
+}
+
+reload
 
 export PATH="$HOME/.antigen/bundles/bigH/git-fuzzy/bin:$PATH"

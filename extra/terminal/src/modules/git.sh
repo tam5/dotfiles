@@ -24,7 +24,7 @@ alias grs='git rebase --skip'
 alias ltag='git tag --sort=creatordate | tail -1'
 alias wip='git add . && git commit -m "wip" --no-verify'
 
-unalias gd
+silently unalias gd
 gd() {
   if [[ ! -z $@ ]]; then git diff "$@"; return; fi
 
