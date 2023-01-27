@@ -24,7 +24,7 @@ le() {
     local container
 
     container=$(lps -- --format '{{.Names}}' | fzf) && \
-        lssh sudo nerdctl exec -- -it $container bash
+        lssh sudo nerdctl exec -- -u0 -it $container bash
 }
 
 lu() {

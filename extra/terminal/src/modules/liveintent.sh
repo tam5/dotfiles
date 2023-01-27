@@ -36,4 +36,23 @@ dpl() {
     kubectl -n $1 describe deployment $1 | grep GIT
 }
 
+_login() {
+    echo "Logging in to ${1} with username $LI_USERNAME"
+    export LI_TOKEN=$(curl -s ${1}/auth/login -H 'Content-type: application/json' -d "{ \"username\": \"$LI_USERNAME\", \"password\": \"$LI_PASSWORD\" }" | jq -r '.token')
+    echo $LI_TOKEN | pbcopy;
+    echo $LI_TOKEN;
+}
+
+login-local() {
+    _login localhost:6200
+}
+
+login-qa() {
+    _login https://qa-merlin.liveintenteng.com
+}
+
+login-stage() {
+    _login https://stage-merlin.liveintent.com
+}
+
 alias li="devstack_thing"

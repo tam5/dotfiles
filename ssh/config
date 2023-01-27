@@ -1,112 +1,14 @@
+Include /Users/amiller/.colima/ssh_config
+
 Host github.com
    HostName github.com
    IdentityFile ~/.ssh/id_rsa
    User git
 
-Host 10.239.* dev-*.liveintenteng.com
-  ProxyCommand ssh dev-bastion -W %h:%p
-  User ec2-user
-  ForwardAgent yes
-  IdentityFile ~/.ssh/liveintent-DEV-environment.pem
-  IdentitiesOnly yes
-  UserKnownHostsFile /dev/null
-  StrictHostKeyChecking no
-
-Host dev-bastion
-  Hostname dev-bastion.liveintenteng.com
-  User amiller
-  ForwardAgent yes
-  IdentityFile ~/.ssh/li.id_rsa
-  ControlMaster auto
-  ControlPath ~/.ssh/%r@%h:%p
-  ControlPersist 15m
-
-Host 10.240.* qa-*.liveintenteng.com
-  ProxyCommand ssh qa-bastion -W %h:%p
-  User ec2-user
-  ForwardAgent yes
-  IdentityFile ~/.ssh/liveintent-QA-environment.pem
-  IdentitiesOnly yes
-  UserKnownHostsFile /dev/null
-  StrictHostKeyChecking no
-
-Host qa-bastion
-  Hostname dev-bastion.liveintenteng.com
-  User amiller
-  ForwardAgent yes
-  IdentityFile ~/.ssh/li.id_rsa
-  ControlMaster auto
-  ControlPath ~/.ssh/%r@%h:%p
-  ControlPersist 15m
-
-Host 10.241.* uat-*.liveintent.com
-  ProxyCommand ssh uat-bastion -W %h:%p
-  User ec2-user
-  ForwardAgent yes
-  IdentityFile ~/.ssh/liveintent-UAT-environment.pem
-  IdentitiesOnly yes
-  UserKnownHostsFile /dev/null
-  StrictHostKeyChecking no
-
-Host uat-bastion
-  Hostname uat-bastion.liveintent.com
-  User amiller
-  ForwardAgent yes
-  IdentityFile ~/.ssh/li.id_rsa
-  ControlMaster auto
-  ControlPath ~/.ssh/%r@%h:%p
-  ControlPersist 15m
-
-Host 10.242.* stage-*.liveintent.com
-  ProxyCommand ssh stage-bastion -W %h:%p
-  User ec2-user
-  ForwardAgent yes
-  IdentityFile ~/.ssh/liveintent-STAGE-environment.pem
-  IdentitiesOnly yes
-  UserKnownHostsFile /dev/null
-  StrictHostKeyChecking no
-
-Host stage-bastion
-  Hostname stage-bastion.liveintent.com
-  User amiller
-  ForwardAgent yes
-  IdentityFile ~/.ssh/li.id_rsa
-  ControlMaster auto
-  ControlPath ~/.ssh/%r@%h:%p
-  ControlPersist 15m
-
-Host 10.243.* prod-*.liveintent.com
-  ProxyCommand ssh prod-bastion -W %h:%p
-  User ec2-user
-  ForwardAgent yes
-  IdentityFile ~/.ssh/liveintent-PROD-environment.pem
-  IdentitiesOnly yes
-  UserKnownHostsFile /dev/null
-  StrictHostKeyChecking no
-
-Host prod-bastion
-  Hostname prod-bastion.liveintent.com
-  User amiller
-  ForwardAgent yes
-  IdentityFile ~/.ssh/li.id_rsa
-  ControlMaster auto
-  ControlPath ~/.ssh/%r@%h:%p
-  ControlPersist 15m
-
 Host jumphost-nyc-prod-*
   User ec2-user
   IdentityFile ~/.ssh/li.id_rsa
   ProxyCommand ~/.ssh/scripts/aws-ssm-ec2-proxy-command.sh $(aws ec2 describe-instances --filters Name=instance-state-name,Values=running 'Name=tag:Name,Values="%h"' --query 'Reservations[*].Instances[0].InstanceId' --output text) %r %p ~/.ssh/li.id_rsa.pub
-  StrictHostKeyChecking no
-
-Host stage-firefly7
-  Hostname stage-firefly7.liveintent.com
-  ProxyJump jumphost-nyc-prod-stage
-  User amiller
-  ForwardAgent yes
-  IdentityFile ~/.ssh/li.id_rsa
-  IdentitiesOnly yes
-  UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
 
 Host 10.242.* stage-*.liveintent.com
@@ -126,3 +28,16 @@ Host 10.243.* prod-*.liveintent.com
   IdentitiesOnly yes
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
+
+Host stage-firefly7
+  Hostname stage-firefly7.liveintent.com
+  ProxyJump jumphost-nyc-prod-stage
+  User amiller
+  ForwardAgent yes
+  IdentityFile ~/.ssh/li.id_rsa
+  IdentitiesOnly yes
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  HostkeyAlgorithms +ssh-rsa
+  PubkeyAcceptedAlgorithms +ssh-rsa
+
