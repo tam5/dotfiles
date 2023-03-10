@@ -6,6 +6,9 @@ vim.keymap.set('n', '<Leader>q', ':q<CR>')
 
 vim.keymap.set('n', '<Leader>k', ':nohlsearch<CR>')
 
+vim.keymap.set('n', '<Leader>ek', ':e ~/.config/nvim/lua/user/keymaps.lua<CR>')
+vim.keymap.set('n', '<Leader>ep', ':e ~/.config/nvim/lua/user/plugins.lua<CR>')
+
 -- Reselect after indent
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
