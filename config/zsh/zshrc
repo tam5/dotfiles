@@ -58,5 +58,7 @@ alias gd="git diff"
 
 alias dotfiles="cd ~/Areas/dotfiles"
 
+alias ls="exa --long --color-scale --all --group-directories-first --binary --time-style long-iso"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -18,6 +18,9 @@ ln -sf $DOTFILES/config/ssh/config $HOME/.ssh/
 ln -sf $DOTFILES/config/zsh/p10k.zsh $HOME/.p10k.zsh
 ln -sf $DOTFILES/config/zsh/zshrc $HOME/.zshrc
 
+rm -rf $HOME/.config/nvim
+ln -s $DOTFILES/config/nvim $HOME/.config/nvim
+
 touch $HOME/.hushlogin
 
 export XDG_CACHE_HOME="$HOME/.cache"; mkdir -p $XDG_CACHE_HOME
