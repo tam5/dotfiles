@@ -50,7 +50,26 @@ use({
   end,
 })
 
-use('lewis6991/gitsigns.nvim')
+use {
+  'lewis6991/gitsigns.nvim',
+  config = function()
+    require('gitsigns').setup()
+  end
+}
+
+use({
+  'nvim-telescope/telescope.nvim',
+  requires = {
+    'nvim-lua/plenary.nvim'
+  }
+})
+
+use({
+  'projekt0n/github-nvim-theme',
+  config = function()
+    require('github-theme').setup()
+  end
+})
 
 if packer_bootstrap then
     require('packer').sync()
