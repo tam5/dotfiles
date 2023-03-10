@@ -49,6 +49,12 @@ export GIT_EDITOR=vim
 alias vim="nvim"
 alias g="git"
 alias gs="git status"
+## TODO make these smarter functions
+alias ga="git add"
+alias gap="git add --patch"
+alias gc="git commit"
+alias gp="git push"
+alias gd="git diff"
 
 alias dotfiles="cd ~/Areas/dotfiles"
 
