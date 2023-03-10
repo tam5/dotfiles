@@ -1,2 +1,7 @@
+[alias]
+	a = add
+	aa = add --all
+	ap = add --patch
+
 [include]
 	path = .local
