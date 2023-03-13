@@ -1,2 +1,4 @@
 [include]
 	path = .local
+[push]
+	autoSetupRemote = true
