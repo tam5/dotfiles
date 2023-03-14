@@ -22,9 +22,10 @@ brew "neovim" # Ambitious Vim-fork focused on extensibility and agility
 brew "node" # Platform built on V8 to build network applications
 brew "ripgrep" # Search tool like grep and The Silver Searcher
 brew "zsh" # UNIX shell (command interpreter)
-brew "railwaycat/emacsmacport/emacs-mac", args: ["with-native-compilation", "with-natural-title-bar", "with-xwidgets"] # YAMAMOTO Mitsuharu's Mac port of GNU Emacs
+brew "railwaycat/emacsmacport/emacs-mac", args: ["with-native-compilation", "with-no-title-bars", "with-xwidgets", "with-imagemagick"] # YAMAMOTO Mitsuharu's Mac port of GNU Emacs
 
 cask "cron" # Calendar for professionals and teams
+# cask "fig" # Reimagine your terminal
 cask "font-meslo-lg-nerd-font" # Developer targeted fonts with a high number of glyphs
 cask "iterm2" # Terminal emulator as alternative to Apple's Terminal app
 cask "karabiner-elements" # Keyboard customizer

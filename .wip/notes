@@ -2,10 +2,11 @@
 
 # add brew bundle install to install script
 
-
 # ----
 
 # adjust spotlight keyboard shortcut in favor of raycast - done manually, add to reamde for now and adjust raycast one
+#
+# manual add mouse button for mission control
 
 # TODO - 
 # global keybinds?
