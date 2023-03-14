@@ -16,6 +16,7 @@ fi
 typeset -U path
 path=(
     /opt/homebrew/bin
+    $XDG_CONFIG_HOME/emacs/bin
     $path
 )
 
@@ -57,6 +58,8 @@ alias gp="git push"
 alias gd="git diff"
 
 alias dotfiles="cd ~/Areas/dotfiles"
+
+alias dmd="cd ~/.config/doom"
 
 alias ls="exa --long --color-scale --all --group-directories-first --binary --time-style long-iso"
 
