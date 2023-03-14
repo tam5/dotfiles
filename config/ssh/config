@@ -2,3 +2,6 @@ Host *
  AddKeysToAgent yes
  UseKeychain yes
  IdentityFile ~/.ssh/id_ed25519_github
+
+Match all
+  Include ~/.fig/ssh
