@@ -27,10 +27,13 @@ path=(
 source /opt/homebrew/share/antigen/antigen.zsh
 
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle jeffreytse/zsh-vi-mode
 
 antigen theme romkatv/powerlevel10k
 
 antigen apply
+
+export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BEAM
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
