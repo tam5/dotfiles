@@ -59,6 +59,9 @@ export GIT_EDITOR=nvim
 alias vim="nvim"
 alias g="git"
 alias gs="git status"
+
+alias cat="bat"
+
 ## TODO make these smarter functions
 alias ga="git add"
 alias gap="git add --patch"
@@ -67,6 +70,18 @@ alias gp="git push"
 alias gd="git diff"
 alias gco="git checkout"
 alias nah="git reset --hard head && git clean -fd"
+
+
+diff() {
+  /usr/bin/diff -u "$1" "$2" | delta  \
+    --side-by-side \
+    --right-arrow="→" \
+    --file-decoration-style="brightblack ul" \
+    --hunk-header-style="" \
+    --line-numbers-left-format="{nm} " \
+    --line-numbers-right-format=" │ {np} " \
+    --line-numbers-right-style="brightblack"
+}
 
 alias dotfiles="cd ~/Areas/dotfiles"
 alias dmd="cd ~/.config/doom"
