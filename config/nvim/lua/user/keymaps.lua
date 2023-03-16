@@ -3,6 +3,9 @@ vim.g.maplocalleader = ','
 
 vim.keymap.set('n', '<Leader>w', ':w<CR>')
 vim.keymap.set('n', '<Leader>q', ':q<CR>')
+vim.keymap.set('n', 'q:', ':q<CR>')
+vim.keymap.set('n', '<Leader>v', ':vs<CR>')
+vim.keymap.set('n', '<Leader>h', ':sp<CR>')
 
 vim.keymap.set('n', '<Leader>k', ':nohlsearch<CR>')
 
@@ -21,4 +24,5 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- Telescope
-vim.keymap.set('n', '<Leader>fr', ':Telescope oldfiles<CR>')
+vim.keymap.set('n', '<C-p>', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
+vim.keymap.set('n', '<Space>fr', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])

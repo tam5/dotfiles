@@ -13,6 +13,7 @@ brew "coreutils" # GNU File, Shell, and Text utilities
 brew "dockutil" # Tool for managing dock items
 brew "exa" # Modern replacement for 'ls'
 brew "fd" # Simple, fast and user-friendly alternative to find
+brew "fzf" # Command-line fuzzy funder written in Go
 brew "gh" # GitHub command-line tool
 brew "git-delta" # Syntax-highlighting pager for git and diff output
 brew "gnupg" # GNU Pretty Good Privacy (PGP) package
