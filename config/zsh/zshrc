@@ -1,3 +1,7 @@
+if [ -f $HOME/.env ]; then
+    set -o allexport; source $HOME/.env; set +o allexport
+fi
+
 # we try to follow it a little bit but not really
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
