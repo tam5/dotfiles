@@ -5,7 +5,7 @@ vim.opt.softtabstop = 4
 
 vim.opt.smartindent = true
 
-vim.opt.wildmode = 'longest:full,full'
+vim.opt.wildmode = 'longest:full'
 
 vim.opt.spell = true
 

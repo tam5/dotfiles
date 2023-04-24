@@ -69,7 +69,7 @@ use({
 })
 
 use({
-  'projekt0n/github-nvim-theme',
+  'projekt0n/github-nvim-theme', tag = 'v0.0.7',
   config = function()
     require('github-theme').setup()
 
