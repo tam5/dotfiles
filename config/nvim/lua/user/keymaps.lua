@@ -9,6 +9,7 @@ vim.keymap.set('n', '<Leader>h', ':sp<CR>')
 
 vim.keymap.set('n', '<Leader>k', ':nohlsearch<CR>')
 
+vim.keymap.set('n', '<Leader>ev', ':e ~/.config/nvim/lua/user/options.lua<CR>')
 vim.keymap.set('n', '<Leader>ek', ':e ~/.config/nvim/lua/user/keymaps.lua<CR>')
 vim.keymap.set('n', '<Leader>ep', ':e ~/.config/nvim/lua/user/plugins.lua<CR>')
 

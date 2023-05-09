@@ -1,14 +1,30 @@
+# Personal zsh configuration of Ari Miller <tam5>
+
+# ┌────────────────────────────────────────────────────────────────────────────┐
+# │  Environment & Path                                                        │
+# └────────────────────────────────────────────────────────────────────────────┘
+
 if [ -f $HOME/.env ]; then
     set -o allexport; source $HOME/.env; set +o allexport
 fi
 
-# we try to follow it a little bit but not really
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 
-export ZSH_COMPDUMP="${ZSH_CACHE_DIR}/.zcompdump-${(%):-%m}-${ZSH_VERSION}"
+typeset -U path
+path=(
+    $HOME/.local/bin
+    /opt/homebrew/bin
+    $XDG_CONFIG_HOME/emacs/bin
+    vendor/bin
+    $path
+)
+
+# ┌────────────────────────────────────────────────────────────────────────────┐
+# │  Prompt                                                                    │
+# └────────────────────────────────────────────────────────────────────────────┘
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -17,120 +33,33 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-typeset -U path
-path=(
-    /opt/homebrew/bin
-    $XDG_CONFIG_HOME/emacs/bin
-    $HOME/.local/bin
-    vendor/bin
-    $path
-)
-
-################
-source /opt/homebrew/share/antigen/antigen.zsh
-
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle jeffreytse/zsh-vi-mode
-
-antigen theme romkatv/powerlevel10k
-
-antigen apply
-##################
-
-export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BEAM
-
-###########################
-export EDITOR=nvim
-export GIT_EDITOR=nvim
-
-alias vim="nvim"
-alias g="git"
-alias gs="git status"
-
-alias cat="bat"
-
-## TODO make these smarter functions
-alias ga="git add"
-alias gap="git add --patch"
-alias gc="git commit"
-alias gp="git push"
-alias gd="git diff"
-alias gco="git checkout"
-alias nah="git reset --hard head && git clean -fd"
-
-
-diff() {
-  /usr/bin/diff -u "$1" "$2" | delta  \
-    --side-by-side \
-    --right-arrow="→" \
-    --file-decoration-style="brightblack ul" \
-    --hunk-header-style="" \
-    --line-numbers-left-format="{nm} " \
-    --line-numbers-right-format=" │ {np} " \
-    --line-numbers-right-style="brightblack"
-}
-
-alias dotfiles="cd ~/Areas/dotfiles"
-alias dmd="cd ~/.config/doom"
-alias emd="cd ~/.config/emacs"
-
-alias -- -="cd -"
-alias home="cd ~"
-alias desk="cd ~/Desktop"
-# alias p="cd ~/Projects"
-# alias a="cd ~/Areas"
-alias exp="cd ~/Areas/experiments"
-alias ..="cd ../"
-
-alias pu="phpunit"
-alias pf="phpunit --filter"
-
-# gls --color --group-directories-first --time-style=long-iso --human-readable -o --almost-all --directory * .*, considering
-alias ls="exa --long --color-scale --all --group-directories-first --binary --time-style long-iso"
-alias ll="ls"
-
-# TODO make prettier and stuff
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---header-first
---layout=reverse
---prompt="  "
---pointer=" "
---no-scrollbar
---tabstop=4
---color=fg:-1,bg:-1
---color=fg+:white,bg+:#343a3d
---color=gutter:-1
---color=info:#43484d,separator:#2E363D
---color=header:blue
---color=hl:blue,hl+:blue:bold'
-
-j() {
-    projects_dir="$HOME/Projects"
-    areas_dir="$HOME/Areas"
-
-    finder_cmd="fd --max-depth=2 \
-      --type=directory \
-      --search-path=$HOME/Areas \
-      --search-path=$HOME/Projects"
-
-    local jump
-    jump=$(eval "$finder_cmd" | fzf) && cd "$jump"
-}
-#################
-#
-#
-ku() {
-  local context
-
-  context=$(kubectl config get-contexts -o name | fzf) &&
-      kubectl config use-context $context
-}
-au() {
-  local profile
-
-  profile=$(aws configure list-profiles | fzf) &&
-      export AWS_PROFILE=$profile
-}
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# ┌────────────────────────────────────────────────────────────────────────────┐
+# │  Add ins, plugins, etc.                                                    │
+# └────────────────────────────────────────────────────────────────────────────┘
+
+# Antigen
+source /opt/homebrew/share/antigen/antigen.zsh
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle jeffreytse/zsh-vi-mode
+antigen theme romkatv/powerlevel10k
+antigen apply
+
+# Custom add-ins
+for file in $(find -L ${XDG_CONFIG_HOME}/zsh -type f -name '+*'); do
+  source $file
+done
+
+# ┌────────────────────────────────────────────────────────────────────────────┐
+# │  Configuration                                                             │
+# └────────────────────────────────────────────────────────────────────────────┘
+
+# Default programs
+export EDITOR=nvim
+export GIT_EDITOR=nvim
+alias vim="nvim"
+alias cat="bat"
+
+export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BEAM

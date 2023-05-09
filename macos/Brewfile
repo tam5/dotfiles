@@ -33,6 +33,7 @@ cask "karabiner-elements" # Keyboard customizer
 cask "mimestream" # Native app email client for Gmail
 cask "notion" # App to write, plan, collaborate, and get organized
 cask "qlmarkdown" # QuickLook generator for Markdown files
+cask "shottr" # Screenshot measurement and annotation tool
 cask "raycast" # Control your tools with a few keystrokes
 cask "tableplus" # Native GUI tool for relational databases
 
