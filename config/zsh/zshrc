@@ -47,6 +47,9 @@ antigen bundle jeffreytse/zsh-vi-mode
 antigen theme romkatv/powerlevel10k
 antigen apply
 
+# ASDF version manager
+source $(brew --prefix asdf)/libexec/asdf.sh
+
 # Custom add-ins
 for file in $(find -L ${XDG_CONFIG_HOME}/zsh -type f -name '+*'); do
   source $file

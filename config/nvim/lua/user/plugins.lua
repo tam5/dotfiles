@@ -37,12 +37,7 @@ use({
     require('nvim-autopairs').setup()
   end,
 })
-use({
-  'karb94/neoscroll.nvim',
-  config = function()
-    require('neoscroll').setup()
-  end,
-})
+
 use({
   'sickill/vim-pasta',
   config = function()
