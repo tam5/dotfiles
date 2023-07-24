@@ -16,11 +16,15 @@ alias ls="exa --long --color-scale --all --group-directories-first --binary --ti
 alias ll="ls"
 
 j() {
-    finder_cmd="fd --max-depth=1 \
+  local base_directory=$HOME/Code
+    finder_cmd="fd \
+      -HI "\\.git$" \
+      --max-depth=5 \
       --type=directory \
-      --search-path=$HOME/Code"
+      --base-directory=${base_directory} \
+      | xargs -I {} dirname {}"
 
-    local jump
-    jump=$(eval "$finder_cmd" | fzf) && cd "$jump"
+    local selection
+    selection=$(eval "$finder_cmd" | fzf-tmux -p) && cd "${base_directory}/${selection}"
 }
 
