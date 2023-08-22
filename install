@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Karabiner
+mkdir -p $HOME/.config
+ln -sf $DOTFILES/karabiner $HOME/.config
+
+# Zsh
+ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
+
+# Kitty
+rm -rf $HOME/.config/kitty
+ln -s $DOTFILES/kitty $HOME/.config/kitty
+
+# mkdir -p $HOME/.config/git
+# ln -sf $DOTFILES/config/git/config $HOME/.config/git/
+# ln -sf $DOTFILES/config/git/ignore $HOME/.config/git/
