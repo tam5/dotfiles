@@ -6,6 +6,10 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 mkdir -p $HOME/.config
 ln -sf $DOTFILES/karabiner $HOME/.config
 
+# Hammerspoon
+rm -rf $HOME/hammerspoon
+ln -sfF $DOTFILES/hammerspoon $HOME/.hammerspoon
+
 # Zsh
 ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 
