@@ -2,6 +2,10 @@
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Git
+ln -sf $DOTFILES/git/gitconfig $HOME/.gitconfig
+ln -sf $DOTFILES/git/gitignore_global $HOME/.gitignore_global
+
 # Karabiner
 mkdir -p $HOME/.config
 ln -sf $DOTFILES/karabiner $HOME/.config
