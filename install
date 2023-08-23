@@ -7,15 +7,20 @@ mkdir -p $HOME/.config
 ln -sf $DOTFILES/karabiner $HOME/.config
 
 # Hammerspoon
-rm -rf $HOME/hammerspoon
-ln -sfF $DOTFILES/hammerspoon $HOME/.hammerspoon
+rm -rf $HOME/.hammerspoon
+ln -s $DOTFILES/hammerspoon $HOME/.hammerspoon
 
 # Zsh
 ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 
+# Neovim
+rm -rf $HOME/.config/nvim
+ln -s $DOTFILES/nvim $HOME/.config/nvim
+
 # Kitty
 rm -rf $HOME/.config/kitty
 ln -s $DOTFILES/kitty $HOME/.config/kitty
+
 
 # mkdir -p $HOME/.config/git
 # ln -sf $DOTFILES/config/git/config $HOME/.config/git/

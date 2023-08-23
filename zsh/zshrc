@@ -49,3 +49,8 @@ export GIT_EDITOR=nvim
 
 alias vim="nvim"
 
+alias ga="git add"
+alias gd="git diff"
+alias gc="git commit"
+alias gs="git status"
+
