@@ -6,6 +6,9 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ln -sf $DOTFILES/git/gitconfig $HOME/.gitconfig
 ln -sf $DOTFILES/git/gitignore_global $HOME/.gitignore_global
 
+# SSH
+ln -sf $DOTFILES/ssh/config $HOME/.ssh/config
+
 # Karabiner
 mkdir -p $HOME/.config
 ln -sf $DOTFILES/karabiner $HOME/.config
@@ -24,8 +27,3 @@ ln -s $DOTFILES/nvim $HOME/.config/nvim
 # Kitty
 rm -rf $HOME/.config/kitty
 ln -s $DOTFILES/kitty $HOME/.config/kitty
-
-
-# mkdir -p $HOME/.config/git
-# ln -sf $DOTFILES/config/git/config $HOME/.config/git/
-# ln -sf $DOTFILES/config/git/ignore $HOME/.config/git/
