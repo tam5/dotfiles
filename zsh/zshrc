@@ -55,3 +55,4 @@ alias gd="git diff"
 alias gp="git push"
 alias gs="git status"
 
+alias dotfiles="cd ~/Code/tam5/dotfiles"
