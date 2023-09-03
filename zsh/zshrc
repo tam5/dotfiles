@@ -42,6 +42,7 @@ path=(
 export EDITOR=nvim
 export GIT_EDITOR=nvim
 # export FZF_DEFAULT_COMMAND=''
+export DOTFILES="$HOME/Code/tam5/dotfiles"
 
 #--------------------------------------------------------------------------
 # Aliases
@@ -57,4 +58,4 @@ alias gd="git diff"
 alias gp="git push"
 alias gs="git status"
 
-alias dotfiles="cd ~/Code/tam5/dotfiles"
+alias dotfiles="cd $DOTFILES"

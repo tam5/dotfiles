@@ -1,0 +1,18 @@
+keyboard:
+  key_repeat: 1
+  key_repeat_delay: 10
+dock:
+  tile_size: 36
+  tile_size_magnified: 38
+  apps:
+    - Cron
+    - Things3
+    - Notes
+    - Notion
+    - Mimestream
+    - Slack
+    - WhatsApp
+    - Messages
+    - Kitty
+    - Google Chrome
+    - Spotify
