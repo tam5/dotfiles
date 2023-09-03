@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
+display_height=$(yabai -m query --displays --display | jq -r '.frame.h')
+display_width=$(yabai -m query --displays --display | jq -r '.frame.w')
+display_ratio=$(echo "$display_width / $display_height" | bc -l)
+is_ultrawide=$(( display_ratio > 1 ))
+
+if is_ultrawide; then
+    ./window_center_two_thirds
+else
+    ./window_maximize
+fi

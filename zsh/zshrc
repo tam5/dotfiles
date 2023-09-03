@@ -49,6 +49,8 @@ export GIT_EDITOR=nvim
 
 alias vim="nvim"
 
+alias ls="exa --long --all --group-directories-first --time-style long-iso"
+
 alias ga="git add"
 alias gc="git commit"
 alias gd="git diff"

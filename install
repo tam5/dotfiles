@@ -2,28 +2,38 @@
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Git
+# git
 ln -sf $DOTFILES/git/gitconfig $HOME/.gitconfig
 ln -sf $DOTFILES/git/gitignore_global $HOME/.gitignore_global
 
-# SSH
+# ssh
 ln -sf $DOTFILES/ssh/config $HOME/.ssh/config
 
-# Karabiner
+# karabiner
 mkdir -p $HOME/.config
 ln -sf $DOTFILES/karabiner $HOME/.config
 
-# Hammerspoon
+# hammerspoon
 rm -rf $HOME/.hammerspoon
 ln -s $DOTFILES/hammerspoon $HOME/.hammerspoon
 
-# Zsh
+# zsh
 ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 
-# Neovim
+# neovim
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
-# Kitty
+# kitty
 rm -rf $HOME/.config/kitty
 ln -s $DOTFILES/kitty $HOME/.config/kitty
+
+# skhd & yabai
+ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
+ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc
+
+# scripts
+mkdir -p $HOME/.local/bin
+ln -sf $DOTFILES/scripts/window_slot_main $HOME/.local/bin/window_slot_main
+ln -sf $DOTFILES/scripts/window_maximize $HOME/.local/bin/window_maximize
+ln -sf $DOTFILES/scripts/window_center_two_thirds $HOME/.local/bin/window_center_two_thirds
