@@ -6,16 +6,31 @@
 --
 -- Personal Neovim configuration of Jess Archer <jess@jessarcher.com>
 
-vim.g.mapleader = ','
+require('bootstrap')({
+    "core.options",
+    "core.keybindings",
 
-vim.keymap.set('n', '<Leader>w', ':w<CR>')
-vim.keymap.set('n', '<Leader>q', ':q<CR>')
+    "editor.commentary", -- ....
+    "editor.surround", -- ....
+    -- "editor.file-templates",
+    -- "editor.multiple-cursors",
+    -- "editor.snippets",
 
-vim.keymap.set('n', '<Leader>v', ':vs<CR>')
-vim.keymap.set('n', '<Leader>h', ':sp<CR>')
+    "ui.theme",
+    -- "ui.dashboard",
+    -- "ui.modeline",
+    -- "ui.git-gutter",
+    --
+    "tools.telescope",
+    -- "tools.search",
+    -- "tools.m-x",
+    "tools.vinegar",
 
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.expandtab = true
-vim.opt.smartindent = true
+
+    -- langs
+    -- ts
+    -- js
+    -- php
+    -- markdown
+})
+

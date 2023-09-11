@@ -27,17 +27,23 @@ export GIT_EDITOR=nvim
 # export FZF_DEFAULT_COMMAND=''
 export DOTFILES="$HOME/Code/tam5/dotfiles"
 
-source /opt/homebrew/opt/asdf/libexec/asdf.sh
-
 #--------------------------------------------------------------------------
 # Plugins
 #--------------------------------------------------------------------------
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+source /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source $(brew --prefix)/share/antigen/antigen.zsh
 
 antigen use oh-my-zsh
 
-antigen theme robbyrussell
+antigen theme romkatv/powerlevel10k
 
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-autosuggestions
@@ -72,3 +78,5 @@ alias gpop="git reset --soft head~1 && git reset head"
 alias nah="git reset --hard head && git clean -fd"
 
 alias dotfiles="cd $DOTFILES"
+alias desk="cd ~/Desktop"
+alias code="cd ~/Code"

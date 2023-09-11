@@ -13,10 +13,6 @@ ln -sf $DOTFILES/ssh/config $HOME/.ssh/config
 mkdir -p $HOME/.config
 ln -sf $DOTFILES/karabiner $HOME/.config
 
-# hammerspoon
-rm -rf $HOME/.hammerspoon
-ln -s $DOTFILES/hammerspoon $HOME/.hammerspoon
-
 # zsh
 ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 
@@ -24,13 +20,11 @@ ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
-# kitty
-rm -rf $HOME/.config/kitty
-ln -s $DOTFILES/kitty $HOME/.config/kitty
-
 # skhd & yabai
 ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
 ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc
+
+touch $HOME/.hushlogin
 
 # scripts
 mkdir -p $HOME/.local/bin
