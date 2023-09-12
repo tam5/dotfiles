@@ -20,6 +20,9 @@ ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
+# vscode
+ln -sf $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+
 # skhd & yabai
 ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
 ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc
