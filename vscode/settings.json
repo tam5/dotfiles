@@ -13,5 +13,12 @@
     "editor.lightbulb.enabled": false,
     "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
-    "editor.suggest.matchOnWordStartOnly": false
+    "editor.suggest.matchOnWordStartOnly": false,
+    "workbench.layoutControl.enabled": false,
+    "workbench.activityBar.visible": false,
+    "workbench.tree.renderIndentGuides": "none",
+    "workbench.tree.indent": 16,
+    "workbench.editor.enablePreviewFromCodeNavigation": true,
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "workbench.editor.mouseBackForwardToNavigate": false
 }
