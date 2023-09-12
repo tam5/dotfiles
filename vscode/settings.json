@@ -4,5 +4,11 @@
         ".venv": true,
         "**/__pycache__": true,
         "**/.*_cache": true
-    }
+    },
+    "editor.dragAndDrop": false,
+    "editor.folding": false,
+    "editor.foldingHighlight": false,
+    "editor.lineHeight": 1.5,
+    "editor.cursorBlinking": "smooth",
+    "editor.lightbulb.enabled": false
 }
