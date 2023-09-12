@@ -31,6 +31,10 @@ touch $HOME/.hushlogin
 
 # scripts
 mkdir -p $HOME/.local/bin
+ln -sf $DOTFILES/scripts/window_slot_left $HOME/.local/bin/window_slot_left
+ln -sf $DOTFILES/scripts/window_slot_right $HOME/.local/bin/window_slot_right
+ln -sf $DOTFILES/scripts/window_left_half $HOME/.local/bin/window_left_half
+ln -sf $DOTFILES/scripts/window_right_half $HOME/.local/bin/window_right_half
 ln -sf $DOTFILES/scripts/window_slot_main $HOME/.local/bin/window_slot_main
 ln -sf $DOTFILES/scripts/window_maximize $HOME/.local/bin/window_maximize
 ln -sf $DOTFILES/scripts/window_center_two_thirds $HOME/.local/bin/window_center_two_thirds
