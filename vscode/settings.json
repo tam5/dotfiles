@@ -20,5 +20,10 @@
     "workbench.tree.indent": 16,
     "workbench.editor.enablePreviewFromCodeNavigation": true,
     "workbench.editor.enablePreviewFromQuickOpen": true,
-    "workbench.editor.mouseBackForwardToNavigate": false
+    "workbench.editor.mouseBackForwardToNavigate": false,
+    "window.commandCenter": false,
+    "explorer.compactFolders": false,
+    "search.smartCase": true,
+    "search.showLineNumbers": true,
+    "workbench.colorTheme": "GitHub Dark"
 }
