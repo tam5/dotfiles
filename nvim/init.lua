@@ -22,6 +22,7 @@ require('bootstrap')({
     -- "ui.git-gutter",
     --
     "tools.telescope",
+    "tools.colorizer",
     -- "tools.search",
     -- "tools.m-x",
     "tools.vinegar",

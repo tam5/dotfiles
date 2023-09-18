@@ -80,3 +80,5 @@ alias nah="git reset --hard head && git clean -fd"
 alias dotfiles="cd $DOTFILES"
 alias desk="cd ~/Desktop"
 alias code="cd ~/Code"
+
+alias p="poetry run python"

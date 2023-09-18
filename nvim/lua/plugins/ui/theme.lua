@@ -1,6 +1,6 @@
 return {
-    'folke/tokyonight.nvim',
+    'LunarVim/horizon.nvim',
     config = function()
-        vim.cmd('colorscheme tokyonight')
+        vim.cmd('colorscheme horizon')
     end
 }
