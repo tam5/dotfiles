@@ -66,6 +66,16 @@
         },
         {
             "before": [
+                "g",
+                "z",
+                "m"
+            ],
+            "commands": [
+                "editor.action.selectHighlights"
+            ]
+        },
+        {
+            "before": [
                 "-"
             ],
             "commands": [
@@ -84,7 +94,9 @@
     "files.exclude": {
         ".venv": true,
         "**/__pycache__": true,
-        "**/.*_cache": true
+        "**/.*_cache": true,
+        "**/.next": true,
+        "**/node_modules/": true
     },
     "editor.dragAndDrop": false,
     "editor.folding": false,
@@ -132,5 +144,14 @@
     "breadcrumbs.showVariables": false,
     "breadcrumbs.showStrings": false,
     "breadcrumbs.showFiles": false,
-    "breadcrumbs.showEnums": false
+    "breadcrumbs.showEnums": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "ruff.enableExperimentalFormatter": true,
+    "black-formatter.args": [
+        "--line-length",
+        "120"
+    ],
+    "window.zoomLevel": 1
 }
