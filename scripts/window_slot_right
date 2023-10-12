@@ -8,7 +8,7 @@ display_ratio=$(echo "$display_width / $display_height" | bc -l)
 is_ultrawide=$(echo "$display_ratio > 2" | bc -l)
 
 if [ $is_ultrawide -eq 1 ]; then
-    ./window_center_two_thirds
+    ./window_right_half
 else
     ./window_right_half
 fi

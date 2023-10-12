@@ -1,3 +1,5 @@
+Include /Users/armiller/.colima/ssh_config
+
 Include /Users/arimiller/.colima/ssh_config
 
 Host *

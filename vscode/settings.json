@@ -1,157 +1,114 @@
 {
-    "vim.leader": ",",
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "<space>",
-                "f",
-                "r"
-            ],
-            "commands": [
-                "workbench.action.quickOpen"
-            ]
-        },
-        {
-            "before": [
-                "<C-p>",
-            ],
-            "commands": [
-                "workbench.action.quickOpen"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "v"
-            ],
-            "commands": [
-                ":vs"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "h"
-            ],
-            "commands": [
-                ":sp"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "q"
-            ],
-            "commands": [
-                ":q"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "w"
-            ],
-            "commands": [
-                ":w"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d"
-            ],
-            "commands": [
-                "workbench.action.closeActiveEditor"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "z",
-                "m"
-            ],
-            "commands": [
-                "editor.action.selectHighlights"
-            ]
-        },
-        {
-            "before": [
-                "-"
-            ],
-            "commands": [
-                {
-                    "command": "breadcrumbs.toggleToOn",
-                    "when": "!config.breadcrumbs.enabled",
-                },
-                {
-                    "command": "breadcrumbs.focusAndSelect",
-                    "when": "breadcrumbsPossible",
-                },
-            ],
-        },
-    ],
-    "editor.fontSize": 13,
-    "files.exclude": {
-        ".venv": true,
-        "**/__pycache__": true,
-        "**/.*_cache": true,
-        "**/.next": true,
-        "**/node_modules/": true
+  "vim.leader": ",",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<space>", "f", "r"],
+      "commands": ["workbench.action.quickOpen"]
     },
-    "editor.dragAndDrop": false,
-    "editor.folding": false,
-    "editor.foldingHighlight": false,
-    "editor.lineHeight": 1.5,
-    "editor.cursorBlinking": "smooth",
-    "editor.lightbulb.enabled": false,
-    "editor.formatOnSave": true,
-    "editor.minimap.enabled": false,
-    "editor.suggest.matchOnWordStartOnly": false,
-    "workbench.layoutControl.enabled": false,
-    "workbench.activityBar.visible": false,
-    "workbench.tree.renderIndentGuides": "none",
-    "workbench.tree.indent": 16,
-    "workbench.editor.enablePreviewFromCodeNavigation": true,
-    "workbench.editor.enablePreviewFromQuickOpen": true,
-    "workbench.editor.mouseBackForwardToNavigate": false,
-    "window.commandCenter": false,
-    "explorer.compactFolders": false,
-    "search.smartCase": true,
-    "search.showLineNumbers": true,
-    "workbench.colorTheme": "GitHub Dark",
-    "breadcrumbs.showArrays": false,
-    "breadcrumbs.showBooleans": false,
-    "breadcrumbs.showClasses": false,
-    "breadcrumbs.showConstants": false,
-    "breadcrumbs.showConstructors": false,
-    "breadcrumbs.showEnumMembers": false,
-    "breadcrumbs.showEvents": false,
-    "breadcrumbs.showFields": false,
-    "breadcrumbs.showFunctions": false,
-    "breadcrumbs.showInterfaces": false,
-    "breadcrumbs.showKeys": false,
-    "breadcrumbs.showMethods": false,
-    "breadcrumbs.showModules": false,
-    "breadcrumbs.showNamespaces": false,
-    "breadcrumbs.showNull": false,
-    "breadcrumbs.showNumbers": false,
-    "breadcrumbs.showObjects": false,
-    "breadcrumbs.showOperators": false,
-    "breadcrumbs.showPackages": false,
-    "breadcrumbs.showProperties": false,
-    "breadcrumbs.showStructs": false,
-    "breadcrumbs.showTypeParameters": false,
-    "breadcrumbs.showVariables": false,
-    "breadcrumbs.showStrings": false,
-    "breadcrumbs.showFiles": false,
-    "breadcrumbs.showEnums": false,
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
+    {
+      "before": ["<C-p>"],
+      "commands": ["workbench.action.quickOpen"]
     },
-    "ruff.enableExperimentalFormatter": true,
-    "black-formatter.args": [
-        "--line-length",
-        "120"
-    ],
-    "window.zoomLevel": 1
+    {
+      "before": ["<leader>", "v"],
+      "commands": [":vs"]
+    },
+    {
+      "before": ["<leader>", "h"],
+      "commands": [":sp"]
+    },
+    {
+      "before": ["<leader>", "q"],
+      "commands": [":q"]
+    },
+    {
+      "before": ["<leader>", "w"],
+      "commands": [":w"]
+    },
+    {
+      "before": ["<leader>", "d"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    },
+    {
+      "before": ["g", "z", "m"],
+      "commands": ["editor.action.selectHighlights"]
+    },
+    {
+      "before": ["-"],
+      "commands": [
+        {
+          "command": "breadcrumbs.toggleToOn",
+          "when": "!config.breadcrumbs.enabled"
+        },
+        {
+          "command": "breadcrumbs.focusAndSelect",
+          "when": "breadcrumbsPossible"
+        }
+      ]
+    }
+  ],
+  "editor.fontSize": 13,
+  "files.exclude": {
+    ".venv": true,
+    "**/__pycache__": true,
+    "**/.*_cache": true,
+    "**/.next": true,
+    "**/node_modules/": true
+  },
+  "editor.dragAndDrop": false,
+  "editor.folding": false,
+  "editor.foldingHighlight": false,
+  "editor.lineHeight": 1.5,
+  "editor.cursorBlinking": "smooth",
+  "editor.lightbulb.enabled": false,
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.suggest.matchOnWordStartOnly": false,
+  "workbench.layoutControl.enabled": false,
+  "workbench.activityBar.visible": false,
+  "workbench.tree.renderIndentGuides": "none",
+  "workbench.tree.indent": 16,
+  "workbench.editor.enablePreviewFromCodeNavigation": true,
+  "workbench.editor.enablePreviewFromQuickOpen": true,
+  "workbench.editor.mouseBackForwardToNavigate": false,
+  "window.commandCenter": false,
+  "explorer.compactFolders": false,
+  "search.smartCase": true,
+  "search.showLineNumbers": true,
+  "workbench.colorTheme": "GitHub Dark",
+  "breadcrumbs.showArrays": false,
+  "breadcrumbs.showBooleans": false,
+  "breadcrumbs.showClasses": false,
+  "breadcrumbs.showConstants": false,
+  "breadcrumbs.showConstructors": false,
+  "breadcrumbs.showEnumMembers": false,
+  "breadcrumbs.showEvents": false,
+  "breadcrumbs.showFields": false,
+  "breadcrumbs.showFunctions": false,
+  "breadcrumbs.showInterfaces": false,
+  "breadcrumbs.showKeys": false,
+  "breadcrumbs.showMethods": false,
+  "breadcrumbs.showModules": false,
+  "breadcrumbs.showNamespaces": false,
+  "breadcrumbs.showNull": false,
+  "breadcrumbs.showNumbers": false,
+  "breadcrumbs.showObjects": false,
+  "breadcrumbs.showOperators": false,
+  "breadcrumbs.showPackages": false,
+  "breadcrumbs.showProperties": false,
+  "breadcrumbs.showStructs": false,
+  "breadcrumbs.showTypeParameters": false,
+  "breadcrumbs.showVariables": false,
+  "breadcrumbs.showStrings": false,
+  "breadcrumbs.showFiles": false,
+  "breadcrumbs.showEnums": false,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "ruff.enableExperimentalFormatter": true,
+  "black-formatter.args": ["--line-length", "120"],
+  "window.zoomLevel": 1,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
