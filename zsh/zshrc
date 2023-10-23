@@ -17,6 +17,7 @@ fi
 typeset -U path
 path=(
     $HOME/.local/bin
+    $HOME/.config/emacs/bin
     /opt/homebrew/bin
     ./vendor/bin
     $path

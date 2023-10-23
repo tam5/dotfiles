@@ -20,6 +20,10 @@ ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
+# doom
+rm -rf $HOME/.config/doom
+ln -s $DOTFILES/doom $HOME/.config/doom
+
 # vscode
 ln -sf $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
 
