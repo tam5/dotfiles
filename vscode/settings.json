@@ -2,39 +2,82 @@
   "vim.leader": ",",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["<space>", "f", "r"],
-      "commands": ["workbench.action.quickOpen"]
+      "before": [
+        "<space>",
+        "f",
+        "r"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
     },
     {
-      "before": ["<C-p>"],
-      "commands": ["workbench.action.quickOpen"]
+      "before": [
+        "<C-p>"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
     },
     {
-      "before": ["<leader>", "v"],
-      "commands": [":vs"]
+      "before": [
+        "<leader>",
+        "v"
+      ],
+      "commands": [
+        ":vs"
+      ]
     },
     {
-      "before": ["<leader>", "h"],
-      "commands": [":sp"]
+      "before": [
+        "<leader>",
+        "h"
+      ],
+      "commands": [
+        ":sp"
+      ]
     },
     {
-      "before": ["<leader>", "q"],
-      "commands": [":q"]
+      "before": [
+        "<leader>",
+        "q"
+      ],
+      "commands": [
+        ":q"
+      ]
     },
     {
-      "before": ["<leader>", "w"],
-      "commands": [":w"]
+      "before": [
+        "<leader>",
+        "w"
+      ],
+      "commands": [
+        ":w"
+      ]
     },
     {
-      "before": ["<leader>", "d"],
-      "commands": ["workbench.action.closeActiveEditor"]
+      "before": [
+        "<leader>",
+        "d"
+      ],
+      "commands": [
+        "workbench.action.closeActiveEditor"
+      ]
     },
     {
-      "before": ["g", "z", "m"],
-      "commands": ["editor.action.selectHighlights"]
+      "before": [
+        "g",
+        "z",
+        "m"
+      ],
+      "commands": [
+        "editor.action.selectHighlights"
+      ]
     },
     {
-      "before": ["-"],
+      "before": [
+        "-"
+      ],
       "commands": [
         {
           "command": "breadcrumbs.toggleToOn",
@@ -112,5 +155,7 @@
   ],
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false
 }
