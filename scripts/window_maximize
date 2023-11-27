@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 #### config stuff
 space_id=$(yabai -m query --spaces --space | jq -r '.id')
