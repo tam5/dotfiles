@@ -22,12 +22,13 @@ ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
+# atuin
+rm -rf $HOME/.config/atuin
+ln -s $DOTFILES/atuin $HOME/.config/atuin
+
 # doom
 rm -rf $HOME/.config/doom
 ln -s $DOTFILES/doom $HOME/.config/doom
-
-# vscode
-ln -sf $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
 
 # skhd & yabai
 ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc

@@ -102,3 +102,4 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+eval "$(atuin init zsh --disable-up-arrow)"
