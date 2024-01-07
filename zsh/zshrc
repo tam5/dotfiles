@@ -65,7 +65,7 @@ antigen apply
 
 alias vim="nvim"
 
-alias ls="exa --long --all --group-directories-first --time-style long-iso"
+alias ls="eza --long --all --group-directories-first --time-style long-iso"
 
 alias ga="git add"
 alias gc="git commit"
