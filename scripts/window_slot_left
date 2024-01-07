@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-cd "$(dirname "${BASH_SOURCE[0]}")"
+cd "${0:a:h}"
 
 display_height=$(yabai -m query --displays --display | jq -r '.frame.h')
 display_width=$(yabai -m query --displays --display | jq -r '.frame.w')
