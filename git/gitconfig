@@ -3,3 +3,5 @@
 
 [push]
 	autoSetupRemote = true
+[user]
+	email = ari.miller@constantcontact.com

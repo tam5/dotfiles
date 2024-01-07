@@ -3,7 +3,7 @@
 (setq doom-theme 'doom-github-classic-dark
       doom-themes-treemacs-theme "doom-colors"
 
-      doom-font (font-spec :family "Meslo LG L" :size 15 :weight 'normal)
+      doom-font (font-spec :family "MesloLGM Nerd Font" :size 15 :weight 'normal)
       doom-variable-pitch-font (font-spec :family "Monaco" :size 13)
 
       frame-title-format nil

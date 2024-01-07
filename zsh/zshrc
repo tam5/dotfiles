@@ -36,7 +36,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source /opt/homebrew/opt/asdf/libexec/asdf.sh
+eval "$(mise activate zsh)"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -77,10 +77,28 @@ alias gsu="git branch --set-upstream-to=origin/\$(git rev-parse --abbrev-ref HEA
 alias gpu="git push -u origin \$(git rev-parse --abbrev-ref HEAD)"
 alias gstash="git add . && git commit -m 'stash'"
 alias gpop="git reset --soft head~1 && git reset head"
+alias gco="git checkout"
 alias nah="git reset --hard head && git clean -fd"
 
 alias dotfiles="cd $DOTFILES"
 alias desk="cd ~/Desktop"
 alias code="cd ~/Code"
+alias repos="cd ~/Code/armiller/gh-repo-search/repos"
 
 alias p="poetry run python"
+
+nr() {
+  local cmd
+
+  cmd=$(cat package.json | jq -r '.scripts | keys[]' | fzf) &&
+      npm run $cmd
+}
+
+# pnpm
+export PNPM_HOME="/Users/armiller/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+

@@ -52,8 +52,3 @@ to our most frequently used keybinds.")
 
  ;; exec code action
  :n "a" #'lsp-execute-code-action)
-
-(map!
- ;; fix for markdown because i use ` as my iterm hotkey
- "M-`" nil
- :i "M-`" (lambda () (interactive) (insert "`")))
