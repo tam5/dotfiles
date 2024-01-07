@@ -67,6 +67,8 @@ alias vim="nvim"
 
 alias ls="eza --long --all --group-directories-first --time-style long-iso"
 
+alias rm="echo Stop! Use rip instead!"
+
 alias ga="git add"
 alias gc="git commit"
 alias gd="git diff"
