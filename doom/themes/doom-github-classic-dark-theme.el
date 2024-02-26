@@ -145,7 +145,8 @@ Can be an integer to determine the exact padding."
                  (treemacs-root-face :foreground treemacs-fg)
                  (treemacs-file-face :foreground treemacs-fg)
                  (treemacs-directory-face :foreground treemacs-fg)
-
+                 (treemacs-nerd-icons-file-face :foreground base5)
+                 (treemacs-nerd-icons-root-face :inherit 'treemacs-nerd-icons-file-face)
    ;;;; modeline
                  (mode-line
                   :background modeline-bg :foreground modeline-fg

@@ -29,8 +29,6 @@
         highlight-indent-guides-auto-character-face-perc 10
         highlight-indent-guides-auto-top-character-face-perc 20
         highlight-indent-guides-bitmap-function 'my/highlight-indent-guides--bitmap-dots)
-
-  ;; Disable for performance and cleanliness, togglable via 'SPC-t-i'
   (highlight-indent-guides-mode -1)
   (remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode))
 
