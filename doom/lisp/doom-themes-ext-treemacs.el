@@ -145,8 +145,11 @@ Only takes effect if `doom-themes-treemacs-enable-variable-pitch' is non-nil."
     (treemacs-create-theme "my-treemacs-icon-theme"
       :config
       (progn
-        (treemacs-create-icon :icon (format "%s%s" (nerd-icons-octicon "nf-oct-repo"   :face 'treemacs-nerd-icons-root-face) treemacs-nerd-icons-tab)
-                              :extensions (root-closed root-open)
+        (treemacs-create-icon :icon (format " %s%s" (nerd-icons-faicon "nf-fa-folder_open"   :face 'treemacs-nerd-icons-root-face) treemacs-nerd-icons-tab)
+                              :extensions (root-open)
+                              :fallback 'same-as-icon)
+        (treemacs-create-icon :icon (format " %s%s" (nerd-icons-faicon "nf-fa-folder"   :face 'treemacs-nerd-icons-root-face) treemacs-nerd-icons-tab)
+                              :extensions (root-closed)
                               :fallback 'same-as-icon)
         (treemacs-create-icon :icon (format "%s%s" (nerd-icons-faicon "nf-fa-folder_open"  :face 'treemacs-nerd-icons-file-face) treemacs-nerd-icons-tab)
                               :extensions (dir-open)
@@ -157,7 +160,7 @@ Only takes effect if `doom-themes-treemacs-enable-variable-pitch' is non-nil."
         (dolist (item nerd-icons-extension-icon-alist)
           (let* ((extension (car item))
                  (func (cadr item))
-                 (args (append (list (cadr (cdr item))) '(:v-adjust -0.05 :height 0.92) (cdr (cddr item))))
+                 (args (append (list (cadr (cdr item))) '(:v-adjust -0.04 :height 0.92) (cdr (cddr item))))
                  (icon (apply func args)))
             (let* ((icon-pair (cons (format "%s%s" icon treemacs-nerd-icons-tab) (format "%s%s" icon treemacs-nerd-icons-tab)))
                    (gui-icons (treemacs-theme->gui-icons treemacs--current-theme))
