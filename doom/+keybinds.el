@@ -38,6 +38,8 @@ to our most frequently used keybinds.")
  :n "gr" #'lsp-find-references)
 
 (map!
+ :nvi "M-`" nil
+ :i "M-`" (lambda () (interactive) (insert "`"))
  ;; markdown mode
  :mode evil-markdown-mode
  :nvi "s-b" #'markdown-insert-bold

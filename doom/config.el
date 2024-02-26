@@ -16,7 +16,8 @@
 
 (after! company
   (setq company-idle-delay 0
-        company-minimum-prefix-length 0))
+        company-minimum-prefix-length 0
+        company-global-modes '(not markdown-mode)))
 
 (after! (persp-mode recentf)
   (add-to-list 'recentf-exclude
