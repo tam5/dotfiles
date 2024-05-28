@@ -48,6 +48,7 @@ antigen theme romkatv/powerlevel10k
 
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle jeffreytse/zsh-vi-mode
 
 antigen apply
 
@@ -107,8 +108,6 @@ esac
 eval "$(atuin init zsh --disable-up-arrow)"
 
 
-
-
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
 pasteinit() {
@@ -121,3 +120,18 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
+
+# Your custom widget
+# function my_custom_widget() {
+#   echo 'Hello, ZSH!'
+# }
+#
+# # The plugin will auto execute this zvm_after_lazy_keybindings function
+# function zvm_after_lazy_keybindings() {
+#   # Here we define the custom widget
+#   zvm_define_widget my_custom_widget
+#
+#   # In normal mode, press Ctrl-E to invoke this widget
+#   zvm_bindkey vicmd ' fr' my_custom_widget
+#   zvm_bindkey vicmd '^p' my_custom_widget
+# }
