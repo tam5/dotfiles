@@ -181,10 +181,10 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 
 
 # TODO
-- jumper
-- contextually aware ga and vim
-- logo
-- colors
+# - jumper
+# - contextually aware ga and vim
+# - logo
+# - colors
 
 
 j() {
