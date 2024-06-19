@@ -72,6 +72,7 @@ alias rm="echo Stop! Use rip instead!"
 
 alias ga="git add"
 alias gc="git commit"
+alias gcn="git commit --no-verify"
 alias gd="git diff"
 alias gs="git status"
 alias gp="git push"
@@ -82,6 +83,44 @@ alias gstash="git add . && git commit -m 'stash'"
 alias gpop="git reset --soft head~1 && git reset head"
 alias gco="git checkout"
 alias nah="git reset --hard head && git clean -fd"
+alias wip='git add . && git commit -m "wip" --no-verify'
+
+unalias gd
+gd() {
+  if [[ ! -z $@ ]]; then git diff "$@"; return; fi
+
+  preview="git diff $@ --color=always -- {-1}"
+  git diff $@ --name-only | fzf -m --ansi --preview $preview \
+      --bind "enter:execute:git diff --color=always {} | less -R" \
+}
+
+unalias gco 2> /dev/null
+gco() {
+  if [[ ! -z $@ ]]; then git checkout "$@"; return; fi
+
+  local branches branch
+  branches=$(git for-each-ref --count=50 --sort=-committerdate --format="%(refname:short)") &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo $branch | rg -o "([^/]+/)?[^/]+$")
+}
+
+_gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
+_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | delta'"
+
+unalias glo 2> /dev/null
+glo() {
+    git log --graph --color=always --format="%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(black)%d%Creset" |
+        fzf --no-sort --no-mouse --reverse --tiebreak=index --no-multi \
+            --ansi --preview="$_viewGitLogLine" \
+                --header "enter to view, ctrl-y to copy hash" \
+                --bind "enter:execute:$_viewGitLogLine   | less -R" \
+                --bind "ctrl-y:execute:$_gitLogLineToHash | pbcopy"
+}
+
+alias gro="glo ..@{u}"
+
+
 
 alias dotfiles="cd $DOTFILES"
 alias desk="cd ~/Desktop"
@@ -135,3 +174,19 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 #   zvm_bindkey vicmd ' fr' my_custom_widget
 #   zvm_bindkey vicmd '^p' my_custom_widget
 # }
+
+
+
+
+
+
+# TODO
+- jumper
+- contextually aware ga and vim
+- logo
+- colors
+
+
+j() {
+    # fd --hidden --type directory '\.git$' --exec dirname | fzf
+}

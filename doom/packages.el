@@ -9,4 +9,7 @@
 (package! copilot
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 
+(package! lsp-tailwindcss
+  :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))
+
 (package! lsp-pyright)

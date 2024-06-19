@@ -1,3 +1,5 @@
 ctrl + alt - m : ~/.local/bin/window_slot_main
 ctrl + alt - left : ~/.local/bin/window_slot_left
 ctrl + alt - right : ~/.local/bin/window_slot_right
+
+ctrl + alt - n : osascript ~/Code/tam5/dotfiles/scripts/chrome_move_tab_to_new_window.scpt

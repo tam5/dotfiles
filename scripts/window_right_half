@@ -11,7 +11,7 @@ left_padding=$(yabai -m config --space $space_id left_padding)
 x_padding=8
 y_padding=8
 
-menubar_height=40
+menubar_height=20
 dock_height=50
 #####
 

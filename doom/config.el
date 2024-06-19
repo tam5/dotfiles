@@ -46,3 +46,5 @@ way you're supposed to do this, but wtvr."
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp))))
+
+(use-package! lsp-tailwindcss)
