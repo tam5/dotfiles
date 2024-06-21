@@ -3,3 +3,25 @@ ctrl + alt - left : ~/.local/bin/window_slot_left
 ctrl + alt - right : ~/.local/bin/window_slot_right
 
 ctrl + alt - n : osascript ~/Code/tam5/dotfiles/scripts/chrome_move_tab_to_new_window.scpt
+
+
+
+# <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
+
+# works cool to dynamically increase size
+# ctrl + alt - b : yabai -m window --resize left:-20:0
+
+
+# works, but makes a mess at least at first, well what it does is auto fills all the space with all the windows....
+# ctrl + alt - b : yabai -m space --layout stack
+
+# works, unless the recent was closed then it can't find it
+# ctrl + alt - b : yabai -m window --focus recent
+
+
+# ctrl + alt - b : yabai -m space --layout stack
+
+ctrl + alt - b : yabai -m window --resize left:20:0
+
+ctrl + alt - 1 : yabai -m space --focus 1
+ctrl + alt - 2 : yabai -m space --focus 2
