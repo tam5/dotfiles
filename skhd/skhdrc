@@ -1,27 +1,31 @@
-ctrl + alt - m : ~/.local/bin/window_slot_main
-ctrl + alt - left : ~/.local/bin/window_slot_left
-ctrl + alt - right : ~/.local/bin/window_slot_right
+# ref: <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
 
-ctrl + alt - n : osascript ~/Code/tam5/dotfiles/scripts/chrome_move_tab_to_new_window.scpt
+### window stuff?
 
+# window slot main
+ctrl + alt - m : ~/.local/bin/display_is_ultrawide && \
+                     yabai -m window --grid 1:6:1:0:4:1 || \
+                     yabai -m window --grid 1:1:0:0:1:1
 
+# left half
+ctrl + alt - left : yabai -m window --grid 1:2:0:0:1:1
 
-# <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
+# right half
+ctrl + alt - right : yabai -m window --grid 1:2:1:0:1:1
 
-# works cool to dynamically increase size
+# ctrl + alt - b : yabai -m window --focus recent
+# ctrl + alt - b : yabai -m space --layout stack
+# ctrl + alt - b : yabai -m window --resize left:20:0
 # ctrl + alt - b : yabai -m window --resize left:-20:0
 
-
-# works, but makes a mess at least at first, well what it does is auto fills all the space with all the windows....
-# ctrl + alt - b : yabai -m space --layout stack
-
-# works, unless the recent was closed then it can't find it
-# ctrl + alt - b : yabai -m window --focus recent
+### spaces?
+# ctrl + alt - 1 : yabai -m space --focus 1
+# ctrl + alt - 2 : yabai -m space --focus 2
 
 
-# ctrl + alt - b : yabai -m space --layout stack
+### app stuff
+# ctrl + alt - n : osascript ~/Code/tam5/dotfiles/scripts/chrome_move_tab_to_new_window.scpt
 
-ctrl + alt - b : yabai -m window --resize left:20:0
 
-ctrl + alt - 1 : yabai -m space --focus 1
-ctrl + alt - 2 : yabai -m space --focus 2
+
+
