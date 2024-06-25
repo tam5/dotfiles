@@ -1,6 +1,6 @@
 return {
-    'LunarVim/horizon.nvim',
+    'projekt0n/github-nvim-theme',
     config = function()
-        vim.cmd('colorscheme horizon')
+        vim.cmd('colorscheme github_dark_dimmed')
     end
 }
