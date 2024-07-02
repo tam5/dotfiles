@@ -70,6 +70,7 @@ alias ls="eza --long --all --group-directories-first --time-style long-iso"
 
 alias rm="echo Stop! Use rip instead!"
 
+alias g="git"
 alias ga="git add"
 alias gc="git commit"
 alias gcn="git commit --no-verify"
@@ -120,6 +121,27 @@ glo() {
 
 alias gro="glo ..@{u}"
 
+git_ahead_behind() {
+  local base_branch=${1:-main}
+  left_right=$(git rev-list --left-right --count ${base_branch}...HEAD)
+  behind=$(echo $left_right | awk '{print $1}')
+  ahead=$(echo $left_right | awk '{print $2}')
+
+  git status
+  echo ""
+  echo "Your branch is $ahead commits ahead, and $behind commits behind '$base_branch' branch."
+
+  echo ""
+  echo "Commits ahead of ${base_branch}:"
+  git --no-pager log ${base_branch}..HEAD --pretty=format:"%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
+  echo ""
+  
+  echo ""
+  echo "Commits behind ${base_branch}:"
+  git --no-pager log HEAD..${base_branch} --pretty=format:"%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
+  echo ""
+}
+alias gvs="git_ahead_behind"
 
 
 alias dotfiles="cd $DOTFILES"
@@ -128,6 +150,9 @@ alias code="cd ~/Code"
 alias repos="cd ~/Code/armiller/gh-repo-search/repos"
 
 alias p="poetry run python"
+
+
+alias tp="pbpaste > "
 
 nr() {
   local cmd
@@ -159,6 +184,14 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
+
+export FZF_DEFAULT_OPTS='--layout=reverse'
+
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+#  --color=fg:regular:0,bg:-1,hl:bold:04
+#  --color=fg+:regular:015,bg+:-1,hl+:bold:04
+#  --color=info:0,prompt:0,pointer:05,input:015
+#  --color=marker:#b46ead,spinner:#303d4a,header:#87afaf'
 
 # Your custom widget
 # function my_custom_widget() {
