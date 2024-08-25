@@ -1,0 +1,29 @@
+{
+    "palette": {
+        "ansiBlack": "#16161C",
+        "ansiBlackBright": "#232530",
+        "ansiBlue": "#26BBD9",
+        "ansiBlueBright": "#3FC6DE",
+        "ansiCyan": "#59E3E3",
+        "ansiCyanBright": "#6BE6E6",
+        "ansiGreen": "#29D398",
+        "ansiGreenBright": "#3FDAA4",
+        "ansiMagenta": "#EE64AE",
+        "ansiMagentaBright": "#F075B7",
+        "ansiRed": "#E95678",
+        "ansiRedBright": "#EC6A88",
+        "ansiWhite": "#FADAD1",
+        "ansiWhiteBright": "#FDF0ED",
+        "ansiYellow": "#FAB795",
+        "ansiYellowBright": "#FBC3A7",
+    },
+    "colors": {
+        "main_foreground": "",
+        "main_background": "",
+        "links": "",
+        "search_highlight": "",
+        "selection": "",
+        cursor: "",
+
+    }
+}
