@@ -18,6 +18,7 @@ typeset -U path
 path=(
     $HOME/.local/bin
     $HOME/.config/emacs/bin
+    $HOME/.cargo/bin
     /opt/homebrew/bin
     ./vendor/bin
     $path
@@ -35,7 +36,7 @@ export DOTFILES="$HOME/Code/tam5/dotfiles"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
+#
 eval "$(mise activate zsh)"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -52,13 +53,13 @@ antigen bundle jeffreytse/zsh-vi-mode
 
 antigen apply
 
-#HYPHEN_INSENSITIVE="true"
-#COMPLETION_WAITING_DOTS="true"
-#HIST_STAMPS="yyyy-mm-dd"
-#VI_MODE_SET_CURSOR=true
-#VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+HYPHEN_INSENSITIVE="true"
+COMPLETION_WAITING_DOTS="true"
+HIST_STAMPS="yyyy-mm-dd"
+VI_MODE_SET_CURSOR=true
+VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
-#plugins=()
+plugins=()
 
 #--------------------------------------------------------------------------
 # Aliases
@@ -151,6 +152,8 @@ alias repos="cd ~/Code/armiller/gh-repo-search/repos"
 
 alias p="poetry run python"
 
+alias k="kubectl"
+
 
 alias tp="pbpaste > "
 
@@ -159,6 +162,8 @@ nr() {
 
   cmd=$(cat package.json | jq -r '.scripts | keys[]' | fzf) &&
       npm run $cmd
+
+  print -s "npm run $cmd"
 }
 
 # pnpm
@@ -169,8 +174,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-eval "$(atuin init zsh --disable-up-arrow)"
+# eval "$(atuin init zsh --disable-up-arrow)"
 
+zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
@@ -223,3 +229,5 @@ export FZF_DEFAULT_OPTS='--layout=reverse'
 j() {
     # fd --hidden --type directory '\.git$' --exec dirname | fzf
 }
+
+# eval "$(starship init zsh)"

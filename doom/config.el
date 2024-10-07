@@ -6,6 +6,7 @@
 
 (load! "+theme")
 (load! "+keybinds")
+(load! "lisp/codebase-helpers")
 
 
 
@@ -47,4 +48,13 @@ way you're supposed to do this, but wtvr."
                          (require 'lsp-pyright)
                          (lsp))))
 
-(use-package! lsp-tailwindcss)
+(use-package! grip-mode
+  :config (setq grip-github-user (getenv "GITHUB_USERNAME")
+                grip-github-password (getenv "GITHUB_PASSWORD")))
+
+(use-package! lsp-tailwindcss
+  :after lsp-mode
+  :init (setq lsp-tailwindcss-add-on-mode t))
+
+;; (setq +file-templates-dir (expand-file-name "snippets/" doom-user-dir))
+;; (set-file-template! "\\.tsx$" :trigger "__com" :mode 'typescript-tsx-mode)

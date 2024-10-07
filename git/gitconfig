@@ -5,3 +5,5 @@
 	autoSetupRemote = true
 [user]
 	email = ari.miller@constantcontact.com
+[credential]
+	helper = osxkeychain

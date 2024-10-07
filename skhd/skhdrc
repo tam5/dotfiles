@@ -7,11 +7,19 @@ ctrl + alt - m : ~/.local/bin/display_is_ultrawide && \
                      yabai -m window --grid 1:6:1:0:4:1 || \
                      yabai -m window --grid 1:1:0:0:1:1
 
+ctrl + alt - 0 : yabai -m window --grid 1:1:0:0:1:1
+
 # left half
 ctrl + alt - left : yabai -m window --grid 1:2:0:0:1:1
 
 # right half
 ctrl + alt - right : yabai -m window --grid 1:2:1:0:1:1
+
+ctrl + alt - o : yabai -m window --grid 1:6:5:0:1:1
+ctrl + alt - i : yabai -m window --grid 1:6:0:0:1:1
+
+ctrl + alt - s : yabai -m space --layout stack
+ctrl + alt - f : yabai -m space --layout float
 
 # ctrl + alt - b : yabai -m window --focus recent
 # ctrl + alt - b : yabai -m space --layout stack

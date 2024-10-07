@@ -1,11 +1,11 @@
 # -*- mode: snippet -*-
 # name: React Component
-# key: com
+# key: __com
 # --
-export default function ${1:ComponentName}() {
+export function ${1:`(my/get-component-name-from-file)`}({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      $0
+      {children}
     </div>
   );
 }

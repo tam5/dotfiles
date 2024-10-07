@@ -18,6 +18,9 @@ ln -sf $DOTFILES/karabiner $HOME/.config
 # zsh
 ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 
+# starship
+ln -sf $DOTFILES/starship/starship.toml $HOME/.config
+
 # neovim
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
