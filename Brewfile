@@ -33,6 +33,7 @@ cask "spotify"
 cask "tableplus"
 cask "visual-studio-code"
 cask "whatsapp"
+cask "logitech-g-hub"
 mas "GarageBand", id: 682658836
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
