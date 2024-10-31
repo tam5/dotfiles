@@ -130,14 +130,21 @@
   "Face for the active buffer background."
   :group 'custom-faces)
 
+(defface inactive-buffer-face
+  `((t (:background ,(color "red-950"))))
+  "Face for the inactive buffer background."
+  :group 'custom-faces)
+
 ;; Local variables to hold remap cookies
 (defvar-local active-buffer-remap-cookie nil "Remap cookie for active buffer background.")
+(defvar-local inactive-buffer-remap-cookie nil "Remap cookie for inactive buffer background.")
 
 (defun should-apply-remap? ()
   "Return non-nil if the buffer should be opted in to background remaps.
-This excludes special buffers and Treemacs buffers."
+This excludes special buffers, Treemacs, and Dired buffers."
   (and (not (string-prefix-p "*" (buffer-name)))   ;; Exclude special buffers
-       (not (eq major-mode 'treemacs-mode))))      ;; Exclude Treemacs
+       (not (eq major-mode 'treemacs-mode))        ;; Exclude Treemacs
+       (not (eq major-mode 'dired-mode))))         ;; Exclude Dired
 
 (defun apply-active-buffer-face ()
   "Apply the active buffer face to the current buffer."
@@ -146,21 +153,38 @@ This excludes special buffers and Treemacs buffers."
     (setq-local active-buffer-remap-cookie
                 (face-remap-add-relative 'default 'active-buffer-face))))
 
+(defun apply-inactive-buffer-face ()
+  "Apply the inactive buffer face to the current buffer."
+  (when (and (should-apply-remap?)
+             (not inactive-buffer-remap-cookie))
+    (setq-local inactive-buffer-remap-cookie
+                (face-remap-add-relative 'default 'inactive-buffer-face))))
+
 (defun remove-active-buffer-face ()
   "Remove the active buffer face from the current buffer."
   (when active-buffer-remap-cookie
     (face-remap-remove-relative active-buffer-remap-cookie)
     (setq-local active-buffer-remap-cookie nil)))
 
+(defun remove-inactive-buffer-face ()
+  "Remove the inactive buffer face from the current buffer."
+  (when inactive-buffer-remap-cookie
+    (face-remap-remove-relative inactive-buffer-remap-cookie)
+    (setq-local inactive-buffer-remap-cookie nil)))
+
 (defun update-active-buffer-faces (&rest _)
-  "Update active buffer faces across all windows."
+  "Update active and inactive buffer faces across all windows."
+  ;; Set inactive face for all buffers
   (dolist (window (window-list))
     (with-current-buffer (window-buffer window)
-      (remove-active-buffer-face)))
+      (remove-active-buffer-face)
+      (apply-inactive-buffer-face)))
+  ;; Set active face for the selected window buffer
   (with-current-buffer (window-buffer (selected-window))
+    (remove-inactive-buffer-face)
     (apply-active-buffer-face)))
 
-;; Set up hooks to manage active buffer highlighting
+;; Set up hooks to manage active and inactive buffer highlighting
 (add-hook 'window-selection-change-functions #'update-active-buffer-faces)
 (add-hook 'buffer-list-update-hook #'update-active-buffer-faces)
 
@@ -169,8 +193,8 @@ This excludes special buffers and Treemacs buffers."
 
 ;; base ----------------------------------------------------------------------------------------------------------
 
-(set-face-attribute 'default nil :background (color "sky-900")) ;; also is the titlebar color
-(set-face-attribute 'solaire-default-face nil :background (color "gray-700")) ;; the darker background color for non buffer stuff (?)
+(set-face-attribute 'default nil :background (color "sky-950")) ;; also is the titlebar color
+(set-face-attribute 'solaire-default-face nil :background (color "gray-950")) ;; the darker background color for non buffer stuff (?)
 
 ;; NOTES:
 ;; - we can also modify the currently active buffer if we want, see approach above
