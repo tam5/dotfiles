@@ -238,6 +238,9 @@ This excludes special buffers, Treemacs, and Dired buffers."
                     :foreground (color "green-700")
                     :box '(:line-width 3 :color (color "green-800")))
 ;; headerline ----------------------------------------------------------------------------------------------------------
+;; NOTES:
+;; - there is also such thing as a "Tab bar", which when enabled sits directly below the title bar, right now its actually behaving weird in relation to the internal border though
+;; - looks like the tab bar can also be styled at least to some degree if we want
 
 ;; modeline ----------------------------------------------------------------------------------------------------------
 (set-face-attribute 'mode-line nil
@@ -251,3 +254,56 @@ This excludes special buffers, Treemacs, and Dired buffers."
                     :box '(:line-width 3 :color (color "orange-800")))
 ;; modeline ----------------------------------------------------------------------------------------------------------
 
+
+
+
+
+
+
+(setq default-frame-alist
+      '((internal-border-width . 10)
+        (border-width . 10))) ;; requires new frame
+
+(set-face-attribute 'internal-border nil :background (color "purple-800"))
+(set-face-attribute 'border nil :background (color "red-800"))
+(set-face-attribute 'vertical-border nil :background (color "blue-800"))
+
+
+
+(setq window-divider-default-right-width 10) ;; requires new frame
+(setq window-divider-default-bottom-width 20) ;; requires new frame
+
+(set-face-attribute 'window-divider nil :foreground "cyan")
+(set-face-attribute 'window-divider-first-pixel nil :foreground "red") ;; it is the first pixel of the entire column so its like a vertical line
+(set-face-attribute 'window-divider-last-pixel nil :foreground "green") ;; it is the first pixel of the entire column so its like a vertical line
+
+;; NOTES
+;; - the "border" is not colorizable, and doesn't really seem like i can do anything with it, is controlled by window manager
+
+;; Set left and right fringe colors
+(set-face-attribute 'fringe nil :background "yellow")
+
+;; Adjust fringe width (in pixels)
+(setq-default left-fringe-width 12)
+(setq left-fringe-width 12)
+(setq-default right-fringe-width 20)
+(setq right-fringe-width 20)
+
+
+;; NOTES
+;; - fringes can also have bitmaps in them, which themselves can be given faces and such
+;; - setting different fringe widths for left and right doesnt seem to be working but it should
+;; - left and right can't have their own colors, but in theory an overlay could be created instead to mimick the fringes and then be given custom colors for left and right
+
+
+
+(setq-default left-margin-width 20)
+(setq-default right-margin-width 10)
+
+(set-window-buffer (selected-window) (current-buffer))  ;; Refresh margins
+
+(setq fringes-outside-margins t)
+
+;; NOTES
+;; - margins are further space, either between the text and the fringes or between the fringes and the dividers, depending on fringes-outside-margins flag
+;; - the bg color of the margin seems to take the bg color of the buffer including the remaps, UNLESS you are on a line that has an icon in the fringe like the text overlflow thing, in which case the color goes back to default face, but that's only true while the icon is displayed in the right fringe currently, or so it seems at least
