@@ -4,9 +4,11 @@
       user-mail-address (getenv "MY_EMAIL_ADDRESS")
       lsp-intelephense-licence-key (getenv "LICENSE_KEY_INTELEPHENSE"))
 
-(load! "+theme")
+;; (load! "+theme")
 (load! "+keybinds")
 (load! "lisp/codebase-helpers")
+
+(load! "lisp/ui-debug")
 
 
 
@@ -20,9 +22,9 @@
         company-minimum-prefix-length 0
         company-global-modes '(not markdown-mode)))
 
-(after! (persp-mode recentf)
-  (add-to-list 'recentf-exclude
-               (concat "^" (regexp-quote (file-truename persp-save-dir)))))
+;; (after! (persp-mode recentf)
+;;   (add-to-list 'recentf-exclude
+;;                (concat "^" (regexp-quote (file-truename persp-save-dir)))))
 
 ;; accept completion from copilot and fallback to company
 (use-package! copilot

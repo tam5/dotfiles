@@ -26,8 +26,8 @@ rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
 # vscode
-ln -sf $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
-ln -sf $DOTFILES/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
+# ln -sf $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+# ln -sf $DOTFILES/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
 
 # atuin
 rm -rf $HOME/.config/atuin
