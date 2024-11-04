@@ -1,7 +1,5 @@
 #
-#                                   
 #                               🚀      
-#                                       
 #
 # Personal zsh configuration of Ari Miller <arimiller.official@gmail.com>
 
@@ -70,6 +68,9 @@ alias ls="eza --long --all --group-directories-first --time-style long-iso"
 
 alias rm="echo Stop! Use rip instead!"
 
+alias rga="rg --no-ignore"
+
+alias v="vim ."
 alias g="git"
 alias ga="git add"
 alias gc="git commit"
@@ -84,7 +85,8 @@ alias gstash="git add . && git commit -m 'stash'"
 alias gpop="git reset --soft head~1 && git reset head"
 alias gco="git checkout"
 alias nah="git reset --hard head && git clean -fd"
-alias wip='git add . && git commit -m "wip" --no-verify'
+
+# alias jqs"while IFS= read -r line; do echo "\$line" | jq . 2>/dev/null || echo "\$line"; done"
 
 unalias gd
 gd() {
@@ -93,6 +95,32 @@ gd() {
   preview="git diff $@ --color=always -- {-1}"
   git diff $@ --name-only | fzf -m --ansi --preview $preview \
       --bind "enter:execute:git diff --color=always {} | less -R" \
+}
+
+# destructive, ye' be warned
+grho() {
+    branch=$(git branch | grep \* | cut -d ' ' -f2)
+    git reset --hard origin/$branch
+}
+
+wip() {
+  local message="wip"
+  if [[ ! -z $@ ]]; then
+    message="$@"
+    # Check if message does not start with "wip"
+    if [[ ! $message =~ ^wip ]]; then
+      message="wip - $message"
+    fi
+  fi
+
+  # Check if there are staged changes
+  if git diff --cached --quiet; then
+    # No staged changes, add everything
+    git add .
+  fi
+
+  # Commit staged changes
+  git commit -m "${message}" --no-verify
 }
 
 unalias gco 2> /dev/null
@@ -153,6 +181,12 @@ alias p="poetry run python"
 
 alias k="kubectl"
 
+jqsafe() {
+    while IFS= read -r line; do 
+        echo "$line" | jq . 2>/dev/null || echo "$line"; 
+    done
+}
+
 
 alias tp="pbpaste > "
 
@@ -212,21 +246,3 @@ export FZF_DEFAULT_OPTS='--layout=reverse'
 #   zvm_bindkey vicmd ' fr' my_custom_widget
 #   zvm_bindkey vicmd '^p' my_custom_widget
 # }
-
-
-
-
-
-
-# TODO
-# - jumper
-# - contextually aware ga and vim
-# - logo
-# - colors
-
-
-j() {
-    # fd --hidden --type directory '\.git$' --exec dirname | fzf
-}
-
-# eval "$(starship init zsh)"

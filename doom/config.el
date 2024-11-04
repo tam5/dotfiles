@@ -8,8 +8,6 @@
 (load! "+keybinds")
 (load! "lisp/codebase-helpers")
 
-
-
 (setq org-directory "~/org/")
 
 (setq confirm-kill-emacs nil
@@ -34,7 +32,7 @@
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
 
 (after! orderless
-  (defun +vertico-orderless-dispatch-a  (orig-fun &rest args)
+  (defun +vertico-orderless-dispatch-a (orig-fun &rest args)
     "Use flex matching by default. There's probably a more straightforward
 way you're supposed to do this, but wtvr."
     (or (apply orig-fun args)
@@ -42,19 +40,21 @@ way you're supposed to do this, but wtvr."
 
   (advice-add '+vertico-orderless-dispatch :around #'+vertico-orderless-dispatch-a))
 
+(after! lsp-ui
+  (setq lsp-ui-sideline-enable nil))
+
+(after! lsp-mode
+  (setq ;; If an LSP server isn't present when I start a prog-mode buffer, you
+   ;; don't need to tell me. I know. On some machines I don't care to have
+   ;; a whole development environment for some ecosystems.
+   lsp-enable-suggest-server-download nil))
+
 (use-package! lsp-pyright
   :ensure t
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp))))
 
-(use-package! grip-mode
-  :config (setq grip-github-user (getenv "GITHUB_USERNAME")
-                grip-github-password (getenv "GITHUB_PASSWORD")))
-
 (use-package! lsp-tailwindcss
   :after lsp-mode
   :init (setq lsp-tailwindcss-add-on-mode t))
-
-;; (setq +file-templates-dir (expand-file-name "snippets/" doom-user-dir))
-;; (set-file-template! "\\.tsx$" :trigger "__com" :mode 'typescript-tsx-mode)

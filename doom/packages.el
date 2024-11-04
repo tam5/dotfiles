@@ -12,6 +12,4 @@
 (package! lsp-tailwindcss
   :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))
 
-(package! grip-mode)
-
 (package! lsp-pyright)
