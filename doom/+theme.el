@@ -4,6 +4,112 @@
 (load! "lisp/frames")
 
 
+(setq my/default-background-color (face-attribute 'default :background))
+
+
+;; NOTES
+;; theme `bg` #282c34 -- (lighter, editor color)
+;; theme `bg-alt` #21242b -- (darker, treemacs color)
+;; default background -- #282c34
+;; solaire-default-face background -- #21242b
+
+;; solaire-mode in a buffer applies the remaps,
+;; so that means that when solaire mode is on, the buffer is not a real buffer, and instead we get
+;; a darker color!
+;;
+;;
+;; doing face-attribute does get the value without the relative remap, at least it seems
+
+;; (face-attribute 'default :background)
+;; (face-attribute 'solaire-default-face :background nil t)
+
+;; (set-face-attribute 'default nil :background "#282c34")
+
+;; (face-remap-add-relative 'default :background "black")
+
+;; (set-face-attribute 'default nil :background "#282c34")
+
+(defface editor-buffer-face
+  `((t (:background "#282c34")))
+  "Face for the active buffer background."
+  :group 'custom-faces)
+
+
+;; if the buffer is NOT real, then soliare mode gets turned on - which
+
+;; so what solaire mode is doing, is it is saying hey check the buffer and if it is _not_ a real buffer,
+;; then do face remapping
+
+;; Set the global background color for the default face
+;; (set-face-background 'default "red") ;; Set this to your preferred color
+
+;; Define a different background color for "editor" buffers
+;; (setq my/editor-buffer-bg "#282c34") ;; Set this to the desired "editor" buffer color
+
+;; Function to remap default face in editor buffers
+;; (defun my/remap-default-face ()
+;;   "Locally remap `default` face background color in editor buffers."
+;;   (face-remap-add-relative 'default :background my/editor-buffer-bg))
+
+;; Add to solaire-mode hooks for enabling/disabling remapping
+;; (add-hook 'solaire-mode-hook
+;;           (lambda ()
+;;             (if solaire-mode
+;;                 (my/remap-default-face)
+;;               (face-remap-reset-base 'default))))
+
+
+
+;; PLAN
+;; so whatever color i set to the actual default background, that will be my tab bar
+;; but then i want to remap basically everything else to use relative remap and use the desired value from my theme
+;;
+
+;; so when the theme is loaded we should
+;; check the original default background color of the theme - this will be our desired editor color, so we will store this value in a variable (face)
+;; then we are going to need to set the actual default face background color to the solaire mode color (or what we want)
+;; but then we're going to need to apply our remap to set the desired color back on top of the default face
+
+;; ------------------------------------------
+;; this whole section works to hack a way to set the title bar and frame color to something of our choosing
+;; ------------------------------------------
+;; (defvar my/default-background-color (face-attribute 'default :background)
+;;   "Stores the background color of the default face from the current theme.")
+
+;; (defun my/update-default-background-color (&rest _args)
+;;   "Update `my/default-background-color` with the background color of the `default` face."
+;;   (setq my/default-background-color (face-attribute 'default :background)))
+
+;; ;; Add to the hook to update color whenever a new theme is enabled
+;; (advice-add 'enable-theme :after 'my/update-default-background-color)
+
+;; (defvar-local editor-buffer-background-remap-cookie nil "Remap cookie for active buffer background.")
+
+;; (after! solaire-mode
+;;   (defun my/remap-editor-bg (&rest _)
+;;     "Update active and inactive buffer faces across all windows."
+;;     (with-current-buffer (window-buffer (selected-window))
+;;       (when (funcall solaire-mode-real-buffer-fn)
+;;         (unless editor-buffer-background-remap-cookie
+;;           (set-face-attribute 'default nil :background "red") ;;;;; ----------- this will be the color of the title bar
+;;           (setq-local editor-buffer-background-remap-cookie
+;;                       (face-remap-add-relative 'default :background my/default-background-color))))))
+
+
+;;   (defun my/thing-rest (&rest _)
+;;     (face-remap-remove-relative editor-buffer-background-remap-cookie)
+;;     (setq-local editor-buffer-background-remap-cookie nil)
+;;     (my/remap-editor-bg))
+
+;;   (add-hook 'doom-load-theme-hook #'my/thing-rest)
+;;   (add-hook 'window-selection-change-functions #'my/remap-editor-bg)
+;;   (add-hook 'buffer-list-update-hook #'my/remap-editor-bg))
+;; i think we also need to add a hook to remap it when the theme is loaded
+;; ------------------------------------------
+
+
+;; (set-face-attribute 'default nil :background "#282c34")
+
 ;; (face-attribute 'default :font)
 
 (setq doom-font (font-spec :family "MesloLGM Nerd Font" :size 14 :weight 'normal))

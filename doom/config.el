@@ -18,10 +18,6 @@
         company-minimum-prefix-length 0
         company-global-modes '(not markdown-mode)))
 
-(after! (persp-mode recentf)
-  (add-to-list 'recentf-exclude
-               (concat "^" (regexp-quote (file-truename persp-save-dir)))))
-
 ;; accept completion from copilot and fallback to company
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
