@@ -1,61 +1,54 @@
 ;;; lisp/title-bar.el -*- lexical-binding: t; -*-
+;;
+;;; Commentary:
+;;
+;; This is a WIP solution to attempt to change the window title bar color to match the
+;; "darker" color of the sidebar, popups, minibuffer, etc. when using solaire-mode.
+;;
+;; The main premise is that the window manager itself seems to be taking the color of the default face and using that for the title bar color. So my thought was that we could potentially do a hack where we actually set the default face to the color we want, and then do a buffer local remap of all buffers that should be treated like editor buffers to give them the desired "editor" background color.
+;;
+;; However, one certainly must ask if that was the right approach then wouldn't solaire-mode do it that way in the first place, so there must be a very good reason why not to do that.
 
-(defvar my/default-background-color nil
-  "The background color of the `default` face.")
+;; -------------------------------------------------------------------------
+;; Approach 1
+;;
+;; Commenatry:
+;; This approach hooks into when solaire-mode gets turned on so we can rely on their logic for figuring out when that needs to be called. Then, we check the buffer and decide if we should apply the remapping. And the way we do that is actually by checking if the minor solaire-mode was turned in the buffer itself because that is an indicator if we should treat the buffer as "real" or not, since solaire-mode is only turned on in buffers that are not "real" buffers.
+;;
+;; This approach seems to work for the most part, but has the following issues:
+;; 1. The buffer first gets the wrong background color before it settles into the correct color, resulting in a flash which is terrible ux. - this could maybe be solved via just making things faster or maybe there is a way for us to set the buffer background color before it gets rendered?
+;; 2. The stuff in the fringes is also looking weird. And looking at the solaire-mode source tells us there may indeed be some weird stuff going on.
 
-(defvar-local my/buffer-default-face-remap-cookie nil
+;; TODO
+;; - well it's still not applyign to every single buffer, so maybe that is also part of the answer with the performance
+;; - also, get the bg color from the theme / solaire face rather than hardcode
+(defface my/real-buffer-default-face
+  `((t (:background nil)))
+  "Face for the active buffer background."
+  :group 'custom-faces)
+
+(defvar-local my/real-buffer-default-face-remap-cookie nil
   "Remap cookie for active buffer background.")
 
-(defun my/editor-bg-apply-remap ()
-  "hacks."
-  (interactive)
+(defun my/real-buffer-default-face-apply-remap ()
+  "hacks. - this stuff should happen on every buffer load or wtvr"
   (with-current-buffer (window-buffer (selected-window))
-    (setq-local my/buffer-default-face-remap-cookie
-                (face-remap-add-relative 'default 'my-editor-face))))
+    (setq-local my/real-buffer-default-face-remap-cookie
+                (face-remap-add-relative 'default 'my/real-buffer-default-face))))
 
-(defun my/do-setup-things ()
+(defun my/real-buffer-default-face-apply-remap-maybe ()
   ""
-  (set-face-attribute 'my-editor-face nil (face-attribute 'default :background))
-  (set-face-attribute 'default nil :background "red")
-  (my/remap-current-buffer))
+  (with-current-buffer (window-buffer (selected-window))
+    (when (and (bound-and-true-p solaire-global-mode)
+               (not (bound-and-true-p solaire-mode)))
+      (my/real-buffer-default-face-apply-remap))))
 
-;; the problem now is that we would need to re-run the remap relative for every buffer
-;;
-;; so after the theme is loaded we should:
-;; check the original default background color of the theme - this will be our desired editor color, so we will store this value in a variable (face)
-;; then we are going to need to set the actual default face background color to the solaire mode color (or what we want)
-;; but then we're going to need to apply our remap to set the desired color back on top of the default face
+(defun my/real-buffer-default-face-remap-prepare (&rest _args)
+  "this stuff should happen once per load/theme load"
+  (set-face-attribute 'my/real-buffer-default-face nil :background (face-attribute 'default :background))
+  (set-face-attribute 'default nil :background "#1b1f23")
+  (dolist (buf (buffer-list))
+    (my/real-buffer-default-face-apply-remap-maybe)))
 
-;; ------------------------------------------
-;; this whole section works to hack a way to set the title bar and frame color to something of our choosing
-;; ------------------------------------------
-;; or spec
-
-;; (defun my/update-default-background-color (&rest _args)
-;;   "Update `my/default-background-color` with the background color of the `default` face."
-;;   (setq my/default-background-color (face-attribute 'default :background)))
-
-;; Add to the hook to update color whenever a new theme is enabled
-;; (advice-add 'enable-theme :after 'my/update-default-background-color)
-
-(after! solaire-mode
-  (defun my/remap-editor-bg (&rest _)
-    "Update active and inactive buffer faces across all windows."
-    (with-current-buffer (window-buffer (selected-window))
-      (when (funcall solaire-mode-real-buffer-fn)
-        (unless editor-buffer-background-remap-cookie
-          (set-face-attribute 'default nil :background "red") ;;;;; ----------- this will be the color of the title bar
-          (setq-local editor-buffer-background-remap-cookie
-                      (face-remap-add-relative 'default :background my/default-background-color))))))
-
-
-  (defun my/thing-rest (&rest _)
-    (face-remap-remove-relative editor-buffer-background-remap-cookie)
-    (setq-local editor-buffer-background-remap-cookie nil)
-    (my/remap-editor-bg))
-
-  (add-hook 'doom-load-theme-hook #'my/thing-rest)
-  (add-hook 'window-selection-change-functions #'my/remap-editor-bg)
-  (add-hook 'buffer-list-update-hook #'my/remap-editor-bg))
-;; i think we also need to add a hook to remap it when the theme is loaded
-;; ------------------------------------------
+(advice-add 'turn-on-solaire-mode :after #'my/real-buffer-default-face-apply-remap-maybe)
+(advice-add #'load-theme :after #'my/real-buffer-default-face-remap-prepare)

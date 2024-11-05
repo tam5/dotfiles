@@ -9,6 +9,8 @@ ctrl + alt - m : ~/.local/bin/display_is_ultrawide && \
 
 ctrl + alt - 0 : yabai -m window --grid 1:1:0:0:1:1
 
+ctrl + alt - 6 : yabai -m window --grid 8:8:2:1:4:6
+
 # left half
 ctrl + alt - left : yabai -m window --grid 1:2:0:0:1:1
 

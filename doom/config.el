@@ -1,4 +1,15 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;;;
+;;; Commentary:
+;;
+;; Todo list
+;; - [ ] remove autosave file from the recentf list
+;; - [ ] fix the line numbers sometimes flashing in random wrong buffers
+;; - [ ] get completion to include the stuff in the buffer
+;; - [ ] see if can get the file switcher preview thing to work better more like swiper for example
+;; - [ ] better regexp / search replace thing with previews
+;; - [ ] better markdown mode live preview w/ in emacs ideally
+;; - [ ] fix tab to expand snippets first
 
 (setq user-full-name (getenv "MY_FULL_NAME")
       user-mail-address (getenv "MY_EMAIL_ADDRESS")
