@@ -54,9 +54,9 @@
 
 (add-hook! treemacs-mode 'hide-mode-line-mode)
 
-;; (after! lsp-treemacs
-;;   (load! "lisp/doom-themes-ext-treemacs")
-;;   (my/doom-themes-treemacs-config))
+(after! lsp-treemacs
+  (load! "lisp/doom-themes-ext-treemacs")
+  (my/doom-themes-treemacs-config))
 
 ;; (after! (:and solaire-mode treemacs)
 ;;   (push '(treemacs-window-background-face . solaire-default-face) solaire-mode-remap-alist)
