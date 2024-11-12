@@ -35,7 +35,7 @@
 (load! "lisp/bitmaps")
 (load! "lisp/frames")
 
-(load! "lisp/title-bar")
+;(load! "lisp/title-bar")
 
 (setq doom-theme 'doom-github-classic-dark
       doom-font (font-spec :family "MesloLGM Nerd Font" :size 14 :weight 'normal)
