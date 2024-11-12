@@ -24,6 +24,11 @@
 (setq confirm-kill-emacs nil
       dired-kill-when-opening-new-dired-buffer t)
 
+;; remove the persp autosave file from recent files list
+(after! (persp-mode recentf)
+  (add-to-list 'recentf-exclude
+               (concat "^" (regexp-quote (file-truename persp-save-dir)))))
+
 (after! company
   (setq company-idle-delay 0
         company-minimum-prefix-length 0
