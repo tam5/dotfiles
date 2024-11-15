@@ -35,19 +35,24 @@
 (load! "lisp/bitmaps")
 (load! "lisp/frames")
 
-;(load! "lisp/title-bar")
-
 (setq doom-theme 'doom-github-classic-dark
       doom-font (font-spec :family "MesloLGM Nerd Font" :size 14 :weight 'normal)
       doom-variable-pitch-font (font-spec :family "Monaco" :size 13)
 
       doom-modeline-modal nil
 
-      frame-title-format nil
-      ns-use-proxy-icon nil
-
       display-line-numbers-type t)
 
+;; ---------- titlebar ----------
+(setq frame-title-format " "
+      ns-use-proxy-icon nil)
+
+(add-hook 'window-size-change-functions
+          (lambda (f) (with-selected-frame f (set-frame-name " "))))
+
+;; ---------- -------------------
+
+;; ---------- sidebar ----------
 (after! treemacs
   (setq treemacs-collapse-dirs 0
         treemacs-git-mode nil))
@@ -57,6 +62,7 @@
 (after! lsp-treemacs
   (load! "lisp/doom-themes-ext-treemacs")
   (my/doom-themes-treemacs-config))
+;; ----------  ----------
 
 ;; (after! (:and solaire-mode treemacs)
 ;;   (push '(treemacs-window-background-face . solaire-default-face) solaire-mode-remap-alist)

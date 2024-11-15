@@ -3,7 +3,7 @@
 ;;; Commentary:
 ;;
 ;; Todo list
-;; - [ ] remove autosave file from the recentf list
+;; - [x] remove autosave file from the recentf list
 ;; - [ ] fix the line numbers sometimes flashing in random wrong buffers
 ;; - [ ] get completion to include the stuff in the buffer
 ;; - [ ] see if can get the file switcher preview thing to work better more like swiper for example
@@ -17,7 +17,7 @@
 
 (load! "+theme")
 (load! "+keybinds")
-(load! "lisp/codebase-helpers")
+;; (load! "lisp/codebase-helpers") ; should be autoloaded i assume
 
 (setq org-directory "~/org/")
 

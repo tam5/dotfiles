@@ -28,6 +28,7 @@ to our most frequently used keybinds.")
  :n "ev" (lambda () (interactive) (find-file (concat doom-user-dir "config.el")))
  :n "ei" (lambda () (interactive) (find-file (concat doom-user-dir "init.el")))
  :n "ek" (lambda () (interactive) (find-file (concat doom-user-dir "+keybinds.el")))
+ :n "et" (lambda () (interactive) (find-file (concat doom-user-dir "+theme.el")))
  :n "eu" (lambda () (interactive) (find-file (concat doom-user-dir "+ui.el"))))
 
 (map!
