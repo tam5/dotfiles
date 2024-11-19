@@ -1,58 +1,47 @@
-;;; +theme.el -*- lexical-binding: t; -*-
-;;
-;;; Commentary:
-;;
-;; # Look and feel todo list:
-;;
-;; ## Title bar
-;; - [ ] Get the titlebar to properly have the desired color
-;; - [ ] Remove the titlebar title
-;;
-;; ## Cursor / line
-;; - [ ] Fix the hl-line to extend into the fringes
-;; - [ ] Change styles of the cursor, maybe blink soft?
-;;
-;; ## Modeline
-;; - [ ] Do we really need all that stuff there? like "Top"? and "LF"? and the language and the branch etc.
-;;
-;; ## Treemacs / sidebar
-;; - [ ] Tweak styles of the treemacs
-;;
-;; ## Completion
-;; - [ ] Fix the autocomplete so that it works in a more async / smooth way
-;; - [ ] Disable auto complete when writing comments (but keep copilot)
-;; - [ ] Get the shadow
-;; - [ ] Extra scroll bars or something looks weird
-;;
-;; ## Command Palette
-;; - [ ] Get the shadow
-;; - [ ] Make it pretty
-;;
-;; ## Misc
-;; - [ ] Fix the cursor scrolling so that it works in a more async / smooth way?
-;; - [ ] Consider helpers as overlay instead of in echo area (but check with ui-lsp conflict)
+;;; $DOOMDIR/+ui.el -*- lexical-binding: t; -*-
+
 
 (load! "lisp/bitmaps")
 (load! "lisp/frames")
 
-(setq doom-theme 'doom-github-classic-dark
-      doom-font (font-spec :family "MesloLGM Nerd Font" :size 14 :weight 'normal)
-      doom-variable-pitch-font (font-spec :family "Monaco" :size 13)
 
-      doom-modeline-modal nil
+;;; -----------------------------------------------------------------------------
+;;; Theme
+;;; -----------------------------------------------------------------------------
+(setq doom-theme 'doom-github-classic-dark)
 
-      display-line-numbers-type t)
 
-;; ---------- titlebar ----------
+;;; -----------------------------------------------------------------------------
+;;; Font
+;;; -----------------------------------------------------------------------------
+(setq doom-font (font-spec :family "MesloLGM Nerd Font" :size 14 :weight 'normal)
+      doom-variable-pitch-font (font-spec :family "Monaco" :size 13))
+
+
+;;; -----------------------------------------------------------------------------
+;;; Frame
+;;; -----------------------------------------------------------------------------
+(setq default-frame-alist
+      '((internal-border-width . 0)))
+
+
+;;; -----------------------------------------------------------------------------
+;;; Titlebar
+;;; -----------------------------------------------------------------------------
+(after! solaire-mode
+  (add-hook 'solaire-global-mode-hook #'my/solaire-mode-hack-titlebar-color  t)
+  (add-hook 'doom-init-ui-hook #'my/solaire-mode-hack-titlebar-color t))
+
+(add-hook 'window-size-change-functions #'my/hack-clear-titlebar-title)
+
+;; not even sure if this is doing anything
 (setq frame-title-format " "
       ns-use-proxy-icon nil)
 
-(add-hook 'window-size-change-functions
-          (lambda (f) (with-selected-frame f (set-frame-name " "))))
 
-;; ---------- -------------------
-
-;; ---------- sidebar ----------
+;;; -----------------------------------------------------------------------------
+;;; Sidebar
+;;; -----------------------------------------------------------------------------
 (after! treemacs
   (setq treemacs-collapse-dirs 0
         treemacs-git-mode nil))
@@ -62,7 +51,31 @@
 (after! lsp-treemacs
   (load! "lisp/doom-themes-ext-treemacs")
   (my/doom-themes-treemacs-config))
-;; ----------  ----------
+
+
+;;; -----------------------------------------------------------------------------
+;;; Line numbers
+;;; -----------------------------------------------------------------------------
+(setq display-line-numbers-type t)
+
+
+;;; -----------------------------------------------------------------------------
+;;; Modeline
+;;; -----------------------------------------------------------------------------
+(setq doom-modeline-modal nil)
+
+
+;;; -----------------------------------------------------------------------------
+;;; IntelliSense
+;;; -----------------------------------------------------------------------------
+(after! lsp-ui
+  (setq lsp-ui-sideline-enable nil))
+
+
+
+
+
+
 
 ;; (after! (:and solaire-mode treemacs)
 ;;   (push '(treemacs-window-background-face . solaire-default-face) solaire-mode-remap-alist)
