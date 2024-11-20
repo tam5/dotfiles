@@ -22,7 +22,7 @@
   "Remove fringes in current window if `treemacs-fringe-indicator-mode' is nil"
   (when (display-graphic-p)
     (if treemacs-fringe-indicator-mode
-        (set-window-fringes nil 3 0)
+        (set-window-fringes nil 14 0)
       (set-window-fringes nil 0 0))))
 
 (treemacs-create-theme "my/treemacs-theme"
@@ -42,7 +42,7 @@
           (ht-set! tui-icons extension tui-icon))))
 
     ;; directory and other icons
-    (treemacs-create-icon :icon (format "%s%s%s" my/treemacs-theme-dir-spacer--left " " my/treemacs-theme-dir-spacer--right)
+    (treemacs-create-icon :icon (format "%s%s%s" my/treemacs-theme-dir-spacer--left (nerd-icons-faicon "nf-fa-folder_o" :v-adjust -0.06 :height 1.12 :face 'my/treemacs-theme-dir-icon-face) my/treemacs-theme-dir-spacer--right)
                           :extensions (root-open dir-open)
                           :fallback 'same-as-icon)
     (treemacs-create-icon :icon (format "%s%s%s" my/treemacs-theme-dir-spacer--left (nerd-icons-faicon "nf-fa-folder" :v-adjust -0.06 :height 1.12 :face 'my/treemacs-theme-dir-icon-face) my/treemacs-theme-dir-spacer--right)
@@ -51,6 +51,28 @@
     (treemacs-create-icon :icon (format "%s%s%s" my/treemacs-theme-icon-spacer--left (nerd-icons-faicon "nf-fa-file_o" :face 'my/treemacs-theme-file-icon-face) my/treemacs-theme-icon-spacer--right)
                           :extensions (fallback)
                           :fallback 'same-as-icon)))
+
+
+
+;;; WIP - fringe indicator ->
+;;; this gets the fringe indicator all the way to the left, but i want it to stay on the selected file
+;;; and not follow my cursor
+;;; also it does look like the fringes get messed up all the time so we'll need to add that hook to make
+;;; sure it keeps getting reset properly
+;;; and then i also need to do something different with the cursor
+;;; check 'treemacs-show-cursor'
+(defun doom-themes-define-treemacs-fringe-indicator-bitmap ()
+  "Defines `treemacs--fringe-indicator-bitmap'"
+  (if (fboundp 'define-fringe-bitmap)
+      (define-fringe-bitmap 'treemacs--fringe-indicator-bitmap
+        (make-vector 26 #b111) nil doom-themes-treemacs-bitmap-indicator-width)))
+
+(add-hook 'treemacs-mode-hook #'doom-themes-define-treemacs-fringe-indicator-bitmap)
+
+(setq treemacs--fringe-indicator-bitmap
+      (define-fringe-bitmap 'treemacs--fringe-indicator-bitmap-default (make-vector 200 #b11100000)))
+
+;;; WIP
 
 
 (defun my/treemacs-theme-reload ()
@@ -71,6 +93,8 @@
   ;; and the colors of the icons
   ;; add font to dotfiles
   ;; fringe indicator / hl-lien
+  ;;
+  ;; we don't need the echo messages of "written"
   (dolist (face '(treemacs-directory-face
                   treemacs-directory-collapsed-face
                   treemacs-file-face
@@ -86,8 +110,6 @@
   ;;
 
   (treemacs-load-theme "my/treemacs-theme"))
-
-(set-face-attribute 'treemacs-root-face nil :height 0.5)
 
 (provide 'my/treemacs-theme)
 ;;; my/treemacs-theme.el ends here
