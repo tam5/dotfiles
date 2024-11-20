@@ -10,6 +10,10 @@ TODO list
 
 - [ ] there is still a bug that sometimes the line numbers show up in weird buffers
 
+- consider a tooltip/hover rather than the thing in the echo area
+
+- more space between line numbers and body/content
+
 :completion
 [ ] consider corfu
 [ ] make it work better with snippets

@@ -116,7 +116,9 @@ Can be an integer to determine the exact padding."
                                              `(,(doom-darken (car bg-alt) 0.15) ,@(cdr bg))))
                  (modeline-bg-inactive     `(,(car bg-alt) ,@(cdr base1)))
                  (modeline-bg-inactive-alt `(,(doom-darken (car bg-alt) 0.1) ,@(cdr bg)))
-                 (treemacs-fg "#acb1bf")
+                 (treemacs-dirname "#acb1bf")
+                 (treemacs-dir-icon "#646773")
+                 (treemacs-filename "#646773")
 
                  (-modeline-pad
                   (when doom-github-classic-dark-padded-modeline
@@ -142,11 +144,10 @@ Can be an integer to determine the exact padding."
                  (rainbow-delimiters-depth-9-face :foreground violet)
 
    ;;;; treemacs-mode
-                 (treemacs-root-face :foreground treemacs-fg)
-                 (treemacs-file-face :foreground treemacs-fg)
-                 (treemacs-directory-face :foreground treemacs-fg)
-                 (treemacs-nerd-icons-file-face :foreground base5)
-                 (treemacs-nerd-icons-root-face :inherit 'treemacs-nerd-icons-file-face)
+                 (treemacs-root-face :foreground treemacs-dirname)
+                 (treemacs-directory-face :foreground treemacs-dirname)
+                 (treemacs-file-face :foreground treemacs-filename)
+                 (my/treemacs-theme-dir-icon-face :foreground treemacs-dir-icon)
    ;;;; modeline
                  (mode-line
                   :background modeline-bg :foreground modeline-fg

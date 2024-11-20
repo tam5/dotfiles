@@ -59,6 +59,7 @@ way you're supposed to do this, but wtvr."
 
 ;;; copilot
 (use-package! copilot
+  :defer t
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
               ("<tab>" . 'copilot-accept-completion)

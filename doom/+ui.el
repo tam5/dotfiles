@@ -48,9 +48,9 @@
 
 (add-hook! treemacs-mode 'hide-mode-line-mode)
 
-(after! lsp-treemacs
-  (load! "lisp/doom-themes-ext-treemacs")
-  (my/doom-themes-treemacs-config))
+(after! treemacs-nerd-icons
+  (load! "lisp/my-treemacs-theme")
+  (my/treemacs-theme-reload))
 
 
 ;;; -----------------------------------------------------------------------------
@@ -77,10 +77,12 @@
 
 
 
+;; dont think this does anything?
 ;; (after! (:and solaire-mode treemacs)
 ;;   (push '(treemacs-window-background-face . solaire-default-face) solaire-mode-remap-alist)
 ;;   (push '(treemacs-hl-line-face . solaire-hl-line-face) solaire-mode-remap-alist))
 
+;; dont think this does anything?
 ;; (after! highlight-indent-guides
 ;;   (setq highlight-indent-guides-method 'bitmap
 ;;         highlight-indent-guides-responsive 'top
