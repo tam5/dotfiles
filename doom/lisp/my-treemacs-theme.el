@@ -1,7 +1,7 @@
 ;;; lisp/my-treemacs-theme.el -*- lexical-binding: t; -*-
 
-(require 'nerd-icons)
 (require 'treemacs)
+(require 'nerd-icons)
 
 (defface my/treemacs-theme-dir-icon-face
   '((t (:inherit nil)))
@@ -15,8 +15,8 @@
 
 (defvar my/treemacs-theme-padding--left (propertize " " 'display '(space :width 2)))
 (defvar my/treemacs-theme-dir-spacer--left (propertize " " 'display '(space :width 0)))
-(defvar my/treemacs-theme-dir-spacer--right (propertize " " 'display '(space :width 1.2)))
-(defvar my/treemacs-theme-icon-spacer--right (propertize " " 'display '(space :width 1.4)))
+(defvar my/treemacs-theme-dir-spacer--right (propertize " " 'display '(space :width 1.4)))
+(defvar my/treemacs-theme-icon-spacer--right (propertize " " 'display '(space :width 1.6)))
 (defvar my/treemacs-theme-icon-spacer--left (propertize " " 'display '(space :width 0.2)))
 
 (defun my/treemacs-theme-hide-fringes (&rest _)
@@ -27,8 +27,7 @@
 (treemacs-create-theme "my/treemacs-theme"
   :config
   (progn
-
-    ;; dir icons
+    ;; directory icons
     (treemacs-create-icon :icon (format "%s%s%s%s"
                                         my/treemacs-theme-padding--left
                                         my/treemacs-theme-dir-spacer--left
@@ -43,8 +42,7 @@
                                         my/treemacs-theme-dir-spacer--right)
                           :extensions (root-closed dir-closed)
                           :fallback 'same-as-icon)
-
-    ;; most icons
+    ;; file icons
     (dolist (item nerd-icons-extension-icon-alist)
       (let* ((extension (car item))
              (func (cadr item))
@@ -58,8 +56,7 @@
                (tui-icon  (cdr icon-pair)))
           (ht-set! gui-icons extension gui-icon)
           (ht-set! tui-icons extension tui-icon))))
-
-    ;; fallback icon
+    ;; fallback
     (treemacs-create-icon :icon (format "%s%s%s%s"
                                         my/treemacs-theme-padding--left
                                         my/treemacs-theme-icon-spacer--left
@@ -89,6 +86,24 @@
 ;;       (define-fringe-bitmap 'treemacs--fringe-indicator-bitmap-default (make-vector 200 #b11100000)))
 
 ;;; WIP
+
+
+
+;; (set-frame-parameter nil 'cursor-color "orange")
+;; (set-face-attribute 'cursor nil :background "red" :foreground "yellow")
+
+;; (defun my/set-cursor-color-for-treemacs ()
+;;   "Set a specific cursor color in treemacs-mode."
+;;   (setq-local cursor-type nil))
+
+;; (add-hook 'treemacs-mode-hook #'my/set-cursor-color-for-treemacs)
+
+;; (map!  :g "M-i" #'aritest)
+;; (map!  :g "M-u" #'aritest)
+
+;; (defun aritest ()
+;;   (interactive)
+;;   (setq cursor-type nil))
 
 
 (defun my/treemacs-theme-reload ()
@@ -122,7 +137,7 @@
                   treemacs-git-renamed-face
                   treemacs-git-modified-face
                   treemacs-git-unmodified-face))
-    (set-face-attribute face nil :font (font-spec :family "Inter 1.4" :size 12.0 :weight 'medium)))
+    (set-face-attribute face nil :font (font-spec :family "Inter 1.5" :size 12.0 :weight 'medium)))
   ;;
 
   (treemacs-load-theme "my/treemacs-theme"))
