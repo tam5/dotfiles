@@ -47,14 +47,15 @@
   (load! "lisp/my-treemacs-theme")
 
   (setq treemacs-collapse-dirs 0
-        treemacs-git-mode nil)
+        treemacs-git-mode nil
+        treemacs-fringe-indicator-mode nil)
 
   (add-hook 'treemacs-mode-hook #'hide-mode-line-mode)
 
   ;; Disable fringes (and reset them everytime treemacs is selected because it
   ;; may change due to outside factors)
-  (add-hook 'treemacs-mode-hook #'my/treemacs-theme-hide-fringes-maybe)
-  (advice-add #'treemacs-select-window :after #'my/treemacs-theme-hide-fringes-maybe)
+  (add-hook 'treemacs-mode-hook #'my/treemacs-theme-hide-fringes)
+  (advice-add #'treemacs-select-window :after #'my/treemacs-theme-hide-fringes)
 
   (my/treemacs-theme-reload))
 

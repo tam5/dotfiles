@@ -9,6 +9,8 @@
       user-mail-address (getenv "MY_EMAIL_ADDRESS")
       lsp-intelephense-licence-key (getenv "LICENSE_KEY_INTELEPHENSE")
 
+      fancy-splash-image (file-name-concat doom-user-dir "rocket.png")
+
       confirm-kill-emacs nil)
 
 

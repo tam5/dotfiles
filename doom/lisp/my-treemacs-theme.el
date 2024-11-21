@@ -13,27 +13,45 @@
   "Face used for the directory and file icons in nerd-icons theme."
   :group 'treemacs-faces)
 
+(defvar my/treemacs-theme-padding--left (propertize " " 'display '(space :width 2)))
 (defvar my/treemacs-theme-dir-spacer--left (propertize " " 'display '(space :width 0)))
 (defvar my/treemacs-theme-dir-spacer--right (propertize " " 'display '(space :width 1.2)))
 (defvar my/treemacs-theme-icon-spacer--right (propertize " " 'display '(space :width 1.4)))
 (defvar my/treemacs-theme-icon-spacer--left (propertize " " 'display '(space :width 0.2)))
 
-(defun my/treemacs-theme-hide-fringes-maybe (&rest _)
-  "Remove fringes in current window if `treemacs-fringe-indicator-mode' is nil"
+(defun my/treemacs-theme-hide-fringes (&rest _)
+  "Remove fringes in treemacs window, mostly since it makes hl-line look bad."
   (when (display-graphic-p)
-    (if treemacs-fringe-indicator-mode
-        (set-window-fringes nil 14 0)
-      (set-window-fringes nil 0 0))))
+    (set-window-fringes nil 0 0)))
 
 (treemacs-create-theme "my/treemacs-theme"
   :config
   (progn
+
+    ;; dir icons
+    (treemacs-create-icon :icon (format "%s%s%s%s"
+                                        my/treemacs-theme-padding--left
+                                        my/treemacs-theme-dir-spacer--left
+                                        (nerd-icons-faicon "nf-fa-folder_o" :v-adjust -0.06 :height 1.12 :face 'my/treemacs-theme-dir-icon-face)
+                                        my/treemacs-theme-dir-spacer--right)
+                          :extensions (root-open dir-open)
+                          :fallback 'same-as-icon)
+    (treemacs-create-icon :icon (format "%s%s%s%s"
+                                        my/treemacs-theme-padding--left
+                                        my/treemacs-theme-dir-spacer--left
+                                        (nerd-icons-faicon "nf-fa-folder" :v-adjust -0.06 :height 1.12 :face 'my/treemacs-theme-dir-icon-face)
+                                        my/treemacs-theme-dir-spacer--right)
+                          :extensions (root-closed dir-closed)
+                          :fallback 'same-as-icon)
+
+    ;; most icons
     (dolist (item nerd-icons-extension-icon-alist)
       (let* ((extension (car item))
              (func (cadr item))
              (args (append (list (cadr (cdr item))) '(:v-adjust -0.04 :height 0.92) (cdr (cddr item))))
              (icon (apply func args)))
-        (let* ((icon-pair (cons (format "%s%s%s" my/treemacs-theme-icon-spacer--left icon my/treemacs-theme-icon-spacer--right) (format "%s%s%s" my/treemacs-theme-icon-spacer--left icon my/treemacs-theme-icon-spacer--right)))
+        (let* ((icon-pair (cons (format "%s%s%s%s" my/treemacs-theme-padding--left my/treemacs-theme-icon-spacer--left icon my/treemacs-theme-icon-spacer--right)
+                                (format "%s%s%s%s" my/treemacs-theme-padding--left my/treemacs-theme-icon-spacer--left icon my/treemacs-theme-icon-spacer--right)))
                (gui-icons (treemacs-theme->gui-icons treemacs--current-theme))
                (tui-icons (treemacs-theme->tui-icons treemacs--current-theme))
                (gui-icon  (car icon-pair))
@@ -41,14 +59,12 @@
           (ht-set! gui-icons extension gui-icon)
           (ht-set! tui-icons extension tui-icon))))
 
-    ;; directory and other icons
-    (treemacs-create-icon :icon (format "%s%s%s" my/treemacs-theme-dir-spacer--left (nerd-icons-faicon "nf-fa-folder_o" :v-adjust -0.06 :height 1.12 :face 'my/treemacs-theme-dir-icon-face) my/treemacs-theme-dir-spacer--right)
-                          :extensions (root-open dir-open)
-                          :fallback 'same-as-icon)
-    (treemacs-create-icon :icon (format "%s%s%s" my/treemacs-theme-dir-spacer--left (nerd-icons-faicon "nf-fa-folder" :v-adjust -0.06 :height 1.12 :face 'my/treemacs-theme-dir-icon-face) my/treemacs-theme-dir-spacer--right)
-                          :extensions (root-closed dir-closed)
-                          :fallback 'same-as-icon)
-    (treemacs-create-icon :icon (format "%s%s%s" my/treemacs-theme-icon-spacer--left (nerd-icons-faicon "nf-fa-file_o" :face 'my/treemacs-theme-file-icon-face) my/treemacs-theme-icon-spacer--right)
+    ;; fallback icon
+    (treemacs-create-icon :icon (format "%s%s%s%s"
+                                        my/treemacs-theme-padding--left
+                                        my/treemacs-theme-icon-spacer--left
+                                        (nerd-icons-faicon "nf-fa-file_o" :face 'my/treemacs-theme-file-icon-face)
+                                        my/treemacs-theme-icon-spacer--right)
                           :extensions (fallback)
                           :fallback 'same-as-icon)))
 
@@ -61,16 +77,16 @@
 ;;; sure it keeps getting reset properly
 ;;; and then i also need to do something different with the cursor
 ;;; check 'treemacs-show-cursor'
-(defun doom-themes-define-treemacs-fringe-indicator-bitmap ()
-  "Defines `treemacs--fringe-indicator-bitmap'"
-  (if (fboundp 'define-fringe-bitmap)
-      (define-fringe-bitmap 'treemacs--fringe-indicator-bitmap
-        (make-vector 26 #b111) nil doom-themes-treemacs-bitmap-indicator-width)))
+;; (defun doom-themes-define-treemacs-fringe-indicator-bitmap ()
+;;   "Defines `treemacs--fringe-indicator-bitmap'"
+;;   (if (fboundp 'define-fringe-bitmap)
+;;       (define-fringe-bitmap 'treemacs--fringe-indicator-bitmap
+;;         (make-vector 26 #b111) nil 3)))
 
-(add-hook 'treemacs-mode-hook #'doom-themes-define-treemacs-fringe-indicator-bitmap)
+;; (add-hook 'treemacs-mode-hook #'doom-themes-define-treemacs-fringe-indicator-bitmap)
 
-(setq treemacs--fringe-indicator-bitmap
-      (define-fringe-bitmap 'treemacs--fringe-indicator-bitmap-default (make-vector 200 #b11100000)))
+;; (setq treemacs--fringe-indicator-bitmap
+;;       (define-fringe-bitmap 'treemacs--fringe-indicator-bitmap-default (make-vector 200 #b11100000)))
 
 ;;; WIP
 
