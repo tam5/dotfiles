@@ -194,7 +194,9 @@
 (defun my/treemacs-theme-current-highlight-reset ()
   (when my/treemacs-theme-current-file-overlay
     (delete-overlay my/treemacs-theme-current-file-overlay)
-    (setq my/treemacs-theme-current-file-overlay nil)))
+    (setq my/treemacs-theme-current-file-overlay nil))
+  (with-current-buffer (treemacs-get-local-buffer)
+    (treemacs-refresh)))
 
 (defun my/treemacs-theme-highlight-current-file (file)
   "Highlight the filename of the Treemacs node corresponding to `file`."
@@ -218,10 +220,16 @@
       (my/treemacs-theme-highlight-current-file file))))
 
 (map! :g "M-i" #'aritest)
+
 ;; TODO - now we just got to get it to apply when we switch files and/or when we change the layout of treemacs like open/close nodes bc something might now be visible that wasn't
 ;; also we should always have visual line mode on
 
 ;; Add the hook to track window selection changes
 ;; (add-hook 'window-selection-change-functions #'my/on-cursor-move)
+
+
+
+;; this is almost exactly what i want, except that in treemacs the hl-line disappears after i move/do something
+(setq hl-line-sticky-flag nil)
 
 (set-face-attribute 'my/treemacs-theme-current-file-face nil :foreground "white")
