@@ -57,6 +57,15 @@
   (add-hook 'treemacs-mode-hook #'my/treemacs-theme-hide-fringes)
   (advice-add #'treemacs-select-window :after #'my/treemacs-theme-hide-fringes)
 
+  (add-hook 'buffer-list-update-hook #'my/treemacs-theme-update-current-highlight)
+  (add-hook 'window-selection-change-functions #'my/treemacs-theme-update-current-highlight)
+
+  ;; TODO
+  ;; this is almost exactly what i want, except that in treemacs the hl-line disappears after i move/do something
+  ;; (setq hl-line-sticky-flag nil)
+  (set-face-attribute 'my/treemacs-theme-current-file-face nil :foreground "white")
+  ;; TODO
+
   (my/treemacs-theme-reload))
 
 

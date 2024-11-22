@@ -191,16 +191,21 @@
 (defvar-local my/treemacs-theme-current-file-overlay nil
   "Overlay used to highlight the current Treemacs node.")
 
+(defun my/treemacs-theme-real-buffer-p ()
+  "Return t if the current buffer is a real (file-visiting) buffer.
+Copied the logic from `solaire-mode-real-buffer-p`."
+  (buffer-file-name (buffer-base-buffer)))
+
 (defun my/treemacs-theme-current-highlight-reset ()
+  "Reset the current Treemacs highlight by clearing the overlay and refreshing."
   (when my/treemacs-theme-current-file-overlay
     (delete-overlay my/treemacs-theme-current-file-overlay)
-    (setq my/treemacs-theme-current-file-overlay nil))
-  (with-current-buffer (treemacs-get-local-buffer)
-    (treemacs-refresh)))
+    (setq my/treemacs-theme-current-file-overlay nil)))
 
 (defun my/treemacs-theme-highlight-current-file (file)
   "Highlight the filename of the Treemacs node corresponding to `file`."
   (with-current-buffer (treemacs-get-local-buffer)
+    (my/treemacs-theme-current-highlight-reset)
     (-when-let* ((btn (treemacs-find-visible-node file))
                  (label-start (treemacs-button-start btn))
                  (label-end (treemacs-button-end btn)))
@@ -210,16 +215,25 @@
           (setq my/treemacs-theme-current-file-overlay (make-overlay label-start label-end))
           (overlay-put my/treemacs-theme-current-file-overlay 'face 'my/treemacs-theme-current-file-face))))))
 
+(defun my/treemacs-theme-update-current-highlight (&rest _)
+  "Automatically highlight the file in Treemacs corresponding to the current window's buffer."
+  ;; okay but we should not be calling the reset or any of this if we are not actually in a "real buffer"
+  (when (my/treemacs-theme-real-buffer-p) ;;; can be refactored with dash prob
+    (let ((file (buffer-file-name (window-buffer))))
+      (when file
+        (my/treemacs-theme-highlight-current-file file)))))
 
-(defun aritest ()
-  "Test function to highlight a Treemacs node."
-  (interactive)
-  (my/treemacs-theme-current-highlight-reset)
-  (let ((file (buffer-file-name (window-buffer))))
-    (when file
-      (my/treemacs-theme-highlight-current-file file))))
+;; (defun my/enable-treemacs-auto-highlight ()
+;;   "Enable automatic highlighting of the current file in Treemacs on window focus change."
+;;   (add-hook 'window-selection-change-functions #'my/treemacs-theme-auto-highlight)
+;;   )
 
-(map! :g "M-i" #'aritest)
+;; (defun my/disable-treemacs-auto-highlight ()
+;;   "Disable automatic highlighting of the current file in Treemacs."
+;;   (remove-hook 'window-selection-change-functions #'my/treemacs-theme-auto-highlight))
+
+;; ;; Bind this function to enable the automatic behavior
+;; (map! :g "M-i" #'my/enable-treemacs-auto-highlight)
 
 ;; TODO - now we just got to get it to apply when we switch files and/or when we change the layout of treemacs like open/close nodes bc something might now be visible that wasn't
 ;; also we should always have visual line mode on
@@ -229,7 +243,3 @@
 
 
 
-;; this is almost exactly what i want, except that in treemacs the hl-line disappears after i move/do something
-(setq hl-line-sticky-flag nil)
-
-(set-face-attribute 'my/treemacs-theme-current-file-face nil :foreground "white")

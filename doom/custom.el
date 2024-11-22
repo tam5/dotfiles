@@ -6,7 +6,9 @@
  '(custom-safe-themes
    '("34cf3305b35e3a8132a0b1bdf2c67623bc2cb05b125f8d7d26bd51fd16d547ec" default))
  '(safe-local-variable-values
-   '((etags-regen-ignores "test/manual/etags/")
+   '((toc-org-max-depth . 2)
+     (org-list-indent-offset . 1)
+     (etags-regen-ignores "test/manual/etags/")
      (etags-regen-regexp-alist
       (("c" "objc")
        "/[ \11]*DEFVAR_[A-Z_ \11(]+\"\\([^\"]+\\)\"/\\1/" "/[ \11]*DEFVAR_[A-Z_ \11(]+\"[^\"]+\",[ \11]\\([A-Za-z0-9_]+\\)/\\1/")))))
