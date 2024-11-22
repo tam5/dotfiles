@@ -1,5 +1,6 @@
 ;;; lisp/my-treemacs-theme.el -*- lexical-binding: t; -*-
 
+(require 'dash)
 (require 'treemacs)
 (require 'nerd-icons)
 
@@ -10,6 +11,11 @@
 
 (defface my/treemacs-theme-file-icon-face
   '((t (:inherit nil)))
+  "Face used for the directory and file icons in nerd-icons theme."
+  :group 'treemacs-faces)
+
+(defface my/treemacs-theme-current-file-face
+  '((t (:inherit treemacs-file-face)))
   "Face used for the directory and file icons in nerd-icons theme."
   :group 'treemacs-faces)
 
@@ -113,7 +119,9 @@
   ;;
   ;; deal with hl-line
   ;; this one turns off the hl-line in the treemacs (assuming we have solaire on)
-  ;; (set-face-attribute 'solaire-hl-line-face nil :background nil)
+  ;; (set-face-attribute 'solaire-hl-line-face nil :background (face-attribute 'solaire-default-face :background))
+  ;; problem though is i do want the hl-line when my cursor is in there, just not when i'm in reg buf
+
   ;; treemacs-hl-line-face
   ;;
   ;; TEMP - set all the faces to the right font and size,
@@ -145,3 +153,75 @@
 (provide 'my/treemacs-theme)
 ;;; my/treemacs-theme.el ends here
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;; (defun my/is-special-buffer-p (buffer)
+;;   "Check if BUFFER is a 'special' buffer, such as the minibuffer or Treemacs."
+;;   (let ((buf-name (buffer-name buffer)))
+;;     (or (minibufferp buffer)
+;;         (string-prefix-p " *Minibuf-" buf-name)
+;;         (string-equal buf-name " *Treemacs*")
+;;         (derived-mode-p 'special-mode))))
+
+(defvar-local my/treemacs-theme-current-file-overlay nil
+  "Overlay used to highlight the current Treemacs node.")
+
+(defun my/treemacs-theme-current-highlight-reset ()
+  (when my/treemacs-theme-current-file-overlay
+    (delete-overlay my/treemacs-theme-current-file-overlay)
+    (setq my/treemacs-theme-current-file-overlay nil)))
+
+(defun my/treemacs-theme-highlight-current-file (file)
+  "Highlight the filename of the Treemacs node corresponding to `file`."
+  (with-current-buffer (treemacs-get-local-buffer)
+    (-when-let* ((btn (treemacs-find-visible-node file))
+                 (label-start (treemacs-button-start btn))
+                 (label-end (treemacs-button-end btn)))
+      (save-excursion
+        (goto-char label-start)
+        (let ((inhibit-read-only t))
+          (setq my/treemacs-theme-current-file-overlay (make-overlay label-start label-end))
+          (overlay-put my/treemacs-theme-current-file-overlay 'face 'my/treemacs-theme-current-file-face))))))
+
+
+(defun aritest ()
+  "Test function to highlight a Treemacs node."
+  (interactive)
+  (my/treemacs-theme-current-highlight-reset)
+  (let ((file (buffer-file-name (window-buffer))))
+    (when file
+      (my/treemacs-theme-highlight-current-file file))))
+
+(map! :g "M-i" #'aritest)
+;; TODO - now we just got to get it to apply when we switch files and/or when we change the layout of treemacs like open/close nodes bc something might now be visible that wasn't
+;; also we should always have visual line mode on
+
+;; Add the hook to track window selection changes
+;; (add-hook 'window-selection-change-functions #'my/on-cursor-move)
+
+(set-face-attribute 'my/treemacs-theme-current-file-face nil :foreground "white")
