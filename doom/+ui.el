@@ -48,6 +48,7 @@
 
   (setq treemacs-collapse-dirs 0
         treemacs-git-mode nil
+        ;;        +treemacs-git-mode nil
         treemacs-fringe-indicator-mode nil)
 
   (add-hook 'treemacs-mode-hook #'hide-mode-line-mode)

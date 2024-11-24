@@ -206,7 +206,7 @@ Copied the logic from `solaire-mode-real-buffer-p`."
   "Highlight the filename of the Treemacs node corresponding to `file`."
   (with-current-buffer (treemacs-get-local-buffer)
     (my/treemacs-theme-current-highlight-reset)
-    (-when-let* ((btn (treemacs-find-visible-node file))
+    (-when-let* ((btn (ignore-errors (treemacs-find-visible-node file)))
                  (label-start (treemacs-button-start btn))
                  (label-end (treemacs-button-end btn)))
       (save-excursion
@@ -218,7 +218,8 @@ Copied the logic from `solaire-mode-real-buffer-p`."
 (defun my/treemacs-theme-update-current-highlight (&rest _)
   "Automatically highlight the file in Treemacs corresponding to the current window's buffer."
   ;; okay but we should not be calling the reset or any of this if we are not actually in a "real buffer"
-  (when (my/treemacs-theme-real-buffer-p) ;;; can be refactored with dash prob
+  (when (and (bufferp (treemacs-get-local-buffer))
+             (my/treemacs-theme-real-buffer-p))
     (let ((file (buffer-file-name (window-buffer))))
       (when file
         (my/treemacs-theme-highlight-current-file file)))))
