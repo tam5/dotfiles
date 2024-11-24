@@ -148,6 +148,9 @@ Can be an integer to determine the exact padding."
                  (treemacs-directory-face :foreground treemacs-dirname)
                  (treemacs-file-face :foreground treemacs-filename)
                  (my/treemacs-theme-dir-icon-face :foreground treemacs-dir-icon)
+
+                 ;; remap the treemacs-git-mode faces for an even more minimalistic look
+                 (treemacs-git-modified-face :inherit 'treemacs-file-face)
    ;;;; modeline
                  (mode-line
                   :background modeline-bg :foreground modeline-fg

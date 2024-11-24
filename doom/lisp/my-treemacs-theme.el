@@ -217,7 +217,7 @@ Copied the logic from `solaire-mode-real-buffer-p`."
 
 (defun my/treemacs-theme-update-current-highlight (&rest _)
   "Automatically highlight the file in Treemacs corresponding to the current window's buffer."
-  ;; okay but we should not be calling the reset or any of this if we are not actually in a "real buffer"
+  ;; TODO this will need some debounce
   (when (and (bufferp (treemacs-get-local-buffer))
              (my/treemacs-theme-real-buffer-p))
     (let ((file (buffer-file-name (window-buffer))))
