@@ -65,6 +65,8 @@
   ;; this is almost exactly what i want, except that in treemacs the hl-line disappears after i move/do something
   ;; (setq hl-line-sticky-flag nil)
   (set-face-attribute 'my/treemacs-theme-current-file-face nil :foreground "white")
+  ;; (set-face-attribute 'my/treemacs-theme-current-file-icon-face nil :foreground "white")
+
   ;; TODO
 
   (my/treemacs-theme-reload))

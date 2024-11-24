@@ -19,6 +19,11 @@
   "Face used for the directory and file icons in nerd-icons theme."
   :group 'treemacs-faces)
 
+(defface my/treemacs-theme-current-file-icon-face
+  '((t (:inherit treemacs-file-face)))
+  "Face used for the directory and file icons in nerd-icons theme."
+  :group 'treemacs-faces)
+
 (defvar my/treemacs-theme-padding--left (propertize " " 'display '(space :width 2)))
 (defvar my/treemacs-theme-dir-spacer--left (propertize " " 'display '(space :width 0)))
 (defvar my/treemacs-theme-dir-spacer--right (propertize " " 'display '(space :width 1.4)))
@@ -191,6 +196,9 @@
 (defvar-local my/treemacs-theme-current-file-overlay nil
   "Overlay used to highlight the current Treemacs node.")
 
+(defvar-local my/treemacs-theme-current-file-icon-overlay nil
+  "Overlay used to highlight the current Treemacs node.")
+
 (defun my/treemacs-theme-real-buffer-p ()
   "Return t if the current buffer is a real (file-visiting) buffer.
 Copied the logic from `solaire-mode-real-buffer-p`."
@@ -200,7 +208,11 @@ Copied the logic from `solaire-mode-real-buffer-p`."
   "Reset the current Treemacs highlight by clearing the overlay and refreshing."
   (when my/treemacs-theme-current-file-overlay
     (delete-overlay my/treemacs-theme-current-file-overlay)
-    (setq my/treemacs-theme-current-file-overlay nil)))
+    (setq my/treemacs-theme-current-file-overlay nil))
+
+  (when my/treemacs-theme-current-file-icon-overlay
+    (delete-overlay my/treemacs-theme-current-file-icon-overlay)
+    (setq my/treemacs-theme-current-file-icon-overlay nil)))
 
 (defun my/treemacs-theme-highlight-current-file (file)
   "Highlight the filename of the Treemacs node corresponding to `file`."
@@ -208,12 +220,16 @@ Copied the logic from `solaire-mode-real-buffer-p`."
     (my/treemacs-theme-current-highlight-reset)
     (-when-let* ((btn (ignore-errors (treemacs-find-visible-node file)))
                  (label-start (treemacs-button-start btn))
-                 (label-end (treemacs-button-end btn)))
-      (save-excursion
-        (goto-char label-start)
-        (let ((inhibit-read-only t))
-          (setq my/treemacs-theme-current-file-overlay (make-overlay label-start label-end))
-          (overlay-put my/treemacs-theme-current-file-overlay 'face 'my/treemacs-theme-current-file-face))))))
+                 (label-end (treemacs-button-end btn))
+                 (icon-start (- label-start 2))
+                 (icon-end (1- label-start)))
+      (treemacs-with-writable-buffer
+       (setq my/treemacs-theme-current-file-overlay (make-overlay label-start label-end))
+       (overlay-put my/treemacs-theme-current-file-overlay 'face 'my/treemacs-theme-current-file-face)
+
+       ;; (setq my/treemacs-theme-current-file-icon-overlay (make-overlay icon-start icon-end))
+       ;; (overlay-put my/treemacs-theme-current-file-icon-overlay 'face 'my/treemacs-theme-current-file-icon-face))))
+       ))))
 
 (defun my/treemacs-theme-update-current-highlight (&rest _)
   "Automatically highlight the file in Treemacs corresponding to the current window's buffer."
@@ -241,6 +257,3 @@ Copied the logic from `solaire-mode-real-buffer-p`."
 
 ;; Add the hook to track window selection changes
 ;; (add-hook 'window-selection-change-functions #'my/on-cursor-move)
-
-
-
