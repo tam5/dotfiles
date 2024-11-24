@@ -185,14 +185,6 @@
 
 
 
-;; (defun my/is-special-buffer-p (buffer)
-;;   "Check if BUFFER is a 'special' buffer, such as the minibuffer or Treemacs."
-;;   (let ((buf-name (buffer-name buffer)))
-;;     (or (minibufferp buffer)
-;;         (string-prefix-p " *Minibuf-" buf-name)
-;;         (string-equal buf-name " *Treemacs*")
-;;         (derived-mode-p 'special-mode))))
-
 (defvar-local my/treemacs-theme-current-file-overlay nil
   "Overlay used to highlight the current Treemacs node.")
 
@@ -222,14 +214,39 @@ Copied the logic from `solaire-mode-real-buffer-p`."
                  (label-start (treemacs-button-start btn))
                  (label-end (treemacs-button-end btn))
                  (icon-start (- label-start 2))
-                 (icon-end (1- label-start)))
+                 (icon-end (1- label-start))
+
+                 (icon-face (get-text-property icon-start 'face))
+                 (icon-fg (get-effective-foreground-color-from-face icon-face))
+                 (brighter-fg (my-brighten-color icon-fg)))
       (treemacs-with-writable-buffer
        (setq my/treemacs-theme-current-file-overlay (make-overlay label-start label-end))
        (overlay-put my/treemacs-theme-current-file-overlay 'face 'my/treemacs-theme-current-file-face)
 
-       ;; (setq my/treemacs-theme-current-file-icon-overlay (make-overlay icon-start icon-end))
-       ;; (overlay-put my/treemacs-theme-current-file-icon-overlay 'face 'my/treemacs-theme-current-file-icon-face))))
-       ))))
+       (setq my/treemacs-theme-current-file-icon-overlay (make-overlay icon-start icon-end))
+       (overlay-put my/treemacs-theme-current-file-icon-overlay 'face `(:foreground ,brighter-fg))))))
+
+(defun my-brighten-color (color)
+  "Return a brightened version of the foreground color for FACE."
+  (when color
+    (unless (eq 'unspecified color)
+      (color-lighten-name color 10)))) ;; TODO factorize
+
+(defun get-effective-foreground-color-from-face (face)
+  "Get the effective foreground color of the text at point, resolving all faces and properties."
+  (interactive)
+  (cond
+   ;; If there's a face, resolve the foreground color
+   ((facep face)
+    (face-attribute face :foreground nil t))
+   ;; If it's a list of faces, resolve the first one with a foreground
+   ((and (listp face) (not (stringp face)))
+    (cl-some (lambda (f)
+               (when (facep f)
+                 (face-attribute f :foreground nil t)))
+             face))
+   ;; Fallback to default foreground if nothing is found
+   (t (face-attribute 'default :foreground nil t))))
 
 (defun my/treemacs-theme-update-current-highlight (&rest _)
   "Automatically highlight the file in Treemacs corresponding to the current window's buffer."

@@ -121,77 +121,62 @@
 ;; we have to just hook in to when treemacs is calling the hl-line apply and then also
 ;; apply this i think
 
-(defun my-brighten-color (color)
-  "Return a brightened version of the foreground color for FACE."
-  (message "incoming color %s" color)
-  (message "incoming color type %s" (type-of color))
-  (message "is bad %s" (eq 'unspecified color))
+;; (defun my-brighten-color (color)
+;;   "Return a brightened version of the foreground color for FACE."
+;;   (message "incoming color %s" color)
+;;   (message "incoming color type %s" (type-of color))
+;;   (message "is bad %s" (eq 'unspecified color))
 
-  (when color
-    (unless (eq 'unspecified color)
-      (color-lighten-name color 10))))  ; Adjust the 20% to your liking
+;;   (when color
+;;     (unless (eq 'unspecified color)
+;;       (color-lighten-name color 10))))  ; Adjust the 20% to your liking
 
-(defvar my-line-brightened-overlays nil
-  "List of overlays for brightening the foreground color of text on the current line.")
+;; (defvar my-line-brightened-overlays nil
+;;   "List of overlays for brightening the foreground color of text on the current line.")
 
-(defun my-apply-brightened-faces-on-line ()
-  "Apply brightened foreground colors to faces on the current line individually."
-  (interactive)
-  (let ((line-start (line-beginning-position))
-        (line-end (line-end-position)))
-    ;; First, clear existing overlays.
-    (mapc 'delete-overlay my-line-brightened-overlays)
-    (setq my-line-brightened-overlays nil)  ; Reset the list after cleanup.
+;; (defun my-apply-brightened-faces-on-line ()
+;;   "Apply brightened foreground colors to faces on the current line individually."
+;;   (interactive)
+;;   (let ((line-start (line-beginning-position))
+;;         (line-end (line-end-position)))
+;;     ;; First, clear existing overlays.
+;;     (mapc 'delete-overlay my-line-brightened-overlays)
+;;     (setq my-line-brightened-overlays nil)  ; Reset the list after cleanup.
 
-    (save-excursion
-      (goto-char line-start)
-      (while (< (point) line-end)
-        ;; (message "S --------------")
-        ;; (message "point %s" (point))
-        ;; (message "get-text-property-face %s" (get-text-property (point) 'face))
-        ;; (message "get-text-property-fg-color %s" (get-text-property (point) 'foreground-color))
-        ;; (message "get-char-property %s" (get-char-property (point) 'foreground-color))
-        ;; (message "get-all %s" (text-properties-at (point)))
-        ;; (message "E --------------")
-        (let* ((pos (point))
-               (face (get-text-property pos 'face))
-               (next-change (or (next-single-property-change pos 'face nil line-end) line-end))
-               (color (get-effective-foreground-color-at-pos pos))
-               (brightened-color (my-brighten-color color)))
-          (message "m-test %s" color)
-          (when brightened-color
-            (let ((ov (make-overlay pos next-change)))
-              (overlay-put ov 'face `(:foreground ,brightened-color))
-              ;; Add this overlay to our list for future management.
-              (push ov my-line-brightened-overlays)))
-          (goto-char next-change))))))
+;;     (save-excursion
+;;       (goto-char line-start)
+;;       (while (< (point) line-end)
+;;         (let* ((pos (point))
+;;                (face (get-text-property pos 'face))
+;;                (color (get-effective-foreground-color-at-pos face))
+;;                (next-change (or (next-single-property-change pos 'face nil line-end) line-end))
+;;                (brightened-color (my-brighten-color color)))
+;;           (message "m-test %s" color)
+;;           (when brightened-color
+;;             (let ((ov (make-overlay pos next-change)))
+;;               (overlay-put ov 'face `(:foreground ,brightened-color))
+;;               ;; Add this overlay to our list for future management.
+;;               (push ov my-line-brightened-overlays)))
+;;           (goto-char next-change))))))
 
 
-(defun get-effective-foreground-color-at-pos (pos)
-  "Get the effective foreground color of the text at point, resolving all faces and properties."
-  (interactive)
-  (let* ((face (or (get-text-property pos 'face)
-                   (get-char-property pos 'face)))
-         (foreground (cond
-                      ;; If there's a face, resolve the foreground color
-                      ((facep face)
-                       (face-attribute face :foreground nil t))
-                      ;; If it's a list of faces, resolve the first one with a foreground
-                      ((and (listp face) (not (stringp face)))
-                       (cl-some (lambda (f)
-                                  (when (facep f)
-                                    (face-attribute f :foreground nil t)))
-                                face))
-                      ;; Otherwise, try overlays at point
-                      (t (let ((overlays (overlays-at (point))))
-                           (cl-some (lambda (overlay)
-                                      (overlay-get overlay 'foreground-color))
-                                    overlays))))))
-    ;; Fallback to default foreground if nothing is found
-    (or foreground
-        (face-attribute 'default :foreground nil t))))
+;; (defun get-effective-foreground-color-at-pos (face)
+;;   "Get the effective foreground color of the text at point, resolving all faces and properties."
+;;   (interactive)
+;;   (cond
+;;    ;; If there's a face, resolve the foreground color
+;;    ((facep face)
+;;     (face-attribute face :foreground nil t))
+;;    ;; If it's a list of faces, resolve the first one with a foreground
+;;    ((and (listp face) (not (stringp face)))
+;;     (cl-some (lambda (f)
+;;                (when (facep f)
+;;                  (face-attribute f :foreground nil t)))
+;;              face))
+;;    ;; Fallback to default foreground if nothing is found
+;;    (t (face-attribute 'default :foreground nil t))))
 
 
-(defun aritest ()
-  (interactive)
-  (message "test %s" (get-effective-foreground-color-at-point)))
+;; (defun aritest ()
+;;   (interactive)
+;;   (message "test %s" (get-effective-foreground-color-at-point)))
