@@ -139,72 +139,8 @@ Copied the logic from `solaire-mode-real-buffer-p`."
 
 
 
-;; TODO - we may consider wanting a fringe indicator kind of thing like sublime - see treemacs--fringe-indicator-bitmap
-
-
-;; (defun my/treemacs-theme-reload ()
-;;   ""
-;;   (interactive)
-;;   ;;
-;;   ;; deal with hl-line
-;;   ;; this one turns off the hl-line in the treemacs (assuming we have solaire on)
-;;   ;; (set-face-attribute 'solaire-hl-line-face nil :background (face-attribute 'solaire-default-face :background))
-;;   ;; problem though is i do want the hl-line when my cursor is in there, just not when i'm in reg buf
-
-;;   ;; treemacs-hl-line-face
-;;   ;;
-;;   ;; TEMP - set all the faces to the right font and size,
-;;   ;; there is something wrong with doom forcing treemacs git mode to be on
-;;   ;; so we have to override it
-;;   ;;
-;;   ;; check on the root face and spacing
-;;   ;; and the colors of the icons
-;;   ;; add font to dotfiles
-;;   ;; fringe indicator / hl-lien
-;;   ;;
-;;   ;; we don't need the echo messages of "written"
-;;   (dolist (face '(treemacs-directory-face
-;;                   treemacs-directory-collapsed-face
-;;                   treemacs-file-face
-;;                   treemacs-root-face
-;;                   treemacs-git-conflict-face
-;;                   treemacs-git-added-face
-;;                   treemacs-git-untracked-face
-;;                   treemacs-git-ignored-face
-;;                   treemacs-git-renamed-face
-;;                   treemacs-git-modified-face
-;;                   treemacs-git-unmodified-face))
-;;     (set-face-attribute face nil :font (font-spec :family "Inter 1.5" :size 12.0 :weight 'medium)))
-;;   ;;
-
-;;   (treemacs-load-theme "my/treemacs-theme"))
-
 (provide 'my/treemacs-theme)
 ;;; my/treemacs-theme.el ends here
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -278,7 +214,6 @@ Copied the logic from `solaire-mode-real-buffer-p`."
 
 (defun my/treemacs-theme-update-current-highlight (&rest _)
   "Automatically highlight the file in Treemacs corresponding to the current window's buffer."
-  ;; TODO this will need some debounce
   (when (and (bufferp (treemacs-get-local-buffer))
              (my/treemacs-theme-real-buffer-p))
     (let ((file (buffer-file-name (window-buffer))))
@@ -290,12 +225,8 @@ Copied the logic from `solaire-mode-real-buffer-p`."
     (when file
       (my/treemacs-theme-highlight-current-file file))))
 
-
-
 (defun my/treemacs-theme--enable-highlight-current-mode ()
   "Setup for `my/treemacs-theme-highlight-current-mode'."
-
-
   (dolist (face '(treemacs-directory-face
                   treemacs-directory-collapsed-face
                   treemacs-file-face

@@ -1,55 +1,77 @@
-# Doom
+# TODO list
 
-## TODO
 
-TODO list
-- [ ] consult is not working in project search - needs debugging
-- [ ] better regexp / search replace thing with previews
-- [ ] better markdown mode live preview w/ in emacs ideally
-- [ ] new splash image?
+### Sidebar
+- [ ] add: fringe indicator like sublime next to current file
+- [ ] optimize: add a debounce for the current highlighting thing
+- [ ] refactor: the font setting and separate out the hack for the git mode thing
+- [ ] refactor: to see if can simplify and remove some overlays or something
+- [ ] adjust: all the icon sizes
+- [ ] adjust: all the icons
+- [ ] adjust: all the icon colors
+- [ ] adjust: the highlight factor
+- [ ] adjust: the parent node highlight colors
+- [ ] refactor: make the spacing vars dynamic / calculated on each other
+- [ ] refactor: highlight mode to separate mode/file, but do it after all the colors and stuff is set just in case
+- [ ] fix: get the parent node highlighting to work even when not visible
+- [ ] add: mouse hover styles
+- [ ] add: smooth hover animations
 
-- [ ] there is still a bug that sometimes the line numbers show up in weird buffers
 
-- consider a tooltip/hover rather than the thing in the echo area
+### Completion
+- [ ] adjust: fix corfu tabbing behavior
+- [ ] adjust: fix corfu UI
+- [ ] consider: consider disabling when writing english like in comments and markdown and stuff
 
-- more space between line numbers and body/content
-
-:completion
-[ ] consider corfu
-[ ] make it work better with snippets
-[ ] some sort of async ability?
-[ ] better ui
-[ ] include stuff from the current buffer better (needs debugging)
-
-# Look and feel todo list:
-
-## Title bar
-- [ ] Get the titlebar to properly have the desired color
-- [ ] Remove the titlebar title
-
-## Cursor / line
-- [ ] Fix the hl-line to extend into the fringes
-- [ ] Change styles of the cursor, maybe blink soft?
-
-## Modeline
-- [ ] Do we really need all that stuff there? like "Top"? and "LF"? and the language and the branch etc.
-
-## Treemacs / sidebar
-- [ ] Tweak styles of the treemacs
-
-## Completion
-- [ ] Fix the autocomplete so that it works in a more async / smooth way
-- [ ] Disable auto complete when writing comments (but keep copilot)
 - [ ] Get the shadow
 - [ ] Extra scroll bars or something looks weird
 
-## Command Palette
+### Modeline
+- [ ] adjust: the flycheck icons and things
+- [ ] adjust: the vcs segment
+- [ ] adjust: the filename and modified states and icons
+
+### UI
+- [ ] adjust: get more space between the line numbers and the actual content
+- [ ] wish: smooth blinking cursor
+
+
+### Echo area
+- [ ] adjust: currently way too wordy in the echo area, can we suppress most of it or something
+- [ ] adjust: see if maybe eldoc can be tooltips or something idk
+
+
+### Dashboard
+- [ ] fix: spacing gets wacky when you open something
+- [ ] adjust: what do we want to actually display on the dash?
+
+
+### Management
+- [ ] add: can we get the reload/refresh to put us back where we were including the treemacs?
+- [ ] add: can we auto open treemacs when we open a project?
+
+
+### Search
+- [ ] consult is not working everywhere, like project search - needs debugging
+- [ ] better regexp / search replace thing with previews
+- [ ] figure out how to properly use consult and embark etc
+
+### Markdown
+- [ ] better markdown mode live preview w/ within emacs ideally
+
+### Bugs / Fixes
+- [ ] there is still a bug that sometimes the line numbers show up in weird buffers
+- [ ] inhibit copilot warnings when opening large buffers
+
+### Command Palette
 - [ ] Get the shadow
 - [ ] Make it pretty
+- [ ] fixed width
 
-## Misc
-- [ ] Fix the cursor scrolling so that it works in a more async / smooth way?
-- [ ] Consider helpers as overlay instead of in echo area (but check with ui-lsp conflict)
+
+-----------
+
+### Watch list
 
 Considering / watching
 - https://github.com/Artawower/blamer.el
