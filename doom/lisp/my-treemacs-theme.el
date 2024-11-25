@@ -4,36 +4,97 @@
 (require 'treemacs)
 (require 'nerd-icons)
 
+(defface my/treemacs-theme-file-name-face
+  '((t (:inherit nil)))
+  "Face used for the file names in my/treemacs-theme."
+  :group 'treemacs-faces)
+
 (defface my/treemacs-theme-dir-icon-face
   '((t (:inherit nil)))
-  "Face used for the directory and file icons in nerd-icons theme."
+  "Face used for the directory icons in my/treemacs-theme."
   :group 'treemacs-faces)
 
-(defface my/treemacs-theme-file-icon-face
+(defface my/treemacs-theme-dir-name-face
   '((t (:inherit nil)))
-  "Face used for the directory and file icons in nerd-icons theme."
+  "Face used for the directory names in my/treemacs-theme."
   :group 'treemacs-faces)
 
-(defface my/treemacs-theme-current-file-face
+(defface my/treemacs-theme-dir-open-icon-face
+  '((t (:inherit my/treemaacs-icon-theme-dir-icon-face)))
+  "Face used for the open directory icons in my/treemacs-theme."
+  :group 'treemacs-faces)
+
+(defface my/treemacs-theme-dir-open-name-face
+  '((t (:inherit my/treemacs-theme-dir-name-face)))
+  "Face used for the open directory names in my/treemacs-theme."
+  :group 'treemacs-faces)
+
+(defface my/treemacs-theme-dir-closed-icon-face
+  '((t (:inherit my/treemaacs-icon-theme-dir-icon-face)))
+  "Face used for the closed directory icons in my/treemacs-theme."
+  :group 'treemacs-faces)
+
+(defface my/treemacs-theme-dir-closed-name-face
+  '((t (:inherit my/treemacs-theme-dir-name-face)))
+  "Face used for the closed directory names in my/treemacs-theme."
+  :group 'treemacs-faces)
+
+(defface my/treemacs-theme-current-file-name-face
   '((t (:inherit treemacs-file-face)))
-  "Face used for the directory and file icons in nerd-icons theme."
+  "Face used to highlgiht the file name of the currently selected file
+when `my/treemacs-theme-highlight-current-mode` is enabled."
   :group 'treemacs-faces)
 
 (defface my/treemacs-theme-current-file-icon-face
   '((t (:inherit treemacs-file-face)))
-  "Face used for the directory and file icons in nerd-icons theme."
+  "Face used to highlgiht the file icon of the currently selected file
+when `my/treemacs-theme-highlight-current-mode` is enabled."
   :group 'treemacs-faces)
 
+(defface my/treemacs-theme-current-dir-icon-face
+  '((t (:inherit my/treemacs-theme-dir-icon-face)))
+  "Face used to highlight directory icons containing the currently selected file
+when `my/treemacs-theme-highlight-current-mode` is enabled."
+  :group 'treemacs-faces)
+
+(defface my/treemacs-theme-current-dir-name-face
+  '((t (:inherit my/treemacs-theme-dir-name-face)))
+  "Face used to highlight directory names containing the currently selected file
+when `my/treemacs-theme-highlight-current-mode` is enabled."
+  :group 'treemacs-faces)
+
+(defvar-local my/treemacs-theme--current-file-name-overlay nil
+  "Overlay used to highlgiht the file name of the currently selected file
+when `my/treemacs-theme-highlight-current-mode` is enabled.")
+
+(defvar-local my/treemacs-theme--current-file-icon-overlay nil
+  "Overlay used to highlgiht the file icon of the currently selected file
+when `my/treemacs-theme-highlight-current-mode` is enabled.")
+
+(defvar-local my/treemacs-theme--current-dir-name-overlays nil
+  "Overlays used to highlight directory names containing the currently selected
+file when `my/treemacs-theme-highlight-current-mode` is enabled.")
+
+(defvar-local my/treemacs-theme--current-dir-icon-overlays nil
+  "Overlays used to highlight directory icons containing the currently selected
+file when `my/treemacs-theme-highlight-current-mode` is enabled.")
+
+;; (defvar my/treemacs-theme-padding-left 2
+;;   "The amount of padding to the left of all treemacs nodes.
+
+;; TODO: check what the :width can support here. ")
+
+;; TODO: dynamically calculate these
 (defvar my/treemacs-theme-padding--left (propertize " " 'display '(space :width 2)))
 (defvar my/treemacs-theme-dir-spacer--left (propertize " " 'display '(space :width 0)))
 (defvar my/treemacs-theme-dir-spacer--right (propertize " " 'display '(space :width 1.4)))
 (defvar my/treemacs-theme-icon-spacer--right (propertize " " 'display '(space :width 1.6)))
 (defvar my/treemacs-theme-icon-spacer--left (propertize " " 'display '(space :width 0.2)))
 
-(defun my/treemacs-theme-hide-fringes (&rest _)
-  "Remove fringes in treemacs window, mostly since it makes hl-line look bad."
-  (when (display-graphic-p)
-    (set-window-fringes nil 0 0)))
+(defun my/treemacs-theme-real-buffer-p ()
+  "Return t if the current buffer is a real (file-visiting) buffer.
+Copied the logic from `solaire-mode-real-buffer-p`."
+  (buffer-file-name (buffer-base-buffer)))
 
 (treemacs-create-theme "my/treemacs-theme"
   :config
@@ -78,82 +139,45 @@
 
 
 
-;;; WIP - fringe indicator ->
-;;; this gets the fringe indicator all the way to the left, but i want it to stay on the selected file
-;;; and not follow my cursor
-;;; also it does look like the fringes get messed up all the time so we'll need to add that hook to make
-;;; sure it keeps getting reset properly
-;;; and then i also need to do something different with the cursor
-;;; check 'treemacs-show-cursor'
-;; (defun doom-themes-define-treemacs-fringe-indicator-bitmap ()
-;;   "Defines `treemacs--fringe-indicator-bitmap'"
-;;   (if (fboundp 'define-fringe-bitmap)
-;;       (define-fringe-bitmap 'treemacs--fringe-indicator-bitmap
-;;         (make-vector 26 #b111) nil 3)))
-
-;; (add-hook 'treemacs-mode-hook #'doom-themes-define-treemacs-fringe-indicator-bitmap)
-
-;; (setq treemacs--fringe-indicator-bitmap
-;;       (define-fringe-bitmap 'treemacs--fringe-indicator-bitmap-default (make-vector 200 #b11100000)))
-
-;;; WIP
+;; TODO - we may consider wanting a fringe indicator kind of thing like sublime - see treemacs--fringe-indicator-bitmap
 
 
-
-;; (set-frame-parameter nil 'cursor-color "orange")
-;; (set-face-attribute 'cursor nil :background "red" :foreground "yellow")
-
-;; (defun my/set-cursor-color-for-treemacs ()
-;;   "Set a specific cursor color in treemacs-mode."
-;;   (setq-local cursor-type nil))
-
-;; (add-hook 'treemacs-mode-hook #'my/set-cursor-color-for-treemacs)
-
-;; (map!  :g "M-i" #'aritest)
-;; (map!  :g "M-u" #'aritest)
-
-;; (defun aritest ()
+;; (defun my/treemacs-theme-reload ()
+;;   ""
 ;;   (interactive)
-;;   (setq cursor-type nil))
+;;   ;;
+;;   ;; deal with hl-line
+;;   ;; this one turns off the hl-line in the treemacs (assuming we have solaire on)
+;;   ;; (set-face-attribute 'solaire-hl-line-face nil :background (face-attribute 'solaire-default-face :background))
+;;   ;; problem though is i do want the hl-line when my cursor is in there, just not when i'm in reg buf
 
+;;   ;; treemacs-hl-line-face
+;;   ;;
+;;   ;; TEMP - set all the faces to the right font and size,
+;;   ;; there is something wrong with doom forcing treemacs git mode to be on
+;;   ;; so we have to override it
+;;   ;;
+;;   ;; check on the root face and spacing
+;;   ;; and the colors of the icons
+;;   ;; add font to dotfiles
+;;   ;; fringe indicator / hl-lien
+;;   ;;
+;;   ;; we don't need the echo messages of "written"
+;;   (dolist (face '(treemacs-directory-face
+;;                   treemacs-directory-collapsed-face
+;;                   treemacs-file-face
+;;                   treemacs-root-face
+;;                   treemacs-git-conflict-face
+;;                   treemacs-git-added-face
+;;                   treemacs-git-untracked-face
+;;                   treemacs-git-ignored-face
+;;                   treemacs-git-renamed-face
+;;                   treemacs-git-modified-face
+;;                   treemacs-git-unmodified-face))
+;;     (set-face-attribute face nil :font (font-spec :family "Inter 1.5" :size 12.0 :weight 'medium)))
+;;   ;;
 
-(defun my/treemacs-theme-reload ()
-  ""
-  (interactive)
-  ;; TODO
-  ;;
-  ;; deal with hl-line
-  ;; this one turns off the hl-line in the treemacs (assuming we have solaire on)
-  ;; (set-face-attribute 'solaire-hl-line-face nil :background (face-attribute 'solaire-default-face :background))
-  ;; problem though is i do want the hl-line when my cursor is in there, just not when i'm in reg buf
-
-  ;; treemacs-hl-line-face
-  ;;
-  ;; TEMP - set all the faces to the right font and size,
-  ;; there is something wrong with doom forcing treemacs git mode to be on
-  ;; so we have to override it
-  ;;
-  ;; check on the root face and spacing
-  ;; and the colors of the icons
-  ;; add font to dotfiles
-  ;; fringe indicator / hl-lien
-  ;;
-  ;; we don't need the echo messages of "written"
-  (dolist (face '(treemacs-directory-face
-                  treemacs-directory-collapsed-face
-                  treemacs-file-face
-                  treemacs-root-face
-                  treemacs-git-conflict-face
-                  treemacs-git-added-face
-                  treemacs-git-untracked-face
-                  treemacs-git-ignored-face
-                  treemacs-git-renamed-face
-                  treemacs-git-modified-face
-                  treemacs-git-unmodified-face))
-    (set-face-attribute face nil :font (font-spec :family "Inter 1.5" :size 12.0 :weight 'medium)))
-  ;;
-
-  (treemacs-load-theme "my/treemacs-theme"))
+;;   (treemacs-load-theme "my/treemacs-theme"))
 
 (provide 'my/treemacs-theme)
 ;;; my/treemacs-theme.el ends here
@@ -185,44 +209,23 @@
 
 
 
-(defvar-local my/treemacs-theme-current-file-overlay nil
-  "Overlay used to highlight the current Treemacs node.")
+(defun my/treemacs-theme-current-highlight-clear ()
+  "Clear all current node highlights."
+  (when my/treemacs-theme--current-file-name-overlay
+    (delete-overlay my/treemacs-theme--current-file-name-overlay)
+    (setq my/treemacs-theme--current-file-name-overlay nil))
+  (when my/treemacs-theme--current-file-icon-overlay
+    (delete-overlay my/treemacs-theme--current-file-icon-overlay)
+    (setq my/treemacs-theme--current-file-icon-overlay nil))
+  (mapc 'delete-overlay my/treemacs-theme--current-dir-name-overlays)
+  (setq my/treemacs-theme--current-dir-name-overlays nil))
 
-(defvar-local my/treemacs-theme-current-file-icon-overlay nil
-  "Overlay used to highlight the current Treemacs node.")
-
-(defvar my-treemacs-theme-parent-node-overlays nil
-  "List of overlays applied to parent nodes for cleanup.")
-
-(defun my/treemacs-theme-real-buffer-p ()
-  "Return t if the current buffer is a real (file-visiting) buffer.
-Copied the logic from `solaire-mode-real-buffer-p`."
-  (buffer-file-name (buffer-base-buffer)))
-
-(defun my/treemacs-theme-current-highlight-reset ()
-  "Reset all current Treemacs highlights."
-  ;; Clear current file overlays
-  (when my/treemacs-theme-current-file-overlay
-    (delete-overlay my/treemacs-theme-current-file-overlay)
-    (setq my/treemacs-theme-current-file-overlay nil))
-  (when my/treemacs-theme-current-file-icon-overlay
-    (delete-overlay my/treemacs-theme-current-file-icon-overlay)
-    (setq my/treemacs-theme-current-file-icon-overlay nil))
-  ;; Clear parent node overlays
-  (mapc 'delete-overlay my-treemacs-theme-parent-node-overlays)
-  (setq my-treemacs-theme-parent-node-overlays nil))
-
-(defface my/treemacs-theme-parent-node-face
-  '((t (:inherit nil)))
-  "Face used for the directory and file icons in nerd-icons theme."
-  :group 'treemacs-faces)
-
-(set-face-attribute 'my/treemacs-theme-parent-node-face nil :foreground "orange")
+;; (set-face-attribute 'my/treemacs-theme-parent-node-face nil :foreground "orange")
 
 (defun my/treemacs-theme-highlight-current-file (file)
   "Highlight the filename of the Treemacs node corresponding to `file` and its parent nodes."
   (with-current-buffer (treemacs-get-local-buffer)
-    (my/treemacs-theme-current-highlight-reset)
+    (my/treemacs-theme-current-highlight-clear)
     (-when-let* ((btn (ignore-errors (treemacs-find-visible-node file)))
                  (label-start (treemacs-button-start btn))
                  (label-end (treemacs-button-end btn))
@@ -234,11 +237,11 @@ Copied the logic from `solaire-mode-real-buffer-p`."
                  (brighter-fg (my-brighten-color icon-fg)))
       (treemacs-with-writable-buffer
        ;; Highlight the current file
-       (setq my/treemacs-theme-current-file-overlay (make-overlay label-start label-end))
-       (overlay-put my/treemacs-theme-current-file-overlay 'face 'my/treemacs-theme-current-file-face)
+       (setq my/treemacs-theme--current-file-name-overlay (make-overlay label-start label-end))
+       (overlay-put my/treemacs-theme--current-file-name-overlay 'face 'my/treemacs-theme-current-file-name-face)
 
-       (setq my/treemacs-theme-current-file-icon-overlay (make-overlay icon-start icon-end))
-       (overlay-put my/treemacs-theme-current-file-icon-overlay 'face `(:foreground ,brighter-fg))
+       (setq my/treemacs-theme--current-file-icon-overlay (make-overlay icon-start icon-end))
+       (overlay-put my/treemacs-theme--current-file-icon-overlay 'face `(:foreground ,brighter-fg))
 
        ;; Highlight all visible parent nodes
        (let ((current-btn btn))
@@ -249,7 +252,7 @@ Copied the logic from `solaire-mode-real-buffer-p`."
                   (parent-overlay (make-overlay parent-label-start parent-label-end)))
              (overlay-put parent-overlay 'face 'my/treemacs-theme-parent-node-face)
              ;; Save the overlay for cleanup
-             (push parent-overlay my-treemacs-theme-parent-node-overlays))))))))
+             (push parent-overlay my/treemacs-theme--current-dir-name-overlays))))))))
 
 (defun my-brighten-color (color)
   "Return a brightened version of the foreground color for FACE."
@@ -287,24 +290,46 @@ Copied the logic from `solaire-mode-real-buffer-p`."
     (when file
       (my/treemacs-theme-highlight-current-file file))))
 
-;; (defun my/enable-treemacs-auto-highlight ()
-;;   "Enable automatic highlighting of the current file in Treemacs on window focus change."
-;;   (add-hook 'window-selection-change-functions #'my/treemacs-theme-auto-highlight)
-;;   )
-
-;; (defun my/disable-treemacs-auto-highlight ()
-;;   "Disable automatic highlighting of the current file in Treemacs."
-;;   (remove-hook 'window-selection-change-functions #'my/treemacs-theme-auto-highlight))
-
-;; ;; Bind this function to enable the automatic behavior
-;; (map! :g "M-i" #'my/enable-treemacs-auto-highlight)
-
-;; TODO - now we just got to get it to apply when we switch files and/or when we change the layout of treemacs like open/close nodes bc something might now be visible that wasn't
-;; also we should always have visual line mode on
-
-;; Add the hook to track window selection changes
-;; (add-hook 'window-selection-change-functions #'my/on-cursor-move)
 
 
-;; maybe add advice here to get it to trigger the refresh too
-;; treemacs-do-for-button-state
+(defun my/treemacs-theme--enable-highlight-current-mode ()
+  "Setup for `my/treemacs-theme-highlight-current-mode'."
+
+
+  (dolist (face '(treemacs-directory-face
+                  treemacs-directory-collapsed-face
+                  treemacs-file-face
+                  treemacs-root-face
+                  treemacs-git-conflict-face
+                  treemacs-git-added-face
+                  treemacs-git-untracked-face
+                  treemacs-git-ignored-face
+                  treemacs-git-renamed-face
+                  treemacs-git-modified-face
+                  treemacs-git-unmodified-face))
+    (set-face-attribute face nil :font (font-spec :family "Inter 1.5" :size 12.0 :weight 'medium)))
+
+  (set-face-attribute 'my/treemacs-theme-current-file-name-face nil :foreground "white")
+  (set-face-attribute 'my/treemacs-theme-current-dir-name-face nil :foreground "orange")
+
+  (add-hook 'buffer-list-update-hook #'my/treemacs-theme-update-current-highlight)
+  (add-hook 'window-selection-change-functions #'my/treemacs-theme-update-current-highlight)
+  (advice-add #'treemacs-RET-action :after #'my/aritest-fix))
+
+(defun my/treemacs-theme--disable-highlight-current-mode ()
+  "Tear-down for `my/treemacs-theme-highlight-current-mode'."
+  (remove-hook 'buffer-list-update-hook #'my/treemacs-theme-update-current-highlight)
+  (remove-hook 'window-selection-change-functions #'my/treemacs-theme-update-current-highlight)
+  (advice-remove #'treemacs-RET-action #'my/aritest-fix))
+
+;;;###autoload
+(define-minor-mode my/treemacs-theme-highlight-current-mode
+  "Minor mode to highlight the currently selected file in Treemacs."
+
+  :init-value nil
+  :global     t
+  :lighter    nil
+  :group      'treemacs
+  (if my/treemacs-theme-highlight-current-mode
+      (my/treemacs-theme--enable-highlight-current-mode)
+    (my/treemacs-theme--disable-highlight-current-mode)))

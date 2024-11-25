@@ -1,11 +1,18 @@
-;;; lisp/frames.el -*- lexical-binding: t; -*-
+;;; lisp/ui-tweaks.el -*- lexical-binding: t; -*-
 ;;;
 ;;;
+
 
 (defconst my/min-alpha-coefficient 0.0000000000000001
   "The minimum possible alpha coefficient.")
 
-(defun my/solaire-mode-hack-titlebar-color ()
+(defvar my/sidebar-font nil
+  "The font to use for the sidebar.
+
+I separate this from the doom-fonts just for clarity, as I'll be
+slightly tweaking which fonts are used where.")
+
+(defun my/titlebar-patch-color ()
   "Set the titlebar color to match the solaire default face.
 
 This is a tremendous hack that's relying on our custom patch against the
@@ -19,7 +26,7 @@ It seems to do what we want at least for now."
          (bg-modified (doom-darken bg my/min-alpha-coefficient)))
     (set-background-color bg-modified)))
 
-(defun my/hack-clear-titlebar-title (frame)
+(defun my/titlebar-remove-title (frame)
   "Set the titlebar title to an empty string.
 
 For whatever reason the only way we got this to work was to first set the value
@@ -35,6 +42,13 @@ to something and then to reset it back to empty."
     (dolist (frame (frame-list))
       (when (eq (frame-parent frame) parent-frame)
         (make-frame-invisible frame t)))))
+
+(defun my/hide-fringes (&rest _)
+  "Helper function to hide fringes in the current window.
+
+Mostly for disabling fringes in the treemacs sidebar."
+  (when (display-graphic-p)
+    (set-window-fringes nil 0 0)))
 
 ;;;###autoload
 (defun my/toggle-frame-decoration ()

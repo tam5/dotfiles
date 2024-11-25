@@ -5,16 +5,34 @@
 (load! "+lang")
 (load! "+keybinds")
 
-(setq user-full-name (getenv "MY_FULL_NAME")
-      user-mail-address (getenv "MY_EMAIL_ADDRESS")
-      lsp-intelephense-licence-key (getenv "LICENSE_KEY_INTELEPHENSE")
+
+
+;; (setq +popup-defaults
+;;       (list :side   'right
+;;             ;; :height 0.16
+;;             :width  40
+;;             :quit   t
+;;             :select #'ignore
+;;             :ttl    5))
+
+;;;
+;;; Core settings
+;;; -----------------------------------------------------------------------------
+
+(setq doom-theme 'doom-github-classic-dark
+
+      doom-font (font-spec :family "MesloLGM Nerd Font" :size 14 :weight 'normal)
+      my/sidebar-font (font-spec :family "Inter 1.5" :size 12.0 :weight 'medium)
+
+      ;; doom-variable-pitch-font (font-spec :family "Monaco" :size 13)
 
       fancy-splash-image (file-name-concat doom-user-dir "rocket.png")
 
-      confirm-kill-emacs nil)
+      user-full-name (getenv "MY_FULL_NAME")
+      user-mail-address (getenv "MY_EMAIL_ADDRESS"))
 
 
-;;; -----------------------------------------------------------------------------
+;;;
 ;;; Modules
 ;;; -----------------------------------------------------------------------------
 
@@ -38,6 +56,11 @@
         ;; disabling this for now in markdown since i don't need autocomplete for english
         company-global-modes '(not markdown-mode)))
 
+(after! corfu
+  (setq corfu-auto-delay 0
+        corfu-auto-prefix 0
+        +corfu-want-tab-prefer-expand-snippets t))
+
 ;;; :completion vertico
 (after! orderless
   (defun +vertico-orderless-dispatch-a (orig-fun &rest args)
@@ -55,9 +78,11 @@ way you're supposed to do this, but wtvr."
    lsp-enable-suggest-server-download nil))
 
 
-;;; -----------------------------------------------------------------------------
+;;;
 ;;; Misc
 ;;; -----------------------------------------------------------------------------
+
+(setq confirm-kill-emacs nil)
 
 ;;; copilot
 (use-package! copilot
@@ -69,10 +94,3 @@ way you're supposed to do this, but wtvr."
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
-
-
-
-;; (defun aritest (&rest _)
-;;   (message "this was called ---------------"))
-
-;; (remove-hook 'treemacs-after-visit-functions #'aritest)
