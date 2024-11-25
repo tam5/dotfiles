@@ -63,6 +63,7 @@ way you're supposed to do this, but wtvr."
 (use-package! copilot
   :defer t
   :hook (prog-mode . copilot-mode)
+  :config (setq copilot-indent-offset-warning-disable t)
   :bind (:map copilot-completion-map
               ("<tab>" . 'copilot-accept-completion)
               ("TAB" . 'copilot-accept-completion)

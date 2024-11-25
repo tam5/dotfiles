@@ -191,23 +191,36 @@
 (defvar-local my/treemacs-theme-current-file-icon-overlay nil
   "Overlay used to highlight the current Treemacs node.")
 
+(defvar my-treemacs-theme-parent-node-overlays nil
+  "List of overlays applied to parent nodes for cleanup.")
+
 (defun my/treemacs-theme-real-buffer-p ()
   "Return t if the current buffer is a real (file-visiting) buffer.
 Copied the logic from `solaire-mode-real-buffer-p`."
   (buffer-file-name (buffer-base-buffer)))
 
 (defun my/treemacs-theme-current-highlight-reset ()
-  "Reset the current Treemacs highlight by clearing the overlay and refreshing."
+  "Reset all current Treemacs highlights."
+  ;; Clear current file overlays
   (when my/treemacs-theme-current-file-overlay
     (delete-overlay my/treemacs-theme-current-file-overlay)
     (setq my/treemacs-theme-current-file-overlay nil))
-
   (when my/treemacs-theme-current-file-icon-overlay
     (delete-overlay my/treemacs-theme-current-file-icon-overlay)
-    (setq my/treemacs-theme-current-file-icon-overlay nil)))
+    (setq my/treemacs-theme-current-file-icon-overlay nil))
+  ;; Clear parent node overlays
+  (mapc 'delete-overlay my-treemacs-theme-parent-node-overlays)
+  (setq my-treemacs-theme-parent-node-overlays nil))
+
+(defface my/treemacs-theme-parent-node-face
+  '((t (:inherit nil)))
+  "Face used for the directory and file icons in nerd-icons theme."
+  :group 'treemacs-faces)
+
+(set-face-attribute 'my/treemacs-theme-parent-node-face nil :foreground "orange")
 
 (defun my/treemacs-theme-highlight-current-file (file)
-  "Highlight the filename of the Treemacs node corresponding to `file`."
+  "Highlight the filename of the Treemacs node corresponding to `file` and its parent nodes."
   (with-current-buffer (treemacs-get-local-buffer)
     (my/treemacs-theme-current-highlight-reset)
     (-when-let* ((btn (ignore-errors (treemacs-find-visible-node file)))
@@ -220,11 +233,23 @@ Copied the logic from `solaire-mode-real-buffer-p`."
                  (icon-fg (get-effective-foreground-color-from-face icon-face))
                  (brighter-fg (my-brighten-color icon-fg)))
       (treemacs-with-writable-buffer
+       ;; Highlight the current file
        (setq my/treemacs-theme-current-file-overlay (make-overlay label-start label-end))
        (overlay-put my/treemacs-theme-current-file-overlay 'face 'my/treemacs-theme-current-file-face)
 
        (setq my/treemacs-theme-current-file-icon-overlay (make-overlay icon-start icon-end))
-       (overlay-put my/treemacs-theme-current-file-icon-overlay 'face `(:foreground ,brighter-fg))))))
+       (overlay-put my/treemacs-theme-current-file-icon-overlay 'face `(:foreground ,brighter-fg))
+
+       ;; Highlight all visible parent nodes
+       (let ((current-btn btn))
+         (while (setq current-btn (treemacs-button-get current-btn :parent))
+           (let* ((parent-label-start (treemacs-button-start current-btn))
+                  (parent-label-end (treemacs-button-end current-btn))
+                  ;; Overlay for the parent node
+                  (parent-overlay (make-overlay parent-label-start parent-label-end)))
+             (overlay-put parent-overlay 'face 'my/treemacs-theme-parent-node-face)
+             ;; Save the overlay for cleanup
+             (push parent-overlay my-treemacs-theme-parent-node-overlays))))))))
 
 (defun my-brighten-color (color)
   "Return a brightened version of the foreground color for FACE."
