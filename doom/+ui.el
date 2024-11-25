@@ -83,7 +83,17 @@
 ;;; -----------------------------------------------------------------------------
 ;;; Modeline
 ;;; -----------------------------------------------------------------------------
-(setq doom-modeline-modal nil)
+
+(after! doom-modeline
+  (doom-modeline-def-modeline 'aritest-line
+    '(eldoc bar workspace-name window-number matches follow buffer-info remote-host buffer-position word-count parrot selection-info)
+    '(compilation objed-state misc-info persp-name grip irc mu4e gnus github debug repl lsp process check vcs))
+
+  (setq doom-modeline-percent-position nil)
+
+  (add-hook 'doom-modeline-mode-hook
+            (lambda ()
+              (doom-modeline-set-modeline 'aritest-line 'default))))
 
 
 ;;; -----------------------------------------------------------------------------
