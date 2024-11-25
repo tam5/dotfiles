@@ -26,10 +26,12 @@
 - [ ] Get the shadow
 - [ ] Extra scroll bars or something looks weird
 
+
 ### Modeline
 - [ ] adjust: the flycheck icons and things
 - [ ] adjust: the vcs segment
 - [ ] adjust: the filename and modified states and icons
+
 
 ### UI
 - [ ] adjust: get more space between the line numbers and the actual content
@@ -56,20 +58,27 @@
 - [ ] better regexp / search replace thing with previews
 - [ ] figure out how to properly use consult and embark etc
 
+
 ### Markdown
 - [ ] better markdown mode live preview w/ within emacs ideally
+- [ ] better syntax highlighting would be great
+
 
 ### Bugs / Fixes
 - [ ] there is still a bug that sometimes the line numbers show up in weird buffers
 - [ ] inhibit copilot warnings when opening large buffers
+
 
 ### Command Palette
 - [ ] Get the shadow
 - [ ] Make it pretty
 - [ ] fixed width
 
+- check what i had in the old thing? like cooler fringes?
+
 
 -----------
+
 
 ### Watch list
 
