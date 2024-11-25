@@ -68,3 +68,10 @@ way you're supposed to do this, but wtvr."
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+
+
+;; (defun aritest (&rest _)
+;;   (message "this was called ---------------"))
+
+;; (remove-hook 'treemacs-after-visit-functions #'aritest)

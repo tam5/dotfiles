@@ -48,7 +48,6 @@
 
   (setq treemacs-collapse-dirs 0
         treemacs-git-mode nil
-        +treemacs-git-mode nil
         treemacs-fringe-indicator-mode nil)
 
   (add-hook 'treemacs-mode-hook #'hide-mode-line-mode)
@@ -61,13 +60,16 @@
   (add-hook 'buffer-list-update-hook #'my/treemacs-theme-update-current-highlight)
   (add-hook 'window-selection-change-functions #'my/treemacs-theme-update-current-highlight)
 
+  ;; this one needed for when we toggle nodes, and this time its a little different since
+  ;; we are by definition no longer selecting a window
+  (advice-add #'treemacs-RET-action :after #'my/aritest-fix)
+
   ;; TODO
   ;; this is almost exactly what i want, except that in treemacs the hl-line disappears after i move/do something
   ;; (setq hl-line-sticky-flag nil)
-  (set-face-attribute 'my/treemacs-theme-current-file-face nil :foreground "white")
-  ;; (set-face-attribute 'my/treemacs-theme-current-file-icon-face nil :foreground "white")
 
   ;; TODO
+  (set-face-attribute 'my/treemacs-theme-current-file-face nil :foreground "white")
 
   (my/treemacs-theme-reload))
 

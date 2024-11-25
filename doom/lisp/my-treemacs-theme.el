@@ -257,6 +257,11 @@ Copied the logic from `solaire-mode-real-buffer-p`."
       (when file
         (my/treemacs-theme-highlight-current-file file)))))
 
+(defun my/aritest-fix (&rest _)
+  (let ((file (buffer-file-name (window-buffer (previous-window)))))
+    (when file
+      (my/treemacs-theme-highlight-current-file file))))
+
 ;; (defun my/enable-treemacs-auto-highlight ()
 ;;   "Enable automatic highlighting of the current file in Treemacs on window focus change."
 ;;   (add-hook 'window-selection-change-functions #'my/treemacs-theme-auto-highlight)
@@ -274,3 +279,7 @@ Copied the logic from `solaire-mode-real-buffer-p`."
 
 ;; Add the hook to track window selection changes
 ;; (add-hook 'window-selection-change-functions #'my/on-cursor-move)
+
+
+;; maybe add advice here to get it to trigger the refresh too
+;; treemacs-do-for-button-state
