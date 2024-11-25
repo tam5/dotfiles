@@ -49,13 +49,14 @@
                (concat "^" (regexp-quote (file-truename persp-save-dir)))))
 
 ;;; :completion company
-(after! company
-  ;; i have no patience, i want company to show up immediately
-  (setq company-idle-delay 0
-        company-minimum-prefix-length 0
-        ;; disabling this for now in markdown since i don't need autocomplete for english
-        company-global-modes '(not markdown-mode)))
+;; (after! company
+;;   ;; i have no patience, i want company to show up immediately
+;;   (setq company-idle-delay 0
+;;         company-minimum-prefix-length 0
+;;         ;; disabling this for now in markdown since i don't need autocomplete for english
+;;         company-global-modes '(not markdown-mode)))
 
+;;; :completion corfu
 (after! corfu
   (setq corfu-auto-delay 0
         corfu-auto-prefix 0

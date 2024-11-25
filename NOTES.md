@@ -1,5 +1,10 @@
 # TODO list
 
+### Misc / Unsorted / Inbox
+- check what i had in the old thing? like cooler fringes?
+- git gutter fringes don't auto-reset themselves
+
+---------------
 
 ### Sidebar
 - [ ] add: fringe indicator like sublime next to current file
@@ -40,6 +45,10 @@
 
 ### Echo area
 - [ ] adjust: currently way too wordy in the echo area, can we suppress most of it or something
+    Things that i'm seeing in the echo area that i don't need:
+    - my keypresses (immediately)
+    - name of file path when i hover in treemacs
+    - response after running save buffer
 - [ ] adjust: see if maybe eldoc can be tooltips or something idk
 
 
@@ -74,7 +83,6 @@
 - [ ] Make it pretty
 - [ ] fixed width
 
-- check what i had in the old thing? like cooler fringes?
 
 
 -----------
