@@ -66,28 +66,6 @@
                                 "type": "basic"
                             }
                         ]
-                    },
-                    {
-                        "description": "Trigger mission control via mouse button, unless we're in Minecraft.",
-                        "manipulators": [
-                            {
-                                "type": "basic",
-                                "from": {
-                                    "pointing_button": "button5",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [
-                                    { "apple_vendor_keyboard_key_code": "mission_control" },
-                                    { "key_code": "vk_none" }
-                                ],
-                                "conditions": [
-                                    {
-                                        "type": "frontmost_application_unless",
-                                        "file_paths": [".*minecraft/runtime.*"]
-                                    }
-                                ]
-                            }
-                        ]
                     }
                 ]
             },
@@ -108,14 +86,6 @@
                             "to": [{ "key_code": "left_command" }]
                         }
                     ]
-                },
-                {
-                    "identifiers": {
-                        "is_pointing_device": true,
-                        "product_id": 50489,
-                        "vendor_id": 1133
-                    },
-                    "ignore": false
                 }
             ],
             "name": "Default profile",
