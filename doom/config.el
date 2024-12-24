@@ -60,6 +60,7 @@
 (after! corfu
   (setq corfu-auto-delay 0
         corfu-auto-prefix 0
+        corfu-preview-current nil
         +corfu-want-tab-prefer-expand-snippets t))
 
 ;;; :completion vertico
