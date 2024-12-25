@@ -1,48 +1,49 @@
-tap "homebrew/bundle"
-tap "koekeishiya/formulae"
-brew "antigen"
-brew "asdf"
-brew "bat"
-brew "colima"
-brew "eza"
-brew "fd"
-brew "fzf"
-brew "jq"
-brew "jless"
-brew "rm-improved"
-brew "mas"
-brew "neovim"
-brew "poetry"
-brew "pre-commit"
-brew "ripgrep"
-brew "yq"
-brew "koekeishiya/formulae/skhd"
-brew "koekeishiya/formulae/yabai"
-cask "1password"
-cask "alfred"
-cask "cron"
-cask "cursor"
-cask "google-chrome"
-cask "hammerspoon"
-cask "karabiner-elements"
-cask "kitty"
-cask "mimestream"
-cask "notion"
-cask "slack"
-cask "spotify"
-cask "tableplus"
-cask "visual-studio-code"
-cask "whatsapp"
-cask "logitech-g-hub"
-mas "GarageBand", id: 682658836
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "Things", id: 904280696
-vscode "GitHub.copilot"
-vscode "GitHub.github-vscode-theme"
-vscode "ms-python.python"
-vscode "ms-python.vscode-pylance"
-vscode "ms-vscode.makefile-tools"
-vscode "vscodevim.vim"
+##
+## Tools
+##
+brew "atuin"                        # replacement for `ctrl-r`, better history search
+brew "bat"                          # replacement for `cat`, adds syntax highlighting
+brew "eza"                          # replacement for `ls`, just a bit easier to work with
+brew "fd"                           # replacement for `find`, better/faster/stronger
+brew "fzf"                          # fuzzy find all the things
+brew "git-delta"                    # replacement for `diff`, adds syntax highlighting and better ui
+brew "jq"                           # json parser
+brew "ripgrep"                      # replacement for `grep`, better/faster/stronger
+brew "rm-improved"                  # replacement for `rm`, becuse you can't go back from an `rm`
+brew "xh"                           # curl alternative
+brew "yq"                           # like `jq` but for yaml
+
+##
+## Managers & Runners
+##
+brew "antigen"                      # zsh plugin manager
+brew "colima"                       # how i run containers these days
+brew "composer"                     # php package manager
+brew "docker"                       # just the cli, we'll use colima for heavy lifting
+brew "docker-compose"               # if it's up, then it's up, then it's up...
+brew "mas"                          # mac app store cli
+brew "mise"                         # polyglot runtime manager (asdf rust clone)
+brew "uv"                           # python package and project manager, yes another one
+
+##
+## Today's weapons of choice
+##
+brew "gh"                           # gitHub cli
+brew "koekeishiya/formulae/skhd"    # hotkey-daemon for macOS
+brew "koekeishiya/formulae/yabai"   # window manager
+brew "neovim"                       # vim vs emacs?
+brew "tam5/emacs-plus/emacs-plus", args: ["with-debug", "with-native-comp", "with-xwidgets"] # both!
+brew "tmux"                         # i should really use this shouldn't I
+cask "1password"                    # password manager
+cask "google-chrome"                # browser
+cask "iterm2"                       # terminal
+cask "karabiner-elements"           # keyboard remapper
+cask "mimestream"                   # email client
+cask "notion-calendar"              # calendar
+cask "raycast"                      # cmd-space, but also more
+cask "shottr"                       # screenshot tool
+cask "slack"                        # probably it's its own noun at this point
+cask "spotify"                      # music
+cask "tableplus"                    # database gui
+cask "whatsapp"                     # so i can ignore all the group messages
+mas "Things", id: 904280696         # todo list manager
