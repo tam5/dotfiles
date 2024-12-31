@@ -13,3 +13,5 @@
   :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))
 
 (package! lsp-pyright)
+
+(package! lsp-treemacs :disable t)
