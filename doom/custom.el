@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("34cf3305b35e3a8132a0b1bdf2c67623bc2cb05b125f8d7d26bd51fd16d547ec" default))
+   '("43caab205a490228fb005ebeade1564f71b19c866d799c999e3e9549c0bfa070" "34cf3305b35e3a8132a0b1bdf2c67623bc2cb05b125f8d7d26bd51fd16d547ec" default))
  '(safe-local-variable-values
    '((toc-org-max-depth . 2)
      (org-list-indent-offset . 1)

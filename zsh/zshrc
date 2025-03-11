@@ -17,6 +17,7 @@ path=(
     $HOME/.config/emacs/bin
     $HOME/.cargo/bin
     /opt/homebrew/bin
+    /opt/homebrew/opt/grep/libexec/gnubin
     ./vendor/bin
     $path
 )
@@ -70,11 +71,12 @@ alias rm="echo Stop! Use rip instead!"
 
 alias rga="rg --no-ignore"
 
-alias v="vim ."
 alias g="git"
 alias ga="git add"
 alias gc="git commit"
 alias gcn="git commit --no-verify"
+
+# TODO: this should be smart and show me staged if all staged, not otherwise. also ideally would include new files, also needs prettier output
 alias gd="git diff"
 alias gs="git status"
 alias gp="git push"
@@ -87,7 +89,15 @@ alias gpop="git reset --soft head~1 && git reset head"
 alias gco="git checkout"
 alias nah="git reset --hard head && git clean -fd"
 
+alias cat="bat --chop-long-lines --theme=Dracula --style=plain"
+
 # alias jqs"while IFS= read -r line; do echo "\$line" | jq . 2>/dev/null || echo "\$line"; done"
+
+v() {
+  if [[ ! -z $@ ]]; then nvim "$@"; return; fi
+
+  nvim .
+}
 
 unalias gd
 gd() {
@@ -140,7 +150,10 @@ _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always 
 
 unalias glo 2> /dev/null
 glo() {
-    git log --graph --color=always --format="%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(black)%d%Creset" |
+    # git log -n 10 --pretty=format:"%h - %s (%an, %ar)" -- package.json
+    # if [[ ! -z $@ ]]; then git checkout "$@"; return; fi
+
+    git log --graph --color=always --format="%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(black)%d%Creset" "$@" |
         fzf --no-sort --no-mouse --reverse --tiebreak=index --no-multi \
             --ansi --preview="$_viewGitLogLine" \
                 --header "enter to view, ctrl-y to copy hash" \
@@ -247,3 +260,6 @@ export FZF_DEFAULT_OPTS='--layout=reverse'
 #   zvm_bindkey vicmd ' fr' my_custom_widget
 #   zvm_bindkey vicmd '^p' my_custom_widget
 # }
+
+# added by Snowflake SnowSQL installer v1.2
+export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH

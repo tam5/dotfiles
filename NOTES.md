@@ -94,5 +94,8 @@ Considering / watching
 - https://github.com/Artawower/blamer.el
 - https://github.com/blahgeek/emacs-lsp-booster
 
+- different way to do titlebar thing: https://github.com/d12frosted/homebrew-emacs-plus/commit/f8621601fbe5ffaabd53cc004d8b84b010346182
+
 Watching Issues
 - https://github.com/copilot-emacs/copilot.el/issues/312
+

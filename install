@@ -37,9 +37,16 @@ ln -s $DOTFILES/atuin $HOME/.config/atuin
 rm -rf $HOME/.config/doom
 ln -s $DOTFILES/doom $HOME/.config/doom
 
+# tmux
+ln -sf $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
+
+# aerospace
+rm -rf $HOME/.config/aerospace
+ln -s $DOTFILES/aerospace $HOME/.config/aerospace
+
 # skhd & yabai
-ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
-ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc
+# ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
+# ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc
 
 touch $HOME/.hushlogin
 
