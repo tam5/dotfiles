@@ -1,0 +1,2 @@
+# Collecting various cursor rules
+
