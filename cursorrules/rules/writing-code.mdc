@@ -1,0 +1,80 @@
+---
+description: Guidelines that always apply when writing code
+globs:
+---
+
+# Clean Code Guidelines
+
+## Use good judgement
+- SOLID principles and twelve-factor app methodology are great starting points, but are not gospel. Understanding the motivation behind those principles is key to be able to know wheere/when/how to correctly apply those methods to a given use case.
+
+## Simple & Easy to Change
+- Optimize for making code _easy to change_, rather than code that doesn't have to change
+- Always strive for simplicity and avoid premature optimization
+- SOLID principles are guidelines but not gospel
+
+## Predictable, Unambiguous, and Consistent
+- Limit the number of novel terms and concepts
+- Keep naming patterns and code structures consistent
+- Avoid potentially ambiguous words
+
+## Readability
+- Optimize for readability
+- Fewer things to read is usually better, but not always
+- All necessary context to properly understand a given section/block should be clealry available in that context without the need to string together multiple places to properly understand the given context
+
+## Good Abstractions vs Bad Abstractions
+- Hide implementation details in a place I don't have to think about until I'm ready to
+- Do not take away control or hide away important critical details
+- Abstraction is not about protecting or preventing change
+- Use a layered building block approach, allowing for safe "escape hatches", so new cases do not need to start from scratch but can still reuse whats appropriate
+
+## Encapsulation & Coupling
+- Avoid building a distributed monolith
+- Establish clear interfaces and integration points
+- Avoid "client library" type code, push logic to the API layer
+- Beware of compounding amounts of logic with each successive change to the system
+- Small changes to application logic should not require concurrent changes to many other components
+
+## Linear code flow
+- Avoid nested conditionals and complex logic flows
+- Structure logical flows such that undesirable or invalid states such as mutually exclusive logical branches are impossible to ever occur in runtime without the need to explicitly check for these states in multiple places
+- Use guard clauses to handle preconditions and invalid states early.
+- Avoid unnecessary else statements; use if-return pattern instead.
+- Minimize branching logic for improved readability
+- Avoid temporary variables or constructs that require a large amount of context to fully understand
+
+## Meaningful Names
+- Variables, functions, and classes should reveal their purpose
+- Consistent prefixes and suffixes should be used to disambiguate. For example, `isEnabled` rather than `enabled`, `imageURL` rather than `image`, and `timeoutInMilliseconds` rather than `timeout`.
+- Functions should be verbs
+- Avoid abbreviations unless they're universally understood
+
+## Be Defensive
+- Use defensive programming
+- Always validate data you don't control
+- Plan equally for all possible states
+
+## Extract Configuration
+- Replace hard-coded values with named constants that explain their purpose
+- Consolidate app level config separate from the code
+- Use environment variables where appropriate
+
+## Smart Comments
+- Don't comment on what the code does - make the code self-documenting
+- Use comments to explain why something is done a certain way
+- Document APIs, complex algorithms, and non-obvious side effects
+
+## When in Rome
+- Follow established patterns and conventions for the given language, framework, or library
+- Follow established patterns and conventions for the given codebase, even if they differ from your own styles/preferences. Consistentcy is more important
+
+## Maintenance & Refactoring
+- Refactor continuously
+- Fix technical debt early
+- Leave code cleaner than you found it
+- Learn to smell, code smells usually hint at larger problems
+
+## Finish the backside of the dresser
+- Strive for perfection down to every last detail
+- The code should not just work, but should look pretty, be well polished, and be enjoyable to use

@@ -1,0 +1,75 @@
+---
+description: Rules for working in Nextjs projects
+globs: **/*.tsx, **/*.ts, src/**/*.ts, src/**/*.tsx
+---
+
+# NextJS
+
+## Project Structure
+- Use the App Router directory structure
+- Place components in `app` directory for route-specific components
+- Place shared components in `components` directory
+- Place utilities and helpers in `lib` directory
+- Use lowercase with dashes for directories (e.g., `components/auth-wizard`)
+- Use absolute imports
+- Modularize middleware so each transformation is separate and composable
+- Ensure code remains tree-shakable
+
+## Components
+- Use Server Components by default
+- Mark client components explicitly with 'use client'
+- Wrap client components in Suspense with fallback
+- Use dynamic loading for non-critical components
+- Implement proper error boundaries
+- Co-locate component props with their components
+
+## Performance
+- Optimize images: Use WebP format, size data, lazy loading
+- Optimize Web Vitals (LCP, CLS, FID).
+- Minimize use of 'useEffect' and 'setState'
+- Favor Server Components (RSC) where possible
+- Use dynamic loading for non-critical components
+- Implement proper caching strategies
+
+## Data Fetching
+- Use Server Components for data fetching when possible
+- Data fetching should happen through the API layer
+- Define all data fetchers in a centralized api lib
+- Assume all data fetching might happen either on the client or the server
+- Implement proper error handling for data fetching
+- Use appropriate caching strategies
+- Handle loading and error states appropriately
+- Use @tanstack/react-query to manage syncing server state with client state
+
+## Routing
+- Use the App Router conventions
+- Implement proper loading and error states for routes
+- Use dynamic routes appropriately
+- Handle parallel routes when needed
+
+## Forms and Validation
+- Use Zod for form validation
+- Implement proper server-side validation in the api layer
+- Handle form errors appropriately
+- Show loading states during form submission
+- Always give proper user feedback
+
+## State Management
+- Minimize client-side state
+- Use React Context sparingly
+- Prefer server state when possible
+- Implement proper loading states
+- A minimal set of auth/session related state may be made globally available
+
+## Tools & Packages
+- Use Next 15
+- Use ESLint and Prettier
+- Use TypeScript for all code
+- Use ts-reset
+- Use @tanstack/react-query to manage syncing server state with client state
+- Use t3-env for managing environment variables
+- Use Zod for validation
+- Use tailwind for styling
+- Use nuqs for URL sarch parameter state management
+- Use bundle analyzer plugin to keep an eye on bundle size
+- Use OpenTelemetry for observability

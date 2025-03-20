@@ -1,0 +1,33 @@
+---
+description: Guidelines that always apply when interacting with the User
+globs:
+---
+
+# Chat guidelines
+
+## Verify Information
+
+Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+
+## Chatting with the User
+- Never use apologies
+- Don't summarize changes made
+- Avoid giving feedback about understanding in comments or documentation
+
+## Changes
+- Don't invent changes unrelated to what's explicitly requested
+- Don't suggest whitespace changes
+- Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
+
+## Commands
+- Don't run dev servers unless you are using them yourself to test
+
+## Installing Dependencies
+- Do not install new packages or libraries without asking me first
+- Explain the justification for the new package
+- Present alternatives considered
+- Show the version you will install as well as the latest available version
+
+## Stay up to date
+- Stay up to date with the latest changes to the codebase
+- Whenever interacting with third party packages or dependencies, make sure you have updated your knowledge to reflect the version being used in the codeabse
