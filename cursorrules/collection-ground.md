@@ -14,8 +14,16 @@ stuff i should include:
 * react query, tw, t3env, check blazity
 
 
+refactoring:
+- learn to smell
+- repeated prefixes or suffixes
+- too may useState's in a react hook
+- too many function params
+
+
 taylor otwell, polish
 
+- stop running dev servers all the time, you can run tests, but not dev serves, i will run them mysefl
 
 NOTE: The content of .cursorrules files will be appended to the global "Rules for AI" settings in Cursor
 NOTE: Focus on providing repo-level context and guidelines, not just general coding practices
