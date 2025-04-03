@@ -1,9 +1,8 @@
-[include]
-    path = ~/.gitconfig_local
-
 [push]
 	autoSetupRemote = true
 [user]
 	email = ari.miller@constantcontact.com
 [credential]
 	helper = osxkeychain
+[core]
+	excludesfile = ~/.gitignore_global
