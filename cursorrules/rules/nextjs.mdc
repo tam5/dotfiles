@@ -62,6 +62,7 @@ globs: **/*.tsx, **/*.ts, src/**/*.ts, src/**/*.tsx
 - A minimal set of auth/session related state may be made globally available
 
 ## Tools & Packages
+- Use pnpm
 - Use Next 15
 - Use ESLint and Prettier
 - Use TypeScript for all code

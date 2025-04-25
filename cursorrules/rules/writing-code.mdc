@@ -1,6 +1,7 @@
 ---
-description: Guidelines that always apply when writing code
-globs:
+description: 
+globs: 
+alwaysApply: true
 ---
 
 # Clean Code Guidelines

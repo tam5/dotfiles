@@ -34,3 +34,11 @@ globs: **/*.ts, **/*.tsx, **/*.d.ts
 - Use type guards for runtime type checking
 - Implement proper null checking
 - Avoid type assertions unless necessary
+
+## Tools & Packages
+- Use pnpm
+- Use ESLint and Prettier
+- Use TypeScript for all code
+- Use ts-reset
+- Use Zod for validation
+- Use OpenTelemetry for observability
