@@ -5,27 +5,6 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Send hyper key when presseing caps_lock + spacebar",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "modifiers": { "optional": ["any"] },
-                                    "simultaneous": [
-                                        { "key_code": "caps_lock" },
-                                        { "key_code": "spacebar" }
-                                    ]
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_shift",
-                                        "modifiers": ["left_control", "left_option", "left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Change caps_lock to escape if pressed alone and to control if pressed with any other keys.",
                         "manipulators": [
                             {
@@ -92,21 +71,21 @@
                         "description": "Trigger mission control via mouse button, unless we're in Minecraft.",
                         "manipulators": [
                             {
-                                "conditions": [
-                                    {
-                                        "file_paths": [".*minecraft/runtime.*"],
-                                        "type": "frontmost_application_unless"
-                                    }
-                                ],
+                                "type": "basic",
                                 "from": {
-                                    "modifiers": { "optional": ["any"] },
-                                    "pointing_button": "button5"
+                                    "pointing_button": "button5",
+                                    "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [
                                     { "apple_vendor_keyboard_key_code": "mission_control" },
                                     { "key_code": "vk_none" }
                                 ],
-                                "type": "basic"
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_unless",
+                                        "file_paths": [".*minecraft/runtime.*"]
+                                    }
+                                ]
                             }
                         ]
                     }
