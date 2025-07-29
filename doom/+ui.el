@@ -13,17 +13,17 @@
 
 ;; margins?
 ;;
-(after! corfu
+;; (after! corfu
 
-  ;; NOTE: this relies on our custom patch to emacs
-  (add-to-list 'corfu--frame-parameters '(has-shadow . t))
+;;   ;; NOTE: this relies on our custom patch to emacs
+;;   (add-to-list 'corfu--frame-parameters '(has-shadow . t))
 
-  ;; (setf (alist-get 'child-frame-border-width corfu--frame-parameters) 20)
-  ;; (delete-frame corfu--frame)
+;;   ;; (setf (alist-get 'child-frame-border-width corfu--frame-parameters) 20)
+;;   ;; (delete-frame corfu--frame)
 
-  ;; make it wider so there's less jumping around
-  (setq corfu-min-width 40
-        corfu-preselect 'first))
+;;   ;; make it wider so there's less jumping around
+;;   (setq corfu-min-width 40
+;;         corfu-preselect 'first))
 
 ;; corfu-quit-no-match t ;; not sure if this is doing anything
 
@@ -62,8 +62,8 @@
 ;;; Frame
 ;;; -----------------------------------------------------------------------------
 
-(setq default-frame-alist
-      '((internal-border-width . 0)))
+;; (setq default-frame-alist
+;;       '((internal-border-width . 0)))
 
 
 ;;;
@@ -72,11 +72,11 @@
 
 (setq ns-use-proxy-icon nil)
 
-(add-hook 'window-size-change-functions #'my/titlebar-remove-title)
+;; (add-hook 'window-size-change-functions #'my/titlebar-remove-title)
 
-(after! solaire-mode
-  (add-hook 'doom-init-ui-hook #'my/titlebar-patch-color t)
-  (add-hook 'solaire-global-mode-hook #'my/titlebar-patch-color t))
+;; (after! solaire-mode
+;;   (add-hook 'doom-init-ui-hook #'my/titlebar-patch-color t)
+;;   (add-hook 'solaire-global-mode-hook #'my/titlebar-patch-color t))
 
 
 ;;;
@@ -91,9 +91,9 @@
 
   ;; Disable fringes (and reset them everytime treemacs is selected because it
   ;; may change due to outside factors)
-  (setq treemacs-fringe-indicator-mode nil)
-  (add-hook 'treemacs-mode-hook #'my/hide-fringes)
-  (advice-add #'treemacs-select-window :after #'my/hide-fringes)
+  ;; (setq treemacs-fringe-indicator-mode nil)
+  ;; (add-hook 'treemacs-mode-hook #'my/hide-fringes)
+  ;; (advice-add #'treemacs-select-window :after #'my/hide-fringes)
 
   (treemacs-load-theme "my/treemacs-theme")
   (my/treemacs-theme-highlight-current-mode t))

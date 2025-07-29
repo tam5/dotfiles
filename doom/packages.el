@@ -14,4 +14,4 @@
 
 (package! lsp-pyright)
 
-(package! gptel :recipe (:nonrecursive t))
+;; (package! gptel :recipe (:nonrecursive t))

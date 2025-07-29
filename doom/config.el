@@ -5,11 +5,9 @@
 (load! "+lang")
 (load! "+keybinds")
 
-;; (use-package gptel)
-;; (setq gptel-api-key (getenv "OPENAI_API_KEY"))
-(use-package! gptel
-  :config
-  (setq! gptel-api-key (getenv "OPENAI_API_KEY")))
+;; (use-package! gptel
+;;   :config
+;;   (setq! gptel-api-key (getenv "OPENAI_API_KEY")))
 
 ;;;
 ;;; Core settings
