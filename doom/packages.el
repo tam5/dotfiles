@@ -14,4 +14,4 @@
 
 (package! lsp-pyright)
 
-(package! lsp-treemacs :disable t)
+(package! gptel :recipe (:nonrecursive t))

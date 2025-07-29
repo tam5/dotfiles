@@ -24,3 +24,10 @@
 (use-package! lsp-tailwindcss
   :after lsp-mode
   :init (setq lsp-tailwindcss-add-on-mode t))
+
+;;;
+;;; Restclient
+;;; -----------------------------------------------------------------------------
+(defun make-basic-auth-token (username password)
+  "Return a base64-encoded string of the username and password."
+  (base64-encode-string (concat username ":" password)))

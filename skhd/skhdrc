@@ -23,13 +23,7 @@ ctrl + alt - i : yabai -m window --grid 1:6:0:0:1:1
 ctrl + alt - s : yabai -m space --layout stack
 ctrl + alt - f : yabai -m space --layout float
 
-hyper - right : yabai -m window --grid 1:2:1:0:1:1
-hyper - left  : yabai -m window --grid 1:2:0:0:1:1
-
-
-#
-# f24 - right : yabai -m window --grid 1:2:1:0:1:1
-# f24 - right : yabai -m window --grid 1:2:1:0:1:1
+ctrl + alt - r : yabai --restart-service
 
 # ctrl + alt - b : yabai -m window --focus recent
 # ctrl + alt - b : yabai -m space --layout stack

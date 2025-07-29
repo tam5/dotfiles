@@ -105,14 +105,14 @@ Copied the logic from `solaire-mode-real-buffer-p`."
                                         my/treemacs-theme-dir-spacer--left
                                         (nerd-icons-faicon "nf-fa-folder_o" :v-adjust -0.06 :height 1.12 :face 'my/treemacs-theme-dir-icon-face)
                                         my/treemacs-theme-dir-spacer--right)
-                          :extensions (root-open dir-open)
+                          :extensions (root-open dir-open src-open)
                           :fallback 'same-as-icon)
     (treemacs-create-icon :icon (format "%s%s%s%s"
                                         my/treemacs-theme-padding--left
                                         my/treemacs-theme-dir-spacer--left
                                         (nerd-icons-faicon "nf-fa-folder" :v-adjust -0.06 :height 1.12 :face 'my/treemacs-theme-dir-icon-face)
                                         my/treemacs-theme-dir-spacer--right)
-                          :extensions (root-closed dir-closed)
+                          :extensions (root-closed dir-closed src-closed)
                           :fallback 'same-as-icon)
     ;; file icons
     (dolist (item nerd-icons-extension-icon-alist)

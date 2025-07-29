@@ -5,15 +5,11 @@
 (load! "+lang")
 (load! "+keybinds")
 
-
-
-;; (setq +popup-defaults
-;;       (list :side   'right
-;;             ;; :height 0.16
-;;             :width  40
-;;             :quit   t
-;;             :select #'ignore
-;;             :ttl    5))
+;; (use-package gptel)
+;; (setq gptel-api-key (getenv "OPENAI_API_KEY"))
+(use-package! gptel
+  :config
+  (setq! gptel-api-key (getenv "OPENAI_API_KEY")))
 
 ;;;
 ;;; Core settings
@@ -21,10 +17,10 @@
 
 (setq doom-theme 'doom-github-classic-dark
 
-      doom-font (font-spec :family "MesloLGM Nerd Font" :size 14 :weight 'normal)
+      doom-font (font-spec :family "Menlo 1.25" :size 14 :weight 'normal)
       my/sidebar-font (font-spec :family "Inter 1.5" :size 12.0 :weight 'medium)
 
-      ;; doom-variable-pitch-font (font-spec :family "Monaco" :size 13)
+      ;; doom-variable-pitch-font (font-spec :family "Monaco" :size 20)
 
       fancy-splash-image (file-name-concat doom-user-dir "rocket.png")
 

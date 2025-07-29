@@ -5,6 +5,59 @@
 (load! "lisp/ui-tweaks")
 (load! "lisp/my-treemacs-theme")
 
+
+;; ideas for making corfu better:
+;; - it shows a lot of irrelevant stuff
+;; - some bg with bg colors maybe, at least on the tooltop one
+;; - also seems to be some bug with backspace when we are using the preselect first
+
+;; margins?
+;;
+(after! corfu
+
+  ;; NOTE: this relies on our custom patch to emacs
+  (add-to-list 'corfu--frame-parameters '(has-shadow . t))
+
+  ;; (setf (alist-get 'child-frame-border-width corfu--frame-parameters) 20)
+  ;; (delete-frame corfu--frame)
+
+  ;; make it wider so there's less jumping around
+  (setq corfu-min-width 40
+        corfu-preselect 'first))
+
+;; corfu-quit-no-match t ;; not sure if this is doing anything
+
+;; (set-face-attribute 'corfu-default nil
+;;                     :foreground (face-attribute 'font-lock-comment-face :foreground)
+;;                     ;; :background (face-attribute 'solaire-default-face :background)
+;;                     :family "Arial"
+;;                     :weight 'normal
+;;                     :height 240
+;;                     )
+
+;; ;; (set-face-attribute 'corfu-default nil :font (font-spec :family "Inter 1.5" :size 14.0 :weight 'medium))
+
+;; (set-face-attribute 'corfu-current nil
+;;                     :foreground nil
+;;                     :family "Arial"
+;;                     :weight 'normal
+;;                     :height 240
+;;                     ;; :background (face-attribute 'solaire-hl-line-face :background)
+;;                     )
+
+;; (set-face-attribute 'corfu-bar nil :background "blue")
+;; (set-face-attribute 'corfu-border nil :background nil)
+
+;; (set-face-attribute 'orderless-match-face-0 nil :foreground "#79B8FF" :background nil :weight 'bold :family "Arial"
+;;                     :height 240))
+
+;; (setf (alist-get 'ns-appearance corfu--frame-parameters) 'light)
+;;
+
+
+
+
+
 ;;;
 ;;; Frame
 ;;; -----------------------------------------------------------------------------

@@ -22,7 +22,7 @@
 
        :completion
        ;; (company +childframe) ; the ultimate code completion backend
-       (corfu +icons +dabbrev)              ; complete with cap(f), cape and a flying feather!
+       (corfu +icons)              ; complete with cap(f), cape and a flying feather!
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
@@ -82,7 +82,7 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell) ; tasing you for misspelling mispelling
+       (spell +hunspell)  ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
