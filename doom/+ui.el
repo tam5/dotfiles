@@ -62,8 +62,8 @@
 ;;; Frame
 ;;; -----------------------------------------------------------------------------
 
-;; (setq default-frame-alist
-;;       '((internal-border-width . 0)))
+(setq default-frame-alist
+      '((internal-border-width . 0)))
 
 
 ;;;
@@ -72,7 +72,7 @@
 
 (setq ns-use-proxy-icon nil)
 
-;; (add-hook 'window-size-change-functions #'my/titlebar-remove-title)
+(add-hook 'window-size-change-functions #'my/titlebar-remove-title)
 
 ;; (after! solaire-mode
 ;;   (add-hook 'doom-init-ui-hook #'my/titlebar-patch-color t)
