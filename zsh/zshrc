@@ -75,8 +75,6 @@ alias ga="git add"
 alias gc="git commit"
 alias gcn="git commit --no-verify"
 
-# TODO: this should be smart and show me staged if all staged, not otherwise. also ideally would include new files, also needs prettier output
-alias gd="git diff"
 alias gs="git status"
 alias gp="git push"
 alias gco="git checkout"
@@ -100,14 +98,47 @@ v() {
   nvim .
 }
 
-unalias gd
-gd() {
-  if [[ ! -z $@ ]]; then git diff "$@"; return; fi
+gd () {
+  if [[ -n "$@" ]]; then
+    git diff "$@"
+    return
+  fi
 
-  preview="git diff $@ --color=always -- {-1}"
-  git diff $@ --name-only | fzf -m --ansi --preview $preview \
-      --bind "enter:execute:git diff --color=always {} | less -R" \
+  # Build list: unstaged + staged + untracked
+  files=$( ( \
+      git diff --name-only; \
+      git diff --name-only --cached; \
+      git ls-files --others --exclude-standard \
+    ) | sort -u )
+
+  # Nothing to show
+  [ -z "$files" ] && { echo "No changes."; return; }
+
+  preview='bash -c '\''
+    f="$1"
+    if git ls-files --error-unmatch -- "$f" >/dev/null 2>&1; then
+      git diff --color=always -- "$f"
+      git diff --color=always --cached -- "$f"
+    else
+      git diff --no-index --color=always /dev/null "$f"
+    fi
+  '\'' _ {}'
+
+  open_full='bash -c '\''
+    f="$1"
+    if git ls-files --error-unmatch -- "$f" >/dev/null 2>&1; then
+      { git diff --color=always -- "$f"; git diff --color=always --cached -- "$f"; } | less -R
+    else
+      git diff --no-index --color=always /dev/null "$f" | less -R
+    fi
+  '\'' _ {}'
+
+  echo "$files" \
+    | fzf -m --ansi \
+        --preview "$preview" \
+        --bind "enter:execute:$open_full"
 }
+
 
 # destructive, ye' be warned
 grho() {
