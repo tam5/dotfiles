@@ -1,7 +1,7 @@
 #
-#                               🚀      
+#                               🚀
 #
-# Personal zsh configuration of Ari Miller <arimiller.official@gmail.com>
+# Personal zsh configuration of Ari Miller <arimiller92@gmail.com>
 
 #--------------------------------------------------------------------------
 # Setup
@@ -23,7 +23,6 @@ path=(
 
 export EDITOR=nvim
 export GIT_EDITOR=nvim
-# export FZF_DEFAULT_COMMAND=''
 export DOTFILES="$HOME/Code/tam5/dotfiles"
 
 #--------------------------------------------------------------------------
@@ -33,8 +32,6 @@ export DOTFILES="$HOME/Code/tam5/dotfiles"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-#
-eval "$(mise activate zsh)"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -58,47 +55,39 @@ VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
 plugins=()
 
+eval "$(mise activate zsh)"
+
 #--------------------------------------------------------------------------
 # Aliases
 #--------------------------------------------------------------------------
 
-alias vim="nvim"
-
 alias ls="eza --long --all --group-directories-first --time-style long-iso"
-
-alias rm="echo Stop! Use rip instead!"
-
-alias rga="rg --no-ignore"
-
-alias g="git"
-alias ga="git add"
-alias gc="git commit"
-alias gcn="git commit --no-verify"
-
-alias gs="git status"
-alias gp="git push"
-alias gco="git checkout"
-alias gsu="git branch --set-upstream-to=origin/\$(git rev-parse --abbrev-ref HEAD)"
-alias gpu="git push -u origin \$(git rev-parse --abbrev-ref HEAD)"
-alias gpff="git fetch && git rebase origin/\$(git rev-parse --abbrev-ref HEAD) && git push"
-alias gstash="git add . && git commit -m 'stash'"
-alias gpop="git reset --soft head~1 && git reset head"
-alias gco="git checkout"
-alias nah="git reset --hard head && git clean -fd"
-
-alias rip="rip --graveyard ~/.local/share/Trash"
-
 alias cat="bat --chop-long-lines --theme=Dracula --style=plain"
-
-alias rules="rip .cursor || true && cp -r $DOTFILES/cursorrules/ .cursor"
-
-# alias jqs"while IFS= read -r line; do echo "\$line" | jq . 2>/dev/null || echo "\$line"; done"
+alias rm="echo Stop! Use rip instead!"
+alias rip="rip --graveyard ~/.local/share/Trash"
+alias vim="nvim"
 
 v() {
   if [[ ! -z $@ ]]; then nvim "$@"; return; fi
 
   nvim .
 }
+
+# Git
+alias g="git"
+alias gs="git status"
+alias gco="git checkout"
+alias ga="git add"
+alias gc="git commit"
+alias gcn="git commit --no-verify"
+alias gp="git push"
+alias gpu="git push -u origin \$(git rev-parse --abbrev-ref HEAD)"
+alias gsu="git branch --set-upstream-to=origin/\$(git rev-parse --abbrev-ref HEAD)"
+alias gstash="git add . && git commit -m 'stash'"
+alias gpop="git reset --soft head~1 && git reset head"
+alias nah="git reset --hard head && git clean -fd"
+
+
 
 gd () {
   if [[ -n "$@" ]]; then
@@ -197,43 +186,11 @@ glo() {
 
 alias gro="glo ..@{u}"
 
-git_ahead_behind() {
-  local base_branch=${1:-main}
-  left_right=$(git rev-list --left-right --count ${base_branch}...HEAD)
-  behind=$(echo $left_right | awk '{print $1}')
-  ahead=$(echo $left_right | awk '{print $2}')
-
-  git status
-  echo ""
-  echo "Your branch is $ahead commits ahead, and $behind commits behind '$base_branch' branch."
-
-  echo ""
-  echo "Commits ahead of ${base_branch}:"
-  git --no-pager log ${base_branch}..HEAD --pretty=format:"%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
-  echo ""
-  
-  echo ""
-  echo "Commits behind ${base_branch}:"
-  git --no-pager log HEAD..${base_branch} --pretty=format:"%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
-  echo ""
-}
-alias gvs="git_ahead_behind"
-
-
 alias dotfiles="cd $DOTFILES"
 alias desk="cd ~/Desktop"
 alias code="cd ~/Code"
-alias repos="cd ~/Code/armiller/gh-repo-search/repos"
-
-alias p="poetry run python"
 
 alias k="kubectl"
-
-jqsafe() {
-    while IFS= read -r line; do 
-        echo "$line" | jq . 2>/dev/null || echo "$line"; 
-    done
-}
 
 
 alias tp="pbpaste > "
@@ -246,16 +203,6 @@ nr() {
 
   print -s "npm run $cmd"
 }
-
-# pnpm
-export PNPM_HOME="/Users/armiller/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# eval "$(atuin init zsh --disable-up-arrow)"
 
 zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 
@@ -274,23 +221,3 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 
 export FZF_DEFAULT_OPTS='--layout=reverse'
 
-# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-#  --color=fg:regular:0,bg:-1,hl:bold:04
-#  --color=fg+:regular:015,bg+:-1,hl+:bold:04
-#  --color=info:0,prompt:0,pointer:05,input:015
-#  --color=marker:#b46ead,spinner:#303d4a,header:#87afaf'
-
-# Your custom widget
-# function my_custom_widget() {
-#   echo 'Hello, ZSH!'
-# }
-#
-# # The plugin will auto execute this zvm_after_lazy_keybindings function
-# function zvm_after_lazy_keybindings() {
-#   # Here we define the custom widget
-#   zvm_define_widget my_custom_widget
-#
-#   # In normal mode, press Ctrl-E to invoke this widget
-#   zvm_bindkey vicmd ' fr' my_custom_widget
-#   zvm_bindkey vicmd '^p' my_custom_widget
-# }

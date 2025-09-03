@@ -32,7 +32,6 @@ brew "gh"                           # gitHub cli
 brew "koekeishiya/formulae/skhd"    # hotkey-daemon for macOS
 brew "koekeishiya/formulae/yabai"   # window manager
 brew "neovim"                       # vim vs emacs?
-brew "tam5/emacs-plus/emacs-plus", args: ["with-debug", "with-native-comp", "with-xwidgets"] # both!
 brew "tmux"                         # i should really use this shouldn't I
 cask "1password"                    # password manager
 cask "google-chrome"                # browser

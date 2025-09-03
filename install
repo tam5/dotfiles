@@ -8,41 +8,41 @@ cp $DOTFILES/env.example $HOME/.env
 ln -sf $DOTFILES/git/gitconfig $HOME/.gitconfig
 ln -sf $DOTFILES/git/gitignore_global $HOME/.gitignore_global
 
-# ssh
-ln -sf $DOTFILES/ssh/config $HOME/.ssh/config
+# # ssh
+# ln -sf $DOTFILES/ssh/config $HOME/.ssh/config
 
-# karabiner
-mkdir -p $HOME/.config
-ln -sf $DOTFILES/karabiner $HOME/.config
+# # karabiner
+# mkdir -p $HOME/.config
+# ln -sf $DOTFILES/karabiner $HOME/.config
 
-# zsh
-ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
+# # zsh
+# ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 
-# starship
-ln -sf $DOTFILES/starship/starship.toml $HOME/.config
+# # starship
+# ln -sf $DOTFILES/starship/starship.toml $HOME/.config
 
-# neovim
-rm -rf $HOME/.config/nvim
-ln -s $DOTFILES/nvim $HOME/.config/nvim
+# # neovim
+# rm -rf $HOME/.config/nvim
+# ln -s $DOTFILES/nvim $HOME/.config/nvim
 
-# vscode
-ln -sf $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
-ln -sf $DOTFILES/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
+# # vscode
+# ln -sf $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+# ln -sf $DOTFILES/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
 
-# atuin
-rm -rf $HOME/.config/atuin
-ln -s $DOTFILES/atuin $HOME/.config/atuin
+# # atuin
+# rm -rf $HOME/.config/atuin
+# ln -s $DOTFILES/atuin $HOME/.config/atuin
 
-# doom
-rm -rf $HOME/.config/doom
-ln -s $DOTFILES/doom $HOME/.config/doom
+# # doom
+# rm -rf $HOME/.config/doom
+# ln -s $DOTFILES/doom $HOME/.config/doom
 
-# skhd & yabai
-ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
-ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc
+# # skhd & yabai
+# ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
+# ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc
 
-touch $HOME/.hushlogin
+# touch $HOME/.hushlogin
 
-# scripts
-mkdir -p $HOME/.local/bin
-ln -sf $DOTFILES/scripts/display_is_ultrawide $HOME/.local/bin/display_is_ultrawide
+# # scripts
+# mkdir -p $HOME/.local/bin
+# ln -sf $DOTFILES/scripts/display_is_ultrawide $HOME/.local/bin/display_is_ultrawide
