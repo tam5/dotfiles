@@ -2,47 +2,40 @@
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-cp $DOTFILES/env.example $HOME/.env
+cp -n $DOTFILES/env.example $HOME/.env
+
+# karabiner
+mkdir -p $HOME/.config
+ln -sf $DOTFILES/karabiner $HOME/.config
+
+# ssh
+ln -sf $DOTFILES/ssh/config $HOME/.ssh/config
 
 # git
 ln -sf $DOTFILES/git/gitconfig $HOME/.gitconfig
 ln -sf $DOTFILES/git/gitignore_global $HOME/.gitignore_global
 
-# # ssh
-# ln -sf $DOTFILES/ssh/config $HOME/.ssh/config
+# zsh
+ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
 
-# # karabiner
-# mkdir -p $HOME/.config
-# ln -sf $DOTFILES/karabiner $HOME/.config
+# neovim
+rm -rf $HOME/.config/nvim
+ln -s $DOTFILES/nvim $HOME/.config/nvim
 
-# # zsh
-# ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
+# atuin
+rm -rf $HOME/.config/atuin
+ln -s $DOTFILES/atuin $HOME/.config/atuin
 
-# # starship
-# ln -sf $DOTFILES/starship/starship.toml $HOME/.config
+# doom
+rm -rf $HOME/.config/doom
+ln -s $DOTFILES/doom $HOME/.config/doom
 
-# # neovim
-# rm -rf $HOME/.config/nvim
-# ln -s $DOTFILES/nvim $HOME/.config/nvim
+# skhd & yabai
+ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
+ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc
 
-# # vscode
-# ln -sf $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
-# ln -sf $DOTFILES/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
+touch $HOME/.hushlogin
 
-# # atuin
-# rm -rf $HOME/.config/atuin
-# ln -s $DOTFILES/atuin $HOME/.config/atuin
-
-# # doom
-# rm -rf $HOME/.config/doom
-# ln -s $DOTFILES/doom $HOME/.config/doom
-
-# # skhd & yabai
-# ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
-# ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc
-
-# touch $HOME/.hushlogin
-
-# # scripts
-# mkdir -p $HOME/.local/bin
-# ln -sf $DOTFILES/scripts/display_is_ultrawide $HOME/.local/bin/display_is_ultrawide
+# scripts
+mkdir -p $HOME/.local/bin
+ln -sf $DOTFILES/scripts/display_is_ultrawide $HOME/.local/bin/display_is_ultrawide
