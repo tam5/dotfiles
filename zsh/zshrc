@@ -86,6 +86,8 @@ alias gpop="git reset --soft head~1 && git reset head"
 alias gco="git checkout"
 alias nah="git reset --hard head && git clean -fd"
 
+alias rip="rip --graveyard ~/.local/share/Trash"
+
 alias cat="bat --chop-long-lines --theme=Dracula --style=plain"
 
 alias rules="rip .cursor || true && cp -r $DOTFILES/cursorrules/ .cursor"
