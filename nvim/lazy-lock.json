@@ -1,10 +1,10 @@
 {
-  "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
-  "github-nvim-theme": { "branch": "main", "commit": "4f44a5c930372c85483d02700f332d34417e50b2" },
-  "lazy.nvim": { "branch": "main", "commit": "3ad55ae678876516156cca2f361c51f7952a924b" },
-  "nvim-colorizer.lua": { "branch": "master", "commit": "36c610a9717cc9ec426a07c8e6bf3b3abcb139d6" },
-  "plenary.nvim": { "branch": "master", "commit": "0232372b906f275f76ac42029eba25eaf95e76b9" },
-  "telescope.nvim": { "branch": "master", "commit": "a19770625aed49ad2a9f591a5e3946707f7359f6" },
+  "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
+  "github-nvim-theme": { "branch": "main", "commit": "c106c9472154d6b2c74b74565616b877ae8ed31d" },
+  "lazy.nvim": { "branch": "main", "commit": "db067881fff0fd4be8c00e5bde7492e0e1c77a2f" },
+  "nvim-colorizer.lua": { "branch": "master", "commit": "a065833f35a3a7cc3ef137ac88b5381da2ba302e" },
+  "plenary.nvim": { "branch": "master", "commit": "b9fd5226c2f76c951fc8ed5923d85e4de065e509" },
+  "telescope.nvim": { "branch": "master", "commit": "b4da76be54691e854d3e0e02c36b0245f945c2c7" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-vinegar": { "branch": "master", "commit": "bb1bcddf43cfebe05eb565a84ab069b357d0b3d6" }
 }
