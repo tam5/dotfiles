@@ -64,7 +64,7 @@ eval "$(mise activate zsh)"
 #--------------------------------------------------------------------------
 
 alias ls="eza --long --all --group-directories-first --time-style long-iso"
-alias cat="bat --chop-long-lines --theme=Dracula --style=plain"
+alias cat="bat --chop-long-lines --theme=Dracula --style=plain --pager=auto"
 alias rm="echo Stop! Use rip instead!"
 alias rip="rip --graveyard ~/.local/share/Trash"
 
@@ -75,6 +75,8 @@ alias code="cd ~/Code"
 alias tp="pbpaste > "
 
 alias k="kubectl"
+
+alias c="claude --dangerously-skip-permissions"
 
 # Vim
 alias vim="nvim"
@@ -189,6 +191,12 @@ glo () {
                 --header "enter to view, ctrl-y to copy hash" \
                 --bind "enter:execute:$_viewGitLogLine   | less -R" \
                 --bind "ctrl-y:execute:$_gitLogLineToHash | pbcopy"
+}
+
+loadenv() {
+  set -a
+  source "$1"
+  set +a
 }
 
 alias gro="glo ..@{u}"
