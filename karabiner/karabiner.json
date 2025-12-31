@@ -61,7 +61,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "file_paths": [".*minecraft/runtime.*"],
+                                        "file_paths": [".*minecraft/runtime.*", ".*ModrinthApp/meta.*"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
