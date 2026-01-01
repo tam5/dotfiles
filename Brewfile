@@ -29,8 +29,8 @@ brew "uv"                           # python package and project manager, yes an
 ## Today's weapons of choice
 ##
 brew "gh"                           # gitHub cli
-brew "koekeishiya/formulae/skhd"    # hotkey-daemon for macOS
-brew "koekeishiya/formulae/yabai"   # window manager
+brew "asmvik/formulae/skhd"    # hotkey-daemon for macOS
+brew "asmvik/formulae/yabai"   # window manager
 brew "neovim"                       # vim vs emacs?
 brew "tmux"                         # i should really use this shouldn't I
 cask "1password"                    # password manager
