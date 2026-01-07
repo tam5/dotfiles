@@ -71,6 +71,7 @@ alias rip="rip --graveyard ~/.local/share/Trash"
 alias dotfiles="cd $DOTFILES"
 alias desk="cd ~/Desktop"
 alias code="cd ~/Code"
+alias ws="cd ~/Code/tam5/workspace"
 
 alias tp="pbpaste > "
 
