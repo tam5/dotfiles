@@ -100,6 +100,27 @@ alias gstash="git add . && git commit -m 'stash'"
 alias gpop="git reset --soft head~1 && git reset head"
 alias nah="git reset --hard head && git clean -fd"
 
+# Claude Command Translator - Add to your ~/.zshrc
+cm() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: cm <natural language description>"
+        echo "Example: cm list all files in this directory"
+        return 1
+    fi
+
+    local prompt="$*"
+
+    local command=$(claude -p "You are a shell command translator. Convert the following natural language request into a single shell command for zsh on macOS/Linux. Output ONLY the command itself, nothing else - no explanations, no markdown, no code blocks, just the raw command. If multiple commands are needed, chain them appropriately. Request: $prompt" 2>/dev/null)
+
+    if [[ -z "$command" ]]; then
+        echo "Error: Could not generate command. Is Claude Code installed?"
+        return 1
+    fi
+
+    # Prefill the command line
+    print -z "$command"
+}
+
 # @DWIM
 gd () {
   if [[ -n "$@" ]]; then
