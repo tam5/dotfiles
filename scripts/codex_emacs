@@ -1,0 +1,232 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+DOTFILES_DIR="${0:P:h:h}"
+EMACSDIR="${CODEX_EMACS_INITDIR:-$HOME/.config/emacs}"
+DOOMDIR="${CODEX_EMACS_DOOMDIR:-$DOTFILES_DIR/doom}"
+SERVER_NAME="${CODEX_EMACS_SERVER:-codex-sandbox}"
+FRAME_WIDTH="${CODEX_EMACS_FRAME_WIDTH:-140}"
+FRAME_HEIGHT="${CODEX_EMACS_FRAME_HEIGHT:-45}"
+FRAME_LEFT="${CODEX_EMACS_FRAME_LEFT:-40}"
+FRAME_TOP="${CODEX_EMACS_FRAME_TOP:-60}"
+DOOMLOCALDIR="${CODEX_EMACS_LOCALDIR:-}"
+SCREENSHOT_DEFAULT="${TMPDIR:-/tmp}/${SERVER_NAME}.png"
+
+EMACS_BIN="${EMACS_BIN:-emacs}"
+EMACSCLIENT_BIN="${EMACSCLIENT_BIN:-emacsclient}"
+DOOM_BIN="${DOOM_BIN:-$EMACSDIR/bin/doom}"
+
+client() {
+  "$EMACSCLIENT_BIN" -s "$SERVER_NAME" "$@"
+}
+
+env_prefix() {
+  local -a vars
+  vars=("DOOMDIR=$DOOMDIR")
+  if [[ -n "$DOOMLOCALDIR" ]]; then
+    mkdir -p "$DOOMLOCALDIR"
+    vars+=("DOOMLOCALDIR=$DOOMLOCALDIR")
+  fi
+  printf '%s\n' "${vars[@]}"
+}
+
+server_running() {
+  client -e t >/dev/null 2>&1
+}
+
+gui_frame_count() {
+  local value
+  value="$(client -e "(length (seq-filter (lambda (frame)
+                                             (and (frame-visible-p frame)
+                                                  (frame-parameter frame 'window-id)))
+                                           (frame-list)))" 2>/dev/null | tr -dc '0-9')"
+  printf '%s\n' "${value:-0}"
+}
+
+gui_frame_geometry() {
+  client -e "(let* ((frame (seq-find (lambda (it)
+                                       (and (frame-visible-p it)
+                                            (frame-parameter it 'window-id)))
+                                     (frame-list)))
+                    (geometry (and frame (frame-geometry frame)))
+                    (position (cdr (assq 'outer-position geometry)))
+                    (size (cdr (assq 'outer-size geometry))))
+               (unless (and position size)
+                 (error \"No visible GUI frame for %s\" server-name))
+               (format \"%s %s %s %s\"
+                       (car position)
+                       (cdr position)
+                       (car size)
+                       (cdr size)))" | tr -d '"'
+}
+
+focus_gui_frame() {
+  client -e "(let ((frame (seq-find (lambda (it)
+                                      (and (frame-visible-p it)
+                                           (frame-parameter it 'window-id)))
+                                    (frame-list))))
+               (when frame
+                 (select-frame-set-input-focus frame)
+                 (raise-frame frame))
+               t)" >/dev/null
+  osascript -e 'tell application "Emacs" to activate' >/dev/null
+}
+
+ensure_server() {
+  if server_running; then
+    return 0
+  fi
+
+  local -a vars
+  vars=("${(@f)$(env_prefix)}")
+  env "${vars[@]}" "$EMACS_BIN" --bg-daemon="$SERVER_NAME" --init-directory "$EMACSDIR" >/dev/null
+}
+
+ensure_frame() {
+  ensure_server
+
+  if [[ "$(gui_frame_count)" == "0" ]]; then
+    client -n -c -F "((width . $FRAME_WIDTH) (height . $FRAME_HEIGHT) (left . $FRAME_LEFT) (top . $FRAME_TOP))"
+    sleep 0.5
+  fi
+
+  focus_gui_frame
+}
+
+status() {
+  if ! server_running; then
+    cat <<EOF
+server=$SERVER_NAME
+status=stopped
+doomdir=$DOOMDIR
+emacsdir=$EMACSDIR
+doomlocaldir=${DOOMLOCALDIR:-shared-default}
+EOF
+    return 0
+  fi
+
+  local frames buffer
+  frames="$(gui_frame_count)"
+  buffer="$(client -e "(let* ((frame (or (seq-find (lambda (it)
+                                                     (and (frame-visible-p it)
+                                                          (frame-parameter it 'window-id)))
+                                                   (frame-list))
+                                    (selected-frame)))
+                             (window (frame-selected-window frame)))
+                        (buffer-name (window-buffer window)))" | tr -d '"')"
+
+  cat <<EOF
+server=$SERVER_NAME
+status=running
+doomdir=$DOOMDIR
+emacsdir=$EMACSDIR
+doomlocaldir=${DOOMLOCALDIR:-shared-default}
+gui_frames=$frames
+buffer=$buffer
+EOF
+}
+
+start() {
+  ensure_frame
+  status
+}
+
+stop() {
+  if ! server_running; then
+    return 0
+  fi
+
+  client -e '(kill-emacs)' >/dev/null
+}
+
+restart() {
+  stop || true
+  start
+}
+
+open_files() {
+  if [[ "$#" -eq 0 ]]; then
+    echo "open requires at least one file path" >&2
+    exit 1
+  fi
+
+  ensure_frame
+  client -n "$@"
+  focus_gui_frame
+}
+
+eval_elisp() {
+  if [[ "$#" -eq 0 ]]; then
+    echo "eval requires an elisp expression" >&2
+    exit 1
+  fi
+
+  ensure_server
+  client -e "$1"
+}
+
+sync_doom() {
+  local -a vars
+  vars=("${(@f)$(env_prefix)}")
+  env "${vars[@]}" "$DOOM_BIN" sync
+}
+
+screenshot() {
+  local output_path
+  output_path="${1:-$SCREENSHOT_DEFAULT}"
+
+  ensure_frame
+  mkdir -p "$(dirname "$output_path")"
+
+  local x y width height full_path geometry
+  geometry="$(gui_frame_geometry)"
+  read -r x y width height <<<"$geometry"
+  full_path="${TMPDIR:-/tmp}/${SERVER_NAME}-full.png"
+
+  focus_gui_frame
+  sleep 0.4
+  screencapture -x "$full_path"
+  sips -c "$height" "$width" --cropOffset "$y" "$x" "$full_path" --out "$output_path" >/dev/null
+  printf '%s\n' "$output_path"
+}
+
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") <command> [args]
+
+Commands:
+  start                 Start the sandbox server and ensure a GUI frame exists
+  stop                  Stop the sandbox server
+  restart               Restart the sandbox server
+  status                Print sandbox status
+  open <file...>        Open one or more files in the sandbox frame
+  eval <elisp>          Evaluate elisp on the sandbox server
+  screenshot [path]     Save a cropped screenshot of the sandbox frame
+  sync                  Run doom sync using this repo's doom dir
+EOF
+}
+
+main() {
+  local command="${1:-}"
+  shift || true
+
+  case "$command" in
+    start) start ;;
+    stop) stop ;;
+    restart) restart ;;
+    status) status ;;
+    open) open_files "$@" ;;
+    eval) eval_elisp "$@" ;;
+    screenshot) screenshot "$@" ;;
+    sync) sync_doom ;;
+    ""|-h|--help|help) usage ;;
+    *)
+      echo "Unknown command: $command" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"
