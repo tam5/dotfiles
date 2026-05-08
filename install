@@ -39,3 +39,4 @@ touch $HOME/.hushlogin
 # scripts
 mkdir -p $HOME/.local/bin
 ln -sf $DOTFILES/scripts/display_is_ultrawide $HOME/.local/bin/display_is_ultrawide
+ln -sf $DOTFILES/scripts/make_haikuname $HOME/.local/bin/make_haikuname

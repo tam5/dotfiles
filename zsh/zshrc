@@ -58,6 +58,7 @@ plugins=()
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 eval "$(mise activate zsh)"
+eval "$(zoxide init zsh)"
 
 #--------------------------------------------------------------------------
 # Aliases
@@ -224,10 +225,23 @@ ku () {
   [ -n "$ctx" ] && kubectl config use-context "$ctx"
 }
 
-loadenv() {
+loadenv () {
   set -a
   source "$1"
   set +a
+}
+
+psk () {
+  ps aux | fzf --header-lines=1 --exact --layout=reverse \
+    --bind 'enter:execute-silent(kill {2})+reload(ps aux)'
+}
+
+proto () {
+  local dir
+  dir="$(make_haikuname)" || return 1
+  mkdir -p "$dir" &&
+    cd "$dir" &&
+    git init
 }
 
 alias gro="glo ..@{u}"
