@@ -96,6 +96,7 @@ alias ga="git add"
 alias gc="git commit"
 alias gcn="git commit --no-verify"
 alias gp="git push"
+alias gpp="git pull --rebase --autostash && git push"
 alias gpu="git push -u origin \$(git rev-parse --abbrev-ref HEAD)"
 alias gsu="git branch --set-upstream-to=origin/\$(git rev-parse --abbrev-ref HEAD)"
 alias gstash="git add . && git commit -m 'stash'"
@@ -208,7 +209,8 @@ glo () {
     # git log -n 10 --pretty=format:"%h - %s (%an, %ar)" -- package.json
     # if [[ ! -z $@ ]]; then git checkout "$@"; return; fi
 
-    git log --graph --color=always --format="%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(black)%d%Creset" "$@" |
+    git log --graph --color=always --format="%x1e%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(black)%d%Creset" "$@" |
+        awk '{ if (sub(/\036/, "")) printf "\033[90m%3d\033[0m %s\n", n++, $0; else printf "    %s\n", $0 }' |
         fzf --no-sort --no-mouse --reverse --tiebreak=index --no-multi \
             --ansi --preview="$_viewGitLogLine" \
                 --header "enter to view, ctrl-y to copy hash" \
@@ -236,6 +238,20 @@ psk () {
     --bind 'enter:execute-silent(kill {2})+reload(ps aux)'
 }
 
+portk () {
+  local cmd
+  if [ $# -eq 0 ]; then
+    cmd="lsof -nP -iTCP -sTCP:LISTEN -iUDP"
+  else
+    local spec
+    spec=$(printf ',%s' "$@")
+    spec=${spec#,}
+    cmd="lsof -nP -iTCP:$spec -sTCP:LISTEN -iUDP:$spec"
+  fi
+  eval "$cmd" | fzf --header-lines=1 --exact --layout=reverse \
+    --bind "enter:execute-silent(kill {2})+reload($cmd)"
+}
+
 proto () {
   local dir
   dir="$(make_haikuname)" || return 1
@@ -245,6 +261,22 @@ proto () {
 }
 
 alias gro="glo ..@{u}"
+
+nr () {
+  [ -f package.json ] || { echo "no package.json in $PWD" >&2; return 1; }
+  local script runner
+  script=$(jq -r '.scripts | to_entries[] | "\(.key)\t\(.value)"' package.json \
+    | fzf --delimiter='\t' --with-nth=1 --preview='echo {2..}' --preview-window=down:3:wrap \
+    | cut -f1) || return
+  [ -n "$script" ] || return
+  if   [ -f bun.lockb ] || [ -f bun.lock ]; then runner="bun run"
+  elif [ -f pnpm-lock.yaml ];                then runner="pnpm run"
+  elif [ -f yarn.lock ];                     then runner="yarn"
+  else                                            runner="npm run"
+  fi
+  print -s "$runner $script"
+  eval "$runner $script"
+}
 
 #--------------------------------------------------------------------------
 # Misc / Fixes
