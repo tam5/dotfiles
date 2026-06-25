@@ -1,0 +1,180 @@
+#!/bin/bash
+# Daily backup of Claude Code, Codex (CLI + Desktop), and Claude Desktop
+# session data into a local git repo, committing only the deltas and
+# pushing them to a private remote. Secrets and caches are excluded.
+# Safe to run repeatedly; designed to be launched by launchd.
+#
+# MULTI-MACHINE SAFE: each machine writes only into its own top-level folder
+# (named after the computer) and pull-rebases before pushing, so several Macs
+# can share one repo without clobbering each other's sessions.
+
+set -uo pipefail
+
+REPO="$HOME/ai-sessions-backup"
+LOG="$HOME/Library/Logs/ai-sessions-backup.log"
+mkdir -p "$(dirname "$LOG")"
+log() { echo "[$(date '+%F %T')] $*" >> "$LOG"; }
+
+# identify this machine -> used as the top-level folder, keeps machines separate.
+# Override by setting MACHINE_NAME in the environment if you want a custom label.
+MACHINE="${MACHINE_NAME:-$(scutil --get ComputerName 2>/dev/null || hostname -s 2>/dev/null || echo machine)}"
+MACHINE="$(printf '%s' "$MACHINE" | tr ' /' '__' | tr -cd 'A-Za-z0-9._-')"
+[ -n "$MACHINE" ] || MACHINE="machine"
+
+# --- prevent overlapping runs -------------------------------------------------
+LOCK="$REPO/.backup.lock"
+mkdir -p "$REPO"
+if ! mkdir "$LOCK" 2>/dev/null; then
+  log "another run in progress; exiting"
+  exit 0
+fi
+trap 'rmdir "$LOCK" 2>/dev/null' EXIT
+
+# --- sources:  "dest|source_path" --------------------------------------------
+# Scoped to SESSION data so the repo stays lean and deltas stay clean.
+# For a directory source, dest is its own subfolder (mirrored with --delete).
+# For a single file source, dest is the folder it's dropped into.
+MAP=(
+  # Claude Code  (~/.claude)
+  "claude-code/projects|$HOME/.claude/projects"
+  "claude-code/todos|$HOME/.claude/todos"
+  "claude-code|$HOME/.claude/history.jsonl"
+  # Codex CLI + Codex Desktop  (~/.codex)
+  "codex/sessions|$HOME/.codex/sessions"
+  "codex/archived_sessions|$HOME/.codex/archived_sessions"
+  "codex|$HOME/.codex/history.jsonl"
+  "codex|$HOME/.codex/session_index.jsonl"
+  # Claude Desktop app  (whole dir minus caches — largest/churniest source;
+  # comment this line out if you only want the CLI session transcripts)
+  "claude-desktop|$HOME/Library/Application Support/Claude"
+)
+
+# --- what NOT to back up (secrets + big/churny binaries) ----------------------
+EXCLUDES=(
+  # secrets / credentials
+  --exclude 'auth.json'
+  --exclude '.credentials.json'
+  --exclude 'credentials*'
+  --exclude '*.pem'
+  --exclude '*.key'
+  --exclude '*.token'
+  --exclude 'token*.json'
+  --exclude '.env'
+  --exclude '*.env'
+  # databases & write-ahead logs (huge, change every run)
+  --exclude '*.sqlite'
+  --exclude '*.sqlite-shm'
+  --exclude '*.sqlite-wal'
+  --exclude '*.sqlite.*'
+  --exclude '*.bak'
+  # caches / generated junk
+  --exclude 'node_modules/'
+  --exclude '.git/'
+  --exclude 'Cache/'
+  --exclude 'Code Cache/'
+  --exclude 'GPUCache/'
+  --exclude 'DawnCache/'
+  --exclude 'ShaderCache/'
+  --exclude 'CacheStorage/'
+  --exclude 'blob_storage/'
+  --exclude '*.log'
+  --exclude '.DS_Store'
+  --exclude '.backup.lock/'
+)
+
+cd "$REPO" || { log "cannot cd $REPO"; exit 1; }
+
+# --- init repo on first run ---------------------------------------------------
+if [ ! -d .git ]; then
+  git init -b main -q 2>/dev/null || git init -q
+  log "initialized git repo at $REPO"
+fi
+
+# guarantee a commit identity even if no global git config exists
+git config user.email >/dev/null 2>&1 || git config user.email "ai-sessions-backup@localhost"
+git config user.name  >/dev/null 2>&1 || git config user.name  "ai-sessions-backup"
+
+# --- .gitignore: second safety layer beyond rsync excludes --------------------
+cat > "$REPO/.gitignore" <<'GI'
+# secrets — never commit these
+auth.json
+.credentials.json
+credentials*
+*.pem
+*.key
+*.token
+token*.json
+.env
+*.env
+# big / churny binaries
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.bak
+.DS_Store
+.backup.lock/
+GI
+
+# --- mirror each source into the repo ----------------------------------------
+for entry in "${MAP[@]}"; do
+  dest="$MACHINE/${entry%%|*}"; src="${entry#*|}"
+  if [ ! -e "$src" ]; then
+    log "skip (not found): $src"
+    continue
+  fi
+  if [ -d "$src" ]; then
+    # directory -> dedicated subfolder, mirrored with --delete
+    mkdir -p "$REPO/$dest"
+    if rsync -a --delete "${EXCLUDES[@]}" "$src"/ "$REPO/$dest"/ 2>>"$LOG"; then
+      log "synced dir  $src -> $dest/"
+    else
+      log "rsync issues for $src (continuing)"
+    fi
+  else
+    # single file -> copied into the dest folder (no --delete)
+    mkdir -p "$REPO/$dest"
+    if rsync -a "${EXCLUDES[@]}" "$src" "$REPO/$dest"/ 2>>"$LOG"; then
+      log "synced file $src -> $dest/"
+    else
+      log "rsync issues for $src (continuing)"
+    fi
+  fi
+done
+
+# --- commit our machine's delta ----------------------------------------------
+git add -A 2>>"$LOG"
+if git diff --cached --quiet; then
+  log "no local changes to commit"
+else
+  if git commit -q -m "backup [$MACHINE] $(date '+%F %T')" 2>>"$LOG"; then
+    log "committed deltas"
+  else
+    log "commit FAILED"
+    exit 1
+  fi
+fi
+
+# --- sync with the shared remote (multi-machine safe) ------------------------
+if ! git remote get-url origin >/dev/null 2>&1; then
+  log "no 'origin' remote configured; committed locally only"
+  exit 0
+fi
+
+# integrate other machines' commits first. Each machine edits a disjoint
+# top-level folder, so the rebase applies cleanly with no conflicts.
+if git ls-remote --exit-code --heads origin main >/dev/null 2>&1; then
+  if git pull --rebase --autostash -q origin main 2>>"$LOG"; then
+    log "pulled + rebased on origin/main"
+  else
+    log "PULL/REBASE FAILED — aborting; resolve repo manually"
+    git rebase --abort 2>/dev/null
+    exit 1
+  fi
+fi
+
+if git push -q origin main 2>>"$LOG"; then
+  log "pushed to origin/main"
+else
+  log "PUSH FAILED — check remote URL / SSH credentials"
+  exit 1
+fi
