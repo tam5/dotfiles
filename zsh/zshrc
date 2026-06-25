@@ -279,6 +279,50 @@ nr () {
 }
 
 #--------------------------------------------------------------------------
+# Quick notes
+#--------------------------------------------------------------------------
+
+export QUICK_NOTES_DIR="${QUICK_NOTES_DIR:-$HOME/quick-notes}"
+
+# note [title words...] -> open a timestamped markdown scratch file in vim
+note() {
+  mkdir -p "$QUICK_NOTES_DIR"
+  local stamp slug name
+  stamp=$(date +%Y-%m-%d-%H%M%S)
+  if [[ -n "$*" ]]; then
+    # slugify the title: lowercase, spaces/punctuation -> dashes
+    slug=$(echo "$*" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
+    name="$stamp-$slug.md"
+  else
+    name="$stamp.md"
+  fi
+  local file="$QUICK_NOTES_DIR/$name"
+  # seed a header so the file isn't blank
+  [[ -f "$file" ]] || printf '# %s\n\n' "${*:-$stamp}" > "$file"
+  vim "+normal G$" "$file"
+}
+
+# notes -> fzf-pick a past note to reopen (or cd there with `notes cd`)
+notes() {
+  mkdir -p "$QUICK_NOTES_DIR"
+  if [[ "$1" == "cd" ]]; then
+    cd "$QUICK_NOTES_DIR"
+    return
+  fi
+  local pick
+  pick=$(ls -t "$QUICK_NOTES_DIR"/*.md 2>/dev/null | \
+    fzf --reverse --preview 'cat {}' --header 'enter to edit') || return
+  [[ -n "$pick" ]] && vim "$pick"
+}
+
+# lastnote -> reopen the most recently modified note
+lastnote() {
+  local last
+  last=$(ls -t "$QUICK_NOTES_DIR"/*.md 2>/dev/null | head -1)
+  [[ -n "$last" ]] && vim "+normal G$" "$last" || echo "no notes yet — run \`note\`"
+}
+
+#--------------------------------------------------------------------------
 # Misc / Fixes
 #--------------------------------------------------------------------------
 
