@@ -79,7 +79,6 @@ alias tp="pbpaste > "
 alias k="kubectl"
 
 alias c="claude --dangerously-skip-permissions"
-alias ws="cd ~/Code/tam5/workspace"
 
 # Vim
 alias vim="nvim"
