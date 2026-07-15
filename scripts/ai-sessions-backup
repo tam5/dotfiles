@@ -1,12 +1,16 @@
 #!/bin/bash
-# Daily backup of Claude Code, Codex (CLI + Desktop), and Claude Desktop
-# session data into a local git repo, committing only the deltas and
-# pushing them to a private remote. Secrets and caches are excluded.
-# Safe to run repeatedly; designed to be launched by launchd.
+# Daily backup of SESSIONS + MEMORIES from Claude Code, Codex (CLI + Desktop),
+# and the Claude Desktop app into a local git repo, committing only the deltas
+# and pushing them to a private remote.
+#
+# Session transcripts are SANITIZED on copy: embedded base64 screenshots are
+# replaced with a tiny placeholder so the repo stays lean (screenshots can be
+# ~2MB each and make up ~half of raw session size). Your originals in ~/.codex
+# etc. are never modified. Caches, VM images, app binaries, big databases, and
+# secrets are not backed up.
 #
 # MULTI-MACHINE SAFE: each machine writes only into its own top-level folder
-# (named after the computer) and pull-rebases before pushing, so several Macs
-# can share one repo without clobbering each other's sessions.
+# (named after the computer) and pull-rebases before pushing.
 
 set -uo pipefail
 
@@ -15,88 +19,46 @@ LOG="$HOME/Library/Logs/ai-sessions-backup.log"
 mkdir -p "$(dirname "$LOG")"
 log() { echo "[$(date '+%F %T')] $*" >> "$LOG"; }
 
-# identify this machine -> used as the top-level folder, keeps machines separate.
-# Override by setting MACHINE_NAME in the environment if you want a custom label.
 MACHINE="${MACHINE_NAME:-$(scutil --get ComputerName 2>/dev/null || hostname -s 2>/dev/null || echo machine)}"
 MACHINE="$(printf '%s' "$MACHINE" | tr ' /' '__' | tr -cd 'A-Za-z0-9._-')"
 [ -n "$MACHINE" ] || MACHINE="machine"
 
-# --- prevent overlapping runs -------------------------------------------------
 LOCK="$REPO/.backup.lock"
 mkdir -p "$REPO"
-if ! mkdir "$LOCK" 2>/dev/null; then
-  log "another run in progress; exiting"
-  exit 0
-fi
+if ! mkdir "$LOCK" 2>/dev/null; then log "another run in progress; exiting"; exit 0; fi
 trap 'rmdir "$LOCK" 2>/dev/null' EXIT
 
-# --- sources:  "dest|source_path" --------------------------------------------
-# Scoped to SESSION data so the repo stays lean and deltas stay clean.
-# For a directory source, dest is its own subfolder (mirrored with --delete).
-# For a single file source, dest is the folder it's dropped into.
-MAP=(
-  # Claude Code  (~/.claude)
+CLAUDE_APP="$HOME/Library/Application Support/Claude"
+
+# Session DIRECTORIES -> sanitized mirror (transcripts, screenshots stripped)
+SESSION_DIRS=(
   "claude-code/projects|$HOME/.claude/projects"
   "claude-code/todos|$HOME/.claude/todos"
-  "claude-code|$HOME/.claude/history.jsonl"
-  # Codex CLI + Codex Desktop  (~/.codex)
   "codex/sessions|$HOME/.codex/sessions"
   "codex/archived_sessions|$HOME/.codex/archived_sessions"
+  "claude-desktop/claude-code-sessions|$CLAUDE_APP/claude-code-sessions"
+)
+# Small session FILES -> plain rsync (no images worth stripping)
+SESSION_FILES=(
+  "claude-code|$HOME/.claude/history.jsonl"
   "codex|$HOME/.codex/history.jsonl"
   "codex|$HOME/.codex/session_index.jsonl"
-  # Claude Desktop app  (whole dir minus caches — largest/churniest source;
-  # comment this line out if you only want the CLI session transcripts)
-  "claude-desktop|$HOME/Library/Application Support/Claude"
+)
+# Memory stores -> plain rsync (keep .sqlite/.md)
+MEMORIES=(
+  "claude-code|$HOME/.claude/CLAUDE.md"
+  "codex/memories|$HOME/.codex/memories"
+  "codex|$HOME/.codex/memories_1.sqlite"
 )
 
-# --- what NOT to back up (secrets + big/churny binaries) ----------------------
-EXCLUDES=(
-  # secrets / credentials
-  --exclude 'auth.json'
-  --exclude '.credentials.json'
-  --exclude 'credentials*'
-  --exclude '*.pem'
-  --exclude '*.key'
-  --exclude '*.token'
-  --exclude 'token*.json'
-  --exclude '.env'
-  --exclude '*.env'
-  # databases & write-ahead logs (huge, change every run)
-  --exclude '*.sqlite'
-  --exclude '*.sqlite-shm'
-  --exclude '*.sqlite-wal'
-  --exclude '*.sqlite.*'
-  --exclude '*.bak'
-  # caches / generated junk
-  --exclude 'node_modules/'
-  --exclude '.git/'
-  --exclude 'Cache/'
-  --exclude 'Code Cache/'
-  --exclude 'GPUCache/'
-  --exclude 'DawnCache/'
-  --exclude 'ShaderCache/'
-  --exclude 'CacheStorage/'
-  --exclude 'blob_storage/'
-  --exclude '*.log'
-  --exclude '.DS_Store'
-  --exclude '.backup.lock/'
-)
+FILE_EXCLUDES=( --exclude '.DS_Store' --exclude '*.sqlite-shm' --exclude '*.sqlite-wal' )
 
 cd "$REPO" || { log "cannot cd $REPO"; exit 1; }
-
-# --- init repo on first run ---------------------------------------------------
-if [ ! -d .git ]; then
-  git init -b main -q 2>/dev/null || git init -q
-  log "initialized git repo at $REPO"
-fi
-
-# guarantee a commit identity even if no global git config exists
+if [ ! -d .git ]; then git init -b main -q 2>/dev/null || git init -q; log "initialized git repo"; fi
 git config user.email >/dev/null 2>&1 || git config user.email "ai-sessions-backup@localhost"
 git config user.name  >/dev/null 2>&1 || git config user.name  "ai-sessions-backup"
 
-# --- .gitignore: second safety layer beyond rsync excludes --------------------
 cat > "$REPO/.gitignore" <<'GI'
-# secrets — never commit these
 auth.json
 .credentials.json
 credentials*
@@ -106,75 +68,137 @@ credentials*
 token*.json
 .env
 *.env
-# big / churny binaries
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
+!memories_1.sqlite
 *.bak
 .DS_Store
 .backup.lock/
 GI
 
-# --- mirror each source into the repo ----------------------------------------
-for entry in "${MAP[@]}"; do
-  dest="$MACHINE/${entry%%|*}"; src="${entry#*|}"
-  if [ ! -e "$src" ]; then
-    log "skip (not found): $src"
-    continue
-  fi
-  if [ -d "$src" ]; then
-    # directory -> dedicated subfolder, mirrored with --delete
-    mkdir -p "$REPO/$dest"
-    if rsync -a --delete "${EXCLUDES[@]}" "$src"/ "$REPO/$dest"/ 2>>"$LOG"; then
-      log "synced dir  $src -> $dest/"
-    else
-      log "rsync issues for $src (continuing)"
-    fi
-  else
-    # single file -> copied into the dest folder (no --delete)
-    mkdir -p "$REPO/$dest"
-    if rsync -a "${EXCLUDES[@]}" "$src" "$REPO/$dest"/ 2>>"$LOG"; then
-      log "synced file $src -> $dest/"
-    else
-      log "rsync issues for $src (continuing)"
-    fi
-  fi
+# --- sanitizing mirror: copy SRC dir -> DEST dir, stripping base64 images,
+#     incrementally (skip unchanged by mtime) and mirroring deletions ----------
+strip_dir() {
+  local src="$1" dest="$2"
+  [ -d "$src" ] || { log "skip (not found): $src"; return; }
+  mkdir -p "$dest"
+  python3 - "$src" "$dest" >>"$LOG" 2>&1 <<'PY'
+import os, re, sys, shutil
+src, dest = sys.argv[1], sys.argv[2]
+
+# Codex form:  data:image/png;base64,XXXX
+re_url = re.compile(rb'(data:image/[A-Za-z0-9.+-]+;base64,)[A-Za-z0-9+/]+=*')
+# Anthropic form: "media_type":"image/png","data":"XXXX"
+re_src = re.compile(rb'("media_type"\s*:\s*"image/[^"]+"\s*,\s*"data"\s*:\s*")[A-Za-z0-9+/\n\r]+=*(")')
+# detect an UN-stripped image still present in a dest file (long base64 run)
+re_raw = re.compile(rb'base64,[A-Za-z0-9+/]{200,}|"media_type"\s*:\s*"image/[^"]+"\s*,\s*"data"\s*:\s*"[A-Za-z0-9+/\r\n]{200,}')
+def has_raw_image(p):
+    try:
+        with open(p, 'rb') as f:
+            return re_raw.search(f.read()) is not None
+    except OSError:
+        return False
+
+def repl_url(m):
+    return m.group(1) + b'__stripped_image__'
+def repl_src(m):
+    return m.group(1) + b'__stripped_image__' + m.group(2)
+
+def sanitize(data):
+    data, n1 = re_url.subn(repl_url, data)
+    data, n2 = re_src.subn(repl_src, data)
+    return data, n1 + n2
+
+kept = set()
+copied = stripped_imgs = 0
+for root, dirs, files in os.walk(src):
+    rel = os.path.relpath(root, src)
+    for fn in files:
+        sp = os.path.join(root, fn)
+        rp = fn if rel == '.' else os.path.join(rel, fn)
+        dp = os.path.join(dest, rp)
+        kept.add(os.path.normpath(rp))
+        try:
+            sm = os.path.getmtime(sp)
+        except OSError:
+            continue
+        # incremental: skip if dest exists, same mtime, AND already sanitized
+        if os.path.exists(dp) and abs(os.path.getmtime(dp) - sm) < 1:
+            if not (fn.endswith(('.jsonl', '.json')) and has_raw_image(dp)):
+                continue
+        os.makedirs(os.path.dirname(dp), exist_ok=True)
+        if fn.endswith('.jsonl') or fn.endswith('.json'):
+            with open(sp, 'rb') as f:
+                data = f.read()
+            data, n = sanitize(data)
+            stripped_imgs += n
+            with open(dp, 'wb') as f:
+                f.write(data)
+        else:
+            shutil.copy2(sp, dp)
+        os.utime(dp, (sm, sm))
+        copied += 1
+
+# mirror deletions: remove dest files not present in src
+for root, dirs, files in os.walk(dest, topdown=False):
+    rel = os.path.relpath(root, dest)
+    for fn in files:
+        rp = os.path.normpath(fn if rel == '.' else os.path.join(rel, fn))
+        if rp not in kept:
+            try: os.remove(os.path.join(root, fn))
+            except OSError: pass
+    if rel != '.':
+        try: os.rmdir(root)
+        except OSError: pass
+
+print(f"  strip_dir {src} -> {dest}: updated {copied} file(s), stripped {stripped_imgs} image(s)")
+PY
+  log "sanitized $src -> $dest"
+}
+
+sync_file() {  # "dest|src"
+  local dest="$MACHINE/${1%%|*}" src="${1#*|}"
+  [ -e "$src" ] || { log "skip (not found): $src"; return; }
+  mkdir -p "$REPO/$dest"
+  rsync -a "${FILE_EXCLUDES[@]}" "$src" "$REPO/$dest"/ 2>>"$LOG" \
+    && log "synced file $src -> $dest/" || log "rsync issues: $src"
+}
+
+for e in "${SESSION_DIRS[@]}"; do strip_dir "${e#*|}" "$REPO/$MACHINE/${e%%|*}"; done
+for e in "${SESSION_FILES[@]}"; do sync_file "$e"; done
+for e in "${MEMORIES[@]}"; do
+  d="$MACHINE/${e%%|*}"; s="${e#*|}"
+  [ -e "$s" ] || { log "skip (not found): $s"; continue; }
+  mkdir -p "$REPO/$d"
+  if [ -d "$s" ]; then rsync -a "${FILE_EXCLUDES[@]}" "$s"/ "$REPO/$d"/ 2>>"$LOG"
+  else rsync -a "${FILE_EXCLUDES[@]}" "$s" "$REPO/$d"/ 2>>"$LOG"; fi
+  log "synced memory $s -> $d/"
 done
 
-# --- commit our machine's delta ----------------------------------------------
+# harvest Cowork MEMORY.md files (just the memory/ dirs, not VM/working files)
+LAMS="$CLAUDE_APP/local-agent-mode-sessions"
+if [ -d "$LAMS" ]; then
+  mkdir -p "$REPO/$MACHINE/claude-desktop/memories"
+  rsync -a --prune-empty-dirs --include='*/' --include='memory/***' --exclude='*' \
+    "$LAMS"/ "$REPO/$MACHINE/claude-desktop/memories"/ 2>>"$LOG" \
+    && log "harvested Cowork memories" || log "memory harvest issues"
+fi
+
+# --- commit + sync -----------------------------------------------------------
 git add -A 2>>"$LOG"
 if git diff --cached --quiet; then
   log "no local changes to commit"
 else
-  if git commit -q -m "backup [$MACHINE] $(date '+%F %T')" 2>>"$LOG"; then
-    log "committed deltas"
-  else
-    log "commit FAILED"
-    exit 1
-  fi
+  git commit -q -m "backup [$MACHINE] $(date '+%F %T')" 2>>"$LOG" && log "committed deltas" || { log "commit FAILED"; exit 1; }
 fi
 
-# --- sync with the shared remote (multi-machine safe) ------------------------
 if ! git remote get-url origin >/dev/null 2>&1; then
-  log "no 'origin' remote configured; committed locally only"
-  exit 0
+  log "no 'origin' remote configured; committed locally only"; exit 0
 fi
-
-# integrate other machines' commits first. Each machine edits a disjoint
-# top-level folder, so the rebase applies cleanly with no conflicts.
 if git ls-remote --exit-code --heads origin main >/dev/null 2>&1; then
-  if git pull --rebase --autostash -q origin main 2>>"$LOG"; then
-    log "pulled + rebased on origin/main"
-  else
-    log "PULL/REBASE FAILED — aborting; resolve repo manually"
-    git rebase --abort 2>/dev/null
-    exit 1
-  fi
+  git pull --rebase --autostash -q origin main 2>>"$LOG" && log "pulled + rebased" \
+    || { log "PULL/REBASE FAILED — resolve manually"; git rebase --abort 2>/dev/null; exit 1; }
 fi
-
-if git push -q origin main 2>>"$LOG"; then
-  log "pushed to origin/main"
-else
-  log "PUSH FAILED — check remote URL / SSH credentials"
-  exit 1
-fi
+git push -q origin main 2>>"$LOG" && log "pushed to origin/main" \
+  || { log "PUSH FAILED — check remote URL / SSH credentials"; exit 1; }

@@ -58,7 +58,15 @@ plugins=()
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 eval "$(mise activate zsh)"
-eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh --no-cmd)"
+z() {
+  if [ "$#" -eq 0 ]; then
+    __zoxide_zi
+  else
+    __zoxide_z "$@"
+  fi
+}
+alias zi=__zoxide_zi
 
 #--------------------------------------------------------------------------
 # Aliases
@@ -78,7 +86,10 @@ alias tp="pbpaste > "
 
 alias k="kubectl"
 
-alias c="claude --dangerously-skip-permissions"
+alias c="claude --dangerously-skip-permissions --strict-mcp-config"
+alias ws="cd ~/Code/tam5/workspace"
+
+alias b="./bin/bench"
 
 # Vim
 alias vim="nvim"
@@ -337,3 +348,16 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
+
+# bun completions
+[ -s "/Users/armiller/.bun/_bun" ] && source "/Users/armiller/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/armiller/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/armiller/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/armiller/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/armiller/google-cloud-sdk/completion.zsh.inc'; fi

@@ -6,3 +6,6 @@
 	helper = osxkeychain
 [core]
 	excludesfile = ~/.gitignore_global
+[credential "https://github.roving.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential

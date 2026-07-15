@@ -18,7 +18,7 @@
       doom-font (font-spec :family "Menlo 1.25" :size 14 :weight 'normal)
       my/sidebar-font (font-spec :family "Inter 1.5" :size 12.0 :weight 'medium)
 
-      ;; doom-variable-pitch-font (font-spec :family "Monaco" :size 20)
+      doom-variable-pitch-font (font-spec :family "Monaco" :size 20)
 
       fancy-splash-image (file-name-concat doom-user-dir "rocket.png")
 
