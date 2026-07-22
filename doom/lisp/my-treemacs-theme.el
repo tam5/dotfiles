@@ -9,6 +9,11 @@
   "Face used for the file names in my/treemacs-theme."
   :group 'treemacs-faces)
 
+(defface my/treemacs-theme-file-icon-face
+  '((t (:inherit nil)))
+  "Face used for fallback file icons in my/treemacs-theme."
+  :group 'treemacs-faces)
+
 (defface my/treemacs-theme-dir-icon-face
   '((t (:inherit nil)))
   "Face used for the directory icons in my/treemacs-theme."
@@ -20,7 +25,7 @@
   :group 'treemacs-faces)
 
 (defface my/treemacs-theme-dir-open-icon-face
-  '((t (:inherit my/treemaacs-icon-theme-dir-icon-face)))
+  '((t (:inherit my/treemacs-theme-dir-icon-face)))
   "Face used for the open directory icons in my/treemacs-theme."
   :group 'treemacs-faces)
 
@@ -30,7 +35,7 @@
   :group 'treemacs-faces)
 
 (defface my/treemacs-theme-dir-closed-icon-face
-  '((t (:inherit my/treemaacs-icon-theme-dir-icon-face)))
+  '((t (:inherit my/treemacs-theme-dir-icon-face)))
   "Face used for the closed directory icons in my/treemacs-theme."
   :group 'treemacs-faces)
 
@@ -138,11 +143,33 @@ Copied the logic from `solaire-mode-real-buffer-p`."
                           :fallback 'same-as-icon)))
 
 
+(defconst my/treemacs-theme-font-faces
+  '(treemacs-directory-face
+    treemacs-directory-collapsed-face
+    treemacs-file-face
+    treemacs-root-face
+    treemacs-git-conflict-face
+    treemacs-git-added-face
+    treemacs-git-untracked-face
+    treemacs-git-ignored-face
+    treemacs-git-renamed-face
+    treemacs-git-modified-face
+    treemacs-git-unmodified-face)
+  "Treemacs faces that should use `my/sidebar-font'.")
 
-(provide 'my/treemacs-theme)
-;;; my/treemacs-theme.el ends here
+(defun my/treemacs-theme-apply-faces ()
+  "Apply sidebar faces after the active color theme has been loaded."
+  (when my/sidebar-font
+    (dolist (face my/treemacs-theme-font-faces)
+      (set-face-attribute face nil :font my/sidebar-font)))
+  (set-face-attribute 'my/treemacs-theme-current-file-name-face nil :foreground "white")
+  (set-face-attribute 'my/treemacs-theme-current-dir-name-face nil :foreground "orange"))
 
-
+;; A color-theme reload recomputes every face and otherwise clears the sidebar
+;; font.  Reapply it at the supported Doom lifecycle point, and once now since
+;; this file is normally loaded lazily after the initial theme load.
+(add-hook 'doom-load-theme-hook #'my/treemacs-theme-apply-faces)
+(my/treemacs-theme-apply-faces)
 
 
 (defun my/treemacs-theme-current-highlight-clear ()
@@ -227,22 +254,6 @@ Copied the logic from `solaire-mode-real-buffer-p`."
 
 (defun my/treemacs-theme--enable-highlight-current-mode ()
   "Setup for `my/treemacs-theme-highlight-current-mode'."
-  (dolist (face '(treemacs-directory-face
-                  treemacs-directory-collapsed-face
-                  treemacs-file-face
-                  treemacs-root-face
-                  treemacs-git-conflict-face
-                  treemacs-git-added-face
-                  treemacs-git-untracked-face
-                  treemacs-git-ignored-face
-                  treemacs-git-renamed-face
-                  treemacs-git-modified-face
-                  treemacs-git-unmodified-face))
-    (set-face-attribute face nil :font (font-spec :family "Inter 1.5" :size 12.0 :weight 'medium)))
-
-  (set-face-attribute 'my/treemacs-theme-current-file-name-face nil :foreground "white")
-  (set-face-attribute 'my/treemacs-theme-current-dir-name-face nil :foreground "orange")
-
   (add-hook 'buffer-list-update-hook #'my/treemacs-theme-update-current-highlight)
   (add-hook 'window-selection-change-functions #'my/treemacs-theme-update-current-highlight)
   (advice-add #'treemacs-RET-action :after #'my/aritest-fix))
@@ -264,3 +275,6 @@ Copied the logic from `solaire-mode-real-buffer-p`."
   (if my/treemacs-theme-highlight-current-mode
       (my/treemacs-theme--enable-highlight-current-mode)
     (my/treemacs-theme--disable-highlight-current-mode)))
+
+(provide 'my/treemacs-theme)
+;;; my-treemacs-theme.el ends here

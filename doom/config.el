@@ -1,7 +1,6 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 
-(load! "+ui")
 (load! "+lang")
 (load! "+keybinds")
 
@@ -24,6 +23,9 @@
 
       user-full-name (getenv "MY_FULL_NAME")
       user-mail-address (getenv "MY_EMAIL_ADDRESS"))
+
+;; Load UI customizations only after the fonts and theme they consume are set.
+(load! "+ui")
 
 
 ;;;

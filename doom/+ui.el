@@ -3,7 +3,6 @@
 
 (load! "lisp/bitmaps")
 (load! "lisp/ui-tweaks")
-(load! "lisp/my-treemacs-theme")
 
 
 ;; ideas for making corfu better:
@@ -84,6 +83,10 @@
 ;;; -----------------------------------------------------------------------------
 
 (after! (treemacs treemacs-nerd-icons)
+  ;; Keep Treemacs lazy.  Loading this at the top level would initialize
+  ;; Treemacs before Doom applies its theme, which then resets our font faces.
+  (load! "lisp/my-treemacs-theme")
+
   (setq treemacs-collapse-dirs 0
         treemacs-git-mode nil)
 
