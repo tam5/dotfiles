@@ -30,6 +30,9 @@ ln -s $DOTFILES/atuin $HOME/.config/atuin
 rm -rf $HOME/.config/doom
 ln -s $DOTFILES/doom $HOME/.config/doom
 
+# emacs-plus build configuration
+ln -sfn $DOTFILES/emacs-plus $HOME/.config/emacs-plus
+
 # skhd & yabai
 ln -sf $DOTFILES/yabai/yabairc $HOME/.yabairc
 ln -sf $DOTFILES/skhd/skhdrc $HOME/.skhdrc

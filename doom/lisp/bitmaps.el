@@ -36,3 +36,9 @@ in `highlight-indent-guides-bitmap-function'."
           #b00000000
           #b00000000
           #b00000000))
+
+;; Treemacs's stock bitmap uses the three rightmost bits of an eight-pixel
+;; fringe.  In a left sidebar that puts the selection bar beside the buffer
+;; text and leaves a conspicuous five-pixel notch at the outer frame edge.
+(define-fringe-bitmap 'my/treemacs-fringe-indicator-edge
+  (make-vector 200 #b11100000))

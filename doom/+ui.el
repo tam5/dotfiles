@@ -3,34 +3,16 @@
 
 (load! "lisp/bitmaps")
 (load! "lisp/ui-tweaks")
+(load! "lisp/command-palette")
 
-(let* ((source (file-name-concat (dir!) "lisp/command-palette.el"))
-       ;; `load!' intentionally resolves ordinary .el/.elc suffixes, so an
-       ;; AOT artifact for a config-local library is otherwise never selected.
-       ;; `comp-el-to-eln-filename' is a built-in subr, so locating the exact
-       ;; source-hashed native unit does not load the compiler during startup.
-       (eln (and (native-comp-available-p)
-                 (condition-case nil
-                     (let ((file (comp-el-to-eln-filename source)))
-                       (and (file-readable-p file) file))
-                   (error nil)))))
-  (if (not eln)
-      (progn
-        (doom-load source)
-        ;; Keep a fresh checkout fully functional on its first launch, then
-        ;; prepare the native unit off the critical startup path for later
-        ;; sessions.
-        (when (native-comp-available-p)
-          (native-compile-async source)))
-    (condition-case err
-        (native-elisp-load eln)
-      (error
-       (display-warning
-        'my-command-palette
-        (format "Native command palette failed; using source: %s"
-                (error-message-string err))
-        :warning)
-       (doom-load source)))))
+;; Cocoa can allocate a native horizontal scroller when a child frame changes
+;; the active minibuffer geometry, even though no editor window requested one.
+;; Disable it at the frame default as well as for the initial frame, so the
+;; palette never leaves a resize-looking strip below the mode line.
+(add-to-list 'default-frame-alist '(horizontal-scroll-bars . nil))
+(horizontal-scroll-bar-mode -1)
+(dolist (frame (frame-list))
+  (set-frame-parameter frame 'horizontal-scroll-bars nil))
 
 
 ;; ideas for making corfu better:
@@ -89,8 +71,8 @@
 ;;; Frame
 ;;; -----------------------------------------------------------------------------
 
-(setq default-frame-alist
-      '((internal-border-width . 0)))
+(add-to-list 'default-frame-alist '(internal-border-width . 0))
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
 
 ;;;
@@ -99,11 +81,10 @@
 
 (setq ns-use-proxy-icon nil)
 
-(add-hook 'window-size-change-functions #'my/titlebar-remove-title)
-
-;; (after! solaire-mode
-;;   (add-hook 'doom-init-ui-hook #'my/titlebar-patch-color t)
-;;   (add-hook 'solaire-global-mode-hook #'my/titlebar-patch-color t))
+(add-hook 'after-make-frame-functions #'my/apply-native-frame-polish)
+(add-hook 'window-size-change-functions #'my/apply-native-frame-polish)
+(add-hook 'doom-load-theme-hook #'my/apply-native-frame-polish-to-all)
+(add-hook 'doom-init-ui-hook #'my/apply-native-frame-polish-to-all t)
 
 
 ;;;
@@ -114,18 +95,47 @@
   "Hide the mode line in the current Treemacs buffer."
   (setq-local mode-line-format nil))
 
+(defun my/treemacs-add-top-padding ()
+  "Add a compact, theme-native spacer above the first Treemacs node."
+  ;; Replace this one buffer-local remap instead of stacking relative remaps
+  ;; every time Treemacs is reopened or the config is evaluated.
+  (setf (alist-get 'header-line face-remapping-alist)
+        '((:inherit solaire-default-face :height 0.45
+           :box nil :overline nil :underline nil)
+          header-line))
+  (setq-local header-line-format " "))
+
+(defun my/treemacs-refresh-fringe-indicator ()
+  "Move the Treemacs selection marker flush to the outer frame edge."
+  (when (overlayp treemacs--fringe-indicator-overlay)
+    (overlay-put
+     treemacs--fringe-indicator-overlay 'before-string
+     (propertize
+      " " 'display
+      '(left-fringe my/treemacs-fringe-indicator-edge
+                    treemacs-fringe-indicator-face)))))
+
 (after! (treemacs treemacs-nerd-icons)
   ;; Keep Treemacs lazy.  Loading this at the top level would initialize
   ;; Treemacs before Doom applies its theme, which then resets our font faces.
   (load! "lisp/my-treemacs-theme")
 
   (setq treemacs-collapse-dirs 0
-        treemacs-git-mode nil)
+        treemacs-git-mode nil
+        treemacs--fringe-indicator-bitmap
+        'my/treemacs-fringe-indicator-edge
+        treemacs--fringe-overlay-before-string
+        (propertize
+         " " 'display
+         '(left-fringe my/treemacs-fringe-indicator-edge
+                       treemacs-fringe-indicator-face)))
 
   ;; `hide-mode-line-mode' used to come from a Doom-managed package, but Doom
   ;; 2.2 no longer installs it.  Treemacs only needs a buffer-local nil modeline,
   ;; so avoid making its startup depend on an optional package.
   (add-hook 'treemacs-mode-hook #'my/treemacs-hide-mode-line)
+  (add-hook 'treemacs-mode-hook #'my/treemacs-add-top-padding)
+  (add-hook 'treemacs-mode-hook #'my/treemacs-refresh-fringe-indicator)
 
   ;; Disable fringes (and reset them everytime treemacs is selected because it
   ;; may change due to outside factors)
@@ -134,7 +144,15 @@
   ;; (advice-add #'treemacs-select-window :after #'my/hide-fringes)
 
   (treemacs-load-theme "my/treemacs-theme")
-  (my/treemacs-theme-highlight-current-mode t))
+  (my/treemacs-theme-highlight-current-mode t)
+
+  ;; `after!' also runs immediately when this file is evaluated in a live
+  ;; session, so refresh buffers whose overlay predates the new bitmap.
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when (derived-mode-p 'treemacs-mode)
+        (my/treemacs-add-top-padding)
+        (my/treemacs-refresh-fringe-indicator)))))
 
 
 ;;;
@@ -156,6 +174,24 @@
 ;;; Line numbers
 ;;; -----------------------------------------------------------------------------
 (setq display-line-numbers-type t)
+
+(add-hook 'window-state-change-functions #'my/update-editor-frame-layout)
+(add-hook 'display-line-numbers-mode-hook
+          #'my/update-current-buffer-editor-windows)
+
+(after! diff-hl
+  (dolist (function '(diff-hl--update-overlays diff-hl-remove-overlays))
+    (unless (advice-member-p #'my/update-current-buffer-editor-windows
+                             function)
+      (advice-add function :after
+                  #'my/update-current-buffer-editor-windows))))
+
+(after! flycheck
+  (add-hook 'flycheck-mode-hook #'my/update-current-buffer-editor-windows)
+  (add-hook 'flycheck-after-syntax-check-hook
+            #'my/update-current-buffer-editor-windows))
+
+(add-hook 'doom-init-ui-hook #'my/update-editor-frame-layout t)
 
 
 ;;;

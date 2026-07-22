@@ -1,0 +1,84 @@
+--- a/src/nsfns.m
++++ b/src/nsfns.m
+@@ -48,0 +49 @@
++#import <QuartzCore/QuartzCore.h>
+@@ -3689,0 +3691,76 @@
++DEFUN ("ns-set-frame-corner-radius", Fns_set_frame_corner_radius,
++       Sns_set_frame_corner_radius, 1, 2, 0,
++       doc: /* Clip FRAME to a native continuous corner RADIUS in pixels.
++FRAME defaults to the selected frame.  A negative RADIUS is treated as zero.
++This affects only the Cocoa window's presentation; it does not alter Emacs's
++text geometry or frame parameters.  */)
++  (Lisp_Object radius, Lisp_Object frame)
++{
++#ifdef NS_IMPL_COCOA
++  struct frame *f = decode_window_system_frame (frame);
++  double value = fmax (0.0, extract_float (radius));
++  EmacsView *view = FRAME_NS_VIEW (f);
++  NSWindow *window = [view window];
++  NSView *frame_view = [[window contentView] superview];
++
++  block_input ();
++  [frame_view setWantsLayer:YES];
++  CALayer *layer = [frame_view layer];
++  [layer setCornerRadius:(CGFloat) value];
++  [layer setMasksToBounds:(value > 0.0)];
++#if MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
++  if (@available (macOS 10.15, *))
++    [layer setCornerCurve:kCACornerCurveContinuous];
++#endif
++  [window setHasShadow:YES];
++  [window invalidateShadow];
++  unblock_input ();
++  return Qt;
++#else
++  return Qnil;
++#endif
++}
++
++DEFUN ("ns-set-titlebar-background-color", Fns_set_titlebar_background_color,
++       Sns_set_titlebar_background_color, 1, 2, 0,
++       doc: /* Set FRAME's native titlebar background to COLOR.
++FRAME defaults to the selected frame.  Unlike the `background-color' frame
++parameter this does not change the `default' face or Emacs's drawing color.
++The Cocoa titlebar is made transparent so the supplied color is visible, and
++its separator is removed for a continuous editor surface.  */)
++  (Lisp_Object color, Lisp_Object frame)
++{
++#ifdef NS_IMPL_COCOA
++  struct frame *f = decode_window_system_frame (frame);
++  NSColor *native_color;
++  EmacsView *view = FRAME_NS_VIEW (f);
++  NSWindow *window = [view window];
++  NSView *frame_view = [[window contentView] superview];
++
++  block_input ();
++  if (ns_lisp_to_color (color, &native_color))
++    {
++      unblock_input ();
++      error ("Unknown color");
++    }
++
++  [frame_view setWantsLayer:YES];
++  [[frame_view layer] setBackgroundColor:[native_color CGColor]];
++  [window setOpaque:NO];
++  [window setBackgroundColor:[NSColor clearColor]];
++  if ([window respondsToSelector:@selector(setTitlebarAppearsTransparent:)])
++    [window setTitlebarAppearsTransparent:YES];
++  if ([window respondsToSelector:@selector(setTitleVisibility:)])
++    [window setTitleVisibility:NSWindowTitleHidden];
++#if MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
++  if (@available (macOS 11.0, *))
++    [window setTitlebarSeparatorStyle:NSTitlebarSeparatorStyleNone];
++#endif
++  [window invalidateShadow];
++  unblock_input ();
++  return Qt;
++#else
++  return Qnil;
++#endif
++}
++
+@@ -4272,0 +4350,2 @@
++  defsubr (&Sns_set_frame_corner_radius);
++  defsubr (&Sns_set_titlebar_background_color);

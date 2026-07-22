@@ -1,8 +1,8 @@
 ;;; lisp/command-palette.el -*- lexical-binding: t; -*-
 
-;; A deliberately small amount of code around Vertico's existing completion
-;; stack.  The completion, sorting, annotations, and keymaps stay untouched;
-;; this file is only responsible for presentation and child-frame lifecycle.
+;; A focused layer around Vertico's existing completion stack.  It owns the
+;; palette presentation, child-frame lifecycle, and project-file previews while
+;; leaving completion matching, sorting, and keymaps to the upstream packages.
 
 (require 'cl-lib)
 (require 'subr-x)
@@ -19,6 +19,9 @@
 (defvar read-extended-command-predicate)
 (defvar vertico-count)
 (defvar vertico-count-format)
+(defvar vertico--candidates-ov)
+(defvar vertico--index)
+(defvar vertico--input)
 (defvar vertico-group-format)
 (defvar vertico-posframe-border-width)
 (defvar vertico-posframe-font)
@@ -28,21 +31,21 @@
 (defvar vertico-posframe-truncate-lines)
 (defvar vertico-resize)
 
-(declare-function nerd-icons-faicon "nerd-icons")
+(declare-function consult--file-preview "consult")
+(declare-function consult--read "consult")
 (declare-function posframe--create-posframe "posframe")
 (declare-function posframe--make-frame-visible "posframe")
+(declare-function projectile-acquire-root "projectile")
+(declare-function projectile-prepend-project-name "projectile")
 (declare-function vertico--metadata-get "vertico")
 (declare-function vertico-posframe--get-border-color "vertico-posframe")
 (declare-function vertico-posframe-last-window "vertico-posframe")
 
-(defconst my/command-palette-background "#242c34")
-(defconst my/command-palette-selection "#354650")
-(defconst my/command-palette-foreground "#e0e6ec")
-(defconst my/command-palette-muted "#94a1ad")
-(defconst my/command-palette-accent "#80cbc4")
-
 (defconst my/command-palette--backdrop-buffer-name
   " *command-palette-backdrop*")
+
+(defconst my/command-palette--horizontal-padding "   "
+  "Padding shared by the prompt and candidate content.")
 
 (defvar my/command-palette--backdrop-frame nil)
 (defvar my/command-palette--command-warmup-timer nil)
@@ -64,28 +67,60 @@
 (defvar-local my/command-palette--faces-remapped-p nil)
 (defvar-local my/command-palette--saved-which-key-inhibit nil)
 (defvar-local my/command-palette--which-key-inhibited-p nil)
-(defvar-local my/command-palette--compact-p nil)
 
 (defface my/command-palette-prompt
-  `((t (:foreground ,my/command-palette-accent
-        :weight semibold :height 1.30)))
-  "Face used by the command palette's search glyph."
+  '((t (:inherit default :weight medium)))
+  "Face used by the command palette input."
   :group 'my-command-palette)
 
 (defface my/command-palette-path
-  `((t (:foreground ,my/command-palette-muted)))
+  '((t (:inherit shadow :height 0.86)))
   "Face used by the directory portion of quick-open candidates."
   :group 'my-command-palette)
 
 (defface my/command-palette-file
-  `((t (:foreground ,my/command-palette-foreground :weight medium)))
+  '((t (:inherit default :weight medium)))
   "Face used by the filename portion of quick-open candidates."
   :group 'my-command-palette)
 
 (defface my/command-palette-match
-  `((t (:foreground ,my/command-palette-accent :weight bold)))
+  '((t (:inherit font-lock-function-name-face :weight bold)))
   "Face used for fuzzy-match ink without Doom's colored match boxes."
   :group 'my-command-palette)
+
+(defface my/command-palette-secondary
+  '((t (:inherit shadow :height 0.86 :weight regular)))
+  "Face used for descriptions, modes, and paths below a result."
+  :group 'my-command-palette)
+
+(defface my/command-palette-shortcut
+  '((t (:inherit marginalia-key :height 0.92 :weight medium)))
+  "Face used for right-aligned symbolic shortcuts."
+  :group 'my-command-palette)
+
+(defun my/command-palette--face-color (face attribute &optional fallback)
+  "Return FACE ATTRIBUTE as a concrete color, or FALLBACK."
+  (let ((value (and (facep face)
+                    (face-attribute face attribute nil t))))
+    (if (and (stringp value) (color-defined-p value))
+        value
+      (or fallback
+          (face-attribute 'default attribute nil t)))))
+
+(defun my/command-palette--surface-color ()
+  "Return the active theme's darker UI surface color."
+  (my/command-palette--face-color
+   'solaire-default-face :background
+   (my/command-palette--face-color 'default :background)))
+
+(defun my/command-palette--frame-font (&optional frame)
+  "Return FRAME's concrete font parameter for a Posframe child."
+  (let* ((frame (or frame (selected-frame)))
+         (font (and (frame-live-p frame)
+                    (frame-parameter frame 'font))))
+    (and (stringp font)
+         (not (string-empty-p font))
+         font)))
 
 (defun my/command-palette--anchor-window ()
   "Return the editor window the palette should be visually anchored to."
@@ -171,16 +206,11 @@
            ;; single unscannable line.
            (target-pixels (my/command-palette--target-width-pixels))
            (width (max 1 (round (/ target-pixels char-width))))
-           ;; `line-spacing' gives the rows their breathing room, so the
-           ;; canonical frame height must be larger than the raw line count.
-           ;; Keeping it fixed also prevents distracting resize jumps while
-           ;; filtering from many results down to a handful.
            (char-height (max 1 (frame-char-height parent)))
-           ;; Size from the target pixel rhythm instead of an arbitrary line
-           ;; multiplier.  Cocoa rounds the result to a canonical line, while
-           ;; the extra prompt height and frame line spacing determine the
-           ;; rendered rows.  Every requested result must fit in full.
-           (target-height (+ 58 (* vertico-count 49)))
+           ;; Results use a primary line and, when available, a quieter helper
+           ;; line.  Reserve that two-line rhythm for every slot so filtering
+           ;; never makes the Cocoa frame jump in size.
+           (target-height (+ 56 (* vertico-count 52)))
            (height (ceiling (/ target-height (float char-height)))))
       (list :width width
             :min-width width
@@ -239,44 +269,139 @@ All other completion commands retain their original tables and predicates."
                 collection predicate warmed)
                nil require-match initial-input hist def inherit-input-method))))
 
+(defun my/command-palette--active-p ()
+  "Return non-nil in the active graphical palette minibuffer."
+  (and (minibufferp)
+       (bound-and-true-p vertico-posframe-mode)
+       (bound-and-true-p vertico--input)
+       (display-graphic-p)))
+
+(defun my/command-palette--annotation-parts (annotation)
+  "Return (KEY . HELP) parsed from command ANNOTATION.
+Both values are plain, whitespace-normalized strings."
+  (let ((plain (string-trim
+                (replace-regexp-in-string
+                 "[[:space:]\n]+" " "
+                 (substring-no-properties (or annotation ""))))))
+    (if (string-match
+         "\\`(\\([^)]*\\))\\(?:[[:space:]]+\\(.*\\)\\)?\\'" plain)
+        (cons (string-trim (match-string 1 plain))
+              (string-trim (or (match-string 2 plain) "")))
+      (cons nil plain))))
+
+(defun my/command-palette--key-token-icon (token)
+  "Render one Emacs key TOKEN with compact macOS-style symbols."
+  (let ((result "")
+        (case-fold-search nil))
+    (while (string-match "\\`\\(C-\\|M-\\|s-\\|S-\\)" token)
+      (setq result
+            (concat result
+                    (pcase (match-string 1 token)
+                      ("C-" "⌃")
+                      ("M-" "⌥")
+                      ("s-" "⌘")
+                      ("S-" "⇧")))
+            token (substring token (match-end 0))))
+    (setq token
+          (pcase (upcase (string-remove-prefix
+                          "<" (string-remove-suffix ">" token)))
+            ((or "SPC" "SPACE") "␠")
+            ((or "RET" "RETURN" "ENTER") "↩")
+            ("TAB" "⇥")
+            ((or "BACKSPACE" "DEL" "DELETE") "⌫")
+            ((or "ESC" "ESCAPE") "⎋")
+            ("LEFT" "←")
+            ("RIGHT" "→")
+            ("UP" "↑")
+            ("DOWN" "↓")
+            ("HOME" "↖")
+            ("END" "↘")
+            ("PRIOR" "⇞")
+            ("NEXT" "⇟")
+            (_ (if (= (length token) 1) (upcase token) token))))
+    (concat result token)))
+
+(defun my/command-palette--key-icons (binding)
+  "Render the space-separated Emacs BINDING with symbolic key icons."
+  (when (and binding (not (string-empty-p binding)))
+    (mapconcat #'my/command-palette--key-token-icon
+               (split-string binding "[[:space:]]+" t)
+               " ")))
+
+(defun my/command-palette--right-aligned-key (binding)
+  "Return symbolic BINDING aligned to the palette's right inset."
+  (when-let* ((icons (my/command-palette--key-icons binding)))
+    (concat
+     (propertize
+      " " 'display
+      `(space :align-to (- right-fringe ,(+ 3 (string-width icons)))))
+     (propertize icons 'face 'my/command-palette-shortcut))))
+
+(defun my/command-palette--file-candidate-p (category candidate)
+  "Return non-nil when CATEGORY and CANDIDATE describe a file result."
+  (let ((consult-kind
+         (car-safe (get-text-property 0 'multi-category candidate))))
+    (or (memq category '(file project-file my/project-file))
+        (and my/command-palette--consult-buffer-reading
+             (eq consult-kind 'file)))))
+
 (defun my/command-palette--format-candidate-a
     (orig-fn candidate prefix suffix index start)
-  "Give each candidate handled by ORIG-FN horizontal breathing room."
-  (let ((category (vertico--metadata-get 'category))
-        (consult-kind
-         (car-safe (get-text-property 0 'multi-category candidate))))
-    (when (or (eq category 'my/project-file)
-              (and my/command-palette--consult-buffer-reading
-                   (or (eq category 'file)
-                       (eq consult-kind 'file))))
-    ;; The completion value stays untouched; this CAND is Vertico's display
-    ;; copy.  Lead with the basename for fast scanning, then retain the parent
-    ;; path as quiet context (the same hierarchy used by native file pickers).
-    (if-let* ((slash (cl-position ?/ candidate :from-end t)))
-        (let ((directory (substring candidate 0 (1+ slash)))
-              (basename (substring candidate (1+ slash))))
-          (add-face-text-property 0 (length directory)
-                                  'my/command-palette-path nil directory)
-          (add-face-text-property 0 (length basename)
-                                  'my/command-palette-file nil basename)
-          (setq candidate (concat basename "   " directory)))
-      (add-face-text-property 0 (length candidate)
-                              'my/command-palette-file nil candidate)))
-  (if (and (bound-and-true-p vertico-posframe-mode)
-           (minibufferp))
-      (funcall orig-fn candidate (concat "      " prefix)
-               (concat suffix "      ") index start)
-    (funcall orig-fn candidate prefix suffix index start))))
+  "Format palette candidates as primary/helper rows with symbolic shortcuts."
+  (if (not (my/command-palette--active-p))
+      (funcall orig-fn candidate prefix suffix index start)
+    (ignore start)
+    (let* ((category (vertico--metadata-get 'category))
+           (file-p (my/command-palette--file-candidate-p category candidate))
+           (annotation (my/command-palette--annotation-parts suffix))
+           (binding (and (eq category 'command) (car annotation)))
+           (helper (if (eq category 'command)
+                       (cdr annotation)
+                     (string-trim
+                      (replace-regexp-in-string
+                       "[[:space:]\n]+" " "
+                       (substring-no-properties (or suffix ""))))))
+           (primary candidate))
+      (when file-p
+        ;; Keep the completion value untouched; this is Vertico's display copy.
+        ;; The basename scans quickly and the full relative path remains below.
+        (setq helper (substring-no-properties candidate))
+        (when-let* ((slash (cl-position ?/ candidate :from-end t)))
+          (setq primary (substring candidate (1+ slash))))
+        (add-face-text-property 0 (length primary)
+                                'my/command-palette-file t primary))
+      (when (string-empty-p helper)
+        (setq helper nil))
+      (let ((row
+             (concat
+              my/command-palette--horizontal-padding prefix primary
+              (my/command-palette--right-aligned-key binding)
+              "\n"
+              (when helper
+                (concat
+                 my/command-palette--horizontal-padding
+                 (propertize helper 'face
+                             (if file-p
+                                 'my/command-palette-path
+                               'my/command-palette-secondary))
+                 "\n")))))
+        (when (= index vertico--index)
+          (add-face-text-property 0 (length row)
+                                  'vertico-current t row))
+        row))))
 
 (defun my/command-palette--caret-image ()
   "Return a small, optically centered caret image, or nil without SVG support."
   (when (image-type-available-p 'svg)
-    (create-image
-     (concat
-      "<svg xmlns='http://www.w3.org/2000/svg' width='1' height='16' "
-      "viewBox='0 0 1 16'><rect width='1' height='16' rx='0.5' "
-      "fill='#f5f7f8'/></svg>")
-     'svg t :ascent 'center)))
+    (let ((color (face-attribute 'default :foreground nil t)))
+      (create-image
+       (format
+        (concat
+         "<svg xmlns='http://www.w3.org/2000/svg' width='1' height='16' "
+         "viewBox='0 0 1 16'><rect width='1' height='16' rx='0.5' "
+         "fill='%s'/></svg>")
+        color)
+       'svg t :ascent 'center))))
 
 (defun my/command-palette--update-caret (&rest _)
   "Keep the palette's compact visual caret at the actual input point."
@@ -335,6 +460,14 @@ All other completion commands retain their original tables and predicates."
   ;; numeric; Posframe normally records them only after the frame is visible.
   (when (and (frame-live-p frame)
              (frame-parent frame))
+    ;; A borderless NSWindow avoids AppKit's bright titled-window keyline.
+    ;; These native primitives add back a real AppKit shadow and clip the
+    ;; Cocoa frame to the restrained radius shared with the main editor.
+    (when (fboundp 'ns-set-titlebar-background-color)
+      (ns-set-titlebar-background-color
+       (my/command-palette--surface-color) frame))
+    (when (fboundp 'ns-set-frame-corner-radius)
+      (ns-set-frame-corner-radius my/native-frame-corner-radius frame))
     (let* ((window (frame-root-window frame))
            (buffer (and (window-live-p window) (window-buffer window))))
       (when (and (buffer-live-p buffer)
@@ -345,7 +478,7 @@ All other completion commands retain their original tables and predicates."
   (funcall orig-fn frame))
 
 (defun my/command-palette--style-prompt ()
-  "Replace the implementation-specific minibuffer prompt with a search glyph."
+  "Replace the implementation prompt with content-aligned input padding."
   (when (and (minibufferp)
              (bound-and-true-p vertico-posframe-mode)
              (bound-and-true-p vertico--input))
@@ -355,23 +488,15 @@ All other completion commands retain their original tables and predicates."
         (add-text-properties
          (point-min) end
          `(display
-           ,(concat
-             "      "
-             (if (require 'nerd-icons nil t)
-                 (nerd-icons-faicon
-                  "nf-fa-magnifying_glass"
-                  :face 'my/command-palette-prompt)
-               (propertize "⌕" 'face 'my/command-palette-prompt))
-             (propertize "   " 'face '(:height 1.12)))
+           ,(propertize my/command-palette--horizontal-padding
+                        'face 'my/command-palette-prompt)
            rear-nonsticky t))))
-  ;; The icon establishes the taller header line.  This overlay gives typed
-  ;; search text its own subtle hierarchy without enlarging candidate rows.
   (when (overlayp my/command-palette--input-overlay)
     (delete-overlay my/command-palette--input-overlay))
   (setq my/command-palette--input-overlay
         (make-overlay (minibuffer-prompt-end) (point-max) nil nil t))
   (overlay-put my/command-palette--input-overlay
-               'face '(:height 1.12 :weight medium))
+               'face 'my/command-palette-prompt)
   (when (overlayp my/command-palette--caret-overlay)
     (delete-overlay my/command-palette--caret-overlay))
   (if-let* ((image (my/command-palette--caret-image)))
@@ -384,6 +509,44 @@ All other completion commands retain their original tables and predicates."
         (add-hook 'post-command-hook
                   #'my/command-palette--update-caret nil t))
     (setq-local cursor-type '(bar . 1)))))
+
+(defun my/command-palette--input-rule ()
+  "Return a theme-colored one-pixel rule below the palette input."
+  (when (image-type-available-p 'svg)
+    (let* ((parent (window-frame (my/command-palette--anchor-window)))
+           (padding (* 2 (length my/command-palette--horizontal-padding)
+                       (frame-char-width parent)))
+           (width (max 1 (- (my/command-palette--target-width-pixels)
+                            padding)))
+           (color (my/command-palette--face-color
+                   'shadow :foreground
+                   (my/command-palette--face-color
+                    'default :foreground))))
+      (concat
+       my/command-palette--horizontal-padding
+       (propertize
+        " " 'display
+        (create-image
+         (format
+          (concat
+           "<svg xmlns='http://www.w3.org/2000/svg' width='%d' height='1' "
+           "viewBox='0 0 %d 1'><rect width='%d' height='1' "
+           "fill='%s' fill-opacity='0.42'/></svg>")
+          width width width color)
+         'svg t :ascent 'center))
+       (propertize "\n" 'face '(:height 0.12))))))
+
+(defun my/command-palette--display-candidates-a (orig-fn lines)
+  "Add the input rule before LINES after ORIG-FN lays out Vertico."
+  (prog1 (funcall orig-fn lines)
+    (when (and lines (my/command-palette--active-p)
+               (overlayp vertico--candidates-ov))
+      (overlay-put
+       vertico--candidates-ov 'before-string
+       (apply #'concat
+              #(" " 0 1 (cursor t)) "\n"
+              (my/command-palette--input-rule)
+              lines)))))
 
 (defun my/command-palette--backdrop-buffer ()
   "Return the empty buffer displayed by the palette backdrop."
@@ -439,12 +602,12 @@ All other completion commands retain their original tables and predicates."
                (tab-bar-lines . 0)
                (vertical-scroll-bars . nil)
                (horizontal-scroll-bars . nil)
-               (background-color . "#000000")
-               ;; A translucent black child frame supplies the same quiet
-               ;; backdrop Sublime uses without modifying any editor faces.
+               (background-color . ,(my/command-palette--surface-color))
+               ;; A translucent theme surface quiets the editor without
+               ;; modifying any of its faces.
                ;; Use whole-frame alpha here: Cocoa child frames do not
                ;; composite `alpha-background' reliably.
-               (alpha . 20))))
+               (alpha . 32))))
       (let ((window (frame-root-window my/command-palette--backdrop-frame)))
         (set-window-buffer window buffer)
         (set-window-dedicated-p window t))
@@ -473,13 +636,11 @@ All other completion commands retain their original tables and predicates."
 
 (defun my/command-palette--face-remaps ()
   "Return face remaps confined to the active palette minibuffer."
-  `((default
-      (:background ,my/command-palette-background
-       :foreground ,my/command-palette-foreground)
+  '((default
+      (:inherit solaire-default-face)
       default)
     (vertico-current
-     (:background ,my/command-palette-selection
-      :foreground "#f5f7f8" :weight semibold :extend t)
+     (:weight semibold :extend t)
      vertico-current)
     ;; Doom's Orderless faces carry four colored backgrounds.  Replacing the
     ;; faces wholesale preserves match emphasis without rectangular swatches.
@@ -487,12 +648,8 @@ All other completion commands retain their original tables and predicates."
     (orderless-match-face-1 my/command-palette-match)
     (orderless-match-face-2 my/command-palette-match)
     (orderless-match-face-3 my/command-palette-match)
-    (marginalia-documentation
-     (:foreground ,my/command-palette-muted :height 0.88 :weight regular)
-     marginalia-documentation)
-    (marginalia-key
-     (:foreground "#9aa7b3" :height 0.88 :weight medium)
-     marginalia-key)
+    (marginalia-documentation my/command-palette-secondary)
+    (marginalia-key my/command-palette-shortcut)
     (completions-common-part my/command-palette-match)))
 
 (defun my/command-palette--restore-local-state ()
@@ -533,11 +690,14 @@ All other completion commands retain their original tables and predicates."
     ;; this keeps the card inside short horizontal splits.
     (let* ((anchor-height (window-pixel-height
                            (my/command-palette--anchor-window)))
-           (available (max 0 (- anchor-height 58 32)))
-           (rows (floor (/ available 49.0))))
-      (setq-local vertico-count (max 3 (min 8 rows))
-                  my/command-palette--compact-p
-                  (< (my/command-palette--target-width-pixels) 900)))
+           (available (max 0 (- anchor-height 56 32)))
+           (rows (floor (/ available 52.0))))
+      (setq-local vertico-posframe-font
+                  (or vertico-posframe-font
+                      (my/command-palette--frame-font
+                       (window-frame
+                        (my/command-palette--anchor-window))))
+                  vertico-count (max 3 (min 8 rows))))
     ;; Consult's source headings consume result slots and leave a nearly empty
     ;; card when buffer and recent-file sources meet.  The filename/path and
     ;; mode annotations already communicate that distinction more quietly.
@@ -571,40 +731,34 @@ All other completion commands retain their original tables and predicates."
     (my/command-palette--show-backdrop)))
 
 (defun my/command-palette--apply-faces ()
-  "Apply only frame-level palette colors after every theme change."
-  (dolist (face '(vertico-posframe-border
-                  vertico-posframe-border-2
-                  vertico-posframe-border-3
-                  vertico-posframe-border-4
-                  vertico-posframe-border-fallback))
-    (when (facep face)
-      (set-face-attribute face nil
-                          :background my/command-palette-background)))
-  (set-face-attribute 'vertico-posframe nil
-                      :inherit 'default
-                      :background my/command-palette-background
-                      :foreground my/command-palette-foreground))
+  "Apply frame-level palette styling from the active Emacs theme."
+  (let ((surface (my/command-palette--surface-color)))
+    (dolist (face '(vertico-posframe-border
+                    vertico-posframe-border-2
+                    vertico-posframe-border-3
+                    vertico-posframe-border-4
+                    vertico-posframe-border-fallback))
+      (when (facep face)
+        (set-face-attribute face nil
+                            :background surface)))
+    (set-face-attribute 'vertico-posframe nil
+                        :inherit 'solaire-default-face
+                        :background 'unspecified
+                        :foreground 'unspecified)
+    (when (frame-live-p my/command-palette--backdrop-frame)
+      (set-frame-parameter my/command-palette--backdrop-frame
+                           'background-color surface))
+    (when (and (boundp 'posframe--frame)
+               (frame-live-p posframe--frame))
+      (set-frame-parameter posframe--frame 'background-color surface))))
 
 (defun my/command-palette--no-project-file-annotation (_candidate)
   "Keep Projectile's quick-open rows free of file permission metadata."
   nil)
 
 (defun my/command-palette--annotate-command-a (orig-fn candidate)
-  "Hide ORIG-FN's long command description in a compact palette."
-  ;; Marginalia annotates from the originating editor buffer, not from the
-  ;; minibuffer.  Inspect the active Vertico read explicitly; using
-  ;; `(minibufferp)' here silently re-enables descriptions and clips them at a
-  ;; compact frame's edge.  Derive the width directly because the first
-  ;; affixation can precede our minibuffer setup hook.
-  (unless
-      (when-let* ((window (active-minibuffer-window))
-                  (buffer (window-buffer window))
-                  ((minibufferp buffer)))
-        (with-current-buffer buffer
-          (and (bound-and-true-p vertico-posframe-mode)
-               (bound-and-true-p vertico--input)
-               (< (my/command-palette--target-width-pixels) 900))))
-    (funcall orig-fn candidate)))
+  "Retain ORIG-FN's description for the palette helper line."
+  (funcall orig-fn candidate))
 
 (defun my/command-palette--command-context (buffer)
   "Return the cache key for M-x candidates applicable to BUFFER."
@@ -734,7 +888,8 @@ All other completion commands retain their original tables and predicates."
                                                      :background nil t)
                    :border-width vertico-posframe-border-width
                    :border-color (vertico-posframe--get-border-color)
-                   :font vertico-posframe-font
+                   :font (or vertico-posframe-font
+                             (my/command-palette--frame-font parent))
                    :cursor nil
                    :tty-non-selected-cursor t
                    :lines-truncate vertico-posframe-truncate-lines
@@ -743,7 +898,7 @@ All other completion commands retain their original tables and predicates."
             ;; Merely creating a 1×1 child defers most of the first-show cost.
             (set-frame-size frame
                             (my/command-palette--target-width-pixels)
-                            (+ 72 (* rows 48)) t))))))
+                            (+ 56 (* rows 52)) t))))))
     (error
      (display-warning
       'my-command-palette
@@ -760,6 +915,42 @@ All other completion commands retain their original tables and predicates."
         ;; second popup beneath the palette.
         (consult-preview-key nil))
     (apply orig-fn args)))
+
+(defun my/command-palette--projectile-completing-read-a
+    (orig-fn prompt choices &rest args)
+  "Give Projectile file reads instant, cancel-safe Consult previews."
+  (let ((caller (plist-get args :caller)))
+    (if (or (not (eq caller 'projectile-read-file))
+            (not (listp choices))
+            (not (require 'consult nil t)))
+        (apply orig-fn prompt choices args)
+      (let* ((root (projectile-acquire-root))
+             (default-directory root)
+             ;; A project command can be invoked while a dedicated side window
+             ;; such as Treemacs is selected.  Consult previews in its original
+             ;; window, so anchor the whole read (and any caller-supplied
+             ;; action) to the ordinary editor instead of creating a split.
+             (editor-window (my/command-palette--anchor-window))
+             (sort-function (plist-get args :sort-function))
+             (choices (if sort-function
+                          (funcall sort-function (copy-sequence choices))
+                        choices)))
+        (with-selected-window editor-window
+          (let ((selected
+                 (consult--read
+                  choices
+                  :prompt (projectile-prepend-project-name prompt)
+                  :initial (plist-get args :initial-input)
+                  :require-match t
+                  :category 'my/project-file
+                  :sort nil
+                  :history 'file-name-history
+                  :state (consult--file-preview)
+                  :preview-key 'any
+                  :command (or this-command 'projectile-find-file))))
+            (if-let* ((action (plist-get args :action)))
+                (funcall action selected)
+              selected)))))))
 
 (defun my/command-palette--annotate-buffer-a (orig-fn candidate)
   "Replace noisy buffer annotations for Consult, otherwise call ORIG-FN."
@@ -833,23 +1024,25 @@ All other completion commands retain their original tables and predicates."
         vertico-resize nil
         vertico-count-format nil
         vertico-posframe-truncate-lines t
-        vertico-posframe-font
-        "-*-Inter 1.5-regular-*-*-*-*-160-*-*-*-*-*-*"
+        ;; A nil override makes Posframe inherit the current frame's `default'
+        ;; font, including family, size, and weight after theme/font changes.
+        vertico-posframe-font nil
         vertico-posframe-border-width 0
         vertico-posframe-poshandler #'my/command-palette-poshandler
         vertico-posframe-size-function #'my/command-palette-size
         vertico-posframe-parameters
-        '((undecorated . nil)
-          (undecorated-round . t)
-          ;; Emacs otherwise puts every extra pixel below the baseline, making
-          ;; the ink float high inside an otherwise exact 49px row.
-          (line-spacing . (6 . 8))
+        '((undecorated . t)
+          (line-spacing . (1 . 2))
           (alpha-background . 100)))
 
   (unless (advice-member-p #'my/command-palette--format-candidate-a
                            'vertico--format-candidate)
     (advice-add 'vertico--format-candidate
                 :around #'my/command-palette--format-candidate-a))
+  (unless (advice-member-p #'my/command-palette--display-candidates-a
+                           'vertico--display-candidates)
+    (advice-add 'vertico--display-candidates
+                :around #'my/command-palette--display-candidates-a))
   (unless (advice-member-p #'my/command-palette--hide-frame-cursor-a
                            'vertico-posframe--show)
     (advice-add 'vertico-posframe--show
@@ -890,6 +1083,14 @@ All other completion commands retain their original tables and predicates."
                            'consult-buffer)
     (advice-add 'consult-buffer
                 :around #'my/command-palette--consult-buffer-a)))
+
+(after! projectile
+  (unless (advice-member-p
+           #'my/command-palette--projectile-completing-read-a
+           'projectile-completing-read)
+    (advice-add 'projectile-completing-read
+                :around
+                #'my/command-palette--projectile-completing-read-a)))
 
 (after! orderless
   (my/command-palette--apply-faces))

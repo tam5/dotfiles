@@ -183,8 +183,6 @@ Copied the logic from `solaire-mode-real-buffer-p`."
   (mapc 'delete-overlay my/treemacs-theme--current-dir-name-overlays)
   (setq my/treemacs-theme--current-dir-name-overlays nil))
 
-;; (set-face-attribute 'my/treemacs-theme-parent-node-face nil :foreground "orange")
-
 (defun my/treemacs-theme-highlight-current-file (file)
   "Highlight the filename of the Treemacs node corresponding to `file` and its parent nodes."
   (with-current-buffer (treemacs-get-local-buffer)
@@ -213,7 +211,8 @@ Copied the logic from `solaire-mode-real-buffer-p`."
                   (parent-label-end (treemacs-button-end current-btn))
                   ;; Overlay for the parent node
                   (parent-overlay (make-overlay parent-label-start parent-label-end)))
-             (overlay-put parent-overlay 'face 'my/treemacs-theme-parent-node-face)
+             (overlay-put parent-overlay
+                          'face 'my/treemacs-theme-current-dir-name-face)
              ;; Save the overlay for cleanup
              (push parent-overlay my/treemacs-theme--current-dir-name-overlays))))))))
 

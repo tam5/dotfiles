@@ -1,0 +1,5 @@
+patches:
+  - native-frame-polish:
+      "31":
+        url: ./native-frame-polish.patch
+        sha256: 95fa7cbebcd97a69902fbcf9eff071fb7cac3a82f75696e02b933ad2253a6eec
