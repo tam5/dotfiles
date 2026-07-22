@@ -83,9 +83,29 @@ way you're supposed to do this, but wtvr."
 (setq confirm-kill-emacs nil)
 
 ;;; copilot
+(defun my/copilot-enable-safely ()
+  "Enable Copilot without letting failures abort major-mode setup."
+  (condition-case err
+      (progn
+        (require 'copilot)
+        ;; Fail before `copilot-mode' can partially enable itself when its
+        ;; separately installed language server is unavailable.
+        (copilot-server-executable)
+        (copilot-mode 1))
+    (error
+     ;; A later startup failure may leave the minor mode half-enabled.  Its
+     ;; teardown removes buffer-local hooks before trying to contact the server.
+     (ignore-errors (copilot-mode -1))
+     (setq copilot-mode nil)
+     (when (boundp 'copilot--opened-buffers)
+       (setq copilot--opened-buffers
+             (delq (current-buffer) copilot--opened-buffers)))
+     (message "Copilot disabled in %s: %s"
+              (buffer-name) (error-message-string err)))))
+
 (use-package! copilot
   :defer t
-  :hook (prog-mode . copilot-mode)
+  :init (add-hook 'prog-mode-hook #'my/copilot-enable-safely)
   :config (setq copilot-indent-offset-warning-disable t)
   :bind (:map copilot-completion-map
               ("<tab>" . 'copilot-accept-completion)

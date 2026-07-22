@@ -82,6 +82,10 @@
 ;;; Sidebar
 ;;; -----------------------------------------------------------------------------
 
+(defun my/treemacs-hide-mode-line ()
+  "Hide the mode line in the current Treemacs buffer."
+  (setq-local mode-line-format nil))
+
 (after! (treemacs treemacs-nerd-icons)
   ;; Keep Treemacs lazy.  Loading this at the top level would initialize
   ;; Treemacs before Doom applies its theme, which then resets our font faces.
@@ -90,7 +94,10 @@
   (setq treemacs-collapse-dirs 0
         treemacs-git-mode nil)
 
-  (add-hook 'treemacs-mode-hook #'hide-mode-line-mode)
+  ;; `hide-mode-line-mode' used to come from a Doom-managed package, but Doom
+  ;; 2.2 no longer installs it.  Treemacs only needs a buffer-local nil modeline,
+  ;; so avoid making its startup depend on an optional package.
+  (add-hook 'treemacs-mode-hook #'my/treemacs-hide-mode-line)
 
   ;; Disable fringes (and reset them everytime treemacs is selected because it
   ;; may change due to outside factors)
