@@ -4,6 +4,34 @@
 (load! "lisp/bitmaps")
 (load! "lisp/ui-tweaks")
 
+(let* ((source (file-name-concat (dir!) "lisp/command-palette.el"))
+       ;; `load!' intentionally resolves ordinary .el/.elc suffixes, so an
+       ;; AOT artifact for a config-local library is otherwise never selected.
+       ;; `comp-el-to-eln-filename' is a built-in subr, so locating the exact
+       ;; source-hashed native unit does not load the compiler during startup.
+       (eln (and (native-comp-available-p)
+                 (condition-case nil
+                     (let ((file (comp-el-to-eln-filename source)))
+                       (and (file-readable-p file) file))
+                   (error nil)))))
+  (if (not eln)
+      (progn
+        (doom-load source)
+        ;; Keep a fresh checkout fully functional on its first launch, then
+        ;; prepare the native unit off the critical startup path for later
+        ;; sessions.
+        (when (native-comp-available-p)
+          (native-compile-async source)))
+    (condition-case err
+        (native-elisp-load eln)
+      (error
+       (display-warning
+        'my-command-palette
+        (format "Native command palette failed; using source: %s"
+                (error-message-string err))
+        :warning)
+       (doom-load source)))))
+
 
 ;; ideas for making corfu better:
 ;; - it shows a lot of irrelevant stuff
