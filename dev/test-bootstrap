@@ -1,0 +1,71 @@
+#!/bin/sh
+# Run the working copy in a named Tart VM; never reset or modify its baseline.
+set -eu
+
+if [ "$#" -gt 2 ]; then
+    printf 'Usage: %s [vm-name] [vm-user]\n' "$0" >&2
+    exit 2
+fi
+TEST_VM=${1:-dotfiles-test}
+TEST_USER=${2:-test}
+case "$TEST_USER" in
+    ''|*[!a-zA-Z0-9_-]*) printf 'Invalid VM username.\n' >&2; exit 2 ;;
+esac
+TEST_ROOT=$(CDPATH='' cd -- "$(dirname -- "$0")/.." && pwd)
+TEST_RESULTS=${DOTFILES_TEST_RESULTS_DIR:-"$TEST_ROOT/.bootstrap-test-results"}
+for TEST_COMMAND in tart ssh scp; do
+    command -v "$TEST_COMMAND" >/dev/null 2>&1 || {
+        printf 'Required host command is unavailable: %s\n' "$TEST_COMMAND" >&2
+        exit 1
+    }
+done
+TEST_IP=$(tart ip "$TEST_VM")
+case "$TEST_IP" in
+    ''|*[!0-9a-fA-F.:]*) printf 'Could not resolve a valid VM address.\n' >&2; exit 1 ;;
+esac
+umask 077
+mkdir -p "$TEST_RESULTS"
+TEST_RUN=$(mktemp -d "$TEST_RESULTS/$(date -u +%Y%m%dT%H%M%SZ)-XXXXXX")
+TEST_CONTROL=$(mktemp -d /tmp/dotfiles-ssh.XXXXXX)
+# A fresh disposable clone has a new SSH identity. Keep its verified host key in
+# this run's private directory instead of changing the user's normal known_hosts.
+TEST_HOSTKEYS=$TEST_RUN/known_hosts
+TEST_SOCKET=$TEST_CONTROL/socket
+TEST_TARGET=$TEST_USER@$TEST_IP
+
+test_ssh() {
+    ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new \
+        -o "UserKnownHostsFile=$TEST_HOSTKEYS" -o "ControlPath=$TEST_SOCKET" "$@"
+}
+# shellcheck disable=SC2329 # Called by the exit trap.
+test_cleanup() {
+    test_ssh -O exit "$TEST_TARGET" >/dev/null 2>&1 || :
+    rmdir "$TEST_CONTROL" 2>/dev/null || :
+}
+trap test_cleanup 0
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+printf 'Connecting to %s as %s. Enable Remote Login in the VM if access is refused.\n' "$TEST_VM" "$TEST_USER"
+test_ssh -M -N -f -o ControlPersist=60 "$TEST_TARGET"
+TEST_REMOTE=$(test_ssh "$TEST_TARGET" 'mktemp -d /tmp/dotfiles-bootstrap.XXXXXX')
+case "$TEST_REMOTE" in
+    /tmp/dotfiles-bootstrap.*) ;;
+    *) printf 'Unexpected remote working directory.\n' >&2; exit 1 ;;
+esac
+case "$TEST_REMOTE" in
+    *[!a-zA-Z0-9/._-]*) printf 'Invalid remote working directory.\n' >&2; exit 1 ;;
+esac
+
+scp -q -o "ControlPath=$TEST_SOCKET" -o "UserKnownHostsFile=$TEST_HOSTKEYS" \
+    "$TEST_ROOT/bootstrap.sh" "$TEST_TARGET:$TEST_REMOTE/bootstrap.sh"
+TEST_STATUS=0
+test_ssh "$TEST_TARGET" "DOTFILES_BOOTSTRAP_STATE_DIR='$TEST_REMOTE/reports' /bin/sh '$TEST_REMOTE/bootstrap.sh'" > "$TEST_RUN/console.log" 2>&1 || TEST_STATUS=$?
+cat "$TEST_RUN/console.log"
+scp -q -r -o "ControlPath=$TEST_SOCKET" -o "UserKnownHostsFile=$TEST_HOSTKEYS" \
+    "$TEST_TARGET:$TEST_REMOTE/reports" "$TEST_RUN/reports" || {
+        printf 'Could not retrieve reports; console output is saved locally.\n' >&2
+        if [ "$TEST_STATUS" -eq 0 ]; then TEST_STATUS=1; fi
+    }
+printf '\nTest exit code: %s\nLocal results: %s\n' "$TEST_STATUS" "$TEST_RUN"
+exit "$TEST_STATUS"
